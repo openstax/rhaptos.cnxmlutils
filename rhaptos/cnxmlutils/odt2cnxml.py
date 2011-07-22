@@ -12,13 +12,19 @@ def transform(odtfile, outfile=sys.stdout):
     zipfileob = zipfile.ZipFile(odtfile, 'r')
     odtxml = zipfileob.read('content.xml')
 
-    doc = etree.fromstring(odtxml)
+    cnxmldoc = etree.fromstring(odtxml)
 
     xslfile = open(os.path.join(dirname, 'xsl/oo2cnxml.xsl'))
     xslt_root = etree.XML(xslfile.read())
     transform = etree.XSLT(xslt_root)
-    result_tree = transform(doc)
+    result_tree = transform(cnxmldoc)
     cnxml = etree.tostring(result_tree)
+
+    schemafile = open(os.path.join(dirname,
+                              'schema/cnxml/rng/0.7/cnxml.rng'))
+    relaxng_doc = etree.parse(schemafile)
+    relaxng = etree.RelaxNG(relaxng_doc)
+    relaxng.validate(cnxmldoc)
 
     outfile.write(cnxml)
 
