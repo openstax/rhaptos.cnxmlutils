@@ -58,8 +58,7 @@ def transform(odtfile, outputdir, outfile=sys.stdout):
     if relaxng.validate(cnxmldoc):
         outfile.write(cnxmlstr)  
     else:
-        print relaxng.error_log.last_error
-        print cnxmlstr
+        print relaxng.error_log
        
 
 def main():
