@@ -35,31 +35,32 @@ def transform(odtfile, outputdir, outfile=sys.stdout):
 
     # add section tags
     cnxmlstr = addSectionTags(StringIO(etree.tostring(cnxmldoc)))
-    writeXMLFile(os.path.join(outputdir, 'sectiontags.xml'),
-                 etree.tostring(cnxmldoc))
+    writeXMLFile(os.path.join(outputdir, 'sectiontags.xml'), cnxmlstr)
 
     # add MathML
     cnxmlstr = addMathML(StringIO(cnxmlstr), zipfileob)
-    writeXMLFile(os.path.join(outputdir, 'sectiontags.xml'),
-                 etree.tostring(cnxmlstr))
-    cnxmldoc = etree.fromstring(cnxmlstr)
+    writeXMLFile(os.path.join(outputdir, 'mathml.xml'), cnxmlstr)
 
     # oo2cnxml
     xslfile = open(os.path.join(dirname, 'xsl/oo2cnxml.xsl'))
     xslt_root = etree.XML(xslfile.read())
     transform = etree.XSLT(xslt_root)
+
+    cnxmldoc = etree.fromstring(cnxmlstr)
     cnxmldoc = transform(cnxmldoc)
+    cnxmlstr = etree.tostring(cnxmldoc)
+    writeXMLFile(os.path.join(outputdir, 'oo2cnxml.xml'), cnxmlstr)
 
     schemafile = open(os.path.join(dirname,
                               'schema/cnxml/rng/0.7/cnxml.rng'))
     relaxng_doc = etree.parse(schemafile)
     relaxng = etree.RelaxNG(relaxng_doc)
     if relaxng.validate(cnxmldoc):
-        outfile.write(cnxml)
+        outfile.write(cnxmlstr)  
     else:
-        print relaxng.error_log.last_error, cnxml
+        print relaxng.error_log.last_error
+        print cnxmlstr
        
-    cnxml = etree.tostring(cnxmldoc)
 
 def main():
     parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
