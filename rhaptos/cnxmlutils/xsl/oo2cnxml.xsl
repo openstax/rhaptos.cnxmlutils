@@ -278,15 +278,21 @@
               <xsl:value-of select="generate-id()" />
             </xsl:attribute>
             <problem>
-                <para>
-                <xsl:attribute name="id">
-                  <xsl:value-of select="generate-id(node())"/>
+                <xsl:attribute name="id" >
+                  <xsl:value-of select="concat('problem-', generate-id(.))" />
                 </xsl:attribute>
-                <xsl:apply-templates/>
+                <para>
+                  <xsl:attribute name="id">
+                    <xsl:value-of select="generate-id(node())"/>
+                  </xsl:attribute>
+                  <xsl:apply-templates/>
                 </para>
             </problem>
             <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Exercise (Solution)'">
               <solution>
+                <xsl:attribute name="id" >
+                  <xsl:value-of select="concat('solution-', generate-id(.))" />
+                </xsl:attribute>
                 <xsl:apply-templates select="following-sibling::*[1]" mode="solHelper"/>
               </solution>
             </xsl:if>
