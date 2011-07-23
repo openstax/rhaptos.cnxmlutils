@@ -224,7 +224,7 @@
         <xsl:when test="$Para-Style='CNXML Equation'">
           <equation>
             <xsl:attribute name="id" >
-              <xsl:value-of select="generate-id()" />
+              <xsl:value-of select="concat('equation-', generate-id())" />
             </xsl:attribute>
             <xsl:apply-templates/>
           </equation>
@@ -1391,7 +1391,7 @@
                  ">
     <equation>
       <xsl:attribute name="id" >
-        <xsl:value-of select="generate-id()" />
+        <xsl:value-of select="concat('equation-', generate-id())" />
       </xsl:attribute>      
       <xsl:apply-templates />
     </equation>
