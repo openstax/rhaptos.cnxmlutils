@@ -53,7 +53,7 @@ class docHandler(ContentHandler):
                 try:
                     strOOoMathML = self.objOOoZipFile.read(strMathMLObjectLocation)
                     if strOOoMathML:
-                        iXmlStart = strOOoMathML.find('<math:math ')
+                        iXmlStart = strOOoMathML.find('<math ')
                         if iXmlStart > 0:
                             strOOoMathMLWithoutHeader = strOOoMathML[iXmlStart:].decode('utf-8')
                             try:
@@ -61,7 +61,7 @@ class docHandler(ContentHandler):
                             except:
                                 self.document.append("<!-- adding to self.document failed. -->")
                         else:
-                            self.document.append("<!-- strOOoMathML.find(\'<math:math \') returns 0. -->\n")
+                            self.document.append("<!-- strOOoMathML.find(\'<math \') returns 0. -->\n")
                     else:
                         self.document.append("<!-- self.objOOoZipFile.read(" + strMathMLObjectLocation + ") returns nothing. -->\n")
                 except:
@@ -70,7 +70,6 @@ class docHandler(ContentHandler):
             self.outputEndElement(name)
 
     def startElement(self, name, attrs):
-        print name, attrs.items()
         handler = self.handlers.get(name, None)
         if handler:
             handler(name, end_tag=False, attrs=attrs)
@@ -85,11 +84,9 @@ class docHandler(ContentHandler):
         self.document.append('>')
 
     def characters(self, ch):
-        print ch.encode('utf-8')
         self.document.append(escape(ch))
 
     def endElement(self, name):
-        print name
         handler = self.handlers.get(name, None)
         if handler:
             handler(name, end_tag=True)
