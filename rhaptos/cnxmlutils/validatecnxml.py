@@ -14,7 +14,7 @@ def validate(cnxmlstr):
     if valid:
         print "Document validates against cnxml 0.7"
     else:
-        print relaxng.error_log.last_error
+        print relaxng.error_log
     return valid
 
 def main():
