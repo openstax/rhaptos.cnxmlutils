@@ -136,21 +136,23 @@ def validate(xml):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
+    parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
     parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
-    parser.add_argument('outputdir', help='/path/to/outputdir')
+    parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
     args = parser.parse_args()
 
-    print >> sys.stderr, "Transforming..."
-    xml, files, errors = transform(args.odtfile, debug=True, outputdir=args.outputdir)
+    if args.verbose: print >> sys.stderr, "Transforming..."
+    xml, files, errors = transform(args.odtfile, debug=args.verbose, outputdir=args.outputdir)
     if xml is not None:
-      print >> sys.stderr, "Validating..."
+      if args.verbose: print >> sys.stderr, "Validating..."
       invalids = validate(xml)
-      if invalids: print invalids
+      if invalids: print >> sys.stderr, invalids
       else:
-          for name, bytes in files.items():
-              print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
+          if args.verbose:
+              for name, bytes in files.items():
+                  print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
           print etree.tostring(xml)
-    else: print >> sys.stderr, "Conversion Error"
+    else: print >> sys.stderr, errors
 
 if __name__ == '__main__':
     main()
