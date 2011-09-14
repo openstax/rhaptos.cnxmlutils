@@ -8,7 +8,6 @@ from cStringIO import StringIO
 from lxml import etree, html
 
 from addsectiontags import addSectionTags
-from addmathml import addMathML2
 
 dirname = os.path.dirname(__file__)
 
