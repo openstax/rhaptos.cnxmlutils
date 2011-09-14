@@ -33,19 +33,20 @@ def makeXsl(filename):
   return etree.XSLT(xml)
 
 def writeXMLFile(filename, content):
+    """ Used only for debugging to write out intermediate files"""
     xmlfile = open(filename, 'w')
     # pretty print
     content = etree.tostring(content, pretty_print=True)
     xmlfile.write(content)
     xmlfile.close()
 
-def transform(odtfile, outputdir, outfile=sys.stdout):
+def transform(odtfile, debug=False, outputdir=None):
     """ Given an ODT file this returns a tuple containing
         the cnxml, a dictionary of filename -> data, and a list of errors """
     zip = zipfile.ZipFile(odtfile, 'r')
     content = zip.read('content.xml')
     xml = etree.fromstring(content)
-    writeXMLFile(os.path.join(outputdir, 'content.xml'), xml)
+    if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'content.xml'), xml)
 
     # All MathML is stored in separate files "Object #/content.xml"
     # This converter includes the MathML by looking up the file in the zip
@@ -106,7 +107,7 @@ def transform(odtfile, outputdir, outfile=sys.stdout):
     errors = []
     passNum = 0
     for xslDoc in PIPELINE:
-        print >> sys.stderr, "Starting pass %d" % passNum
+        if debug: print >> sys.stderr, "Starting pass %d" % passNum
         xml = xslDoc(xml)
 
         # Reparse because the RED-escape pass injects arbitrary XML
@@ -117,7 +118,7 @@ def transform(odtfile, outputdir, outfile=sys.stdout):
             for entry in xslDoc.error_log:
                 # TODO: Log the errors (and convert JSON to python) instead of just printing
                 errors.append(entry.message)
-        writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
+        if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
         passNum += 1
 
     return (xml, images, errors)
@@ -140,12 +141,15 @@ def main():
     args = parser.parse_args()
 
     print >> sys.stderr, "Transforming..."
-    xml, files, errors = transform(args.odtfile, args.outputdir)
+    xml, files, errors = transform(args.odtfile, debug=True, outputdir=args.outputdir)
     if xml is not None:
       print >> sys.stderr, "Validating..."
       invalids = validate(xml)
       if invalids: print invalids
-      else: print etree.tostring(xml)
+      else:
+          for name, bytes in files.items():
+              print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
+          print etree.tostring(xml)
     else: print >> sys.stderr, "Conversion Error"
 
 if __name__ == '__main__':
