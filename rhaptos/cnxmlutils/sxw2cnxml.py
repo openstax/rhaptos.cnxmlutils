@@ -43,6 +43,11 @@ def writeXMLFile(filename, content):
 def transform(odtfile, debug=False, outputdir=None):
     """ Given an ODT file this returns a tuple containing
         the cnxml, a dictionary of filename -> data, and a list of errors """
+    # Store mapping of images extracted from the ODT file (and their bits)
+    images = {}
+    # Log of Errors and Warnings generated
+    errors = []
+
     zip = zipfile.ZipFile(odtfile, 'r')
     content = zip.read('content.xml')
     xml = etree.fromstring(content)
@@ -70,7 +75,6 @@ def transform(odtfile, debug=False, outputdir=None):
             obj.getparent().replace(obj, math)
         return xml
 
-    images = {}
     def imagePuller(xml):
         for i, obj in enumerate(IMAGE_XPATH(xml)):
             strPath = IMAGE_HREF_XPATH(obj)[0]
@@ -92,8 +96,18 @@ def transform(odtfile, debug=False, outputdir=None):
 
         return xml
 
+    # Reparse after XSL because the RED-escape pass injects arbitrary XML
+    def redParser(xml):
+        xsl = makeXsl('oo2red-escape.xsl')
+        result = xsl(xml)
+        try:
+            xml = etree.fromstring(etree.tostring(result))
+        except etree.XMLSyntaxError, e:
+            errors.append("ERROR: Red text did not seem to parse. Continuing without converting red text")
+        return xml
+        
     PIPELINE = [
-      makeXsl('oo2red-escape.xsl'),
+      redParser, # makeXsl('oo2red-escape.xsl'),
       makeXsl('oo2oo.xsl'),
       makeXsl('oo2cnxml-headers.xsl'),
       imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
@@ -104,15 +118,10 @@ def transform(odtfile, debug=False, outputdir=None):
       ]
 
     # "xml" variable gets replaced during each iteration
-    errors = []
     passNum = 0
     for xslDoc in PIPELINE:
-        if debug: print >> sys.stderr, "Starting pass %d" % passNum
+        if debug: errors.append("DEBUG: Starting pass %d" % passNum)
         xml = xslDoc(xml)
-
-        # Reparse because the RED-escape pass injects arbitrary XML
-        # TODO: Only do this for the RED pass
-        xml = etree.fromstring(etree.tostring(xml))
 
         if hasattr(xslDoc, 'error_log'):
             for entry in xslDoc.error_log:
@@ -143,16 +152,17 @@ def main():
 
     if args.verbose: print >> sys.stderr, "Transforming..."
     xml, files, errors = transform(args.odtfile, debug=args.verbose, outputdir=args.outputdir)
+
+    if args.verbose:
+        for name, bytes in files.items():
+            print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
+    for err in errors:
+        print >> sys.stderr, err
     if xml is not None:
       if args.verbose: print >> sys.stderr, "Validating..."
       invalids = validate(xml)
       if invalids: print >> sys.stderr, invalids
-      else:
-          if args.verbose:
-              for name, bytes in files.items():
-                  print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
-          print etree.tostring(xml)
-    else: print >> sys.stderr, errors
+      print etree.tostring(xml)
 
 if __name__ == '__main__':
     main()
