@@ -2,24 +2,13 @@
 
 <xsl:stylesheet version="1.0"
   xmlns="http://cnx.rice.edu/cnxml"
+  xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:office="http://openoffice.org/2000/office"
-  xmlns:style="http://openoffice.org/2000/style" 
-  xmlns:text="http://openoffice.org/2000/text" 
-  xmlns:table="http://openoffice.org/2000/table" 
-  xmlns:draw="http://openoffice.org/2000/drawing" 
-  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
-  xmlns:xlink="http://www.w3.org/1999/xlink" 
-  xmlns:number="http://openoffice.org/2000/datastyle" 
-  xmlns:svg="http://www.w3.org/2000/svg" 
-  xmlns:chart="http://openoffice.org/2000/chart" 
-  xmlns:dr3d="http://openoffice.org/2000/dr3d" 
-  xmlns:math="http://www.w3.org/1998/Math/MathML" 
-  xmlns:form="http://openoffice.org/2000/form" 
-  xmlns:script="http://openoffice.org/2000/script"
-  xmlns:m="http://www.w3.org/1998/Math/MathML"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  
+ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:rdfa="http://docs.oasis-open.org/opendocument/meta/rdfa#"  xmlns:m="http://www.w3.org/1998/Math/MathML"
   office:class="text" office:version="1.0"
-  exclude-result-prefixes="office style text table draw fo xlink number svg chart dr3d math form script"
+  exclude-result-prefixes="office style text table draw fo xlink number svg chart dr3d math form script c"
   >
 
   <xsl:output omit-xml-declaration="no" indent="yes" method="xml" />
@@ -38,61 +27,68 @@
 
   <xsl:key name="bookmark-start" match="/descendant::text:bookmark-start" use="@text:name"/>
 
-  <xsl:template match="/">
+  <xsl:template match="@*">
+    <xsl:copy/>
+  </xsl:template>
 
-    <document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" module-id="m12345" cnxml-version="0.7">
-      <xsl:attribute name="id">
-        <xsl:value-of select ="generate-id()" />
-      </xsl:attribute> 
+  <xsl:template match="*">
+    <xsl:message>WARNING: Could not match Open Office Element <xsl:value-of select="name()"/>. Applying children. TODO: XPath to it</xsl:message>
+    <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
+    <xsl:apply-templates select="node()"/>
+    <xsl:comment> /<xsl:value-of select="name()"/> </xsl:comment>
+  </xsl:template>
 
+<!-- Discard any ODT attributes -->
+<xsl:template match="@text:*"/>
+
+  <!-- Discard the :para element when it only contains c: elements -->
+  <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
+    <xsl:message>DEBUG: Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:message>
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+
+<xsl:template match="text:list">
+  <c:list>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:list>
+</xsl:template>
+
+  <xsl:template match="c:*">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="office:document-content|office:body">
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
+  <xsl:template match="office:scripts|office:font-face-decls|style:*"/>
+
+  <xsl:template match="office:text">
+
+    <document module-id="imported-from-openoffice" id="imported-from-openoffice" cnxml-version="0.7">
       <title>
-        <xsl:choose>
-          <xsl:when test="//office:document-content/office:body//text:p[@text:style-name='Title']">
-            <xsl:value-of select="//office:document-content/office:body//text:p[@text:style-name='Title']"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>Untitled Document</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:text>Untitled Document</xsl:text>
       </title>
 
       <content>
-        <xsl:choose>
-          <xsl:when test='not(normalize-space(.))'>
-            <!-- text free document.  only do something if there are images. -->
-            <xsl:choose>
-              <xsl:when test="descendant::draw:image">
-                <xsl:apply-templates />
-              </xsl:when> 
-              <xsl:otherwise >
-                <xsl:comment>empty document?</xsl:comment>
-                <para>
-                  <xsl:attribute name='id'>empty-para</xsl:attribute>
-                </para>
-               </xsl:otherwise>
-            </xsl:choose>
-          </xsl:when>
-          <xsl:when test="text:p[@text:style-name='CNXML Glossary Section']">
-            <!-- we have a document with a glossary. process all nodes prior to the first glossary node. -->
-            <xsl:apply-templates select="." mode="GlossarySec"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:apply-templates />
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="@*|node()"/>
       </content>
-        <xsl:if test="//text:p/@text:style-name='CNXML Glossary Section'">
-          <glossary>
-            <xsl:if test="//text:p[@text:style-name='CNXML Glossary Section']/text:bookmark or //text:p[@text:style-name='CNXML Glossary Section']/text:bookmark-start">
-              <xsl:attribute name="id">
-                <xsl:value-of select="generate-id(//text:p[@text:style-name='CNXML Glossary Section'])"/>
-              </xsl:attribute>
-            </xsl:if>
-            <!-- only to process the sibling nodes that follow he glossary that are definitions. -->
-            <xsl:apply-templates select="//text:p[@text:style-name='CNXML Glossary Section'][1]/following-sibling::*[@text:style-name='CNXML Definition (Term)' or @text:style-name='CNXML Definition (Meaning)']"/>
-          </glossary>
-        </xsl:if>
+      <xsl:apply-templates select=".//c:glossary">
+        <xsl:with-param name="render" select="1"/>
+      </xsl:apply-templates>
     </document>
+  </xsl:template>
+
+  <!-- The Glossary section is moved out of c:content (it's in normal text) and into a separate area -->
+  <xsl:template match="c:glossary">
+    <xsl:param name="render" select="false()"/>
+    <xsl:if test="$render">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="GlossarySec">
@@ -103,10 +99,6 @@
 
   <xsl:template match="text:section">
     <section>
-      <xsl:attribute name="id" >
-        <xsl:value-of select="generate-id()" />
-      </xsl:attribute> 
-
       <xsl:if test="child::text:h[position()=1]">
         <title>
           <xsl:value-of select="child::text:h"/>
@@ -119,9 +111,6 @@
         </xsl:when>
         <xsl:otherwise>
           <para>
-            <xsl:attribute name="id" >
-              <xsl:value-of select="concat('para-', generate-id())" />
-            </xsl:attribute>
             <xsl:comment><xsl:value-of select="count(child::*[not(self::text:h[position()=1])])"/> Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that was added as a byproduct of the word importer.</xsl:comment>
           </para>
         </xsl:otherwise>
@@ -135,10 +124,6 @@
 
   <xsl:template match="section[name[m:math]]">
     <para>
-        <xsl:attribute name="id" >
-        <xsl:value-of select="generate-id()" />
-        </xsl:attribute>
-
         <xsl:if test="*[not(self::name)]">
           <xsl:apply-templates />
         </xsl:if>
@@ -147,9 +132,6 @@
 
   <xsl:template match="section">
       <section>
-        <xsl:attribute name="id" >
-          <xsl:value-of select="generate-id()" />
-        </xsl:attribute>
         <xsl:if test="name">
           <title>
             <xsl:value-of select="name"/>
@@ -168,9 +150,6 @@
           </xsl:when>
           <xsl:otherwise>
             <para>
-              <xsl:attribute name="id" >
-                <xsl:value-of select="concat('para-',generate-id())" />
-              </xsl:attribute>
               <xsl:comment>Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that was added as a byproduct of the word importer.</xsl:comment>
             </para>
           </xsl:otherwise>
@@ -187,9 +166,6 @@
     <xsl:if test="count(node())=0">
         <xsl:if test="preceding-sibling::*[1]/text:span/@text:style-name='CNXML Code (Block)' and following-sibling::*[1]/text:span/@text:style-name='CNXML Code (Block)'">
           <para>
-            <xsl:attribute name="id" >
-              <xsl:value-of select="generate-id(.)" />
-            </xsl:attribute>
             <xsl:text>
             </xsl:text>
           </para>
@@ -199,9 +175,6 @@
       <xsl:choose>
         <xsl:when test="@text:level='1'">
           <para>
-            <xsl:attribute name="id" >
-              <xsl:value-of select="generate-id()" />
-            </xsl:attribute>
             <title>
               <xsl:value-of select="."/>
             </title>
@@ -223,9 +196,6 @@
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML Equation'">
           <equation>
-            <xsl:attribute name="id" >
-              <xsl:value-of select="concat('equation-', generate-id())" />
-            </xsl:attribute>
             <xsl:apply-templates/>
           </equation>
         </xsl:when>
@@ -256,9 +226,6 @@
           <xsl:if test="not(following-sibling::*[1]/@text:style-name='CNXML Theorem (Statement)')" >
             <xsl:variable name="ruleid" select="."/>
             <rule type="theorem">
-              <xsl:attribute name="id" >
-                <xsl:value-of select="concat('rule',generate-id(.))" />
-              </xsl:attribute>
               <statement>
                 <xsl:apply-templates select="." mode="statementHelper"/>
               </statement>
@@ -274,25 +241,13 @@
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML Exercise (Problem)'">
           <exercise>
-            <xsl:attribute name="id" >
-              <xsl:value-of select="generate-id()" />
-            </xsl:attribute>
             <problem>
-                <xsl:attribute name="id" >
-                  <xsl:value-of select="concat('problem-', generate-id(.))" />
-                </xsl:attribute>
                 <para>
-                  <xsl:attribute name="id">
-                    <xsl:value-of select="generate-id(node())"/>
-                  </xsl:attribute>
-                  <xsl:apply-templates/>
+                <xsl:apply-templates/>
                 </para>
             </problem>
             <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Exercise (Solution)'">
               <solution>
-                <xsl:attribute name="id" >
-                  <xsl:value-of select="concat('solution-', generate-id(.))" />
-                </xsl:attribute>
                 <xsl:apply-templates select="following-sibling::*[1]" mode="solHelper"/>
               </solution>
             </xsl:if>
@@ -309,9 +264,6 @@
               </xsl:when>
               <xsl:otherwise>
               <para>
-                <xsl:attribute name="id" >
-                  <xsl:value-of select="generate-id()" />
-                </xsl:attribute>
                 <xsl:apply-templates select="." mode="quoteBlockHelper"/>
               </para>
               </xsl:otherwise>
@@ -322,9 +274,6 @@
           </xsl:if>
           <xsl:if test="not(preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)')">
             <code display="block">
-              <xsl:attribute name="id">
-                <xsl:value-of select="generate-id()"/>
-              </xsl:attribute>
               <xsl:apply-templates select="." mode="codeHelper"/>
             </code>
           </xsl:if>
@@ -341,9 +290,6 @@
         </xsl:when>
         <xsl:when test="count(child::*)=1 and text:span/@text:style-name='CNXML Note'">
           <note type="Note">
-            <xsl:attribute name='id'>
-              <xsl:value-of select="generate-id()"/>
-            </xsl:attribute>
             <xsl:value-of select="text:span"/>
           </note>
         </xsl:when>
@@ -356,9 +302,6 @@
             </xsl:when>
             <xsl:otherwise>
               <para>
-                <xsl:attribute name="id">
-                  <xsl:value-of select="generate-id()"/>
-                </xsl:attribute>
                 <xsl:apply-templates />
               </para>
             </xsl:otherwise>
@@ -377,9 +320,6 @@
       </xsl:when>
       <xsl:otherwise>
         <quote display="block">
-          <xsl:attribute name="id">
-            <xsl:value-of select="concat(generate-id(),'_quote')"/>
-          </xsl:attribute>
           <xsl:apply-templates/>
         </quote>
         <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Quote (Block)' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
@@ -402,9 +342,6 @@
 
   <xsl:template match="*" mode="proofHelper">
     <para>
-      <xsl:attribute name="id">
-        <xsl:value-of select="generate-id(.)"/>
-      </xsl:attribute>
       <xsl:apply-templates/>
     </para>
     <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Theorem (Proof)'">
@@ -418,9 +355,6 @@
       <xsl:apply-templates select="preceding-sibling::text:p[1]" mode="statementHelper"/>
     </xsl:if>
     <para>
-      <xsl:attribute name="id">
-        <xsl:value-of select="generate-id(.)"/>
-      </xsl:attribute>
       <xsl:apply-templates/>
     </para>
   </xsl:template>
@@ -428,9 +362,6 @@
 
   <xsl:template match="*" mode="solHelper">
     <para>
-      <xsl:attribute name="id">
-        <xsl:value-of select="generate-id()"/>
-      </xsl:attribute>
       <xsl:apply-templates/>
     </para>
     <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Exercise (Solution)'">
@@ -450,9 +381,6 @@
   <xsl:template match="*" mode="exHelper">
     <xsl:if test="not(descendant::draw:image) and normalize-space()">
     <para>
-      <xsl:attribute name="id">
-        <xsl:value-of select="generate-id(.)" />
-      </xsl:attribute>
       <xsl:apply-templates/>
     </para>
     </xsl:if>
@@ -470,9 +398,6 @@
       </xsl:when>
       <xsl:otherwise>
         <para>
-        <xsl:attribute name="id">
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
         <xsl:apply-templates/>
         </para>
       </xsl:otherwise>
@@ -554,7 +479,7 @@
       </xsl:when>
 
       <xsl:otherwise>
-        <list list-type="{$list-type}" id="{generate-id()}">
+        <list list-type="{$list-type}">
           <xsl:if test="string-length($number-style)>0">
             <xsl:attribute name="number-style">
               <xsl:value-of select="$number-style" />
@@ -606,25 +531,16 @@
     <xsl:choose>
       <xsl:when test="@text:style-name='Var List'">
         <list>
-          <xsl:attribute name = "id" >
-            <xsl:value-of select = "generate-id()" />
-          </xsl:attribute>
           <xsl:apply-templates/>
         </list>
       </xsl:when>
       <xsl:when test="@text:style-name='UnOrdered List'">
         <list list-type="bulleted">
-          <xsl:attribute name = "id" >
-            <xsl:value-of select = "generate-id()" />
-          </xsl:attribute>
           <xsl:apply-templates/>
         </list>
       </xsl:when>
       <xsl:otherwise>
         <list list-type="bulleted">
-          <xsl:attribute name = "id" >
-            <xsl:value-of select = "generate-id()" />
-          </xsl:attribute>
           <xsl:apply-templates/>
         </list>
       </xsl:otherwise>
@@ -637,9 +553,6 @@
         <item>
           <xsl:for-each select="text:p[@text:style-name='VarList Term']">
             <xsl:if test="descendant::text:bookmark-start">
-              <xsl:attribute name="id">
-                <xsl:value-of select="generate-id()"/>
-              </xsl:attribute>
             </xsl:if>
             <xsl:apply-templates select="."/>
           </xsl:for-each>
@@ -673,18 +586,12 @@
   <!-- Notes -->
   <xsl:template match="office:annotation/text:p">
     <note type='Note'>
-      <xsl:attribute name='id'>
-        <xsl:value-of select="generate-id()"/>
-      </xsl:attribute>
       <xsl:apply-templates/>
     </note>
   </xsl:template>
 
   <xsl:template match="text:footnote">
     <footnote>
-      <xsl:attribute name="id" >
-        <xsl:value-of select="generate-id()" />
-      </xsl:attribute>
       <xsl:choose>
         <xsl:when test="count(descendant::text:footnote-body/child::*)=0">
           <xsl:value-of select="descendant::text:footnote-body/*"/>
@@ -699,9 +606,6 @@
 
   <xsl:template match="text:endnote">
     <footnote> <!--endnote should function exactly the same as footnote -->
-      <xsl:attribute name="id" >
-        <xsl:value-of select="generate-id()" />
-      </xsl:attribute>
       <xsl:if test="descendant::text:endnote-body//text:bookmark or descendant::text:endnote-body//text:bookmark-start">
         <xsl:attribute name="id">
           <xsl:value-of select="generate-id(descendant::text:endnote-body)"/>
@@ -730,46 +634,28 @@
     <!-- add extension (from $type) if it doesn't already exist. see also 'helpers.parseContent'.
     see also below "Image in a table" -->
     <xsl:variable name='beforeext'>
-      <xsl:value-of select="substring-before(@draw:name, concat('.',$type))"/>
+      <xsl:value-of select="substring-before(../@draw:name, concat('.',$type))"/>
     </xsl:variable>
     <xsl:variable name='name'>
       <xsl:if test="not(string-length($beforeext))">
-        <xsl:value-of select="@draw:name" />
+        <xsl:value-of select="../@draw:name" />
       </xsl:if>
       <xsl:if test="boolean(string-length($beforeext))">
         <xsl:value-of select="$beforeext" />
       </xsl:if>
     </xsl:variable>
 
-    <xsl:variable name='height'>
-      <xsl:choose>
-        <xsl:when test="@svg:height">
-          <xsl:value-of select="round(number(substring-before(@svg:height, 'inch'))*100)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name='width'>
-      <xsl:choose>
-        <xsl:when test="@svg:width">
-          <xsl:value-of select="round(number(substring-before(@svg:width, 'inch'))*100)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
     <xsl:choose>
       <xsl:when test="self::draw:object-ole and parent::text:p">
+        <xsl:message>WARNING: OLE Objects are not supported (this might be math)</xsl:message>
         ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
       </xsl:when>
       <xsl:when test="(self::draw:object-ole)">
+        <xsl:message>WARNING: OLE Objects are not supported (this might be math)</xsl:message>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:when test="($type='svm')">
+        <xsl:message>WARNING: SVM Objects are not supported (this might be math)</xsl:message>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:otherwise>
@@ -806,12 +692,6 @@
                 <xsl:attribute name="id" >
                   <xsl:value-of select="concat($idbase,'__onlineimage')" />
                 </xsl:attribute>
-                <xsl:if test="$height > 0">
-                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
-                </xsl:if>
-                <xsl:if test="$width > 0">
-                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
-                </xsl:if>
               </image>
             </media>
             <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML Figure Caption'">
@@ -831,9 +711,6 @@
         <xsl:if test="parent::text:span">
           <!-- BNW: was inline media and is now figure??? -->
           <figure>
-            <xsl:variable name='idbase'>
-              <xsl:value-of select="generate-id()"/>
-            </xsl:variable>
             <xsl:attribute name="id">
               <xsl:value-of select="$idbase"/>
             </xsl:attribute>
@@ -895,9 +772,6 @@
       </xsl:when>
       <xsl:otherwise>
         <media alt="">
-          <xsl:attribute name="id">
-            <xsl:value-of select="generate-id()"/>
-          </xsl:attribute>
           <image mime-type='image/{$type}' src='{@draw:name}.{$type}'/>
         </media>
       </xsl:otherwise>
@@ -1015,9 +889,6 @@
               </xsl:when>
               <xsl:otherwise>
                 <note type='Note'>
-                  <xsl:attribute name='id'>
-                    <xsl:value-of select="generate-id()"/>
-                  </xsl:attribute>
                   <xsl:apply-templates />
                 </note>
               </xsl:otherwise>
@@ -1141,9 +1012,6 @@
               </xsl:when>
               <xsl:otherwise>
                 <note type='Note'>
-                  <xsl:attribute name='id'>
-                    <xsl:value-of select="generate-id()"/>
-                  </xsl:attribute>
                   <xsl:apply-templates />
                 </note>
               </xsl:otherwise>
@@ -1161,9 +1029,6 @@
 
   <xsl:template match="table:table">
     <table summary="">
-      <xsl:attribute name='id'>
-        <xsl:value-of select="generate-id()"/>
-      </xsl:attribute>
       <xsl:if test="following-sibling::text:p[@text:style-name='Table']">
         <title>
           <xsl:value-of select="following-sibling::text:p[@text:style-name='Table']"/>
@@ -1175,9 +1040,6 @@
 
   <xsl:template match="table:table[count(./table:table-row/table:table-cell)=1]">
     <para>
-      <xsl:attribute name='id'>
-        <xsl:value-of select="generate-id()"/>
-      </xsl:attribute>
     <!-- We have found a one entry table. -->
       <xsl:apply-templates select="./table:table-row/table:table-cell/*" />
     </para>
@@ -1390,9 +1252,6 @@
                  ]
                  ">
     <equation>
-      <xsl:attribute name="id" >
-        <xsl:value-of select="concat('equation-', generate-id())" />
-      </xsl:attribute>      
       <xsl:apply-templates />
     </equation>
   </xsl:template>
@@ -1427,9 +1286,6 @@
       </xsl:when>
       <xsl:when test="text:span/@text:style-name='CNXML Quote (Inline)'">
         <quote display="inline">
-          <xsl:attribute name="id">
-            <xsl:value-of select="generate-id()"/>
-          </xsl:attribute>
           <xsl:attribute name="url">
             <xsl:value-of select="@xlink:href"/>
           </xsl:attribute>
