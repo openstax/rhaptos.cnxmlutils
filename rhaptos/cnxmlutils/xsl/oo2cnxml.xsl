@@ -32,7 +32,7 @@
   </xsl:template>
 
   <xsl:template match="*">
-    <xsl:message>WARNING: Could not match Open Office Element <xsl:value-of select="name()"/>. Applying children. TODO: XPath to it</xsl:message>
+    <xsl:message>WARNING: Could not match Open Office Element <xsl:value-of select="name()"/>. Converting children.</xsl:message>
     <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
     <xsl:apply-templates select="node()"/>
     <xsl:comment> /<xsl:value-of select="name()"/> </xsl:comment>

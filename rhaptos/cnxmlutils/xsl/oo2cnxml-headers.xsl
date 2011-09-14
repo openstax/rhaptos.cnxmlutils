@@ -31,7 +31,7 @@
 
   <!-- Just for debugging this should NEVER happen -->
   <xsl:if test="$userlevel &lt; $level">
-    <xsl:message>ERROR: Document contains a lower-level heading (<xsl:value-of select="$level"/>) before a higher-level heading (<xsl:value-of select="$userlevel"/>). Title: <xsl:value-of select="."/></xsl:message>
+    <xsl:message>WARNING: Document contains a lower-level heading (<xsl:value-of select="$level"/>) before a higher-level heading (<xsl:value-of select="$userlevel"/>). Title: <xsl:value-of select="."/></xsl:message>
   </xsl:if>
 
   <!-- header found with a level greater or the same as the current level? If yes, create a nested header. -->
