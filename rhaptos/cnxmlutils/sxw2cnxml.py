@@ -96,8 +96,8 @@ def transform(odtfile, debug=False, outputdir=None):
       makeXsl('oo2red-escape.xsl'),
       makeXsl('oo2oo.xsl'),
       makeXsl('oo2cnxml-headers.xsl'),
+      imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
       mathIncluder,
-      imagePuller,
       makeXsl('oo2cnxml.xsl'),
       makeXsl('oo2cnxml-cleanup.xsl'),
       makeXsl('id-generation.xsl'),
