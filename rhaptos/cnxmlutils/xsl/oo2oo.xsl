@@ -62,6 +62,10 @@
       <xsl:apply-templates select="./text:list-item/*" />
   </xsl:template>
 
+  <xsl:template match="text:list[not(text:list-item)]">
+    <xsl:message>WARNING: Empty lists are not allowed. Removing</xsl:message>
+  </xsl:template>
+
 <!-- header children in draw:text-box need to be converted to paragraphs. -->
 
   <xsl:template match="draw:text-box/text:h">
@@ -153,6 +157,21 @@
     <xsl:if test="@text:style-name='CNXML Code (Block)' and preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)'">
       <xsl:copy-of select="."/>
     </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="text:table-of-content">
+    <xsl:message>WARNING: Table of Contents are not used during import. Discarding</xsl:message>
+  </xsl:template>
+
+  <xsl:template match="text:list-header">
+    <title>
+      <xsl:apply-templates select="@*|node()"/>
+    </title>
+  </xsl:template>
+  <!-- Sometimes headers can have a Para -->
+  <xsl:template match="text:list-header/text:p">
+    <xsl:message>WARNING: List headers cannot contain paragraphs. Removing paragraph</xsl:message>
+    <xsl:apply-templates select="node()"/>
   </xsl:template>
   
   </xsl:stylesheet>

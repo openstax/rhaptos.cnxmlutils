@@ -54,6 +54,10 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<xsl:template match="text:changed-region">
+  <xsl:message>WARNING: This document contains a history of changes. These will be discarded upon import</xsl:message>
+</xsl:template>
+
   <!-- Discard the :para element when it only contains c: elements -->
   <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
     <xsl:message>DEBUG: Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:message>
@@ -515,12 +519,6 @@
         </list>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-
-  <xsl:template match="text:list-header">
-    <title>
-      <xsl:apply-templates />
-    </title>
   </xsl:template>
 
   <xsl:template match="text:ordered-list[not(normalize-space(.))]">

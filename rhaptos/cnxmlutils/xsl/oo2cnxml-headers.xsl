@@ -24,6 +24,19 @@
   </xsl:copy>
 </xsl:template>
 
+<!-- See space64__Chuong_02-NgonNguJava.doc -->
+<xsl:template match="text:section[*[1][self::text:h]]" mode="walker">
+  <xsl:param name="level" select="*[1]/@text:outline-level"/>
+  <c:section>
+    <c:title>
+      <xsl:apply-templates select="*[1]/node()"/>
+    </c:title>
+    <xsl:apply-templates select="*[position()!=1]|text()|comment()|processing-instruction()">
+      <xsl:with-param name="level" select="$level + 1"/>
+    </xsl:apply-templates>
+  </c:section>
+</xsl:template>
+
 <!-- Convert headers into nested headers -->
 <xsl:template match="text:h" mode="walker">
   <xsl:param name="level" select="@text:outline-level"/>
