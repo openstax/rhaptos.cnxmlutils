@@ -6,6 +6,8 @@
   exclude-result-prefixes="c"
   version="1.0">
 
+<xsl:param name="id.prefix">import-auto-</xsl:param>
+
 <!-- Insert a @id for elements that require it (RED text import didn't add them) -->
 <xsl:template match="
     c:para|
@@ -28,6 +30,7 @@
   <xsl:element name="{local-name()}" namespace-uri="http://cnx.rice.edu/cnxml">
     <xsl:if test="not(@id)">
       <xsl:attribute name="id">
+        <xsl:value-of select="$id.prefix"/>
         <xsl:value-of select="generate-id()"/>
       </xsl:attribute>
     </xsl:if>
