@@ -46,6 +46,11 @@ def transform(odtfile, debug=False, outputdir=None):
     # Store mapping of images extracted from the ODT file (and their bits)
     images = {}
     # Log of Errors and Warnings generated
+    # TODO: XSLT should generate a JSON-ish object that converts to a python dict.
+    # For example, the text produced by XSLT should be:
+    # WARNING: {'msg'   :'Headings without text between them are not allowed',
+    #           'id-ish':'import-auto-id2376'}
+    # That way we can put a little * near all the cnxml where issues arose
     errors = []
 
     zip = zipfile.ZipFile(odtfile, 'r')
