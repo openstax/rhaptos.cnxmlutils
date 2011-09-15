@@ -173,6 +173,11 @@
     <xsl:message>WARNING: List headers cannot contain paragraphs. Removing paragraph</xsl:message>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
+
+
+<xsl:template match="text:changed-region|text:change-start|text:change-end">
+  <xsl:message>WARNING: This document contains a history of changes. These will be discarded upon import</xsl:message>
+</xsl:template>
   
-  </xsl:stylesheet>
+</xsl:stylesheet>
 

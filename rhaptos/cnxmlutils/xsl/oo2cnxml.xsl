@@ -26,6 +26,9 @@
   <xsl:key name="bookmark" match="/descendant::text:bookmark" use="@text:name"/>
 
   <xsl:key name="bookmark-start" match="/descendant::text:bookmark-start" use="@text:name"/>
+  
+  <!-- We no longer need the list styles -->
+  <xsl:template match="text:list-style"/>
 
   <xsl:template match="@*">
     <xsl:copy/>
@@ -52,10 +55,6 @@
 <xsl:template match="text:note/text:note-citation"/>
 <xsl:template match="text:note/text:note-body">
   <xsl:apply-templates select="node()"/>
-</xsl:template>
-
-<xsl:template match="text:changed-region">
-  <xsl:message>WARNING: This document contains a history of changes. These will be discarded upon import</xsl:message>
 </xsl:template>
 
   <!-- Discard the :para element when it only contains c: elements -->
