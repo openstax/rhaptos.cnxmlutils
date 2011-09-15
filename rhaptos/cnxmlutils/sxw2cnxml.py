@@ -21,7 +21,7 @@ NAMESPACES = {
 MATH_XPATH = etree.XPath('//draw:object[@xlink:href]', namespaces=NAMESPACES)
 MATH_HREF_XPATH = etree.XPath('@xlink:href', namespaces=NAMESPACES)
 
-IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object) and draw:image[@xlink:href and @xlink:type="simple"]]', namespaces=NAMESPACES)
+IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object) and @draw:name and draw:image[@xlink:href and @xlink:type="simple"]]', namespaces=NAMESPACES)
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
           
@@ -52,6 +52,13 @@ def transform(odtfile, debug=False, outputdir=None):
     content = zip.read('content.xml')
     xml = etree.fromstring(content)
     if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'content.xml'), xml)
+
+    def appendLog(xslDoc):
+        if hasattr(xslDoc, 'error_log'):
+            for entry in xslDoc.error_log:
+                # TODO: Log the errors (and convert JSON to python) instead of just printing
+                errors.append(entry.message)
+
 
     # All MathML is stored in separate files "Object #/content.xml"
     # This converter includes the MathML by looking up the file in the zip
@@ -100,6 +107,7 @@ def transform(odtfile, debug=False, outputdir=None):
     def redParser(xml):
         xsl = makeXsl('oo2red-escape.xsl')
         result = xsl(xml)
+        appendLog(xsl)
         try:
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
@@ -123,10 +131,7 @@ def transform(odtfile, debug=False, outputdir=None):
         if debug: errors.append("DEBUG: Starting pass %d" % passNum)
         xml = xslDoc(xml)
 
-        if hasattr(xslDoc, 'error_log'):
-            for entry in xslDoc.error_log:
-                # TODO: Log the errors (and convert JSON to python) instead of just printing
-                errors.append(entry.message)
+        appendLog(xslDoc)
         if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
         passNum += 1
 
