@@ -35,14 +35,12 @@
   </xsl:template>
 
   <xsl:template match="*">
-    <xsl:message>WARNING: Could not match Open Office Element <xsl:value-of select="name()"/>. Converting children.</xsl:message>
-    <xsl:comment> <xsl:value-of select="name()"/> </xsl:comment>
+    <xsl:processing-instruction name="cnx.warning">Could not match Open Office Element <xsl:value-of select="name()"/>. Converting children.</xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
-    <xsl:comment> /<xsl:value-of select="name()"/> </xsl:comment>
   </xsl:template>
 
   <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box|draw:custom-shape|draw:enhanced-geometry">
-    <xsl:message>ERROR: This importer does not support importing lines, rectangles, or other shapes</xsl:message>
+    <xsl:processing-instruction name="cnx.error">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
   </xsl:template>
 <!-- Discard any ODT attributes -->
 <xsl:template match="@text:*"/>
@@ -59,7 +57,7 @@
 
   <!-- Discard the :para element when it only contains c: elements -->
   <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
-    <xsl:message>DEBUG: Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:message>
+    <xsl:processing-instruction name="cnx.debug">Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
@@ -123,11 +121,11 @@
 
       <xsl:choose>
         <xsl:when test="count(child::*[not(self::text:h[position()=1])])>0">
-          <xsl:apply-templates />
+          <xsl:apply-templates select="node()"/>
         </xsl:when>
         <xsl:otherwise>
           <para>
-            <xsl:comment><xsl:value-of select="count(child::*[not(self::text:h[position()=1])])"/> Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that was added as a byproduct of the word importer.</xsl:comment>
+            <xsl:processing-instruction name="cnx.warning"><xsl:value-of select="count(child::*[not(self::text:h[position()=1])])"/> Empty sections are illegal in CNXML 0.5.  This empty paragraph is a place holder that was added as a byproduct of the word importer.</xsl:processing-instruction>
           </para>
         </xsl:otherwise>
       </xsl:choose>
@@ -141,7 +139,7 @@
   <xsl:template match="section[name[m:math]]">
     <para>
         <xsl:if test="*[not(self::name)]">
-          <xsl:apply-templates />
+          <xsl:apply-templates select="node()"/>
         </xsl:if>
     </para>
   </xsl:template>
@@ -199,7 +197,7 @@
         <xsl:when test="$Para-Style='CNXML Example'">
           <xsl:choose>
             <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
-              <xsl:apply-templates />
+              <xsl:apply-templates select="node()"/>
             </xsl:when>
             <xsl:when test="preceding-sibling::*[1]/@text:style-name='CNXML Example' and not(descendant::draw:image)">
             </xsl:when>
@@ -212,7 +210,7 @@
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML Equation'">
           <equation>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="node()"/>
           </equation>
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML Definition (Term)'">
@@ -223,7 +221,7 @@
                 <xsl:value-of select="generate-id()" />
               </xsl:attribute>
               <term>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="node()"/>
               </term>
               <meaning>
                 <xsl:if test="following-sibling::*[1]/text:bookmark or following-sibling::*[1]/text:bookmark-start">
@@ -259,7 +257,7 @@
           <exercise>
             <problem>
                 <para>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="node()"/>
                 </para>
             </problem>
             <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Exercise (Solution)'">
@@ -272,7 +270,7 @@
         <xsl:when test="$Para-Style='CNXML Quote' or $Para-Style='CNXML Quote (Block)'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
               </xsl:when>
@@ -314,11 +312,11 @@
         <xsl:otherwise>
           <xsl:choose>
             <xsl:when test="parent::text:footnote-body or parent::text:endnote-body or parent::text:list-item or parent::table:table-cell or (count(child::*)=1 and not(child::text()) and child::draw:image)">
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </xsl:when>
             <xsl:otherwise>
               <para>
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </para>
             </xsl:otherwise>
           </xsl:choose>
@@ -330,13 +328,13 @@
   <xsl:template match="*" mode="quoteBlockHelper">
     <xsl:choose>
       <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
-        <xsl:apply-templates />
+        <xsl:apply-templates select="node()"/>
       </xsl:when>
       <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
       </xsl:when>
       <xsl:otherwise>
         <quote display="block">
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </quote>
         <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Quote (Block)' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
           <xsl:apply-templates select="following-sibling::*[1]" mode="quoteBlockHelper" />
@@ -347,7 +345,7 @@
 
 
   <xsl:template match="*" mode="meaningHelper">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
       <xsl:text>
       </xsl:text>
     <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Definition (Meaning)'">
@@ -358,7 +356,7 @@
 
   <xsl:template match="*" mode="proofHelper">
     <para>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </para>
     <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Theorem (Proof)'">
       <xsl:apply-templates select="following-sibling::text:p[1]" mode="proofHelper"/>
@@ -371,14 +369,14 @@
       <xsl:apply-templates select="preceding-sibling::text:p[1]" mode="statementHelper"/>
     </xsl:if>
     <para>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </para>
   </xsl:template>
 
 
   <xsl:template match="*" mode="solHelper">
     <para>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </para>
     <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Exercise (Solution)'">
       <xsl:apply-templates select="following-sibling::text:p[1]" mode="solHelper"/>
@@ -397,7 +395,7 @@
   <xsl:template match="*" mode="exHelper">
     <xsl:if test="not(descendant::draw:image) and normalize-space()">
     <para>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </para>
     </xsl:if>
     <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Example'">
@@ -410,11 +408,11 @@
   <xsl:template match="text:p//text:p[not(parent::table:table-cell or parent::text:footnote-body or parent::text:endnote-body)]">
     <xsl:choose>
       <xsl:when test="parent::draw:text-box">
-        <xsl:apply-templates/>  <!--avoid nested para's generated by text-box-->
+        <xsl:apply-templates select="node()"/>  <!--avoid nested para's generated by text-box-->
       </xsl:when>
       <xsl:otherwise>
         <para>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="node()"/>
         </para>
       </xsl:otherwise>
     </xsl:choose>
@@ -511,7 +509,7 @@
               <xsl:value-of select="$after" />
             </xsl:attribute>
           </xsl:if>
-          <xsl:apply-templates />
+          <xsl:apply-templates select="node()"/>
           <xsl:call-template name="check.for.continued.numbering">
             <xsl:with-param name="current.list" select="." />
           </xsl:call-template>
@@ -541,17 +539,17 @@
     <xsl:choose>
       <xsl:when test="@text:style-name='Var List'">
         <list>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </list>
       </xsl:when>
       <xsl:when test="@text:style-name='UnOrdered List'">
         <list list-type="bulleted">
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </list>
       </xsl:when>
       <xsl:otherwise>
         <list list-type="bulleted">
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </list>
       </xsl:otherwise>
     </xsl:choose>
@@ -575,7 +573,7 @@
               <xsl:value-of select="generate-id()"/>
             </xsl:attribute>
           </xsl:if> 
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </item>
       </xsl:otherwise>
     </xsl:choose>
@@ -588,7 +586,7 @@
           <xsl:value-of select="generate-id()"/>
         </xsl:attribute>
       </xsl:if> 
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </item>
   </xsl:template>
 
@@ -596,7 +594,7 @@
   <!-- Notes -->
   <xsl:template match="office:annotation/text:p">
     <note type='Note'>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </note>
   </xsl:template>
 
@@ -643,7 +641,7 @@
     <xsl:apply-templates select="draw:image"/>
   </xsl:template>
   <xsl:template match="draw:frame[draw:object or draw:object-ole]">
-    <xsl:message>ERROR: Complex object not supported (maybe OLE/Plugin)</xsl:message>
+    <xsl:processing-instruction name="cnx.error">Complex object not supported (maybe OLE/Plugin)</xsl:processing-instruction>
   </xsl:template>
   
   <!-- Figure -->
@@ -667,15 +665,15 @@
 
     <xsl:choose>
       <xsl:when test="self::draw:object-ole and parent::text:p">
-        <xsl:message>WARNING: OLE Objects are not supported (this might be math)</xsl:message>
+        <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
         ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
       </xsl:when>
       <xsl:when test="(self::draw:object-ole)">
-        <xsl:message>WARNING: OLE Objects are not supported (this might be math)</xsl:message>
+        <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:when test="($type='svm')">
-        <xsl:message>WARNING: SVM Objects are not supported (this might be math)</xsl:message>
+        <xsl:processing-instruction name="cnx.warning">SVM Objects are not supported (this might be math)</xsl:processing-instruction>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:otherwise>
@@ -788,6 +786,7 @@
 
     <xsl:choose>
       <xsl:when test="(self::draw:object-ole or $type='svm')">
+        <xsl:processing-instruction name="cnx.warning">This media type is not supported (this might be math)</xsl:processing-instruction>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:otherwise>
@@ -805,22 +804,22 @@
     </xsl:param>
     <xsl:choose>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-style='italic' and count(child::*)=1 and child::*[1]=draw:image">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="node()"/>
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-style='italic'">
-        <emphasis effect='italics'><xsl:apply-templates/></emphasis>
+        <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-weight='bold'">
-        <emphasis effect='bold'><xsl:apply-templates/></emphasis>
+        <emphasis effect='bold'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-underline">
-        <emphasis effect='underline'><xsl:apply-templates/></emphasis>
+        <emphasis effect='underline'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
       <xsl:when test="starts-with(//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-position, 'sub ')">
-        <sub><xsl:apply-templates/></sub>
+        <sub><xsl:apply-templates select="node()"/></sub>
       </xsl:when>
       <xsl:when test="starts-with(//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-position, 'super ')">
-        <sup><xsl:apply-templates/></sup>
+        <sup><xsl:apply-templates select="node()"/></sup>
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style and @style:parent-style-name]">
         <xsl:choose>
@@ -828,35 +827,35 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- term with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- term with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <term>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </term>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Quote (Inline)'">
             <quote display="inline">
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </quote>
           </xsl:when>
           <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Emphasis'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- emphasis with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- emphasis with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <emphasis>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </emphasis>
               </xsl:otherwise>
             </xsl:choose>
@@ -865,35 +864,35 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- code with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <code display="inline">
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </code>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Foreign'">
             <foreign>
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </foreign>
           </xsl:when>
           <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Cite'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!--  with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- cite with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <cite>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </cite>
               </xsl:otherwise>
             </xsl:choose>
@@ -902,20 +901,20 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- note with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- note with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <note type='Note'>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </note>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="node()"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
@@ -923,47 +922,47 @@
         <xsl:choose><!--try an if statement -->
           <xsl:when test="$Style='Emphasis'">
             <emphasis>
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </emphasis>
           </xsl:when>
           <xsl:when test="$Style='CNXML Emphasis'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- emphasis with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- emphasis with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <emphasis>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </emphasis>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:when test="$Style='q'">
             <quote display="inline">
-              <xsl:apply-templates />
+              <xsl:apply-templates select="node()"/>
             </quote>
           </xsl:when>
           <xsl:when test="$Style='Code'">
             <code display="inline">
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </code>
           </xsl:when>
           <xsl:when test="$Style='CNXML Code (Inline)' or $Style='CNXML Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- code with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <code display="inline">
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </code>
               </xsl:otherwise>
             </xsl:choose>
@@ -972,14 +971,14 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- term with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- term with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <term>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </term>
               </xsl:otherwise>
             </xsl:choose>
@@ -988,14 +987,14 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- cite with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- cite with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <cite>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </cite>
               </xsl:otherwise>
             </xsl:choose>
@@ -1004,41 +1003,41 @@
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- quote with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- quote with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <quote display="inline">
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </quote>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:when test="$Style='CNXML Foreign'">
             <foreign>
-              <xsl:apply-templates/>
+              <xsl:apply-templates select="node()"/>
             </foreign>
           </xsl:when>
           <xsl:when test="$Style='CNXML Note'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- note with no text but image(s) -->
-                <xsl:apply-templates />
+                <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
                  <!-- note with no text; do nothing -->
               </xsl:when>
               <xsl:otherwise>
                 <note type='Note'>
-                  <xsl:apply-templates />
+                  <xsl:apply-templates select="node()"/>
                 </note>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:apply-templates />
+            <xsl:apply-templates select="node()"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -1078,7 +1077,7 @@
         </xsl:with-param>
       </xsl:call-template>
       <tbody>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="node()"/>
       </tbody>
     </tgroup>
   </xsl:template>
@@ -1137,12 +1136,12 @@
 
   <xsl:template match="table:table-column|table:table-header-rows|table:table-cell/table:sub-table|table:table-cell//table:table">
       <!-- Skip me but do my children. -->
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="node()"/>
   </xsl:template>
 
   <xsl:template match="table:table-row">
     <row>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </row>
   </xsl:template>
 
@@ -1189,7 +1188,7 @@
             </xsl:with-param>
           </xsl:call-template>
           <tbody>
-            <xsl:apply-templates />
+            <xsl:apply-templates select="node()"/>
           </tbody>
         </xsl:when>
         <xsl:when test="$entry.or.entrytbl='entrytbl.table'">
@@ -1206,11 +1205,11 @@
             </xsl:with-param>
           </xsl:call-template>
           <tbody>
-            <xsl:apply-templates />
+            <xsl:apply-templates select="node()"/>
           </tbody>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates />
+          <xsl:apply-templates select="node()"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:element>
@@ -1244,15 +1243,13 @@
 
   <xsl:template match="math:math">
     <m:math>
-      <xsl:apply-templates select="@*"/>
-      <xsl:apply-templates />
+      <xsl:apply-templates select="@*|node()"/>
     </m:math>
   </xsl:template>
 
   <xsl:template match="math:*">
     <xsl:element name="m:{local-name()}">
-      <xsl:apply-templates select="@*" />
-      <xsl:apply-templates />
+      <xsl:apply-templates select="@*|node()"/>
     </xsl:element>
   </xsl:template>
 
@@ -1272,7 +1269,7 @@
                  ]
                  ">
     <equation>
-      <xsl:apply-templates />
+      <xsl:apply-templates select="node()"/>
     </equation>
   </xsl:template>
 
@@ -1363,7 +1360,7 @@
                 </xsl:when>
               </xsl:choose>
           </xsl:attribute>
-          <xsl:apply-templates />
+          <xsl:apply-templates select="node()"/>
         </link>
       </xsl:when>
       <xsl:when test="contains(@xlink:href,'cnx.org/content/') or contains(@xlink:href,'cnx.rice.edu/content/')">
@@ -1398,7 +1395,7 @@
               <xsl:value-of select="$cnxnTar" />            
             </xsl:attribute>
           </xsl:if>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </link>
       </xsl:when>
       <xsl:otherwise>
@@ -1406,7 +1403,7 @@
           <xsl:attribute name='url'>
                 <xsl:value-of select="@xlink:href"/>
           </xsl:attribute>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="node()"/>
         </link>
      </xsl:otherwise>
    </xsl:choose>

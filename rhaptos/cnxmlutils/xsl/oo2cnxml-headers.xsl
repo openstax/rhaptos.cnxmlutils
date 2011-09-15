@@ -44,7 +44,7 @@
 
   <!-- Just for debugging this should NEVER happen -->
   <xsl:if test="$userlevel &lt; $level">
-    <xsl:message>WARNING: Document contains a lower-level heading (<xsl:value-of select="$level"/>) before a higher-level heading (<xsl:value-of select="$userlevel"/>). Title: <xsl:value-of select="."/></xsl:message>
+    <xsl:processing-instruction name="cnx.warning">Document contains a lower-level heading (<xsl:value-of select="$level"/>) before a higher-level heading (<xsl:value-of select="$userlevel"/>). Title: <xsl:value-of select="."/></xsl:processing-instruction>
   </xsl:if>
 
   <!-- header found with a level greater or the same as the current level? If yes, create a nested header. -->
@@ -64,11 +64,11 @@
 
   <!-- Used for debugging
   <xsl:if test="$userlevel = 6">
-    <xsl:message><xsl:value-of select="preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1]"/></xsl:message>
-    <xsl:message><xsl:value-of select="generate-id(preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1])"/></xsl:message>
-    <xsl:message><xsl:value-of select="following-sibling::text:h[@text:outline-level = $userlevel][1]/preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1]"/></xsl:message>
-    <xsl:message><xsl:value-of select="generate-id(following-sibling::text:h[@text:outline-level = $userlevel][1]/preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1])"/></xsl:message>
-    <xsl:message>=============================</xsl:message>
+    <xsl:message><xsl:value-of select="preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1]"/></xsl:processing-instruction>
+    <xsl:message><xsl:value-of select="generate-id(preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1])"/></xsl:processing-instruction>
+    <xsl:message><xsl:value-of select="following-sibling::text:h[@text:outline-level = $userlevel][1]/preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1]"/></xsl:processing-instruction>
+    <xsl:message><xsl:value-of select="generate-id(following-sibling::text:h[@text:outline-level = $userlevel][1]/preceding-sibling::text:h[@text:outline-level &lt; $userlevel][1])"/></xsl:processing-instruction>
+    <xsl:message>=============================</xsl:processing-instruction>
   </xsl:if>
    -->
 

@@ -32,7 +32,7 @@
     <xsl:variable name="one.entry" select="./table:table-row/table:table-cell[position()=1]" />
 
     <xsl:if test='count($one.entry/text:h)=1'>
-      <xsl:comment>found a single entry table with a single header.</xsl:comment>
+      <xsl:processing-instruction name="cnx.info">found a single entry table with a single header.</xsl:processing-instruction>
       <text:section>
         <xsl:attribute name='id'>
           <xsl:value-of select="generate-id()"/>
@@ -41,11 +41,11 @@
       </text:section>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)=0'>
-      <xsl:comment>found a single entry table without any header.</xsl:comment>
+      <xsl:processing-instruction name="cnx.info">found a single entry table without any header.</xsl:processing-instruction>
       <xsl:apply-templates select='$one.entry/*'/>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)>1'>
-      <xsl:comment>found a single entry table with many headers.</xsl:comment>
+      <xsl:processing-instruction name="cnx.warning">found a single entry table with many headers.</xsl:processing-instruction>
       <text:section>
         <xsl:attribute name='id'>
           <xsl:value-of select="generate-id()"/>
@@ -63,7 +63,7 @@
   </xsl:template>
 
   <xsl:template match="text:list[not(text:list-item)]">
-    <xsl:message>WARNING: Empty lists are not allowed. Removing</xsl:message>
+    <xsl:processing-instruction name="cnx.warning">Empty lists are not allowed. Removing</xsl:processing-instruction>
   </xsl:template>
 
 <!-- header children in draw:text-box need to be converted to paragraphs. -->
@@ -78,19 +78,19 @@
 
   <xsl:template match="text:p[@text:style-name='Heading 1']">
     <text:h text:style-name="Heading 1" text:level="1">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </text:h>
   </xsl:template>
 
   <xsl:template match="text:p[@text:style-name='Heading 2']">
     <text:h text:style-name="Heading 2" text:level="2">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </text:h>
   </xsl:template>
 
   <xsl:template match="text:p[@text:style-name='Heading 3']">
     <text:h text:style-name="Heading 3" text:level="3">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </text:h>
   </xsl:template>
 
@@ -98,7 +98,7 @@
 
   <xsl:template match="text:h[count(child::*)=1 and (
                               draw:object or draw:object-ole or draw:image)]">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
   </xsl:template>
 
 <!-- Eliminate Headings After the Last Glossary -->
@@ -113,7 +113,7 @@
       <xsl:attribute name='id'>
         <xsl:value-of select="generate-id()"/>
       </xsl:attribute>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="node()"/>
     </text:p>
   </xsl:template>
 
@@ -160,7 +160,7 @@
   </xsl:template>
   
   <xsl:template match="text:table-of-content">
-    <xsl:message>WARNING: Table of Contents are not used during import. Discarding</xsl:message>
+    <xsl:processing-instruction name="cnx.warning">Table of Contents are not used during import. Discarding</xsl:processing-instruction>
   </xsl:template>
 
   <xsl:template match="text:list-header">
@@ -170,13 +170,13 @@
   </xsl:template>
   <!-- Sometimes headers can have a Para -->
   <xsl:template match="text:list-header/text:p">
-    <xsl:message>WARNING: List headers cannot contain paragraphs. Removing paragraph</xsl:message>
+    <xsl:processing-instruction name="cnx.warning">List headers cannot contain paragraphs. Removing paragraph</xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
 
 <xsl:template match="text:changed-region|text:change-start|text:change-end">
-  <xsl:message>WARNING: This document contains a history of changes. These will be discarded upon import</xsl:message>
+  <xsl:processing-instruction name="cnx.warning">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
   
 </xsl:stylesheet>

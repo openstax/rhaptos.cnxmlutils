@@ -6,6 +6,7 @@ import urllib
 import pkg_resources
 from cStringIO import StringIO
 from lxml import etree, html
+import json
 
 from addsectiontags import addSectionTags
 
@@ -61,8 +62,11 @@ def transform(odtfile, debug=False, outputdir=None):
     def appendLog(xslDoc):
         if hasattr(xslDoc, 'error_log'):
             for entry in xslDoc.error_log:
-                # TODO: Log the errors (and convert JSON to python) instead of just printing
-                errors.append(entry.message)
+                # Entries are of the form:
+                # {'level':'ERROR','id':'id1234','msg':'Descriptive message'}
+                text = entry.message
+                dict = json.loads(text)
+                errors.append(dict)
 
 
     # All MathML is stored in separate files "Object #/content.xml"
@@ -128,6 +132,7 @@ def transform(odtfile, debug=False, outputdir=None):
       makeXsl('oo2cnxml.xsl'),
       makeXsl('oo2cnxml-cleanup.xsl'),
       makeXsl('id-generation.xsl'),
+      makeXsl('processing-instruction-logger.xsl'),
       ]
 
     # "xml" variable gets replaced during each iteration
@@ -172,7 +177,7 @@ def main():
       if args.verbose: print >> sys.stderr, "Validating..."
       invalids = validate(xml)
       if invalids: print >> sys.stderr, invalids
-      print etree.tostring(xml)
+      print etree.tostring(xml, pretty_print=True)
 
 if __name__ == '__main__':
     main()

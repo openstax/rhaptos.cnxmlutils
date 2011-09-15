@@ -16,7 +16,7 @@
 </xsl:template>
 
 <xsl:template match="c:figure//c:figure">
-  <xsl:message>Stripping out nested figure (word import)</xsl:message>
+  <xsl:processing-instruction name="cnx.warning">Stripping out nested figure (word import)</xsl:processing-instruction>
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
@@ -70,11 +70,11 @@
 </xsl:template>
 
 <xsl:template match="c:title//c:figure">
-  <xsl:message>ERROR: Figures in a heading is NOT allowed! Make sure the image is in a normal paragraph</xsl:message>
+  <xsl:processing-instruction name="cnx.error">Figures in a heading is NOT allowed! Make sure the image is in a normal paragraph</xsl:processing-instruction>
 </xsl:template>
 
 <xsl:template match="c:section[count(*) &lt;= 1]">
-  <xsl:message>WARNING: All headings must be followed by some content. Inserting a paragraph with a note.</xsl:message>
+  <xsl:processing-instruction name="cnx.warning">All headings must be followed by some content. Inserting a paragraph with a note.</xsl:processing-instruction>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
     <c:para>[Insert something in this section]</c:para>
