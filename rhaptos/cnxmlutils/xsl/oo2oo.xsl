@@ -21,6 +21,12 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="draw:flow[not(@draw:name)]">
+    <draw:flow draw:name="import-auto-{generate-id()}">
+      <xsl:apply-templates select="@*|node()"/>
+    </draw:flow>
+  </xsl:template>
+
 <!-- single entry tables are used for presentation purposes only, we hope. -->
   <xsl:template match="table:table[count(./table:table-row/table:table-cell)=1]">
     <xsl:variable name="one.entry" select="./table:table-row/table:table-cell[position()=1]" />
