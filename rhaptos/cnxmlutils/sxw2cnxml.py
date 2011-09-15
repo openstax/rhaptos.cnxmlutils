@@ -21,7 +21,7 @@ NAMESPACES = {
 MATH_XPATH = etree.XPath('//draw:object[@xlink:href]', namespaces=NAMESPACES)
 MATH_HREF_XPATH = etree.XPath('@xlink:href', namespaces=NAMESPACES)
 
-IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object) and @draw:name and draw:image[@xlink:href and @xlink:type="simple"]]', namespaces=NAMESPACES)
+IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object or draw:object-ole) and @draw:name and draw:image[@xlink:href and @xlink:type="simple"]]', namespaces=NAMESPACES)
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
           

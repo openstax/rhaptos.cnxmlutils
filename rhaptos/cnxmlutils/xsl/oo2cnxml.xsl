@@ -38,11 +38,21 @@
     <xsl:comment> /<xsl:value-of select="name()"/> </xsl:comment>
   </xsl:template>
 
-  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box">
+  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box|draw:custom-shape|draw:enhanced-geometry">
     <xsl:message>ERROR: This importer does not support importing lines, rectangles, or other shapes</xsl:message>
   </xsl:template>
 <!-- Discard any ODT attributes -->
 <xsl:template match="@text:*"/>
+
+<xsl:template match="text:note[text:note-citation]">
+  <c:footnote id="import-auto-footnote-{text:note-citation/text()}">
+    <xsl:apply-templates select="@*|node()"/>
+  </c:footnote>
+</xsl:template>
+<xsl:template match="text:note/text:note-citation"/>
+<xsl:template match="text:note/text:note-body">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
 
   <!-- Discard the :para element when it only contains c: elements -->
   <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
@@ -632,12 +642,15 @@
   <xsl:template match="draw:frame[math:math]">
     <xsl:apply-templates select="math:math"/>
   </xsl:template>
-  <xsl:template match="draw:frame[draw:image]">
+  <xsl:template match="draw:frame[draw:image and count(*)=1]">
     <xsl:apply-templates select="draw:image"/>
+  </xsl:template>
+  <xsl:template match="draw:frame[draw:object or draw:object-ole]">
+    <xsl:message>ERROR: Complex object not supported (maybe OLE/Plugin)</xsl:message>
   </xsl:template>
   
   <!-- Figure -->
-  <xsl:template match="draw:image|draw:object-ole">
+  <xsl:template match="draw:image">
     <xsl:param name='type'>
       <xsl:value-of select="substring-after(@xlink:href,'.')"/>
     </xsl:param> 
