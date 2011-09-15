@@ -38,6 +38,9 @@
     <xsl:comment> /<xsl:value-of select="name()"/> </xsl:comment>
   </xsl:template>
 
+  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box">
+    <xsl:message>ERROR: This importer does not support importing lines, rectangles, or other shapes</xsl:message>
+  </xsl:template>
 <!-- Discard any ODT attributes -->
 <xsl:template match="@text:*"/>
 
@@ -626,6 +629,13 @@
   <xsl:template match="text:footnote-citation" />
 
 
+  <xsl:template match="draw:frame[math:math]">
+    <xsl:apply-templates select="math:math"/>
+  </xsl:template>
+  <xsl:template match="draw:frame[draw:image]">
+    <xsl:apply-templates select="draw:image"/>
+  </xsl:template>
+  
   <!-- Figure -->
   <xsl:template match="draw:image|draw:object-ole">
     <xsl:param name='type'>
