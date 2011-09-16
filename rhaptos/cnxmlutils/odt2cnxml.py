@@ -51,10 +51,10 @@ def transform(odtfile, debug=False, outputdir=None):
     # Store mapping of images extracted from the ODT file (and their bits)
     images = {}
     # Log of Errors and Warnings generated
-    # TODO: XSLT should generate a JSON-ish object that converts to a python dict.
     # For example, the text produced by XSLT should be:
-    # WARNING: {'msg'   :'Headings without text between them are not allowed',
-    #           'id-ish':'import-auto-id2376'}
+    # {'level':'WARNING',
+    #  'msg'  :'Headings without text between them are not allowed',
+    #  'id'   :'import-auto-id2376'}
     # That way we can put a little * near all the cnxml where issues arose
     errors = []
 
@@ -124,7 +124,9 @@ def transform(odtfile, debug=False, outputdir=None):
         try:
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
-            errors.append("ERROR: Red text did not seem to parse. Continuing without converting red text")
+            errors.append({u'level':u'ERROR',
+                           u'id'   :u'',
+                           u'msg'  :u'Red text did not seem to parse. Continuing without converting red text'})
         return xml
         
     PIPELINE = [
