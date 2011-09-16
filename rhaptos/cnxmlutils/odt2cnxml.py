@@ -6,13 +6,14 @@ import urllib
 import pkg_resources
 from cStringIO import StringIO
 from lxml import etree, html
-import json
+try:
+    import json
+except ValueError:
+    import simlejson as json
 
 from addsectiontags import addSectionTags
 
 dirname = os.path.dirname(__file__)
-
-PKG_PREFIX = '' #'rhaptos.cnxmlutils.'
 
 NAMESPACES = {
   'draw':'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
@@ -29,7 +30,10 @@ IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
-  path = pkg_resources.resource_filename(PKG_PREFIX + "xsl", filename)
+  pkg = 'xsl'
+  if __package__ is not None:
+      pkg = __package__ + '.' + pkg
+  path = pkg_resources.resource_filename(pkg, filename)
   xml = etree.parse(path)
   return etree.XSLT(xml)
 
