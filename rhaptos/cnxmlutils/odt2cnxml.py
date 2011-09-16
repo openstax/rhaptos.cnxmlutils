@@ -6,12 +6,14 @@ import urllib
 import pkg_resources
 from cStringIO import StringIO
 from lxml import etree, html
+
 try:
     import json
 except ValueError:
     import simlejson as json
 
 from addsectiontags import addSectionTags
+import symbols
 
 dirname = os.path.dirname(__file__)
 
@@ -128,8 +130,14 @@ def transform(odtfile, debug=False, outputdir=None):
                            u'id'   :u'',
                            u'msg'  :u'Red text did not seem to parse. Continuing without converting red text'})
         return xml
-        
+
+    def replaceSymbols(xml):
+        xmlstr = etree.tostring(xml)
+        xmlstr = symbols.replace(xmlstr)
+        return etree.fromstring(xmlstr)
+
     PIPELINE = [
+      replaceSymbols,
       redParser, # makeXsl('oo2red-escape.xsl'),
       makeXsl('oo2oo.xsl'),
       makeXsl('oo2cnxml-headers.xsl'),
