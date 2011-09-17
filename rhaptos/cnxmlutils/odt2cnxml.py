@@ -192,6 +192,9 @@ def main():
       invalids = validate(xml)
       if invalids: print >> sys.stderr, invalids
       print etree.tostring(xml, pretty_print=True)
+    
+    if invalids:
+      return 1
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
