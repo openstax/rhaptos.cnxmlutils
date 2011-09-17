@@ -83,9 +83,9 @@ class docHandler(ContentHandler):
 
             id = attrs.get('id',self.generateId())
             self.document.append("<section id='%s'>\n" %id)
-            self.document.append("<name>")
+            self.document.append("<title>")
         else:
-            self.document.append("</name>")
+            self.document.append("</title>")
 
     def handleBody(self, name, end_tag, attrs={}):
         #head-> name
