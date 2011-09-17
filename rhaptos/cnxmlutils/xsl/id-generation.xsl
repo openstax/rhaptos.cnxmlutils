@@ -8,6 +8,12 @@
 
 <xsl:param name="id.prefix">import-auto-</xsl:param>
 
+<xsl:output indent="yes" method="xml" />
+
+<xsl:strip-space elements="*"/>
+<xsl:preserve-space elements="c:code"/>
+
+
 <!-- Insert a @id for elements that require it (RED text import didn't add them) -->
 <xsl:template match="
     c:para|

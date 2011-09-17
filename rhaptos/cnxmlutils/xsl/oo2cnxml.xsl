@@ -30,8 +30,10 @@
   <!-- We no longer need the list styles -->
   <xsl:template match="text:list-style"/>
 
-  <xsl:template match="@*">
-    <xsl:copy/>
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
   </xsl:template>
 
   <xsl:template match="*">

@@ -10,10 +10,6 @@
 
   >
 
-  <xsl:param name="stylesPath"/>
-  <xsl:variable name="office-styles" select="document($stylesPath)/office:document-styles"/>
-
-
   <!-- Convert the RED escaped text to fit in the CNXML namespace -->
   <xsl:template match="*[namespace-uri()='']">
     <xsl:element name="c:{local-name()}">
@@ -59,10 +55,11 @@
 <!-- single entry ordered lists are used for presentation purposes only, we hope. -->
 
   <xsl:template match="text:ordered-list[count(child::*)=1 and ./text:list-item/text:ordered-list]">
+    <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only 1 item, another list</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-item/*" />
   </xsl:template>
 
-  <xsl:template match="text:list[not(text:list-item)]">
+  <xsl:template match="text:list[not(text:list-item or text:list-header)]">
     <xsl:processing-instruction name="cnx.warning">Empty lists are not allowed. Removing</xsl:processing-instruction>
   </xsl:template>
 
@@ -119,7 +116,8 @@
 
 <!-- remove ordered list with only a header but leave the header's children. -->
 
-  <xsl:template match="text:ordered-list[count(child::*)=1 and child::text:list-header]">
+  <xsl:template match="text:*[(self::text:ordered-list or self::text:list) and count(child::*)=1 and child::text:list-header]">
+    <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only a header. Consider not using a list to only store paragraphs</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-header/*"/>
   </xsl:template>
 
