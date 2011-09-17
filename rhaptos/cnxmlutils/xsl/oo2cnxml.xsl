@@ -1147,7 +1147,7 @@
     </row>
   </xsl:template>
 
-  <xsl:template match="table:table-cell">
+  <xsl:template match="table:table-cell|table:covered-table-cell">
     <xsl:param name="entry.colnum">
       <xsl:call-template name="entry.colnum.determiner" />
     </xsl:param>
@@ -1214,6 +1214,9 @@
           <xsl:apply-templates select="node()"/>
         </xsl:otherwise>
       </xsl:choose>
+      <xsl:if test="self::table:covered-table-cell">
+        <xsl:processing-instruction name="cnx.warning">This cell was added but was originally covered by text in the original file. Consider fixing this by making the CALS table span the correct number of rows/columns</xsl:processing-instruction>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
 
