@@ -646,6 +646,27 @@
     <xsl:processing-instruction name="cnx.error">Complex object not supported (maybe OLE/Plugin)</xsl:processing-instruction>
   </xsl:template>
   
+  <xsl:template match="draw:frame">
+    <xsl:processing-instruction name="cnx.debug">Converting draw:frame (this may or may not import)</xsl:processing-instruction>
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
+  <xsl:template match="draw:text-box">
+    <xsl:processing-instruction name="cnx.error">Discarding text in text boxes.</xsl:processing-instruction>
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
+  <!-- Any text:head that haven't been converted into sections are in another element
+      (like a list, figure, table, etc)
+      Just convert them to an emphasis
+  -->
+  <xsl:template match="text:h">
+    <xsl:processing-instruction name="cnx.error">Converting a non-navigational heading into an emphasis.</xsl:processing-instruction>
+    <c:emphasis effect="bold">
+      <xsl:apply-templates select="node()"/>
+    </c:emphasis>
+  </xsl:template>
+  
   <!-- Figure -->
   <xsl:template match="draw:image">
     <xsl:param name='type'>
