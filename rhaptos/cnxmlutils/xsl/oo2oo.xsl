@@ -176,6 +176,53 @@
 <xsl:template match="text:changed-region|text:change-start|text:change-end">
   <xsl:processing-instruction name="cnx.warning">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
-  
+
+
+<xsl:template match="text:bookmark-start|text:bookmark-end">
+  <xsl:processing-instruction name="cnx.warning">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
+</xsl:template>
+
+
+<xsl:template match="text:h/@text:outline-level"/>
+
+<!--
+    Sometimes there is a gap between the userlevel and level
+    (for example, a H4 immediately following an H2, ie no H3).
+    This causes subsequent H4's to be duplicated as children of
+    both the H2 _and_ the H4 (since the $level is 3)
+    See cburrus__LF00.doc (in testbed folder) for an example
+-->
+<xsl:template match="text:h">
+  <xsl:variable name="level" select="@text:outline-level"/>
+  <xsl:variable name="prevs" select="preceding-sibling::text:h[@text:outline-level &lt; $level]"/>
+  <xsl:variable name="newlevel">
+    <xsl:choose>
+      <xsl:when test="$prevs">
+        <xsl:variable name="prevlevel" select="$prevs[position()=last()]/@text:outline-level"/>
+        <xsl:choose>
+          <xsl:when test="$prevlevel != $level - 1">
+            <xsl:value-of select="$prevlevel + 1"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$level"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$level"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <text:h text:outline-level="{$newlevel}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="$level != $newlevel">
+      <xsl:processing-instruction name="cnx.warning">The document's heading levels mismatch. This one is <xsl:value-of select="$level"/> but should be <xsl:value-of select="$newlevel"/> to be imported properly</xsl:processing-instruction>
+    </xsl:if>
+
+    <xsl:apply-templates select="node()"/>
+  </text:h>
+</xsl:template>
+
 </xsl:stylesheet>
 
