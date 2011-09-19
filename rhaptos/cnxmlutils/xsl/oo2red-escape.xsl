@@ -23,7 +23,7 @@
       <xsl:processing-instruction name="cnx.error">RED text is reserved for XML snippets. This text has other things inside it like <xsl:for-each select="*"><xsl:value-of select="name()"/><xsl:text> </xsl:text></xsl:for-each></xsl:processing-instruction>
     </xsl:when>
     <xsl:when test="not(starts-with(normalize-space(text()), '&lt;'))">
-      <xsl:processing-instruction name="cnx.warning">RED text is reserved for XML snippets. Text: [<xsl:value-of select="substring(normalize-space(text()),1,40)"/>]</xsl:processing-instruction>
+      <xsl:processing-instruction name="cnx.error">RED text is reserved for XML snippets. Text: [<xsl:value-of select="substring(normalize-space(text()),1,40)"/>]</xsl:processing-instruction>
     </xsl:when>
   </xsl:choose>
 
