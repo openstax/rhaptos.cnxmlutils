@@ -145,9 +145,7 @@ def transform(odtfile, debug=False, outputdir=None):
     PIPELINE = [
       replaceSymbols,
       redParser, # makeXsl('oo2red-escape.xsl'),
-      makeXsl('oo2oo.xsl'), # This needs to be done repeatedly to fix headings.
-      makeXsl('oo2oo.xsl'), # In the worst case all headings are 9 and need to be 1.
-                            # See (testbed) southwood__Lesson_2.doc
+      makeXsl('oo2oo.xsl'),
       makeXsl('oo2cnxml-headers.xsl'),
       imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
       mathIncluder,

@@ -74,11 +74,10 @@
 </xsl:template>
 
 <xsl:template match="c:section[count(*) &lt;= 1]">
+  <xsl:processing-instruction name="cnx.warning">All headings must be followed by some content. Inserting a paragraph with a note.</xsl:processing-instruction>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
-    <c:para>
-      <xsl:processing-instruction name="cnx.warning">All headings must be followed by some content. Inserting a paragraph with a note.</xsl:processing-instruction>
-    </c:para>
+    <c:para>[Insert something in this section]</c:para>
   </xsl:copy>
 </xsl:template>
 

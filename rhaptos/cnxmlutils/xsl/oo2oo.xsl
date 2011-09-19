@@ -209,7 +209,7 @@
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>1</xsl:text>
+        <xsl:value-of select="$level"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
