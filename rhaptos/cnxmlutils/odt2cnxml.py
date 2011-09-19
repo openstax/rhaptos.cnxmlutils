@@ -12,7 +12,6 @@ try:
 except ValueError:
     import simlejson as json
 
-from addsectiontags import addSectionTags
 import symbols
 
 dirname = os.path.dirname(__file__)
@@ -71,8 +70,15 @@ def transform(odtfile, debug=False, outputdir=None):
                 # Entries are of the form:
                 # {'level':'ERROR','id':'id1234','msg':'Descriptive message'}
                 text = entry.message
-                dict = json.loads(text)
-                errors.append(dict)
+                try:
+                    dict = json.loads(text)
+                    errors.append(dict)
+                except ValueError:
+                    errors.append({
+                      u'level':u'CRITICAL',
+                      u'id'   :u'(none)',
+                      u'msg'  :unicode(text) })
+                    
 
 
     # All MathML is stored in separate files "Object #/content.xml"
