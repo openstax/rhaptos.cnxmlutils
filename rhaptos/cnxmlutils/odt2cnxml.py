@@ -31,8 +31,10 @@ IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
   pkg = 'xsl'
-  if __package__ is not None:
-      pkg = __package__ + '.' + pkg
+  package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
+  if package != '':
+      pkg = package + '.' + pkg
+  import pdb; pdb.set_trace()
   path = pkg_resources.resource_filename(pkg, filename)
   xml = etree.parse(path)
   return etree.XSLT(xml)
@@ -204,7 +206,7 @@ def main():
       
       if invalids:
         return 1
-    except ValueError:
+    except ImportError:
       print "argparse is needed for commandline"
 
 if __name__ == '__main__':
