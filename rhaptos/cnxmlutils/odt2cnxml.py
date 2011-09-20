@@ -8,8 +8,8 @@ from lxml import etree, html
 
 try:
     import json
-except ValueError:
-    import simlejson as json
+except ImportError:
+    import simplejson as json
 
 import symbols
 
