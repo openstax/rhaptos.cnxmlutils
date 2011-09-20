@@ -1,7 +1,6 @@
 import os
 import sys
 import zipfile
-import argparse
 import urllib
 import pkg_resources
 from cStringIO import StringIO
@@ -181,28 +180,32 @@ def validate(xml):
         return relaxng.error_log
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
-    parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
-    parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
-    parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
-    args = parser.parse_args()
-
-    if args.verbose: print >> sys.stderr, "Transforming..."
-    xml, files, errors = transform(args.odtfile, debug=args.verbose, outputdir=args.outputdir)
-
-    if args.verbose:
-        for name, bytes in files.items():
-            print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
-    for err in errors:
-        print >> sys.stderr, err
-    if xml is not None:
-      if args.verbose: print >> sys.stderr, "Validating..."
-      invalids = validate(xml)
-      if invalids: print >> sys.stderr, invalids
-      print etree.tostring(xml, pretty_print=True)
-    
-    if invalids:
-      return 1
+    try:
+      import argparse
+      parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
+      parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
+      parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
+      parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
+      args = parser.parse_args()
+  
+      if args.verbose: print >> sys.stderr, "Transforming..."
+      xml, files, errors = transform(args.odtfile, debug=args.verbose, outputdir=args.outputdir)
+  
+      if args.verbose:
+          for name, bytes in files.items():
+              print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
+      for err in errors:
+          print >> sys.stderr, err
+      if xml is not None:
+        if args.verbose: print >> sys.stderr, "Validating..."
+        invalids = validate(xml)
+        if invalids: print >> sys.stderr, invalids
+        print etree.tostring(xml, pretty_print=True)
+      
+      if invalids:
+        return 1
+    except ValueError:
+      print "argparse is needed for commandline"
 
 if __name__ == '__main__':
     sys.exit(main())
