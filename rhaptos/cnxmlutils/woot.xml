@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-content xmlns:office="http://openoffice.org/2000/office" xmlns:style="http://openoffice.org/2000/style" xmlns:text="http://openoffice.org/2000/text" xmlns:table="http://openoffice.org/2000/table" xmlns:draw="http://openoffice.org/2000/drawing" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="http://openoffice.org/2000/meta" xmlns:number="http://openoffice.org/2000/datastyle" xmlns:svg="http://www.w3.org/2000/svg" xmlns:chart="http://openoffice.org/2000/chart" xmlns:dr3d="http://openoffice.org/2000/dr3d" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="http://openoffice.org/2000/form" xmlns:script="http://openoffice.org/2000/script" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:field="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:field:1.0" office:version="1.1" office:class="text">
+  <office:script/>
+  <office:font-decls>
+    <style:font-decl style:name="Wingdings1" fo:font-family="Wingdings" style:font-charset="x-symbol"/>
+    <style:font-decl style:name="Wingdings 2" fo:font-family="'Wingdings 2'" style:font-charset="x-symbol"/>
+    <style:font-decl style:name="Wingdings" fo:font-family="Wingdings" style:font-pitch="variable" style:font-charset="x-symbol"/>
+    <style:font-decl style:name="Symbol" fo:font-family="Symbol" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol"/>
+    <style:font-decl style:name="StarSymbol" fo:font-family="StarSymbol, 'Arial Unicode MS'"/>
+    <style:font-decl style:name="Courier New" fo:font-family="'Courier New'" style:font-family-generic="modern"/>
+    <style:font-decl style:name="Courier" fo:font-family="Courier, 'Courier New'" style:font-family-generic="modern"/>
+    <style:font-decl style:name="DejaVu Sans1" fo:font-family="'DejaVu Sans'" style:font-pitch="variable"/>
+    <style:font-decl style:name="Liberation Serif" fo:font-family="'Liberation Serif'" style:font-family-generic="roman" style:font-pitch="variable"/>
+    <style:font-decl style:name="Times New Roman" fo:font-family="'Times New Roman'" style:font-family-generic="roman" style:font-pitch="variable"/>
+    <style:font-decl style:name="Arial" fo:font-family="Arial" style:font-family-generic="swiss" style:font-pitch="variable"/>
+    <style:font-decl style:name="Nimbus Sans L" fo:font-family="'Nimbus Sans L', Arial" style:font-family-generic="swiss" style:font-pitch="variable"/>
+    <style:font-decl style:name="DejaVu Sans" fo:font-family="'DejaVu Sans'" style:font-family-generic="system" style:font-pitch="variable"/>
+  </office:font-decls>
+  <office:automatic-styles>
+    <style:style style:name="Table1" style:family="table">
+      <style:properties style:width="6.0028inch" table:align="left" style:writing-mode="lr-tb"/>
+    </style:style>
+    <style:style style:name="Table1.A" style:family="table-column">
+      <style:properties style:column-width="1.0333inch"/>
+    </style:style>
+    <style:style style:name="Table1.B" style:family="table-column">
+      <style:properties style:column-width="4.9694inch"/>
+    </style:style>
+    <style:style style:name="Table1.1" style:family="table-row">
+      <style:properties style:keep-together="true" fo:keep-together="auto"/>
+    </style:style>
+    <style:style style:name="Table1.A1" style:family="table-cell">
+      <style:properties fo:vertical-align="top" fo:padding="0.0382inch" fo:border-left="0.0007inch solid #000000" fo:border-right="none" fo:border-top="0.0007inch solid #000000" fo:border-bottom="0.0007inch solid #000000" style:writing-mode="lr-tb"/>
+    </style:style>
+    <style:style style:name="Table1.B1" style:family="table-cell">
+      <style:properties fo:vertical-align="top" fo:padding="0.0382inch" fo:border="0.0007inch solid #000000" style:writing-mode="lr-tb"/>
+    </style:style>
+    <style:style style:name="Table1.A2" style:family="table-cell">
+      <style:properties fo:vertical-align="top" fo:padding="0.0382inch" fo:border-left="0.0007inch solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.0007inch solid #000000" style:writing-mode="lr-tb"/>
+    </style:style>
+    <style:style style:name="Table1.B2" style:family="table-cell">
+      <style:properties fo:vertical-align="top" fo:padding="0.0382inch" fo:border-left="0.0007inch solid #000000" fo:border-right="0.0007inch solid #000000" fo:border-top="none" fo:border-bottom="0.0007inch solid #000000" style:writing-mode="lr-tb"/>
+    </style:style>
+    <style:style style:name="P1" style:family="paragraph" style:parent-style-name="CNXML Example">
+      <style:properties fo:font-style="italic" style:font-style-asian="italic"/>
+    </style:style>
+    <style:style style:name="P2" style:family="paragraph" style:parent-style-name="CNXML Example">
+      <style:properties fo:font-style="normal" style:font-style-asian="normal" style:font-style-complex="normal"/>
+    </style:style>
+    <style:style style:name="P3" style:family="paragraph" style:parent-style-name="CNXML Exercise (Problem)" style:list-style-name="WW8Num2">
+      <style:properties>
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P4" style:family="paragraph" style:parent-style-name="CNXML Exercise (Problem)" style:list-style-name="WW8Num7">
+      <style:properties>
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Heading 2">
+      <style:properties fo:margin-top="0.1665inch" fo:margin-bottom="0.0417inch" fo:keep-with-next="true">
+        <style:tab-stops>
+          <style:tab-stop style:position="0inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Heading 2">
+      <style:properties fo:margin-top="0.1665inch" fo:margin-bottom="0.0417inch" fo:keep-with-next="true" fo:color="#000000">
+        <style:tab-stops>
+          <style:tab-stop style:position="0inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Standard">
+      <style:properties fo:color="#000000" style:font-name="Times New Roman" fo:font-size="12pt" fo:font-style="normal" fo:font-weight="normal" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+    </style:style>
+    <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Standard">
+      <style:properties fo:color="#000000" fo:font-weight="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-weight-complex="normal"/>
+    </style:style>
+    <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="WW8Num5">
+      <style:properties fo:color="#000000" fo:font-weight="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-weight-complex="normal">
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="WW8Num6">
+      <style:properties fo:color="#000000" fo:font-weight="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-weight-complex="normal">
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
+      <style:properties style:font-size-complex="10pt"/>
+    </style:style>
+    <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="WW8Num4">
+      <style:properties>
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Standard">
+      <style:properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-size-complex="10pt" style:font-weight-complex="bold"/>
+    </style:style>
+    <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="Standard">
+      <style:properties style:page-number="auto"/>
+    </style:style>
+    <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Table Contents">
+      <style:properties style:snap-to-layout-grid="false"/>
+    </style:style>
+    <style:style style:name="P16" style:family="paragraph" style:parent-style-name="CNXML Exercise (Solution)">
+      <style:properties style:font-size-complex="10pt"/>
+    </style:style>
+    <style:style style:name="P17" style:family="paragraph" style:parent-style-name="CNXML Exercise (Solution)" style:list-style-name="WW8Num3">
+      <style:properties style:font-size-complex="10pt">
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="P18" style:family="paragraph" style:parent-style-name="CNXML Exercise (Solution)" style:list-style-name="WW8Num8">
+      <style:properties>
+        <style:tab-stops>
+          <style:tab-stop style:position="0.5inch"/>
+        </style:tab-stops>
+      </style:properties>
+    </style:style>
+    <style:style style:name="T1" style:family="text">
+      <style:properties fo:color="#000000" style:font-name="Times New Roman" fo:font-size="12pt" fo:font-style="normal" fo:font-weight="normal" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+    </style:style>
+    <style:style style:name="T2" style:family="text">
+      <style:properties fo:color="#000000" fo:font-weight="normal" style:font-weight-asian="normal" style:font-weight-complex="normal"/>
+    </style:style>
+    <style:style style:name="T3" style:family="text">
+      <style:properties style:font-name="Times New Roman" fo:font-size="12pt" fo:font-style="normal" fo:font-weight="normal" style:font-size-asian="12pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="12pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+    </style:style>
+    <style:style style:name="T4" style:family="text">
+      <style:properties fo:font-style="italic" style:font-style-asian="italic"/>
+    </style:style>
+    <style:style style:name="fr1" style:family="graphics" style:parent-style-name="Graphics">
+      <style:properties style:wrap="dynamic" style:number-wrapped-paragraphs="no-limit" style:wrap-contour="false" style:vertical-pos="from-top" style:vertical-rel="paragraph" style:horizontal-pos="center" style:horizontal-rel="paragraph" fo:background-color="#ffffff" style:background-transparency="0%" fo:padding="0.0102inch" fo:border="none" style:mirror="none" draw:mirror="false" fo:clip="rect(0inch 0inch 0inch 0inch)" draw:luminance="0%" draw:contrast="0%" draw:red="0%" draw:green="0%" draw:blue="0%" draw:gamma="1" draw:color-inversion="false" draw:color-mode="standard" draw:transparency="0%">
+        <style:background-image/>
+      </style:properties>
+    </style:style>
+    <style:style style:name="fr2" style:family="graphics" style:parent-style-name="OLE">
+      <style:properties fo:margin-left="0inch" fo:margin-right="0inch" style:vertical-pos="middle" style:vertical-rel="text" fo:background-color="#ffffff" style:background-transparency="0%" fo:padding-left="0.1102inch" fo:padding-right="0.1102inch" fo:padding-top="0.0602inch" fo:padding-bottom="0.0602inch" fo:border="none" draw:ole-draw-aspect="1">
+        <style:background-image/>
+      </style:properties>
+    </style:style>
+  </office:automatic-styles>
+  <office:body text:use-soft-page-breaks="true">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <text:sequence-decls>
+      <text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>
+      <text:sequence-decl text:display-outline-level="0" text:name="Table"/>
+      <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
+      <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
+    </text:sequence-decls>
+    <text:p text:style-name="P14">
+      <text:s/>
+      <text:bookmark-start text:name="_top"/>
+    </text:p>
+    <text:p text:style-name="CNXML Figure Caption">
+      <draw:image draw:style-name="fr1" draw:name="graphics1" text:anchor-type="char" svg:y="0inch" svg:width="5.9984inch" svg:height="4.1681inch" draw:z-index="2" xlink:href="#Pictures/10000201000004610000030B32456BB9.png" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+            This is the image caption in “CNXML Figure Caption” style. (Source: this source is in the “CNXML Cite style”)</text:p>
+    <text:p text:style-name="P7"/>
+    <text:h text:style-name="P5" text:level="2">Section titles</text:h>
+    <text:p text:style-name="P7">Because you named each file with the chapter and section number as well as the section name, we don't need to put the title of the section at the top of this template.</text:p>
+    <text:p text:style-name="P7"/>
+    <text:h text:style-name="P5" text:level="2">Leaving blank lines</text:h>
+    <text:p text:style-name="P7">Note that I always leave a blank line of style “Default” between two elements – even between an example and a note. That way the importer definitely knows when the example ends and when the note begins, for example.</text:p>
+    <text:p text:style-name="P7"/>
+    <text:h text:style-name="P5" text:level="2">Images</text:h>
+    <text:p text:style-name="P7">Insert them by using the menus in Word/OpenOffice (“Insert > Picture > From File”). I inserted this cool picture of a shark. After you type another paragraph below the image, you can go back and place your cursor on the line under the image, type in the caption, and highlight and set the caption to the “CNXML Figure Caption” style. Then, if there is a source, you can highlight the source and set it to “CNXML Cite”.</text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="P7">
+      <text:soft-page-break/>
+            After import, the image needs to be given an alt description. For my shark, I would say something like</text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="CNXML Code (Block)">&lt;media id='randomlygeneratedid' display='block' alt='A shark swimming.'></text:p>
+    <text:p text:style-name="CNXML Code (Block)">[...]</text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="P7">By the way, do note that if all your images are such hi-resolution as the shark above, the PDF of the book will be HUGE and many people will have trouble downloading it. This is just something to keep in mind for the future.</text:p>
+    <text:p text:style-name="P7"/>
+    <text:h text:style-name="P5" text:level="2">Links to figures, tables, and other chapters/sections</text:h>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="T1">Sometimes you want to refer to the student to Figure 4, Table 2, or the section called “Newton's Second Law of Motion”. It would be good if each of those was a hyperlink directly to the figure, table, or section in question. You can only link to modules which are already published. First find the URL (like </text:span>
+      <text:a xlink:type="simple" xlink:href="http://cnx.org/content/m12345/latest">
+        <text:span text:style-name="Internet link">
+          <text:span text:style-name="T3">http://cnx.org/content/m12345/latest</text:span>
+        </text:span>
+      </text:a>
+      <text:span text:style-name="T1">) <text:s/>
+                then highlight the section name (you can delete the quote marks) and choose from the menu to Insert > Hyperlink.</text:span>
+    </text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="P7">Links to figures or tables are easiest to put in after import, so usually in the Word document I mark them as Figure 4***, Table 2***, and “Newton's Second Law of Motion”*** if that section isn't yet published. That way it's easy to press CTRL+F to search for three asterisks and replace them with links. To link to Figure &lt;number> or Table &lt;number>, create a self closing link that looks like this:</text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="CNXML Code (Block)">&lt;link target-id='idofthetableorfigure'/></text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="P7">You can link to sections by just using the module ID, which is the m12345 number in the example URL above. Notice that this one is not a self-closing link, because we want the name of the module to become a link:</text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="CNXML Code (Block)">&lt;link document='m12345'>Module name here&lt;/link></text:p>
+    <text:p text:style-name="P7"/>
+    <text:p text:style-name="P7">This will be my table title***. There is no “CNXML Table Title” style, so this will import as a paragraph and after import we will have to move it to the table title slot. I'll leave a blank line after the title. Wow, this is a long title.</text:p>
+    <text:p text:style-name="P7"/>
+    <table:table table:name="Table1" table:style-name="Table1">
+      <table:table-column table:style-name="Table1.A"/>
+      <table:table-column table:style-name="Table1.B"/>
+      <table:table-row table:style-name="Table1.1">
+        <table:table-cell table:style-name="Table1.A1" table:value-type="string">
+          <text:p text:style-name="P15">Do</text:p>
+        </table:table-cell>
+        <table:table-cell table:style-name="Table1.B1" table:value-type="string">
+          <text:p text:style-name="P15">Create a table through the Word menu (Insert > Table). </text:p>
+        </table:table-cell>
+      </table:table-row>
+      <table:table-row table:style-name="Table1.1">
+        <table:table-cell table:style-name="Table1.A2" table:value-type="string">
+          <text:p text:style-name="P15">Don't</text:p>
+        </table:table-cell>
+        <table:table-cell table:style-name="Table1.B2" table:value-type="string">
+          <text:p text:style-name="P15">Worry about formatting it very prettily. It will get ignored.</text:p>
+        </table:table-cell>
+      </table:table-row>
+      <table:table-row table:style-name="Table1.1">
+        <table:table-cell table:style-name="Table1.A2" table:value-type="string">
+          <text:p text:style-name="P15">Don't</text:p>
+        </table:table-cell>
+        <table:table-cell table:style-name="Table1.B2" table:value-type="string">
+          <text:p text:style-name="P15">Add a table title through the Word menu.</text:p>
+        </table:table-cell>
+      </table:table-row>
+      <table:table-row table:style-name="Table1.1">
+        <table:table-cell table:style-name="Table1.A2" table:value-type="string">
+          <text:p text:style-name="P15">Do</text:p>
+        </table:table-cell>
+        <table:table-cell table:style-name="Table1.B2" table:value-type="string">
+          <text:p text:style-name="P15">Leave blank lines before and after the table.</text:p>
+        </table:table-cell>
+      </table:table-row>
+    </table:table>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="CNXML Note">Newton’s Second Law of Motion (title***): This is a normal note (not a note of a special type; see examples of those below) so it doesn't need a special @type attribute, but after </text:span>
+      <text:soft-page-break/>
+      <text:span text:style-name="CNXML Note">import you do need to put an empty &lt;label/> tag in it, above any of the note text. I made the title part of the note because there is no “CNXML Note Title” style, but I left a note for the taggers so that they know to cut that text out and put it into the title slot.</text:span>
+    </text:p>
+    <text:p text:style-name="P11"/>
+    <text:h text:style-name="P6" text:level="2">Lists</text:h>
+    <text:ordered-list text:style-name="WW8Num5">
+      <text:list-item>
+        <text:p text:style-name="P9">In 5.2 there is a list of problem solving steps.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P9">It goes on for a while, is interrupted by some paragraphs and table, and then resumes numbering.</text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="P13"/>
+    <text:p text:style-name="P8">Whoa, a paragraph!</text:p>
+    <text:p text:style-name="P13"/>
+    <text:ordered-list text:style-name="WW8Num6">
+      <text:list-item>
+        <text:p text:style-name="P10">In Word you can go to the Bullets/Numbering options and make this second list start numbering at 3 instead of 1. That makes it look like it is a continuation of the list above.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P10">If that doesn't import correctly, you can do the same thing in CNXML. The list tag should look like: &lt;list id='listid' list-type='enumerated' start-value='3'></text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="P11"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">Check Your Understanding (title***). I put the title as part of the problem, because there is no “CNXML Exercise Title” style, so after import we will have to move that to the title slot of the exercise. This question has several parts and I want them listed inline with the sentence. However, I'm going to use Word's list feature anyway, because they will import better, and I'll leave a note so that after import they know to make this inline (inline list***) This question also has a picture that goes with it, but I'm leaving it out. We will have to upload the image after we import the Word doc. </text:p>
+    <text:p text:style-name="CNXML Exercise (Problem)"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">***image goes here</text:p>
+    <text:p text:style-name="CNXML Exercise (Problem)"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">Here is the image caption (caption***). I can't set it to the “CNXML Figure Caption” style because there is no image to go with it! But this way the text will be imported as a paragraph. After import, the taggers will have to copy this text into the figure caption, upload the image, and add a &lt;media> and &lt;image> tag to the figure.</text:p>
+    <text:ordered-list text:style-name="WW8Num2">
+      <text:list-item>
+        <text:p text:style-name="P3">Question part a.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P3">Question part b.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P3">Question part c.</text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="P16">Whew, a solution.</text:p>
+    <text:ordered-list text:style-name="WW8Num3">
+      <text:list-item>
+        <text:p text:style-name="P17">Remember that the Check Your Understanding type of questions have special markup.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P17">To change the problem list to inline, click on the Exercise to edit it. Then the list tag should look like this: &lt;list id='listid' list-type='enumerated' number-style='lower-alpha' display='inline' mark-prefix='(' mark-suffix=')' item-sep='' display='inline'></text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P17">Upload images under the green “Files” tab at the top of the module. Then you have to type in the media and image tags manually (you can't insert them through the GUI Edit-in-Place editor), so check out http://cnx.org/eip-help/media</text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="CNXML Note">Misconception Alert (label***): Can Forces Be Transferred? (title***) “Misconception Alert” should become the label for the note. If you have Misconception alerts in lots of sections, the taggers should also tag this with a @type='misconception-alert' attribute. </text:span>
+    </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="CNXML Example">
+      <text:soft-page-break/>
+            Gizmo’s Sliding Stop (title***). This is an example. </text:p>
+    <text:p text:style-name="P1"/>
+    <text:p text:style-name="P2">Visualize the Situation and Make a Sketch (title of this paragraph***.) The steps to solving problems form “sections” of the example. After import we will make those into the title of the paragraph, but for now we are making them part of the paragraph itself and leaving a note to turn it into a title. Other wise it imports as its own paragraph.</text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="P2">Solve the Problem (title***). When we solve a problem, we usually work through the formulas step by step. In the word template, we are going to leave a blank line before and after the formulas, just like we do for paragraphs. They will import as equations, which we don't want (it will put an equation number next to it). But it is easy for the taggers to move the MathML to a paragraph and to delete the now-blank equation.</text:p>
+    <text:p text:style-name="P2"/>
+    <text:p text:style-name="CNXML Example">I'm using OpenOffice, so I chose the Insert menu, then Insert Object... > Formula.</text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">
+      <draw:object draw:style-name="fr2" draw:name="Object1" text:anchor-type="as-char" svg:width="1.3602inch" svg:height="0.2457inch" draw:z-index="0" xlink:href="#Object 1" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+    </text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">But in Microsoft Word I want to choose Insert > Object > Equation 3.0.</text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">
+      <draw:object draw:style-name="fr2" draw:name="Object2" text:anchor-type="as-char" svg:width="1.4957inch" svg:height="0.2717inch" draw:z-index="1" xlink:href="#Object 2" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
+    </text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">I also noticed that I had to put a times sign between the delta and the x, when of course they are actually one unit. We'll see how it imports. In MathML, it should look the same whether or not there is a times sign.</text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">Just like with exercises, if we need to put an image inside the example, it might be easier to upload it after import. This is because otherwise the importer will think that the part of the example that comes before the image is one example, and the part of the example that comes after the image is a second example.</text:p>
+    <text:p text:style-name="CNXML Example"/>
+    <text:p text:style-name="CNXML Example">***image goes here</text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="CNXML Note">Making Connexions (label***): Push-a-Box Simulation (title***). Again, there is no “CNXML Note Title” style, so we are leaving notes for the taggers to change after import. “Making Connexions” should become the label, and the type should change to “making-connexions” too. The reason I gave it a new type is because notes with the label “Making Connexions” occur frequently in this book. Any other type of note that occurs frequently could also get its own type.</text:span>
+    </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="CNXML Note">Just like with exercises and examples, we don't want to put an image in the middle of the note, because the importer will think you actually have two notes, with an image in between them.</text:span>
+    </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:span text:style-name="CNXML Note">***image here</text:span>
+    </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="Standard">
+      <text:soft-page-break/>
+      <text:span text:style-name="CNXML Note">Problem Solving Tip (label***) Here is another example of a type of note that will have to have its &lt;label> and @type changed after import. This one doesn't have a title. Oh well.</text:span>
+    </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="CNXML Example">Calculating Force Using Newton’s Second Law (label***): Exercises inside of examples (title***). There is no good way to mark up exercises inside of examples. One thing is for certain: a CNXML Exercise (Solution) must have a CNXML Exercise (Problem) in front of it to import correctly. I would probably do the following, using the first part of “Example 2: Chris pushes a sled” from section 5.2 as a template. (But first, I'll remind you that exercises inside of examples need special markup and tags after import!) I'd put a note here that says: the following problem should be INSIDE this example***. </text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">Chris starts pushing a 40.0-pound sled across smooth hard-packed snow. The force <text:span text:style-name="T4">on</text:span>
+             the sled <text:span text:style-name="T4">by</text:span>
+             Chris is approximately constant. He wears spiked shoes so he doesn’t slip. The initial velocity of the sled is 0.0 m/s, and it moves 4.0 meters in 2.0 seconds (inline list follows***).</text:p>
+    <text:ordered-list text:style-name="WW8Num7">
+      <text:list-item>
+        <text:p text:style-name="P4">Draw an appropriate free-body diagram for the sled.</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P4">What is the force <text:span text:style-name="T4">on</text:span>
+                     the sled <text:span text:style-name="T4">by</text:span>
+                     Chris?</text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:ordered-list text:style-name="WW8Num8">
+      <text:list-item>
+        <text:p text:style-name="P18">Chris pushes the sled a distance of 4.0 meters with a constant force. The vertical forces on the sled balance. If we assume the force on the sled by snow (surface friction) is negligible, the net force on the sled is just the force that Chris applies. (***image goes here)</text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P18">To calculate the force <text:span text:style-name="T4">on</text:span>
+                     the sled <text:span text:style-name="T4">by</text:span>
+                     Chris, we need Newton’s second law, <text:span text:style-name="T4">F</text:span>
+                     = <text:span text:style-name="T4">ma</text:span>
+                    . To use this equation, we need to know the mass of the sled in kilograms and the acceleration of the sled in meters per second squared. Neither of these is provided directly in the problem, so we will need to use other equations to calculate them first.</text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="Standard"/>
+    <text:h text:style-name="P5" text:level="2">Section Summary and Assessment: Kinetic Force of Friction</text:h>
+    <text:p text:style-name="Standard">One thing I wasn't sure about was whether you wanted the section summaries to appear both in each individual section and also at the end of the chapter (that is, in two places), or if you just wanted the section summaries to be pulled to the end of the chapter (it appears only in one place). To get the section summaries to be pulled to the end of the chapter, after import you can copy everything inside of this section into the “Summary” box of the green “Metadata” tab at the top of the module. Only a limited set of CNXML is allowed there. For instance, you will need to delete the id numbers out of paragraphs and lists and other elements. If you only want the section summaries to appear at the end of the chapter, you can then delete this section from the module.</text:p>
+    <text:p text:style-name="Standard"/>
+    <text:ordered-list text:style-name="WW8Num4">
+      <text:list-item>
+        <text:p text:style-name="P12">
+          <text:span text:style-name="CNXML Term">Key term</text:span>
+          <text:span text:style-name="CNXML Term">
+            <text:span text:style-name="T2"> – I made this into a list. In the module summary on the “Metadata” page, a bulleted list is allowed.</text:span>
+          </text:span>
+        </text:p>
+      </text:list-item>
+      <text:list-item>
+        <text:p text:style-name="P12">
+          <text:span text:style-name="CNXML Term">
+            <text:span text:style-name="T2">Key term</text:span>
+          </text:span>
+          <text:span text:style-name="T2"> – If you don't delete the section summary from the module, you can make the list neater by turning it into a labeled-item list. The list should look like &lt;list id='listid' list-type='labeled-item'>&lt;item>&lt;label>&lt;term>Key term&lt;/term>&lt;/label>Description of the key term&lt;/item>[...]&lt;/list></text:span>
+        </text:p>
+      </text:list-item>
+    </text:ordered-list>
+    <text:p text:style-name="Standard"/>
+    <text:h text:style-name="P5" text:level="2">
+      <text:soft-page-break/>
+            Conceptual Questions</text:h>
+    <text:p text:style-name="CNXML Exercise (Problem)">Do you remember what to do with the conceptual questions?</text:p>
+    <text:p text:style-name="CNXML Exercise (Solution)">After import, the Conceptual Questions &lt;section> tag receives a @class='conceptual-questions' attribute and a @type='conceptual-questions' attribute. Then, as strange as this sounds, DELETE THE TITLE OF THE SECTION. The @class attribute will automatically put in a section title. Also, each exercise inside the Conceptual Questions section should get a @type='conceptual-questions' tag.</text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">Remember to put a blank line of style “Default” between each element.</text:p>
+    <text:p text:style-name="CNXML Exercise (Solution)">And not to put images inside of exercises.</text:p>
+    <text:p text:style-name="Standard"/>
+    <text:h text:style-name="P5" text:level="2">Problems and Exercises</text:h>
+    <text:p text:style-name="CNXML Exercise (Problem)">
+      <text:bookmark-end text:name="_top"/>
+            This works just like the Conceptual Questions section.</text:p>
+    <text:p text:style-name="CNXML Exercise (Solution)">Except using @class='problems-exercises' and @type='problems-exercises'.</text:p>
+    <text:p text:style-name="Standard"/>
+    <text:p text:style-name="CNXML Exercise (Problem)">Professional Application (title***) This is a problem with a title.</text:p>
+    <text:p text:style-name="CNXML Exercise (Solution)">And a solution.</text:p>
+    <text:p text:style-name="Standard"/>
+  </office:body>
+</office:document-content>

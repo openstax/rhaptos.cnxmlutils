@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="http://cnx.rice.edu/cnxml">
+
+  <start>
+    <choice>
+      <ref name="document"/>
+      <ref name="para"/>
+      <ref name="title"/>
+      <ref name="list"/>
+      <ref name="equation"/>
+      <ref name="exercise"/>
+      <ref name="figure"/>
+      <ref name="code"/>
+      <ref name="note"/>
+      <ref name="example"/>
+      <ref name="table"/>
+      <ref name="list"/>
+      <ref name="section"/>
+      <ref name="rule"/>
+      <ref name="definition"/>
+      <ref name="metadata"/>
+      <ref name="mdml-abstract"/>
+    </choice>
+  </start>
+
+  <include href="http://cnx.rice.edu/technology/mdml/schema/rng/0.4.5/mdml-defs.rng">
+    <define name="mdml-metadata">
+      <notAllowed/>
+    </define>
+    <define name="mdml-abstract-content">
+      <choice>
+        <ref name="simple-para-content"/>
+        <oneOrMore>
+          <ref name="simple-para"/>
+        </oneOrMore>
+      </choice>
+    </define>
+    <define name="mdml-extended-attribution">
+      <element name="extended-attribution" ns="http://cnx.rice.edu/mdml/0.4">
+        <oneOrMore>
+          <ref name="link-group"/>
+        </oneOrMore>
+      </element>
+    </define>
+  </include>
+
+  <define name="mathml-math">
+    <externalRef href="http://cnx.rice.edu/technology/mathml/schema/rng/2.0/mathml2.rng"/>
+  </define>
+
+  <include href="http://cnx.rice.edu/technology/qml/schema/rng/1.0/qml-defs.rng">
+    <define name="qml-text">
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="section"/>
+          <ref name="media"/>
+        </choice>
+      </zeroOrMore>
+    </define>
+  </include>
+
+  <include href="cnxml-defs.rng">
+    <define name="metadata-content">
+      <ref name="mdml-metadata-content"/>
+    </define>
+    <define name="content-content">
+      <choice>
+        <oneOrMore>
+          <ref name="section-content-class"/>
+        </oneOrMore>
+        <ref name="qml.problemset"/>
+      </choice>
+    </define>
+    <define name="exercise-content-extras">
+      <ref name="qml.item"/>
+    </define>
+    <define name="equation-content-extras">
+      <ref name="mathml-math"/>
+    </define>
+    <define name="bibliography">
+      <externalRef href="http://cnx.rice.edu/technology/bibtexml/schema/rng/1.0/bibtexml.rng"/>
+    </define>
+  </include>
+
+  <define name="text-extras" combine="choice">
+    <ref name="mathml-math"/>
+  </define>
+
+  <define name="simple-para">
+    <element name="para">
+      <ref name="common-attributes"/>
+      <ref name="id-attribute"/>
+      <optional>
+        <ref name="title"/>
+      </optional>
+      <ref name="simple-para-content"/>
+    </element>
+  </define>
+
+  <define name="simple-para-content">
+    <oneOrMore>
+      <choice>
+        <ref name="emphasis"/>
+        <ref name="link"/>
+        <ref name="term"/>
+        <ref name="foreign"/>
+        <ref name="cite"/>
+        <ref name="span"/>
+        <ref name="sup"/>
+        <ref name="sub"/>
+        <ref name="code"/>
+        <ref name="simple-quote"/>
+        <ref name="simple-preformat"/>
+        <ref name="simple-list"/>
+        <ref name="simple-item"/>
+        <text/>
+      </choice>
+    </oneOrMore>
+  </define>
+
+  <define name="simple-list">
+    <element name="list">
+      <ref name="list-type-attribute"/>
+      <ref name="display-attribute"/>
+      <ref name="common-attributes"/>
+      <ref name="id-attribute"/>
+      <optional>
+        <ref name="title"/>
+      </optional>
+      <oneOrMore>
+        <ref name="simple-item"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="simple-item">
+    <element name="item">
+      <ref name="common-attributes"/>
+      <optional>
+        <ref name="id-attribute"/>
+      </optional>
+      <optional>
+        <ref name="label"/>
+      </optional>
+      <ref name="simple-para-content"/>
+    </element>
+  </define>
+
+  <define name="simple-quote">
+    <element name="quote">
+      <ref name="display-attribute"/>
+      <ref name="common-attributes"/>
+      <ref name="id-attribute"/>
+      <optional>
+        <ref name="title"/>
+      </optional>
+      <choice>
+        <ref name="simple-para-content"/>
+        <oneOrMore>
+          <ref name="simple-para"/>
+        </oneOrMore>
+      </choice>
+    </element>
+  </define>
+
+  <define name="simple-preformat">
+    <element name="preformat">
+      <ref name="display-attribute"/>
+      <ref name="common-attributes"/>
+      <ref name="id-attribute"/>
+      <choice>
+        <ref name="simple-para-content"/>
+        <oneOrMore>
+          <ref name="simple-para"/>
+        </oneOrMore>
+      </choice>
+    </element>
+  </define>
+
+</grammar>
