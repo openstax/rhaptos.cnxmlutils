@@ -34,7 +34,6 @@ def makeXsl(filename):
   package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
   if package != '':
       pkg = package + '.' + pkg
-  import pdb; pdb.set_trace()
   path = pkg_resources.resource_filename(pkg, filename)
   xml = etree.parse(path)
   return etree.XSLT(xml)
