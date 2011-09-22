@@ -14,12 +14,13 @@ VERBOSE="" # Set to "-v" for additional debugging lines
 
 # If more than one argument, use a temp dir
 if [ '.' != ".${2}" ]; then
-  echo "Creating temp dir for batch conversion"
   TMP_DIR=$(mktemp -d -t 'odt2cnxml')
 else
   TMP_DIR=$(pwd)
   VERBOSE="-v"
 fi
+
+DEBUG=${#VERBOSE}
 
 OOFFICE_BIN='/Applications/OpenOffice.org.app/Contents/MacOS/soffice'
 OOFFICE_MACRO='macro:///Standard.Module1.SaveAsOOO'
@@ -65,12 +66,10 @@ echo '
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
   xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"
+  xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
   >
   <xsl:template match="text()">
-    <xsl:value-of select="concat(&quot; &quot;, normalize-space(.), &quot; &quot;)"/>
-<!--
-    <xsl:value-of select="."/>
--->
+    <xsl:value-of select="normalize-space(.)"/>
   </xsl:template>
   <!-- Ignore "Untitled Document" -->
   <xsl:template match="c:document/c:title"/>
@@ -78,13 +77,15 @@ echo '
   <xsl:template match="mml:*"/>
   <!-- Just the text "formula" -->
   <xsl:template match="svg:desc"/>
+  <!-- Ignore change sets -->
+  <xsl:template match="text:changed-region|text:change-start|text:change-end"/>
 </xsl:stylesheet>
 ' > ${WF_XSL}
 
 for f in $*
 do
 	
-	if [ "." != ".${2}" ]; then
+	if [ ${DEBUG} == 0 ]; then
 	if [ -e ${f}.xml ]; then
 		echo "Skipping ${f} because it was successfully converted"
 		continue
@@ -110,6 +111,60 @@ do
 	
   python odt2cnxml.py ${VERBOSE} ${ODT_FILE} ${TMP_DIR} > ${f}.xml
   
+  # So, here goes:
+  # - Take all the text content from the original document
+  # - Remove all spaces
+  # - Put 1 character/line
+  # - (then diff) to see how much was lost
+  unzip -p ${ODT_FILE} content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
+	xsltproc ${WF_XSL} ${f}.xml | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
+	
+	if [ -s ${WF_ORIG} ]; then
+	if [ -s ${WF_CONV} ]; then
+    if [ $(cat ${WF_ORIG} | wc -l) -lt $(cat ${WF_CONV} | wc -l) ]; then
+      MAX_SIZE=$(cat ${WF_CONV} | wc -l)
+    else
+      MAX_SIZE=$(cat ${WF_ORIG} | wc -l)
+    fi
+	  
+	  diff ${WF_ORIG} ${WF_CONV} > ${WF_TEMP}
+
+  	if [ -s ${WF_TEMP} ]; then
+
+      # When only running 1 conversion show the diff
+      if [ ${DEBUG} != 0 ]; then
+        cat ${WF_TEMP}
+      fi
+  
+      # The diff has entries like:
+      # < h
+      # < i
+      DIFF_COUNT=$(awk "
+        BEGIN { }
+        /</         { orig += 1; acc1 = acc1 \$2 }
+        />/         { conv += 1; acc2 = acc2 \$2 }
+        /[0-9,cd]+/ {
+                      if(${DEBUG} != 0) {
+                        print acc1 \" ]vs[ \" acc2 > \"/dev/stderr\";
+                      }
+                      acc1 = \"\"; acc2 = \"\";
+                    }
+        /---/       { acc1 = acc1 \" \"; acc2 = acc2 \" \" }
+        END         {
+                      if(${DEBUG} != 0) {
+                        print acc1 \" ]vs[ \" acc2 > \"/dev/stderr\";
+                      }
+                      d  = orig  + conv;
+                      print d
+                    }
+      " ${WF_TEMP})
+      
+      echo "DIFFS: " ${DIFF_COUNT} $(echo "scale=2;(${DIFF_COUNT} *100) / ${MAX_SIZE}" | bc) $f
+    fi
+	fi
+	fi
+
+  # Validate!
   #if [ 0 != $? ]; then
   if [ -e ${SCHEMA} ]; then
     echo "INFO: Validating against Relax-NG Schema"
@@ -122,51 +177,6 @@ do
 	  fi
 	fi
 	#fi
-	
-  # So, here goes:
-  # - Take all the text content from the original document
-  # - Remove all spaces
-  # - Put 1 character/line
-  # - (then diff) to see how much was lost
-  unzip -p ${ODT_FILE} content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
-	xsltproc ${WF_XSL} ${f}.xml | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
-	
-	
-	if [ -s ${WF_ORIG} ]; then
-	if [ -s ${WF_CONF} ]; then
-	
-	  
-	  diff ${WF_ORIG} ${WF_CONV} > ${WF_TEMP}
-
-  	if [ -s ${WF_TEMP} ]; then
-
-      # When only running 1 conversion show the diff
-      if [ "." = ".${2}" ]; then
-        cat ${WF_TEMP}
-      fi
-  
-      # The diff has entries like:
-      # < h
-      # < i
-      awk '
-        BEGIN { }
-        /</     { orig += 1; acc1 = acc1 $2 }
-        />/     { conv += 1; acc2 = acc2 $2 }
-        /[0-9,cd]+/    { print acc1 " ]vs[ " acc2; acc1 = ""; acc2 = "" }
-        /---/   { acc1 = acc1 " "; acc2 = acc2 " " }
-        END   {
-                print acc1 " ]vs[ " acc2;
-                d  = orig  - conv;
-                # Skirt Divide by 0 Error
-                if(orig + conv == 0) {
-                  orig = 1;
-                }
-                print d, "=DIFFS", (d / (orig + conv)), "=DIFFS/LINEISH"
-        }
-      ' ${WF_TEMP}
-    fi
-	fi
-	fi
 
 	echo "--------------------------"
 	echo "INFO: Success!!!!!"
