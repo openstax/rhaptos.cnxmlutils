@@ -11,7 +11,7 @@
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:para/*[not(self::c:figure)]"/>
+    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para)]"/>
   </xsl:copy>
 </xsl:template>
 
