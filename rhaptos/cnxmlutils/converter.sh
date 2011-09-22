@@ -10,17 +10,19 @@ if [ "." = ".${1}" ]; then
   echo "--------------------------------------"
 fi
 
-VERBOSE="" # Set to "-v" for additional debugging lines
+# When more than 1 file is provided run in batch mode (less printing)
+[ '.' == ".${2}" ]
+BATCH=$?
 
-# If more than one argument, use a temp dir
-if [ '.' != ".${2}" ]; then
+if [ ${BATCH} -ne 0 ]; then
   TMP_DIR=$(mktemp -d -t 'odt2cnxml')
+  STDERR=${TMP_DIR}/stderr.txt
 else
   TMP_DIR=$(pwd)
+  STDERR="/dev/stderr"
   VERBOSE="-v"
 fi
 
-DEBUG=${#VERBOSE}
 
 OOFFICE_BIN='/Applications/OpenOffice.org.app/Contents/MacOS/soffice'
 OOFFICE_MACRO='macro:///Standard.Module1.SaveAsOOO'
@@ -82,19 +84,29 @@ echo '
 </xsl:stylesheet>
 ' > ${WF_XSL}
 
+
+test ${BATCH} -ne 0 && echo "Filename \tErrors-or-Warnings \t#-Diffs \t%of-text-diff \tRNG-invalid"
+
+
 for f in $*
 do
-	
-	if [ ${DEBUG} == 0 ]; then
-	if [ -e ${f}.xml ]; then
+		
+	if [ ${BATCH} -ne 0 ]; then
+	if [ -e ${f}.cnxml ]; then
 		echo "Skipping ${f} because it was successfully converted"
 		continue
 	fi
 	fi
 	
-	echo "--------------------------"
-	echo "Starting ${f}"
-	echo "--------------------------"
+  if [ ${BATCH} -eq 0 ]; then
+    echo "--------------------------"
+    echo "Starting ${f}"
+    echo "--------------------------"
+  fi
+  
+  # Batch-mode: Just print stats
+  test ${BATCH} -ne 0 && printf "${f}"
+
 
   if [ "odt" = $(echo ${f#*.}) ]; then
     ODT_FILE=${f}
@@ -102,14 +114,17 @@ do
   	#rm ${ODT_FILE}
     ${OOFFICE_BIN} -invisible "${OOFFICE_MACRO}(${f},${ODT_FILE})"
 
-    #[ 0 = $? ] || echo "ERROR: Could not convert document to Open Office" && continue
-    if [ 0 != $? ]; then
+    # If there was an error or the file didn't generate print error
+    if [ 0 != $? -o ! -s ${ODT_FILE} ]; then
       echo "ERROR: Could not convert document to Open Office"
       continue
     fi
   fi
 	
-  python odt2cnxml.py ${VERBOSE} ${ODT_FILE} ${TMP_DIR} > ${f}.xml
+  python odt2cnxml.py ${VERBOSE} ${ODT_FILE} ${TMP_DIR} > ${f}.xml 2> ${STDERR}
+  
+  # Print the number of warnings/errors
+  test ${BATCH} -ne 0 && printf "\t$(cat ${STDERR} | wc -l)"
   
   # So, here goes:
   # - Take all the text content from the original document
@@ -119,6 +134,8 @@ do
   unzip -p ${ODT_FILE} content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
 	xsltproc ${WF_XSL} ${f}.xml | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
 	
+	DIFF_COUNT=0    # If there are no diffs then these are 0 by default
+	DIFF_PERCENT=0
 	if [ -s ${WF_ORIG} ]; then
 	if [ -s ${WF_CONV} ]; then
     if [ $(cat ${WF_ORIG} | wc -l) -lt $(cat ${WF_CONV} | wc -l) ]; then
@@ -131,11 +148,6 @@ do
 
   	if [ -s ${WF_TEMP} ]; then
 
-      # When only running 1 conversion show the diff
-      if [ ${DEBUG} != 0 ]; then
-        cat ${WF_TEMP}
-      fi
-  
       # The diff has entries like:
       # < h
       # < i
@@ -144,14 +156,14 @@ do
         /</         { orig += 1; acc1 = acc1 \$2 }
         />/         { conv += 1; acc2 = acc2 \$2 }
         /[0-9,cd]+/ {
-                      if(${DEBUG} != 0) {
+                      if(${BATCH} == 0) {
                         print acc1 \" ]vs[ \" acc2 > \"/dev/stderr\";
                       }
                       acc1 = \"\"; acc2 = \"\";
                     }
         /---/       { acc1 = acc1 \" \"; acc2 = acc2 \" \" }
         END         {
-                      if(${DEBUG} != 0) {
+                      if(${BATCH} == 0) {
                         print acc1 \" ]vs[ \" acc2 > \"/dev/stderr\";
                       }
                       d  = orig  + conv;
@@ -159,28 +171,42 @@ do
                     }
       " ${WF_TEMP})
       
-      echo "DIFFS: " ${DIFF_COUNT} $(echo "scale=2;(${DIFF_COUNT} *100) / ${MAX_SIZE}" | bc) $f
+      DIFF_PERCENT=$(echo "scale=2;(${DIFF_COUNT} *100) / ${MAX_SIZE}" | bc)
     fi
 	fi
 	fi
 
+  test ${BATCH} -ne 0 && printf "\t${DIFF_COUNT}\t${DIFF_PERCENT}"
+  
+  test ${BATCH} -eq 0 && echo "DIFFS: " ${DIFF_COUNT} ${DIFF_PERCENT}
+
+
   # Validate!
   #if [ 0 != $? ]; then
   if [ -e ${SCHEMA} ]; then
-    echo "INFO: Validating against Relax-NG Schema"
-    ${JING_BIN} ${SCHEMA} ${f}.xml
+    test ${BATCH} -eq 0 && echo "INFO: Validating against Relax-NG Schema"
 
-  	if [ 0 != $? ]; then
-	    echo "ERROR: Invalid CNXML ${f}"
-	    mv ${f}.xml ${f}.xml.broken
+    ${JING_BIN} ${SCHEMA} ${f}.xml > ${STDERR} 2>&1
+    VALID=$?
+
+  	if [ 0 != ${VALID} ]; then
+
+  	  test ${BATCH} -eq 0 && echo "ERROR: Invalid CNXML ${f}"
+  	  test ${BATCH} -ne 0 && echo "\tinvalid" #newline
+
   	  continue
 	  fi
 	fi
 	#fi
+	
+	test ${BATCH} -ne 0 && echo "" # newline
+	if [ ${BATCH} -eq 0 ]; then
+    echo "--------------------------"
+    echo "INFO: Success!!!!!"
+    echo "--------------------------"
+  fi
 
-	echo "--------------------------"
-	echo "INFO: Success!!!!!"
-	echo "--------------------------"
+  mv ${f}.xml ${f}.cnxml
 done
 
 if [ '.' != ".${2}" ]; then
