@@ -23,7 +23,7 @@ else
   VERBOSE="-v"
 fi
 
-
+# Open Office is only needed if the file extension isn't "odt"
 OOFFICE_BIN='/Applications/OpenOffice.org.app/Contents/MacOS/soffice'
 OOFFICE_MACRO='macro:///Standard.Module1.SaveAsOOO'
 #' The content of the Macro is as follows
@@ -62,6 +62,7 @@ WF_CONV=${TMP_DIR}/wf-conv.txt
 WF_XSL=${TMP_DIR}/wf-xsl.txt
 WF_TEMP=${TMP_DIR}/wf-temp.txt
 
+# Extracts just the text content out of ODT and cnxml documents for diffing
 echo '
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -91,13 +92,6 @@ test ${BATCH} -ne 0 && echo "Filename \tErrors-or-Warnings \t#-Diffs \t%of-text-
 for f in $*
 do
 		
-	if [ ${BATCH} -ne 0 ]; then
-	if [ -e ${f}.cnxml ]; then
-		echo "Skipping ${f} because it was successfully converted"
-		continue
-	fi
-	fi
-	
   if [ ${BATCH} -eq 0 ]; then
     echo "--------------------------"
     echo "Starting ${f}"
@@ -111,7 +105,6 @@ do
   if [ "odt" = $(echo ${f#*.}) ]; then
     ODT_FILE=${f}
   else
-  	#rm ${ODT_FILE}
     ${OOFFICE_BIN} -invisible "${OOFFICE_MACRO}(${f},${ODT_FILE})"
 
     # If there was an error or the file didn't generate print error
@@ -122,6 +115,7 @@ do
   fi
 	
   python odt2cnxml.py ${VERBOSE} ${ODT_FILE} ${TMP_DIR} > ${f}.xml 2> ${STDERR}
+  INVALID=$?
   
   # Print the number of warnings/errors
   test ${BATCH} -ne 0 && printf "\t$(cat ${STDERR} | wc -l)"
@@ -180,33 +174,26 @@ do
   
   test ${BATCH} -eq 0 && echo "DIFFS: " ${DIFF_COUNT} ${DIFF_PERCENT}
 
+  
+  test ${BATCH} -ne 0 -a ${INVALID} -ne 0 && printf "\tinvalid"
+  test ${BATCH} -ne 0 && echo "" #newline
 
   # Validate!
-  #if [ 0 != $? ]; then
-  if [ -e ${SCHEMA} ]; then
-    test ${BATCH} -eq 0 && echo "INFO: Validating against Relax-NG Schema"
+  if [ ${BATCH} -eq 0 -a -e ${SCHEMA} ]; then
+    echo "INFO: Validating against Relax-NG Schema"
 
-    ${JING_BIN} ${SCHEMA} ${f}.xml > ${STDERR} 2>&1
+    ${JING_BIN} ${SCHEMA} ${f}.xml
     VALID=$?
 
   	if [ 0 != ${VALID} ]; then
-
-  	  test ${BATCH} -eq 0 && echo "ERROR: Invalid CNXML ${f}"
-  	  test ${BATCH} -ne 0 && echo "\tinvalid" #newline
-
-  	  continue
+  	  echo "ERROR: Invalid CNXML ${f}"
+    else
+      echo "INFO: Success!!!!!"
 	  fi
 	fi
 	#fi
-	
-	test ${BATCH} -ne 0 && echo "" # newline
-	if [ ${BATCH} -eq 0 ]; then
-    echo "--------------------------"
-    echo "INFO: Success!!!!!"
-    echo "--------------------------"
-  fi
 
-  mv ${f}.xml ${f}.cnxml
+  test ${BATCH} -ne 0 && rm ${f}.xml
 done
 
 if [ '.' != ".${2}" ]; then
