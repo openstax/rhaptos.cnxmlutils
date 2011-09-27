@@ -4,6 +4,9 @@
   exclude-result-prefixes="c"
   version="1.0">
 
+<!-- Remove all debug processing instructions -->
+<xsl:template match="processing-instruction('cnx.debug')"/>
+
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
 <xsl:template match="c:figure[c:para]">
   <xsl:copy>
@@ -82,6 +85,10 @@
   </xsl:copy>
 </xsl:template>
 
+
+<xsl:template match="c:equation/c:para">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
 
 <xsl:template match="@*|node()">
   <xsl:copy>
