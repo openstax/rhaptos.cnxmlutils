@@ -10,13 +10,24 @@
 
   >
 
-  <!-- Convert the RED escaped text to fit in the CNXML namespace -->
+  <!-- Convert the RED escaped text to fit in the CNXML namespace
+       See previous pass
+    -->
   <xsl:template match="*[namespace-uri()='']">
     <xsl:element name="c:{local-name()}">
       <xsl:apply-templates select="@*|node()"/>
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- Some draw objects don't have a @draw:name but the importer uses the name
+        to uniquely create a filename so add one
+  -->
   <xsl:template match="draw:flow[not(@draw:name)]">
     <draw:flow draw:name="import-auto-{generate-id()}">
       <xsl:apply-templates select="@*|node()"/>
@@ -124,12 +135,6 @@
 <!-- productions make sure the unmodified input is written to output -->
 
   <xsl:template match="text:p[count(text() | child::*[not(self::text:s)]) &lt; 1]"/>
-
-  <xsl:template match="@*|node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
-  </xsl:template>
 
 <!-- remove empty para, headers, and spans. -->
 

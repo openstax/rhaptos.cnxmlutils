@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <xsl:stylesheet version="1.0"
   xmlns="http://cnx.rice.edu/cnxml"
   xmlns:c="http://cnx.rice.edu/cnxml"
@@ -10,6 +9,12 @@
   office:class="text" office:version="1.0"
   exclude-result-prefixes="office style text table draw fo xlink number svg chart dr3d math form script c"
   >
+
+
+  <!-- This is a nasty pile of mess. Most of the styles code resides here
+       and I didn't want to yank it from this version.
+       Most of my edits can be found by searching for "xsl:processing-instruction"
+  -->
 
   <xsl:output omit-xml-declaration="no" indent="yes" method="xml" />
 
@@ -449,17 +454,13 @@
     </xsl:variable>
 
     <xsl:variable name='number-style'>
+      <xsl:variable name="format" select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
       <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='1'">arabic</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='A'">upper-alpha</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='a'">lower-alpha</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='I'">upper-roman</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='i'">lower-roman</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='1'">arabic</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='A'">upper-alpha</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='a'">lower-alpha</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='I'">upper-roman</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format='i'">lower-roman</xsl:when>
+        <xsl:when test="$format='1'">arabic</xsl:when>
+        <xsl:when test="$format='A'">upper-alpha</xsl:when>
+        <xsl:when test="$format='a'">lower-alpha</xsl:when>
+        <xsl:when test="$format='I'">upper-roman</xsl:when>
+        <xsl:when test="$format='i'">lower-roman</xsl:when>
       </xsl:choose>
     </xsl:variable>
 

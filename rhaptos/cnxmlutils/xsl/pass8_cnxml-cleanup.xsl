@@ -4,9 +4,30 @@
   exclude-result-prefixes="c"
   version="1.0">
 
+<!-- Most of these templates are "SHORTCUTS",
+     meant to reduce the amount of RED XML needed in the import doc.
+     For example, the text:
+      <exercise>
+        some text, figures, equations, etc
+        <solution>A</solution>
+      </exercise>
+     
+     translates into the following valid cnxml:
+      <exercise>
+        <problem>
+          <para>some text</para>
+          <para>figures, equations, etc</para>
+        <solution>
+          <para>A</para>
+        </solution>
+      </exercise>
+     
+-->
+
 <!-- Remove all debug processing instructions -->
 <xsl:template match="processing-instruction('cnx.debug')"/>
 
+<!-- SHORTCUT: allow "<figure>title [] [] caption</figure>" to create subfigures -->
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
 <xsl:template match="c:figure[c:para]">
   <xsl:copy>
@@ -24,7 +45,7 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<!-- Any time there are multiple images in a c:figure wrap them in a c:subfigure -->
+<!-- SHORTCUT: Any time there are multiple images in a c:figure wrap them in a c:subfigure -->
 <xsl:template match="c:media[not(parent::c:subfigure) and count(ancestor::c:figure//c:media) &gt; 1]">
   <c:subfigure>
     <xsl:copy>
@@ -33,6 +54,7 @@
   </c:subfigure>
 </xsl:template>
 
+<!-- SHORTCUT: allow "<glossary> <term>word</term> meaning \n ... </glossary>" -->
 <xsl:template match="c:glossary/c:para">
   <c:definition>
     <xsl:apply-templates select="*[1]"/><!-- should be a term -->
@@ -46,6 +68,7 @@
   <xsl:value-of select="normalize-space(.)"/>
 </xsl:template>
 
+<!-- SHORTCUT: allow authors to just enter "<problem>a</problem>" (without exercise) -->
 <xsl:template match="c:problem[not(ancestor::c:exercise)]">
   <c:exercise>
     <xsl:copy>

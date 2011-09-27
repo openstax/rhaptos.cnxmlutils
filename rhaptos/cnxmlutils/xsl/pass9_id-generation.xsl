@@ -10,6 +10,12 @@
 
 <xsl:output indent="yes" method="xml" />
 
+
+<!-- I removed as many references to id-generation until the last possible pass.
+      It's an annoying requirement for EIP that should not have been included /rant.
+      These are all elements defined in the RNG schema that require @id.
+-->
+
 <xsl:strip-space elements="*"/>
 <xsl:preserve-space elements="c:code"/>
 
@@ -33,6 +39,11 @@
     c:equation|
     c:table|
     c:quote|
+    c:preformat|
+    c:code|
+    c:rule|
+    c:equation|
+    c:commentary|
     c:section">
   <xsl:element name="{local-name()}" namespace-uri="http://cnx.rice.edu/cnxml">
     <xsl:if test="not(@id)">
