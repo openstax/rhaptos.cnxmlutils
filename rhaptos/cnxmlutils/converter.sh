@@ -57,11 +57,11 @@ XSLTPROC="xsltproc -xinclude"
 ODT_FILE="${TMP_DIR}/temp.odt"
 
 # For comparing word counts
-WF_ORIG=${TMP_DIR}/wf-orig.txt
-WF_CONV=${TMP_DIR}/wf-conv.txt
-WF_XSL=${TMP_DIR}/wf-xsl.txt
-WF_TEMP=${TMP_DIR}/wf-temp.txt
-ELEMENTS_XSL=${TMP_DIR}/element-xsl.txt
+WF_ORIG=${TMP_DIR}/temp-orig.txt
+WF_CONV=${TMP_DIR}/temp-conv.txt
+WF_XSL=${TMP_DIR}/temp-xsl.txt
+WF_TEMP=${TMP_DIR}/temp-wf.txt
+ELEMENTS_XSL=${TMP_DIR}/temp-element-xsl.txt
 
 # Extracts just the text content out of ODT and cnxml documents for diffing
 echo '

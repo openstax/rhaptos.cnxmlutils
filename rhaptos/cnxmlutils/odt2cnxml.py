@@ -62,7 +62,6 @@ def transform(odtfile, debug=False, outputdir=None):
     zip = zipfile.ZipFile(odtfile, 'r')
     content = zip.read('content.xml')
     xml = etree.fromstring(content)
-    if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'content.xml'), xml)
 
     def appendLog(xslDoc):
         if hasattr(xslDoc, 'error_log'):
@@ -126,13 +125,13 @@ def transform(odtfile, debug=False, outputdir=None):
 
     # Reparse after XSL because the RED-escape pass injects arbitrary XML
     def redParser(xml):
-        xsl = makeXsl('oo2red-escape.xsl')
+        xsl = makeXsl('pass1_odt2red-escape.xsl')
         result = xsl(xml)
         appendLog(xsl)
         try:
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
-            xml = makeXsl('oo2red-failed.xsl')(xml)
+            xml = makeXsl('pass1_odt2red-failed.xsl')(xml)
         return xml
 
     def replaceSymbols(xml):
@@ -142,17 +141,17 @@ def transform(odtfile, debug=False, outputdir=None):
 
     PIPELINE = [
       replaceSymbols,
-      redParser, # makeXsl('oo2red-escape.xsl'),
-      makeXsl('oo2oo.xsl'), # This needs to be done repeatedly to fix headings.
-      makeXsl('oo2oo.xsl'), # In the worst case all headings are 9 and need to be 1.
-                            # See (testbed) southwood__Lesson_2.doc
-      makeXsl('oo2cnxml-headers.xsl'),
+      redParser, # makeXsl('pass1_odt2red-escape.xsl'),
+      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings.
+      makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9 
+                            # and need to be 1. See (testbed) southwood__Lesson_2.doc
+      makeXsl('pass4_odt-headers.xsl'),
       imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
       mathIncluder,
-      makeXsl('oo2cnxml.xsl'),
-      makeXsl('oo2cnxml-cleanup.xsl'),
-      makeXsl('id-generation.xsl'),
-      makeXsl('processing-instruction-logger.xsl'),
+      makeXsl('pass7_odt2cnxml.xsl'),
+      makeXsl('pass8_cnxml-cleanup.xsl'),
+      makeXsl('pass9_id-generation.xsl'),
+      makeXsl('pass10_processing-instruction-logger.xsl'),
       ]
 
     # "xml" variable gets replaced during each iteration
