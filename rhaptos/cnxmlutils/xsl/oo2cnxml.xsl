@@ -656,6 +656,14 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
   
+
+  <!-- Any heading inside an exercise, example, block-level element, turn it into a c:title -->
+  <xsl:template match="c:*/text:h">
+    <c:title>
+      <xsl:apply-templates select="node()"/>
+    </c:title>
+  </xsl:template>
+
   <!-- Any text:head that haven't been converted into sections are in another element
       (like a list, figure, table, etc)
       Just convert them to an emphasis
