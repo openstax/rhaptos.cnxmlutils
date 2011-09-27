@@ -26,6 +26,7 @@
     c:media|
     c:note|
     c:footnote|
+    c:example|
     c:exercise|
     c:problem|
     c:solution|
