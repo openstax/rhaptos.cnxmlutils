@@ -4,14 +4,18 @@
   exclude-result-prefixes="c"
   version="1.0">
 
+<!-- Remove all debug processing instructions -->
+<xsl:template match="processing-instruction('cnx.debug')"/>
+
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
 <xsl:template match="c:figure[c:para]">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para)]"/>
+    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para or self::c:title)]"/>
   </xsl:copy>
 </xsl:template>
 
@@ -82,6 +86,10 @@
   </xsl:copy>
 </xsl:template>
 
+
+<xsl:template match="c:equation/c:para">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
 
 <xsl:template match="@*|node()">
   <xsl:copy>
