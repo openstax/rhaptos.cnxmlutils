@@ -132,9 +132,7 @@ def transform(odtfile, debug=False, outputdir=None):
         try:
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
-            errors.append({u'level':u'ERROR',
-                           u'id'   :u'',
-                           u'msg'  :u'Red text did not seem to parse. Continuing without converting red text'})
+            xml = makeXsl('oo2red-failed.xsl')(xml)
         return xml
 
     def replaceSymbols(xml):
