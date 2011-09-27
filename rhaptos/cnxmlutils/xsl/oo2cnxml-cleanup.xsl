@@ -11,10 +11,11 @@
 <xsl:template match="c:figure[c:para]">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para)]"/>
+    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para or self::c:title)]"/>
   </xsl:copy>
 </xsl:template>
 
