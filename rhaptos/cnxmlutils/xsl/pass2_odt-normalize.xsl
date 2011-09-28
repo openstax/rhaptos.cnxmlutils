@@ -222,7 +222,10 @@
   <text:h text:outline-level="{$newlevel}">
     <xsl:apply-templates select="@*"/>
     <xsl:if test="$level != $newlevel">
-      <xsl:processing-instruction name="cnx.warning">The document's heading levels mismatch. This one is <xsl:value-of select="$level"/> but should be <xsl:value-of select="$newlevel"/> to be imported properly</xsl:processing-instruction>
+      <!-- Sometimes Headings can be inside lists, tables, and other things; don't warn -->
+      <xsl:if test="parent::office:text">
+        <xsl:processing-instruction name="cnx.warning">The document's heading levels mismatch. This one is <xsl:value-of select="$level"/> but should be <xsl:value-of select="$newlevel"/> to be imported properly</xsl:processing-instruction>
+      </xsl:if>
     </xsl:if>
 
     <xsl:apply-templates select="node()"/>
