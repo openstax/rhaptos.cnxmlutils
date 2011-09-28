@@ -42,6 +42,8 @@
     c:preformat|
     c:code|
     c:rule|
+    c:statement|
+    c:proof|
     c:equation|
     c:commentary|
     c:section">
