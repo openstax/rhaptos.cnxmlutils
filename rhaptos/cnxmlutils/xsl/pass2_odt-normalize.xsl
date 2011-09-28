@@ -10,13 +10,24 @@
 
   >
 
-  <!-- Convert the RED escaped text to fit in the CNXML namespace -->
+  <!-- Convert the RED escaped text to fit in the CNXML namespace
+       See previous pass
+    -->
   <xsl:template match="*[namespace-uri()='']">
     <xsl:element name="c:{local-name()}">
       <xsl:apply-templates select="@*|node()"/>
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="@*|node()">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <!-- Some draw objects don't have a @draw:name but the importer uses the name
+        to uniquely create a filename so add one
+  -->
   <xsl:template match="draw:flow[not(@draw:name)]">
     <draw:flow draw:name="import-auto-{generate-id()}">
       <xsl:apply-templates select="@*|node()"/>
@@ -100,7 +111,7 @@
 
 <!-- Eliminate Headings After the Last Glossary -->
 
-  <xsl:template match="text:h[preceding-sibling::text:p[@text:style-name='CNXML Glossary Section']]">
+  <xsl:template match="text:h[preceding-sibling::text:p[@text:style-name='CNXML_20_Glossary_20_Section']]">
   </xsl:template>
 
 <!-- convert header to paragraph if it contains an image and other stuff. -->
@@ -125,12 +136,6 @@
 
   <xsl:template match="text:p[count(text() | child::*[not(self::text:s)]) &lt; 1]"/>
 
-  <xsl:template match="@*|node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
-  </xsl:template>
-
 <!-- remove empty para, headers, and spans. -->
 
   <xsl:template match="
@@ -152,7 +157,7 @@
   <xsl:template match="text:span[count(node())=0]" />
 
   <xsl:template match="text:p[count(node())=0]">
-    <xsl:if test="@text:style-name='CNXML Code (Block)' and preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)'">
+    <xsl:if test="@text:style-name='CNXML_20_Code_20__28_Block_29_' and preceding-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>

@@ -9,11 +9,27 @@
 
   version="1.0">
 
+<!-- This stylesheet outputs LIGHT RED ( #ff0000 ) text in the document
+     as raw XML. This step is unsafe and may fail (even 1 unmatched close tag).
+     
+     There is 1 more bit of cleanup done in the next pass because this outputs
+     XML with no namespace.
+-->
+
 <!-- Returns the color of a given style -->
 <xsl:key name="color" match="//style:style/style:text-properties/@fo:color" use="../../@style:name"/>
 
 <xsl:output encoding="ASCII"/>
 
+<!-- By default pass everything through. Not xincluded because eggs don't play nice -->
+<xsl:template match="@*|node()">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+
+<!-- Output all RED text regardless if it's in a span, para, heading, etc -->
 <xsl:template match="*[text() and '#ff0000' = key('color', @text:style-name)]">
   <xsl:choose>
     <xsl:when test="count(node()) = 1 and 1 = count(text()) and string-length(normalize-space(text())) = 0">
@@ -41,10 +57,5 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<xsl:template match="@*|node()">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
-</xsl:template>
 
 </xsl:stylesheet>
