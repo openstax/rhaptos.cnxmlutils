@@ -65,7 +65,7 @@
 
 <!-- single entry ordered lists are used for presentation purposes only, we hope. -->
 
-  <xsl:template match="text:ordered-list[count(child::*)=1 and ./text:list-item/text:ordered-list]">
+  <xsl:template match="text:*[(self::text:ordered-list or self::text:list) and count(child::*)=1 and ./text:list-item/text:*[(self::text:ordered-list or self::text:list)]]">
     <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only 1 item, another list</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-item/*" />
   </xsl:template>
