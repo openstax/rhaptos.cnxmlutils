@@ -161,8 +161,8 @@
         <xsl:choose>
           <xsl:when test="count(child::*[not(self::name)])>0">
             <xsl:choose>
-              <xsl:when test="text:p[@text:style-name='CNXML Glossary Section'][1]">
-                <xsl:apply-templates select="text:p[@text:style-name='CNXML Glossary Section'][1]" mode="GlossarySec"/>
+              <xsl:when test="text:p[@text:style-name='CNXML_20_Glossary_20_Section'][1]">
+                <xsl:apply-templates select="text:p[@text:style-name='CNXML_20_Glossary_20_Section'][1]" mode="GlossarySec"/>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:apply-templates select="*[not(self::name)]"/>
@@ -185,7 +185,7 @@
       <xsl:value-of select="@text:style-name"/>
     </xsl:variable>
     <xsl:if test="count(node())=0">
-        <xsl:if test="preceding-sibling::*[1]/text:span/@text:style-name='CNXML Code (Block)' and following-sibling::*[1]/text:span/@text:style-name='CNXML Code (Block)'">
+        <xsl:if test="preceding-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_' and following-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
           <para>
             <xsl:text>
             </xsl:text>
@@ -201,12 +201,12 @@
             </title>
           </para>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Example'">
+        <xsl:when test="$Para-Style='CNXML_20_Example'">
           <xsl:choose>
             <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
               <xsl:apply-templates select="node()"/>
             </xsl:when>
-            <xsl:when test="preceding-sibling::*[1]/@text:style-name='CNXML Example' and not(descendant::draw:image)">
+            <xsl:when test="preceding-sibling::*[1]/@text:style-name='CNXML_20_Example' and not(descendant::draw:image)">
             </xsl:when>
             <xsl:otherwise>
               <example>
@@ -220,8 +220,8 @@
             <xsl:apply-templates select="node()"/>
           </equation>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Definition (Term)'">
-          <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Definition (Meaning)'">
+        <xsl:when test="$Para-Style='CNXML_20_Definition_20__28_Term_29_'">
+          <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Definition_20__28_Meaning_29_'">
           <!-- definition must have both a term and meaning child. -->
             <definition>
               <xsl:attribute name="id" >
@@ -241,16 +241,16 @@
             </definition>
           </xsl:if>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Definition (Meaning)'">
+        <xsl:when test="$Para-Style='CNXML_20_Definition_20__28_Meaning_29_'">
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Theorem (Statement)'">
-          <xsl:if test="not(following-sibling::*[1]/@text:style-name='CNXML Theorem (Statement)')" >
+        <xsl:when test="$Para-Style='CNXML_20_Theorem_20__28_Statement_29_'">
+          <xsl:if test="not(following-sibling::*[1]/@text:style-name='CNXML_20_Theorem_20__28_Statement_29_')" >
             <xsl:variable name="ruleid" select="."/>
             <rule type="theorem">
               <statement>
                 <xsl:apply-templates select="." mode="statementHelper"/>
               </statement>
-              <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Theorem (Proof)'">
+              <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Theorem_20__28_Proof_29_'">
               <proof>
                 <xsl:apply-templates select="following-sibling::*[1]" mode="proofHelper"/>
               </proof>
@@ -258,30 +258,30 @@
             </rule>
           </xsl:if>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Theorem (Proof)'">
+        <xsl:when test="$Para-Style='CNXML_20_Theorem_20__28_Proof_29_'">
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Exercise (Problem)'">
+        <xsl:when test="$Para-Style='CNXML_20_Exercise_20__28_Problem_29_'">
           <exercise>
             <problem>
                 <para>
                 <xsl:apply-templates select="node()"/>
                 </para>
             </problem>
-            <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML Exercise (Solution)'">
+            <xsl:if test="following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Exercise_20__28_Solution_29_'">
               <solution>
                 <xsl:apply-templates select="following-sibling::*[1]" mode="solHelper"/>
               </solution>
             </xsl:if>
           </exercise>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Quote' or $Para-Style='CNXML Quote (Block)'">
+        <xsl:when test="$Para-Style='CNXML Quote' or $Para-Style='CNXML_20_Quote_20__28_Block_29_'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
               </xsl:when>
-              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML Quote (Block)' or preceding-sibling::*[1]/@text:style-name='CNXML Quote')">
+              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or preceding-sibling::*[1]/@text:style-name='CNXML Quote')">
               </xsl:when>
               <xsl:otherwise>
               <para>
@@ -290,26 +290,26 @@
               </xsl:otherwise>
             </xsl:choose>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Code (Block)'">
-          <xsl:if test="preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)'">
+        <xsl:when test="$Para-Style='CNXML_20_Code_20__28_Block_29_'">
+          <xsl:if test="preceding-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
           </xsl:if>
-          <xsl:if test="not(preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)')">
+          <xsl:if test="not(preceding-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_')">
             <code display="block">
               <xsl:apply-templates select="." mode="codeHelper"/>
             </code>
           </xsl:if>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Exercise (Solution)'">
+        <xsl:when test="$Para-Style='CNXML_20_Exercise_20__28_Solution_29_'">
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Figure Title'">
+        <xsl:when test="$Para-Style='CNXML_20_Figure_20_Title'">
         </xsl:when>
-        <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Para-Style]/@style:parent-style-name='CNXML Figure Title'">
+        <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Para-Style]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Figure Caption'">
+        <xsl:when test="$Para-Style='CNXML_20_Figure_20_Caption'">
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Glossary Section'">
+        <xsl:when test="$Para-Style='CNXML_20_Glossary_20_Section'">
         </xsl:when>
-        <xsl:when test="count(child::*)=1 and text:span/@text:style-name='CNXML Note'">
+        <xsl:when test="count(child::*)=1 and text:span/@text:style-name='CNXML_20_Note'">
           <note type="Note">
             <xsl:value-of select="text:span"/>
           </note>
@@ -343,7 +343,7 @@
         <quote display="block">
           <xsl:apply-templates select="node()"/>
         </quote>
-        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Quote (Block)' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
+        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
           <xsl:apply-templates select="following-sibling::*[1]" mode="quoteBlockHelper" />
         </xsl:if>
       </xsl:otherwise>
@@ -355,7 +355,7 @@
       <xsl:apply-templates select="node()"/>
       <xsl:text>
       </xsl:text>
-    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Definition (Meaning)'">
+    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML_20_Definition_20__28_Meaning_29_'">
       <xsl:apply-templates select="following-sibling::text:p[1]" mode="meaningHelper"/>
     </xsl:if>
   </xsl:template>
@@ -365,14 +365,14 @@
     <para>
       <xsl:apply-templates select="node()"/>
     </para>
-    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Theorem (Proof)'">
+    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML_20_Theorem_20__28_Proof_29_'">
       <xsl:apply-templates select="following-sibling::text:p[1]" mode="proofHelper"/>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="statementHelper">
     <xsl:variable name="idh" select="following-sibling::*[1]"/>
-    <xsl:if test="preceding-sibling::text:p[1]/@text:style-name='CNXML Theorem (Statement)'">
+    <xsl:if test="preceding-sibling::text:p[1]/@text:style-name='CNXML_20_Theorem_20__28_Statement_29_'">
       <xsl:apply-templates select="preceding-sibling::text:p[1]" mode="statementHelper"/>
     </xsl:if>
     <para>
@@ -385,7 +385,7 @@
     <para>
       <xsl:apply-templates select="node()"/>
     </para>
-    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML Exercise (Solution)'">
+    <xsl:if test="following-sibling::text:p[1]/@text:style-name='CNXML_20_Exercise_20__28_Solution_29_'">
       <xsl:apply-templates select="following-sibling::text:p[1]" mode="solHelper"/>
     </xsl:if>
   </xsl:template>
@@ -393,7 +393,7 @@
   <xsl:template match="*" mode="codeHelper">
     <xsl:value-of select="."/><xsl:text>
     </xsl:text>
-    <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Code (Block)'">
+    <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
       <xsl:apply-templates select="following-sibling::*[1]" mode="codeHelper"/>
     </xsl:if>
   </xsl:template>
@@ -405,7 +405,7 @@
       <xsl:apply-templates select="node()"/>
     </para>
     </xsl:if>
-    <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML Example'">
+    <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Example'">
       <xsl:apply-templates select="following-sibling::*[1]" mode="exHelper" />
     </xsl:if>
   </xsl:template>
@@ -736,8 +736,8 @@
               <xsl:variable name="Style">
                 <xsl:value-of select="../preceding-sibling::text:p[position()=1]/@text:style-name"/>
               </xsl:variable>
-              <xsl:if test="$Style='CNXML Figure Title' or
-                            //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Figure Title'">
+              <xsl:if test="$Style='CNXML_20_Figure_20_Title' or
+                            //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
                 <title>
                   <xsl:if test="../preceding-sibling::text:p[1]/text:bookmark or
                                 ../preceding-sibling::text:p[1]/text:bookmark-start">
@@ -759,7 +759,7 @@
                 </xsl:attribute>
               </image>
             </media>
-            <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML Figure Caption'">
+            <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML_20_Figure_20_Caption'">
                 <caption>
                   <xsl:choose>
                     <xsl:when test="count(../following-sibling::text:p[1]/child::*)=0">
@@ -779,7 +779,7 @@
             <xsl:attribute name="id">
               <xsl:value-of select="$idbase"/>
             </xsl:attribute>
-            <xsl:if test="../../preceding-sibling::text:p[position()=1]/@text:style-name='CNXML Figure Title'">
+            <xsl:if test="../../preceding-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Title'">
                 <title>
                   <xsl:value-of select="../../preceding-sibling::text:p[position()=1]"/>
                 </title>
@@ -800,7 +800,7 @@
                 </xsl:if>
               </image>
             </media>
-            <xsl:if test="../../following-sibling::text:p[position()=1]/@text:style-name='CNXML Figure Caption'">
+            <xsl:if test="../../following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Caption'">
                 <caption>
                   <xsl:value-of select="../../following-sibling::text:p[position()=1]"/>
                 </caption>
@@ -870,7 +870,7 @@
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style and @style:parent-style-name]">
         <xsl:choose>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Term'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Term'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- term with no text but image(s) -->
@@ -886,12 +886,12 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Quote (Inline)'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Quote_20__28_Inline_29_'">
             <quote display="inline">
               <xsl:apply-templates select="node()"/>
             </quote>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Emphasis'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Emphasis'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- emphasis with no text but image(s) -->
@@ -907,7 +907,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Code (Inline)' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Code'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code_20__28_Inline_29_' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
@@ -923,12 +923,12 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Foreign'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Foreign'">
             <foreign>
               <xsl:apply-templates select="node()"/>
             </foreign>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Cite'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Cite'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!--  with no text but image(s) -->
@@ -944,7 +944,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Note'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Note'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- note with no text but image(s) -->
@@ -972,7 +972,7 @@
               <xsl:apply-templates select="node()"/>
             </emphasis>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Emphasis'">
+          <xsl:when test="$Style='CNXML_20_Emphasis'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- emphasis with no text but image(s) -->
@@ -998,7 +998,7 @@
               <xsl:apply-templates select="node()"/>
             </code>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Code (Inline)' or $Style='CNXML Code'">
+          <xsl:when test="$Style='CNXML_20_Code_20__28_Inline_29_' or $Style='CNXML Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
@@ -1014,7 +1014,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Term'">
+          <xsl:when test="$Style='CNXML_20_Term'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- term with no text but image(s) -->
@@ -1030,7 +1030,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Cite'">
+          <xsl:when test="$Style='CNXML_20_Cite'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- cite with no text but image(s) -->
@@ -1046,7 +1046,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Quote (Inline)'">
+          <xsl:when test="$Style='CNXML_20_Quote_20__28_Inline_29_'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- quote with no text but image(s) -->
@@ -1062,12 +1062,12 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Foreign'">
+          <xsl:when test="$Style='CNXML_20_Foreign'">
             <foreign>
               <xsl:apply-templates select="node()"/>
             </foreign>
           </xsl:when>
-          <xsl:when test="$Style='CNXML Note'">
+          <xsl:when test="$Style='CNXML_20_Note'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- note with no text but image(s) -->
@@ -1327,7 +1327,7 @@
 
   <xsl:template match="text:a">
     <xsl:choose>
-      <xsl:when test="text:span/@text:style-name='CNXML Cite'">
+      <xsl:when test="text:span/@text:style-name='CNXML_20_Cite'">
         <cite>
           <xsl:attribute name="url">
             <xsl:value-of select="@xlink:href"/>
@@ -1335,7 +1335,7 @@
           <xsl:value-of select="child::*"/>
         </cite>
       </xsl:when>
-      <xsl:when test="text:span/@text:style-name='CNXML Term'">
+      <xsl:when test="text:span/@text:style-name='CNXML_20_Term'">
         <term>
           <xsl:attribute name="url">
             <xsl:value-of select="@xlink:href"/>
@@ -1343,7 +1343,7 @@
            <xsl:value-of select="child::*"/>
         </term>
       </xsl:when>
-      <xsl:when test="text:span/@text:style-name='CNXML Foreign'">
+      <xsl:when test="text:span/@text:style-name='CNXML_20_Foreign'">
         <foreign>
           <xsl:attribute name="url">
             <xsl:value-of select="@xlink:href"/>
@@ -1351,7 +1351,7 @@
            <xsl:value-of select="child::*"/>
         </foreign>
       </xsl:when>
-      <xsl:when test="text:span/@text:style-name='CNXML Quote (Inline)'">
+      <xsl:when test="text:span/@text:style-name='CNXML_20_Quote_20__28_Inline_29_'">
         <quote display="inline">
           <xsl:attribute name="url">
             <xsl:value-of select="@xlink:href"/>

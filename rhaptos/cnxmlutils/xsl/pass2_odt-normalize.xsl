@@ -111,7 +111,7 @@
 
 <!-- Eliminate Headings After the Last Glossary -->
 
-  <xsl:template match="text:h[preceding-sibling::text:p[@text:style-name='CNXML Glossary Section']]">
+  <xsl:template match="text:h[preceding-sibling::text:p[@text:style-name='CNXML_20_Glossary_20_Section']]">
   </xsl:template>
 
 <!-- convert header to paragraph if it contains an image and other stuff. -->
@@ -157,7 +157,7 @@
   <xsl:template match="text:span[count(node())=0]" />
 
   <xsl:template match="text:p[count(node())=0]">
-    <xsl:if test="@text:style-name='CNXML Code (Block)' and preceding-sibling::*[1]/@text:style-name='CNXML Code (Block)'">
+    <xsl:if test="@text:style-name='CNXML_20_Code_20__28_Block_29_' and preceding-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
@@ -222,7 +222,10 @@
   <text:h text:outline-level="{$newlevel}">
     <xsl:apply-templates select="@*"/>
     <xsl:if test="$level != $newlevel">
-      <xsl:processing-instruction name="cnx.warning">The document's heading levels mismatch. This one is <xsl:value-of select="$level"/> but should be <xsl:value-of select="$newlevel"/> to be imported properly</xsl:processing-instruction>
+      <!-- Sometimes Headings can be inside lists, tables, and other things; don't warn -->
+      <xsl:if test="parent::office:text">
+        <xsl:processing-instruction name="cnx.warning">The document's heading levels mismatch. This one is <xsl:value-of select="$level"/> but should be <xsl:value-of select="$newlevel"/> to be imported properly</xsl:processing-instruction>
+      </xsl:if>
     </xsl:if>
 
     <xsl:apply-templates select="node()"/>
