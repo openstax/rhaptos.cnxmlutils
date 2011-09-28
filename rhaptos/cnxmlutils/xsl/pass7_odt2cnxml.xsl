@@ -455,12 +455,18 @@
 
     <xsl:variable name='number-style'>
       <xsl:variable name="format" select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
+      <xsl:variable name="format2" select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
       <xsl:choose>
         <xsl:when test="$format='1'">arabic</xsl:when>
         <xsl:when test="$format='A'">upper-alpha</xsl:when>
         <xsl:when test="$format='a'">lower-alpha</xsl:when>
         <xsl:when test="$format='I'">upper-roman</xsl:when>
         <xsl:when test="$format='i'">lower-roman</xsl:when>
+        <xsl:when test="$format2='1'">arabic</xsl:when>
+        <xsl:when test="$format2='A'">upper-alpha</xsl:when>
+        <xsl:when test="$format2='a'">lower-alpha</xsl:when>
+        <xsl:when test="$format2='I'">upper-roman</xsl:when>
+        <xsl:when test="$format2='i'">lower-roman</xsl:when>
       </xsl:choose>
     </xsl:variable>
 
