@@ -114,6 +114,13 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<!-- Footnotes with just a para can just unwrap the para -->
+<xsl:template match="c:footnote[count(*) = 1 and c:para[count(*) = 0]]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|c:para/node()"/>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
