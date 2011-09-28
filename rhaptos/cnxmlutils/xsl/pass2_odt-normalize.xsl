@@ -141,6 +141,7 @@
   <xsl:template match="
       office:forms|
       office:automatic-styles|
+      office:event-listeners|
       text:sequence-decls|
       text:sequence-decl|
       text:tracked-changes|
@@ -187,6 +188,9 @@
   <xsl:processing-instruction name="cnx.warning">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
+<xsl:template match="text:execute-macro|script:*">
+  <xsl:processing-instruction name="cnx.warning">This document contained a macro/script. It will be discarded upon import</xsl:processing-instruction>
+</xsl:template>
 
 <xsl:template match="text:h/@text:outline-level"/>
 
