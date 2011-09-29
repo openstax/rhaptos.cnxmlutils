@@ -701,6 +701,26 @@
         <xsl:value-of select="$beforeext" />
       </xsl:if>
     </xsl:variable>
+    <xsl:variable name='height'>
+      <xsl:choose>
+        <xsl:when test="@svg:height">
+          <xsl:value-of select="round(number(substring-before(@svg:height, 'in'))*100)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="0" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name='width'>
+      <xsl:choose>
+        <xsl:when test="@svg:width">
+          <xsl:value-of select="round(number(substring-before(@svg:width, 'in'))*100)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="0" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
 
     <xsl:choose>
       <xsl:when test="self::draw:object-ole and parent::text:p">
@@ -749,6 +769,12 @@
                 <xsl:attribute name="id" >
                   <xsl:value-of select="concat($idbase,'__onlineimage')" />
                 </xsl:attribute>
+                <xsl:if test="$height > 0">
+                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$width > 0">
+                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
+                </xsl:if>
               </image>
             </media>
             <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML_20_Figure_20_Caption'">
@@ -788,6 +814,12 @@
                 <xsl:attribute name="id" >
                   <xsl:value-of select="concat($idbase,'__onlineimage')" />
                 </xsl:attribute>
+                <xsl:if test="$height > 0">
+                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$width > 0">
+                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
+                </xsl:if>
               </image>
             </media>
             <xsl:if test="../../following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Caption'">
