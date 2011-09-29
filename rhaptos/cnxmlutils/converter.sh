@@ -132,6 +132,7 @@ echo '
 
 test ${BATCH} -ne 0 && echo "Filename \tErrors-or-Warnings \t#-Diffs \t%of-text-diff \tRichness \tRNG-invalid"
 
+SCORE=0 # At the end of the run, a tally will show a "Richness" score. higher = better
 
 for f in $*
 do
@@ -162,7 +163,11 @@ do
   INVALID=$?
   
   # Print the number of warnings/errors
-  test ${BATCH} -ne 0 && printf "\t$(cat ${STDERR} | wc -l)"
+  MESSAGE_COUNT=0
+  if [ ${BATCH} -ne 0 ]; then
+    MESSAGE_COUNT=$(cat ${STDERR} | wc -l)
+    printf "\t${MESSAGE_COUNT}"
+  fi
   
   # So, here goes:
   # - Take all the text content from the original document
@@ -244,11 +249,27 @@ do
       echo "INFO: Success!!!!!"
 	  fi
 	fi
-	#fi
+	
+  VALID_POINTS=0
+	if [ ${INVALID} -eq 0 ]; then
+	  VALID_POINTS=200
+	fi
 
   test ${BATCH} -ne 0 && rm ${f}.xml
+  
+  SCORE=$(echo "scale=2;${SCORE} + ${MESSAGE_COUNT} + (100 - ${DIFF_PERCENT}) + (1000 * ${RICHNESS}) + ${VALID_POINTS}" | bc)
+
 done
 
 if [ '.' != ".${2}" ]; then
   rm -r -d -f ${TMP_DIR}
 fi
+
+# Score is weighted # of:
+#   warnings (low)
+# + %text-preserved (med)
+# + semantically-rich-content (high)
+# + validates (very-high)
+#
+# With each checkin this number should be monotonically increasing
+echo "Score:" ${SCORE}
