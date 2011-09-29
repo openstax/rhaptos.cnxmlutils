@@ -25,7 +25,7 @@
 -->
 
 <!-- Remove all debug processing instructions -->
-<xsl:template match="processing-instruction('cnx.debug')"/>
+<xsl:template match="processing-instruction('cnx.debug')|processing-instruction('cnx.info')"/>
 
 <!-- SHORTCUT: allow "<figure>title [] [] caption</figure>" to create subfigures -->
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
@@ -119,6 +119,14 @@
   <xsl:copy>
     <xsl:apply-templates select="@*|c:para/node()"/>
   </xsl:copy>
+</xsl:template>
+
+<!-- Sometimes headings contain textboxes.
+  These result in <para> tags inside a title; so just unwrap the title.
+  See nhphuong__CH2_ANALYSIS_IN_TIME_DOMAIN.doc and ncpea__NCPEA_CONNEXIONS_submission_#87_FINAL.doc in the testbed.
+-->
+<xsl:template match="c:title/c:para">
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <xsl:template match="@*|node()">
