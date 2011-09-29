@@ -125,8 +125,10 @@
 <!-- remove ordered list with only a header but leave the header's children. -->
 
   <xsl:template match="text:*[(self::text:ordered-list or self::text:list) and count(child::*)=1 and child::text:list-header]">
-    <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only a header. Consider not using a list to only store paragraphs</xsl:processing-instruction>
+    <c:para>
+      <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only a header. Consider not using a list to only store paragraphs</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-header/*"/>
+    </c:para>
   </xsl:template>
 
 <!-- productions make sure the unmodified input is written to output -->
@@ -253,15 +255,14 @@
 
 
 <!-- See space64__Chuong_02-NgonNguJava.doc -->
-<xsl:template match="text:section[*[1][self::text:h]]" mode="walker">
-  <xsl:param name="level" select="*[1]/@text:outline-level"/>
+<xsl:template match="text:section">
   <c:section>
-    <c:title>
-      <xsl:apply-templates select="*[1]/node()"/>
-    </c:title>
-    <xsl:apply-templates select="*[position()!=1]|text()|comment()|processing-instruction()">
-      <xsl:with-param name="level" select="$level + 1"/>
-    </xsl:apply-templates>
+    <xsl:if test="*[1][self::text:h]">
+      <c:title>
+        <xsl:apply-templates select="*[1]/node()"/>
+      </c:title>
+    </xsl:if>
+    <xsl:apply-templates select="*[not(position()=1 and self::text:h)]|text()|comment()|processing-instruction()"/>
   </c:section>
 </xsl:template>
 

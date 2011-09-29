@@ -15,7 +15,7 @@
 </xsl:template>
 
 <!-- At the beginning of body XSLT should walk step by step through the HTML -->
-<xsl:template match="office:text">
+<xsl:template match="office:text|c:section">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
     <!-- start walking with first tag in body -->
