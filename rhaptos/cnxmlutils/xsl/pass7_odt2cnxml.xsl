@@ -1503,5 +1503,9 @@
   <xsl:template match="number:date-style" />
 
   <xsl:template match="office:styles"/>
+  
+  <xsl:template match="text:bookmark|text:line-break">
+    <xsl:processing-instruction name="cnx.info">Ignoring <xsl:value-of select="name()"/></xsl:processing-instruction>
+  </xsl:template>
 </xsl:stylesheet>
 
