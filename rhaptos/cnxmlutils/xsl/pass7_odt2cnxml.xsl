@@ -666,10 +666,10 @@
   </xsl:template>
 
   <!-- Notes can't have a c:title but they can have a c:label -->
-  <xsl:template match="c:note[not(c:label)]/text:h">
-    <c:label>
+  <xsl:template match="c:note[not(c:title)]/text:h">
+    <c:title>
       <xsl:apply-templates select="node()"/>
-    </c:label>
+    </c:title>
   </xsl:template>
 
   <!-- Any text:head that haven't been converted into sections are in another element
