@@ -40,25 +40,22 @@
 
     <xsl:if test='count($one.entry/text:h)=1'>
       <xsl:processing-instruction name="cnx.info">found a single entry table with a single header.</xsl:processing-instruction>
-      <text:section>
-        <xsl:attribute name='id'>
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
-        <xsl:apply-templates select='$one.entry/*'/>
-      </text:section>
+      <c:section>
+        <c:title>
+          <xsl:apply-templates select="$one.entry/text:h"/>
+        </c:title>
+        <xsl:apply-templates select='$one.entry/node()[not(self::text:h)]'/>
+      </c:section>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)=0'>
       <xsl:processing-instruction name="cnx.info">found a single entry table without any header.</xsl:processing-instruction>
-      <xsl:apply-templates select='$one.entry/*'/>
+      <xsl:apply-templates select='$one.entry/node()'/>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)>1'>
       <xsl:processing-instruction name="cnx.warning">found a single entry table with many headers.</xsl:processing-instruction>
-      <text:section>
-        <xsl:attribute name='id'>
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
-        <xsl:apply-templates select='$one.entry/*'/>
-      </text:section>
+      <c:section>
+        <xsl:apply-templates select='$one.entry/node()'/>
+      </c:section>
     </xsl:if>
 
   </xsl:template>
@@ -253,6 +250,21 @@
 <xsl:template match="text:*[self::text:list or self::text:list-item][ancestor-or-self::*[@text:style-name='Outline']]">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
+
+
+<!-- See space64__Chuong_02-NgonNguJava.doc -->
+<xsl:template match="text:section[*[1][self::text:h]]" mode="walker">
+  <xsl:param name="level" select="*[1]/@text:outline-level"/>
+  <c:section>
+    <c:title>
+      <xsl:apply-templates select="*[1]/node()"/>
+    </c:title>
+    <xsl:apply-templates select="*[position()!=1]|text()|comment()|processing-instruction()">
+      <xsl:with-param name="level" select="$level + 1"/>
+    </xsl:apply-templates>
+  </c:section>
+</xsl:template>
+
 
 </xsl:stylesheet>
 
