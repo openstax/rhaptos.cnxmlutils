@@ -68,12 +68,6 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
-<xsl:template match="text:list">
-  <c:list>
-    <xsl:apply-templates select="@*|node()"/>
-  </c:list>
-</xsl:template>
-
   <xsl:template match="c:*">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
@@ -426,7 +420,7 @@
   </xsl:template>
 
   <!-- List and list items -->
-  <xsl:template match="text:ordered-list[normalize-space(.)]">
+  <xsl:template match="text:ordered-list[normalize-space(.)]|text:list">
     <xsl:variable name="list-level">
       <xsl:value-of select="count(ancestor::text:ordered-list)+1" />
     </xsl:variable>
@@ -445,10 +439,10 @@
 
     <xsl:variable name="list-type">
       <xsl:choose>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
         <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
         <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
+        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
+        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
         <xsl:otherwise>bulleted</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -1476,5 +1470,6 @@
 
   <xsl:template match="number:date-style" />
 
+  <xsl:template match="office:styles"/>
 </xsl:stylesheet>
 
