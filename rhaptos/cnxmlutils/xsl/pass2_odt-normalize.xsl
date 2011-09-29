@@ -184,7 +184,7 @@
 
 
 <xsl:template match="text:bookmark-start|text:bookmark-end">
-  <xsl:processing-instruction name="cnx.log">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
+  <xsl:processing-instruction name="cnx.info">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
 <xsl:template match="text:execute-macro|script:*">
