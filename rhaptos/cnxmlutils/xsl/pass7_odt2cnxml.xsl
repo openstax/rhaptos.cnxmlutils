@@ -47,7 +47,7 @@
   </xsl:template>
 
   <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box|draw:custom-shape|draw:enhanced-geometry">
-    <xsl:processing-instruction name="cnx.error">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
+    <xsl:processing-instruction name="cnx.warning">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
   </xsl:template>
 <!-- Discard any ODT attributes -->
 <xsl:template match="@text:*"/>
