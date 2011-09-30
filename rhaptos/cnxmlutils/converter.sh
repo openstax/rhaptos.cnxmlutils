@@ -146,13 +146,8 @@ do
   # Batch-mode: Just print stats
   test ${BATCH} -ne 0 && printf "${f}"
 
-<<<<<<< .mine
-
-  if [ "odt" = $(echo ${f#*.}) ]; then
-=======
 
   if [ "odt" = $(echo ${f#*.}) -o "doc.odt" = $(echo ${f#*.}) ]; then
->>>>>>> .r37613
     ODT_FILE=${f}
   else
     ${OOFFICE_BIN} -invisible "${OOFFICE_MACRO}(${f},${ODT_FILE})"
