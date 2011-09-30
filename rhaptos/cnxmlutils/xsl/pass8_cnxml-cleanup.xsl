@@ -36,7 +36,13 @@
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para or self::c:title)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title)]"/>
+    <xsl:if test="c:para[not(c:figure)]">
+      <!-- Convert text inside a <figure/> into a caption -->
+      <c:caption>
+        <xsl:apply-templates select="c:para[not(c:figure)]/node()"/>
+      </c:caption>
+    </xsl:if>
   </xsl:copy>
 </xsl:template>
 
@@ -90,7 +96,7 @@
 </xsl:template>
 
 <!-- SHORTCUT: allow authors to just enter "<solution>a</solution>" (without para)-->
-<xsl:template match="c:solution/text()">
+<xsl:template match="c:*[self::c:problem or self::c:solution]/text()[normalize-space() != '']">
   <c:para>
     <xsl:value-of select="."/>
   </c:para>
