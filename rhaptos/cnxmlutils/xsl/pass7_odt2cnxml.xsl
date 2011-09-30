@@ -68,6 +68,12 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
+<xsl:template match="text:list">
+  <c:list>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:list>
+</xsl:template>
+
   <xsl:template match="c:*">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
@@ -420,7 +426,7 @@
   </xsl:template>
 
   <!-- List and list items -->
-  <xsl:template match="text:ordered-list[normalize-space(.)]|text:list">
+  <xsl:template match="text:ordered-list[normalize-space(.)]">
     <xsl:variable name="list-level">
       <xsl:value-of select="count(ancestor::text:ordered-list)+1" />
     </xsl:variable>
@@ -439,28 +445,22 @@
 
     <xsl:variable name="list-type">
       <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
         <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
         <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
+        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
+        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
         <xsl:otherwise>bulleted</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
 
     <xsl:variable name='number-style'>
       <xsl:variable name="format" select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
-      <xsl:variable name="format2" select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
       <xsl:choose>
         <xsl:when test="$format='1'">arabic</xsl:when>
         <xsl:when test="$format='A'">upper-alpha</xsl:when>
         <xsl:when test="$format='a'">lower-alpha</xsl:when>
         <xsl:when test="$format='I'">upper-roman</xsl:when>
         <xsl:when test="$format='i'">lower-roman</xsl:when>
-        <xsl:when test="$format2='1'">arabic</xsl:when>
-        <xsl:when test="$format2='A'">upper-alpha</xsl:when>
-        <xsl:when test="$format2='a'">lower-alpha</xsl:when>
-        <xsl:when test="$format2='I'">upper-roman</xsl:when>
-        <xsl:when test="$format2='i'">lower-roman</xsl:when>
       </xsl:choose>
     </xsl:variable>
 
@@ -640,10 +640,18 @@
   <xsl:template match="draw:frame[math:math]">
     <xsl:apply-templates select="math:math"/>
   </xsl:template>
+  <xsl:template match="draw:frame[draw:image and count(*)=1]">
+    <xsl:apply-templates select="draw:image"/>
+  </xsl:template>
   <xsl:template match="draw:frame[draw:object or draw:object-ole]">
     <xsl:processing-instruction name="cnx.error">Complex object not supported (maybe OLE/Plugin)</xsl:processing-instruction>
   </xsl:template>
-    
+  
+  <xsl:template match="draw:frame">
+    <xsl:processing-instruction name="cnx.debug">Converting draw:frame (this may or may not import)</xsl:processing-instruction>
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
   <xsl:template match="draw:text-box">
     <xsl:processing-instruction name="cnx.error">Discarding text in text boxes.</xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
@@ -666,10 +674,10 @@
   </xsl:template>
 
   <!-- Notes can't have a c:title but they can have a c:label -->
-  <xsl:template match="c:note[not(c:title)]/text:h">
-    <c:title>
+  <xsl:template match="c:note[not(c:label)]/text:h">
+    <c:label>
       <xsl:apply-templates select="node()"/>
-    </c:title>
+    </c:label>
   </xsl:template>
 
   <!-- Any text:head that haven't been converted into sections are in another element
@@ -684,42 +692,22 @@
   </xsl:template>
   
   <!-- Figure -->
-  <xsl:template match="draw:frame[draw:image and count(*) = 1]">
+  <xsl:template match="draw:image">
     <xsl:param name='type'>
-      <xsl:value-of select="substring-after(draw:image/@xlink:href,'.')"/>
+      <xsl:value-of select="substring-after(@xlink:href,'.')"/>
     </xsl:param> 
     <!-- add extension (from $type) if it doesn't already exist. see also 'helpers.parseContent'.
     see also below "Image in a table" -->
     <xsl:variable name='beforeext'>
-      <xsl:value-of select="substring-before(@draw:name, concat('.',$type))"/>
+      <xsl:value-of select="substring-before(../@draw:name, concat('.',$type))"/>
     </xsl:variable>
     <xsl:variable name='name'>
       <xsl:if test="not(string-length($beforeext))">
-        <xsl:value-of select="@draw:name" />
+        <xsl:value-of select="../@draw:name" />
       </xsl:if>
       <xsl:if test="boolean(string-length($beforeext))">
         <xsl:value-of select="$beforeext" />
       </xsl:if>
-    </xsl:variable>
-    <xsl:variable name='height'>
-      <xsl:choose>
-        <xsl:when test="@svg:height">
-          <xsl:value-of select="round(number(substring-before(@svg:height, 'in'))*100)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name='width'>
-      <xsl:choose>
-        <xsl:when test="@svg:width">
-          <xsl:value-of select="round(number(substring-before(@svg:width, 'in'))*100)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
     </xsl:variable>
 
     <xsl:choose>
@@ -769,12 +757,6 @@
                 <xsl:attribute name="id" >
                   <xsl:value-of select="concat($idbase,'__onlineimage')" />
                 </xsl:attribute>
-                <xsl:if test="$height > 0">
-                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
-                </xsl:if>
-                <xsl:if test="$width > 0">
-                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
-                </xsl:if>
               </image>
             </media>
             <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML_20_Figure_20_Caption'">
@@ -793,10 +775,6 @@
         </xsl:if>
         <xsl:if test="parent::text:span">
           <!-- BNW: was inline media and is now figure??? -->
-          <xsl:variable name='idbase'>
-            <xsl:value-of select="generate-id()"/>
-          </xsl:variable>
-
           <figure>
             <xsl:attribute name="id">
               <xsl:value-of select="$idbase"/>
@@ -1502,10 +1480,5 @@
 
   <xsl:template match="number:date-style" />
 
-  <xsl:template match="office:styles"/>
-  
-  <xsl:template match="text:bookmark|text:line-break">
-    <xsl:processing-instruction name="cnx.info">Ignoring <xsl:value-of select="name()"/></xsl:processing-instruction>
-  </xsl:template>
 </xsl:stylesheet>
 

@@ -15,13 +15,26 @@
 </xsl:template>
 
 <!-- At the beginning of body XSLT should walk step by step through the HTML -->
-<xsl:template match="office:text|c:section">
+<xsl:template match="office:text">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
     <!-- start walking with first tag in body -->
     <xsl:apply-templates select="node()[1]" mode="walker">
     </xsl:apply-templates>
   </xsl:copy>
+</xsl:template>
+
+<!-- See space64__Chuong_02-NgonNguJava.doc -->
+<xsl:template match="text:section[*[1][self::text:h]]" mode="walker">
+  <xsl:param name="level" select="*[1]/@text:outline-level"/>
+  <c:section>
+    <c:title>
+      <xsl:apply-templates select="*[1]/node()"/>
+    </c:title>
+    <xsl:apply-templates select="*[position()!=1]|text()|comment()|processing-instruction()">
+      <xsl:with-param name="level" select="$level + 1"/>
+    </xsl:apply-templates>
+  </c:section>
 </xsl:template>
 
 <!-- Convert headers into nested headers -->
