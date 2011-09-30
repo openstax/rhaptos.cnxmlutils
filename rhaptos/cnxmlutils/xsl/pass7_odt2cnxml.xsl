@@ -655,6 +655,7 @@
                             or self::c:equation
                             or self::c:code
                             or self::c:figure
+                            or self::c:note
                             or self::c:subfigure
                             or self::c:exercise
                             or self::c:commentary
@@ -666,10 +667,10 @@
   </xsl:template>
 
   <!-- Notes can't have a c:title but they can have a c:label -->
-  <xsl:template match="c:note[not(c:title)]/text:h">
-    <c:title>
+  <xsl:template match="c:solution[not(c:label)]/text:h">
+    <c:label>
       <xsl:apply-templates select="node()"/>
-    </c:title>
+    </c:label>
   </xsl:template>
 
   <!-- Any text:head that haven't been converted into sections are in another element
