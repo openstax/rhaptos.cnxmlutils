@@ -10,15 +10,6 @@
 
   >
 
-  <!-- Convert the RED escaped text to fit in the CNXML namespace
-       See previous pass
-    -->
-  <xsl:template match="*[namespace-uri()='']">
-    <xsl:element name="c:{local-name()}">
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:element>
-  </xsl:template>
-
   <xsl:template match="@*|node()">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>

@@ -35,7 +35,7 @@
     <xsl:when test="count(node()) = 1 and 1 = count(text()) and string-length(normalize-space(text())) = 0">
       <xsl:processing-instruction name="cnx.debug">Silently ignoring red text with nothing in it</xsl:processing-instruction>
     </xsl:when>
-    <xsl:when test="*[not(self::text:s or self::text:soft-page-break or self::text:tab)]">
+    <xsl:when test="*">
       <xsl:processing-instruction name="cnx.error">RED text is reserved for XML snippets. This text has other things inside it like <xsl:for-each select="*"><xsl:value-of select="name()"/><xsl:text> </xsl:text></xsl:for-each></xsl:processing-instruction>
     </xsl:when>
     <xsl:when test="not(starts-with(normalize-space(text()), '&lt;'))">
@@ -52,7 +52,7 @@
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) -->
-<xsl:template match="*[count(*[not(self::text:s or self::text:soft-page-break or self::text:tab)]) &gt;= 1 and count(*[not(self::text:s or self::text:soft-page-break or self::text:tab)]) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
+<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
   <xsl:processing-instruction name="cnx.debug">Wrapper element around element with just red XML text: <xsl:value-of select="name()"/></xsl:processing-instruction>
   <xsl:apply-templates select="node()"/>
 </xsl:template>
