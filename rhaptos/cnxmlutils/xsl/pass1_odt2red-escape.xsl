@@ -52,7 +52,7 @@
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) -->
-<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
+<xsl:template match="*[count(*[not(self::text:s or self::text:soft-page-break or self::text:tab)]) &gt;= 1 and count(*[not(self::text:s or self::text:soft-page-break or self::text:tab)]) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
   <xsl:processing-instruction name="cnx.debug">Wrapper element around element with just red XML text: <xsl:value-of select="name()"/></xsl:processing-instruction>
   <xsl:apply-templates select="node()"/>
 </xsl:template>

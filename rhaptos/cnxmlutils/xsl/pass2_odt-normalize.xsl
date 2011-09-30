@@ -40,32 +40,29 @@
 
     <xsl:if test='count($one.entry/text:h)=1'>
       <xsl:processing-instruction name="cnx.info">found a single entry table with a single header.</xsl:processing-instruction>
-      <text:section>
-        <xsl:attribute name='id'>
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
-        <xsl:apply-templates select='$one.entry/*'/>
-      </text:section>
+      <c:section>
+        <c:title>
+          <xsl:apply-templates select="$one.entry/text:h"/>
+        </c:title>
+        <xsl:apply-templates select='$one.entry/node()[not(self::text:h)]'/>
+      </c:section>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)=0'>
       <xsl:processing-instruction name="cnx.info">found a single entry table without any header.</xsl:processing-instruction>
-      <xsl:apply-templates select='$one.entry/*'/>
+      <xsl:apply-templates select='$one.entry/node()'/>
     </xsl:if>
     <xsl:if test='count($one.entry/text:h)>1'>
       <xsl:processing-instruction name="cnx.warning">found a single entry table with many headers.</xsl:processing-instruction>
-      <text:section>
-        <xsl:attribute name='id'>
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
-        <xsl:apply-templates select='$one.entry/*'/>
-      </text:section>
+      <c:section>
+        <xsl:apply-templates select='$one.entry/node()'/>
+      </c:section>
     </xsl:if>
 
   </xsl:template>
 
 <!-- single entry ordered lists are used for presentation purposes only, we hope. -->
 
-  <xsl:template match="text:ordered-list[count(child::*)=1 and ./text:list-item/text:ordered-list]">
+  <xsl:template match="text:*[(self::text:ordered-list or self::text:list) and count(child::*)=1 and ./text:list-item/text:*[(self::text:ordered-list or self::text:list)]]">
     <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only 1 item, another list</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-item/*" />
   </xsl:template>
@@ -128,8 +125,10 @@
 <!-- remove ordered list with only a header but leave the header's children. -->
 
   <xsl:template match="text:*[(self::text:ordered-list or self::text:list) and count(child::*)=1 and child::text:list-header]">
-    <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only a header. Consider not using a list to only store paragraphs</xsl:processing-instruction>
+    <c:para>
+      <xsl:processing-instruction name="cnx.warning">Unwrapping a list with only a header. Consider not using a list to only store paragraphs</xsl:processing-instruction>
       <xsl:apply-templates select="./text:list-header/*"/>
+    </c:para>
   </xsl:template>
 
 <!-- productions make sure the unmodified input is written to output -->
@@ -141,6 +140,7 @@
   <xsl:template match="
       office:forms|
       office:automatic-styles|
+      office:event-listeners|
       text:sequence-decls|
       text:sequence-decl|
       text:tracked-changes|
@@ -184,9 +184,12 @@
 
 
 <xsl:template match="text:bookmark-start|text:bookmark-end">
-  <xsl:processing-instruction name="cnx.warning">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
+  <xsl:processing-instruction name="cnx.info">This document contained a bookmark. It will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
+<xsl:template match="text:execute-macro|script:*">
+  <xsl:processing-instruction name="cnx.warning">This document contained a macro/script. It will be discarded upon import</xsl:processing-instruction>
+</xsl:template>
 
 <xsl:template match="text:h/@text:outline-level"/>
 
@@ -249,6 +252,20 @@
 <xsl:template match="text:*[self::text:list or self::text:list-item][ancestor-or-self::*[@text:style-name='Outline']]">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
+
+
+<!-- See space64__Chuong_02-NgonNguJava.doc -->
+<xsl:template match="text:section">
+  <c:section>
+    <xsl:if test="*[1][self::text:h]">
+      <c:title>
+        <xsl:apply-templates select="*[1]/node()"/>
+      </c:title>
+    </xsl:if>
+    <xsl:apply-templates select="*[not(position()=1 and self::text:h)]|text()|comment()|processing-instruction()"/>
+  </c:section>
+</xsl:template>
+
 
 </xsl:stylesheet>
 
