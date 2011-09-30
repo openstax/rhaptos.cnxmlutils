@@ -16,6 +16,7 @@ import symbols
 dirname = os.path.dirname(__file__)
 
 NAMESPACES = {
+  'office':'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
   'draw':'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
   'xlink':'http://www.w3.org/1999/xlink',
   }
@@ -26,7 +27,7 @@ MATH_HREF_XPATH = etree.XPath('@xlink:href', namespaces=NAMESPACES)
 IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object or draw:object-ole) and @draw:name and draw:image[@xlink:href and @xlink:type="simple"]]', namespaces=NAMESPACES)
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
-          
+STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -78,6 +79,18 @@ def transform(odtfile, debug=False, outputdir=None):
                       u'id'   :u'(none)',
                       u'msg'  :unicode(text) })
                     
+    def injectStyles(xml):
+        # HACK - need to find the object location from the manifest ...
+        strStyles = zip.read('styles.xml')
+        
+        parser = etree.XMLParser()
+        parser.feed(strStyles)
+        stylesXml = parser.close()
+        
+        for i, obj in enumerate(STYLES_XPATH(stylesXml)):
+          xml.append(obj)
+
+        return xml
 
 
     # All MathML is stored in separate files "Object #/content.xml"
@@ -132,6 +145,7 @@ def transform(odtfile, debug=False, outputdir=None):
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
             xml = makeXsl('pass1_odt2red-failed.xsl')(xml)
+            xml = xml.getroot()
         return xml
 
     def replaceSymbols(xml):
@@ -142,6 +156,7 @@ def transform(odtfile, debug=False, outputdir=None):
     PIPELINE = [
       replaceSymbols,
       redParser, # makeXsl('pass1_odt2red-escape.xsl'),
+      injectStyles,
       makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings.
       makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9 
                             # and need to be 1. See (testbed) southwood__Lesson_2.doc

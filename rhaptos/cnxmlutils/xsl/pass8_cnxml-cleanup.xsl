@@ -25,7 +25,7 @@
 -->
 
 <!-- Remove all debug processing instructions -->
-<xsl:template match="processing-instruction('cnx.debug')"/>
+<xsl:template match="processing-instruction('cnx.debug')|processing-instruction('cnx.info')"/>
 
 <!-- SHORTCUT: allow "<figure>title [] [] caption</figure>" to create subfigures -->
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
@@ -36,7 +36,13 @@
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:para/*[not(self::c:figure)]|c:*[not(self::c:para or self::c:title)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title)]"/>
+    <xsl:if test="c:para[not(c:figure)]">
+      <!-- Convert text inside a <figure/> into a caption -->
+      <c:caption>
+        <xsl:apply-templates select="c:para[not(c:figure)]/node()"/>
+      </c:caption>
+    </xsl:if>
   </xsl:copy>
 </xsl:template>
 
@@ -90,7 +96,7 @@
 </xsl:template>
 
 <!-- SHORTCUT: allow authors to just enter "<solution>a</solution>" (without para)-->
-<xsl:template match="c:solution/text()">
+<xsl:template match="c:*[self::c:problem or self::c:solution]/text()[normalize-space() != '']">
   <c:para>
     <xsl:value-of select="."/>
   </c:para>
@@ -111,6 +117,21 @@
 
 
 <xsl:template match="c:equation/c:para">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+<!-- Footnotes with just a para can just unwrap the para -->
+<xsl:template match="c:footnote[count(*) = 1 and c:para[count(*) = 0]]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|c:para/node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<!-- Sometimes headings contain textboxes.
+  These result in <para> tags inside a title; so just unwrap the title.
+  See nhphuong__CH2_ANALYSIS_IN_TIME_DOMAIN.doc and ncpea__NCPEA_CONNEXIONS_submission_#87_FINAL.doc in the testbed.
+-->
+<xsl:template match="c:title/c:para">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
