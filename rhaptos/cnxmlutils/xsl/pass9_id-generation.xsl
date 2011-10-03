@@ -47,7 +47,7 @@
     c:equation|
     c:commentary|
     c:section">
-  <xsl:element name="{local-name()}" namespace-uri="http://cnx.rice.edu/cnxml">
+  <xsl:element name="{local-name()}" namespace="http://cnx.rice.edu/cnxml">
     <xsl:if test="not(@id)">
       <xsl:attribute name="id">
         <xsl:value-of select="$id.prefix"/>
@@ -60,7 +60,7 @@
 
 <!-- Remove the c: prefix (EIP doesn't like it) -->
 <xsl:template match="c:*">
-  <xsl:element name="{local-name()}" namespace-uri="http://cnx.rice.edu/cnxml">
+  <xsl:element name="{local-name()}" namespace="http://cnx.rice.edu/cnxml">
     <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>

@@ -28,9 +28,9 @@
        match="/office:document-content/office:styles/text:list-style"
        use="@style:name"/>
 
-  <xsl:key name="bookmark" match="/descendant::text:bookmark" use="@text:name"/>
+  <xsl:key name="bookmark" match="//text:bookmark" use="@text:name"/>
 
-  <xsl:key name="bookmark-start" match="/descendant::text:bookmark-start" use="@text:name"/>
+  <xsl:key name="bookmark-start" match="//text:bookmark-start" use="@text:name"/>
   
   <!-- We no longer need the list styles -->
   <xsl:template match="text:list-style"/>
@@ -1491,7 +1491,7 @@
 
   <!-- Squash Everything Else -->
 
-  <xsl:template select="*"/>
+  <xsl:template match="*"/>
 
   <xsl:template match="text:deletion" />
 
