@@ -135,12 +135,15 @@
       text:sequence-decls|
       text:sequence-decl|
       text:tracked-changes|
-      text:s|
       text:tab|
       text:soft-page-break|
       text:p/text:line-break
       ">
     <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
+  <xsl:template match="text:s">
+    <xsl:text> </xsl:text>
   </xsl:template>
 
   <xsl:template match="text:h[count(node())=0]" />
@@ -268,7 +271,6 @@
 <!-- This attribute can be found on para/span/list ... -->
 <xsl:template match="@text:style-name">
   <xsl:variable name="props" select="key('style-properties', .)"/>
-  <xsl:copy/>
   <xsl:apply-templates select="$props[1]/../@style:parent-style-name" mode="stylizer"/>
   <xsl:apply-templates select="$props/@*" mode="stylizer"/>
 </xsl:template>
@@ -276,12 +278,12 @@
 <!-- Notes are RED and we don't want them being treated as escaped XML
       so don't pass on the fo:color attribute
 -->
-<xsl:template match="@text:style-name[. = 'CNXML_20_Note']">
+<xsl:template match="@text:style-name[starts-with(.,'CNXML_')]">
   <xsl:copy/>
 </xsl:template>
 
 <!-- These are the attributes we care about (used in subsequent XSLT passes) -->
-<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-position|@style:parent-style-name|@fo:color" mode="stylizer">
+<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-position|@style:parent-style-name|@fo:color[. = '#ff0000']" mode="stylizer">
   <xsl:attribute name="{name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
@@ -341,6 +343,72 @@
 </xsl:template>
 
 <xsl:template match="office:automatic-styles|office:styles|text:list-style|office:scripts|office:font-face-decls|style:style"/>
+
+
+<xsl:template match="text:span[position() != 1][not(@text:style-name)]"/>
+
+<xsl:template match="text:span[1][not(@text:style-name)]">
+  <xsl:param name="hash" select="'1234'"/>
+  <xsl:variable name="myHash">
+    <xsl:call-template name="make-hash"/>
+  </xsl:variable>
+
+  <xsl:if test="$hash != $myHash">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+      <!-- Include subsequent span text as long as the formatting we care about is the same -->
+      <xsl:apply-templates mode="walker" select="following-sibling::node()[1]">
+        <xsl:with-param name="hash" select="$myHash"/>
+      </xsl:apply-templates>
+    </xsl:copy>
+  </xsl:if>
+  
+  <!-- Create new span tags for anything that wasn't consumed -->
+  <xsl:apply-templates mode="copier" select="following-sibling::node()[1]">
+    <xsl:with-param name="hash" select="$myHash"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="node()" mode="walker">
+  <xsl:param name="hash"/>
+  <xsl:apply-templates select="following-sibling::node()[1]" mode="walker">
+    <xsl:with-param name="hash" select="$hash"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="node()" mode="copier">
+  <xsl:param name="hash"/>
+  <xsl:apply-templates select="following-sibling::node()[1]" mode="copier">
+    <xsl:with-param name="hash" select="$hash"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="text:span" mode="walker">
+  <xsl:param name="hash"/>
+  <xsl:variable name="myHash">
+    <xsl:call-template name="make-hash"/>
+  </xsl:variable>
+  
+  <xsl:if test="$hash = $myHash">
+    <xsl:apply-templates select="node()"/>
+  </xsl:if>
+  <xsl:apply-templates mode="walker" select="following-sibling::node()[1]">
+    <xsl:with-param name="hash" select="$hash"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template mode="hash-maker" match="@*">
+  <xsl:value-of select="name()"/>
+  <xsl:text>=</xsl:text>
+  <xsl:value-of select="."/>
+  <xsl:text> </xsl:text>
+</xsl:template>
+
+<xsl:template mode="hash-maker" match="@fo:font-weight[.='normal']|@fo:font-style[.='normal']"/>
+
+<xsl:template name="make-hash">
+  <xsl:apply-templates mode="hash-maker" select="@*"/>
+</xsl:template>
 
 </xsl:stylesheet>
 

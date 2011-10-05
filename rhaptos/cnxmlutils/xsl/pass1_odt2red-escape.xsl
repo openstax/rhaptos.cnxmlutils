@@ -49,7 +49,7 @@
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) -->
-<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
+<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*[@fo:color = '#ff0000']) and normalize-space(text()) = '']">
   <xsl:processing-instruction name="cnx.debug">Wrapper element around element with just red XML text: <xsl:value-of select="name()"/></xsl:processing-instruction>
   <xsl:apply-templates select="node()"/>
 </xsl:template>
