@@ -155,7 +155,7 @@ def transform(odtfile, debug=False, outputdir=None):
 
     PIPELINE = [
       replaceSymbols,
-      injectStyles,
+      injectStyles, # include the styles.xml file because it contains list numbering info
       makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings.
       makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9 
                             # and need to be 1. See (testbed) southwood__Lesson_2.doc

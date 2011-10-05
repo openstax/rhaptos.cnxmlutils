@@ -20,13 +20,6 @@
 
   <!-- augmented input xml with /office:document-content/office:styles in oo2oo.xsl  -->
   <xsl:variable name="bold"/>
-  <xsl:key name="list-automatic-styles"
-       match="/office:document-content/office:automatic-styles/text:list-style"
-       use="@style:name"/>
-
-  <xsl:key name="list-styles"
-       match="/office:document-content/office:styles/text:list-style"
-       use="@style:name"/>
 
   <xsl:key name="bookmark" match="//text:bookmark" use="@text:name"/>
 
@@ -46,7 +39,7 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
-  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box|draw:custom-shape|draw:enhanced-geometry">
+  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:custom-shape|draw:enhanced-geometry">
     <xsl:processing-instruction name="cnx.warning">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
   </xsl:template>
 <!-- Discard any ODT attributes -->
@@ -421,74 +414,10 @@
 
   <!-- List and list items -->
   <xsl:template match="text:ordered-list[normalize-space(.)]|text:list">
-    <xsl:variable name="list-level">
-      <xsl:value-of select="count(ancestor::text:ordered-list)+1" />
-    </xsl:variable>
-
-    <xsl:variable name="list-style-name">
-      <xsl:choose>
-        <xsl:when test="@text:style-name">
-          <xsl:value-of select="@text:style-name" />
-        </xsl:when>
-        <!-- lists in a nested list inherit the root list style -->
-        <xsl:when test="ancestor::text:ordered-list[@text:style-name]">
-          <xsl:value-of select="ancestor::text:ordered-list[@text:style-name][1]/@text:style-name" />
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name="list-type">
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
-        <xsl:otherwise>bulleted</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='number-style'>
-      <xsl:variable name="format" select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
-      <xsl:variable name="format2" select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
-      <xsl:choose>
-        <xsl:when test="$format='1'">arabic</xsl:when>
-        <xsl:when test="$format='A'">upper-alpha</xsl:when>
-        <xsl:when test="$format='a'">lower-alpha</xsl:when>
-        <xsl:when test="$format='I'">upper-roman</xsl:when>
-        <xsl:when test="$format='i'">lower-roman</xsl:when>
-        <xsl:when test="$format2='1'">arabic</xsl:when>
-        <xsl:when test="$format2='A'">upper-alpha</xsl:when>
-        <xsl:when test="$format2='a'">lower-alpha</xsl:when>
-        <xsl:when test="$format2='I'">upper-roman</xsl:when>
-        <xsl:when test="$format2='i'">lower-roman</xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='before'>
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix">
-          <xsl:value-of select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix" />
-        </xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix">
-          <xsl:value-of select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix" />
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='after'>
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix">
-          <xsl:if test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix != '.'">
-            <xsl:value-of select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix" />
-          </xsl:if>
-        </xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix">
-          <xsl:if test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix != '.'">
-            <xsl:value-of select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix" />
-          </xsl:if>
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
+    <xsl:variable name="list-type" select="@list-type"/>
+    <xsl:variable name="number-style" select="@number-style"/>
+    <xsl:variable name="before" select="@mark-prefix"/>
+    <xsl:variable name="after" select="@mark-suffix"/>
 
     <xsl:choose>
       <xsl:when test="@text:continue-numbering='true' and preceding-sibling::*[1][self::text:ordered-list]">
@@ -644,9 +573,9 @@
     <xsl:processing-instruction name="cnx.error">Complex object not supported (maybe OLE/Plugin)</xsl:processing-instruction>
   </xsl:template>
     
-  <xsl:template match="draw:text-box">
-    <xsl:processing-instruction name="cnx.error">Discarding text in text boxes.</xsl:processing-instruction>
-    <xsl:apply-templates select="node()"/>
+  <xsl:template match="draw:frame[draw:text-box]">
+    <xsl:processing-instruction name="cnx.warning">Don't use text boxes.</xsl:processing-instruction>
+    <xsl:apply-templates select="draw:text-box/node()"/>
   </xsl:template>
   
 
