@@ -580,7 +580,9 @@
   
 
   <!-- Any heading inside an exercise, example, block-level element, turn it into a c:title -->
-  <xsl:template match="c:*[self::c:list
+  <xsl:template match="c:*[self::c:section
+                            or self::c:example
+                            or self::c:list
                             or self::c:equation
                             or self::c:code
                             or self::c:figure
@@ -679,7 +681,7 @@
                 <xsl:value-of select="../preceding-sibling::text:p[position()=1]/@text:style-name"/>
               </xsl:variable>
               <xsl:if test="$Style='CNXML_20_Figure_20_Title' or
-                            //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
+                            ../preceding-sibling::text:p[position()=1]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
                 <title>
                   <xsl:if test="../preceding-sibling::text:p[1]/text:bookmark or
                                 ../preceding-sibling::text:p[1]/text:bookmark-start">
