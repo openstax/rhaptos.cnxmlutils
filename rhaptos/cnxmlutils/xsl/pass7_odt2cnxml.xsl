@@ -169,7 +169,7 @@
   <!-- Para, Quote(block) -->
   <xsl:template match="text:p">
     <xsl:variable name="Para-Style">
-      <xsl:value-of select="@text:style-name"/>
+      <xsl:value-of select="substring-before(@text:style-name, '_20_Char')"/>
     </xsl:variable>
     <xsl:if test="count(node())=0">
         <xsl:if test="preceding-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_' and following-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
@@ -202,7 +202,7 @@
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Equation'">
+        <xsl:when test="$Para-Style='CNXML_20_Equation'">
           <equation>
             <xsl:apply-templates select="node()"/>
           </equation>
@@ -261,14 +261,14 @@
             </xsl:if>
           </exercise>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Quote' or $Para-Style='CNXML_20_Quote_20__28_Block_29_'">
+        <xsl:when test="$Para-Style='CNXML_20_Quote' or $Para-Style='CNXML_20_Quote_20__28_Block_29_'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
               </xsl:when>
-              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or preceding-sibling::*[1]/@text:style-name='CNXML Quote')">
+              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote')">
               </xsl:when>
               <xsl:otherwise>
               <para>
@@ -296,7 +296,7 @@
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML_20_Glossary_20_Section'">
         </xsl:when>
-        <xsl:when test="count(child::*)=1 and text:span/@text:style-name='CNXML_20_Note'">
+        <xsl:when test="count(child::*)=1 and normalize-space(text())='' and text:span/@text:style-name='CNXML_20_Note'">
           <note type="Note">
             <xsl:value-of select="text:span"/>
           </note>
@@ -330,7 +330,7 @@
         <quote display="block">
           <xsl:apply-templates select="node()"/>
         </quote>
-        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
+        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or following-sibling::*[1]/@text:style-name='CNXML_20_Quote'">
           <xsl:apply-templates select="following-sibling::*[1]" mode="quoteBlockHelper" />
         </xsl:if>
       </xsl:otherwise>
@@ -861,7 +861,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code_20__28_Inline_29_' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Code'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code_20__28_Inline_29_' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
@@ -952,7 +952,7 @@
               <xsl:apply-templates select="node()"/>
             </code>
           </xsl:when>
-          <xsl:when test="$Style='CNXML_20_Code_20__28_Inline_29_' or $Style='CNXML Code'">
+          <xsl:when test="$Style='CNXML_20_Code_20__28_Inline_29_' or $Style='CNXML_20_Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
