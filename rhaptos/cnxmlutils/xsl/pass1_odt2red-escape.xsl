@@ -35,25 +35,33 @@
     <xsl:when test="count(node()) = 1 and 1 = count(text()) and string-length(normalize-space(text())) = 0">
       <xsl:processing-instruction name="cnx.debug">Silently ignoring red text with nothing in it</xsl:processing-instruction>
     </xsl:when>
+<!--
     <xsl:when test="*">
       <xsl:processing-instruction name="cnx.error">RED text is reserved for XML snippets. This text has other things inside it like <xsl:for-each select="*"><xsl:value-of select="name()"/><xsl:text> </xsl:text></xsl:for-each></xsl:processing-instruction>
     </xsl:when>
     <xsl:when test="not(starts-with(normalize-space(text()), '&lt;'))">
       <xsl:processing-instruction name="cnx.error">RED text is reserved for XML snippets. Text: [<xsl:value-of select="substring(normalize-space(text()),1,40)"/>]</xsl:processing-instruction>
     </xsl:when>
+-->
   </xsl:choose>
 
+<!--
   <xsl:processing-instruction name="cnx.debug">Start RED escaped text from import</xsl:processing-instruction>
+-->
   <!-- Convert "pretty" apostrophes and quotes to simple ones -->
   <xsl:value-of select="translate(., &quot;&#8221;&#8217;&quot;, &quot;&apos;&apos;&quot;)" disable-output-escaping="yes"/>
+<!--
   <xsl:processing-instruction name="cnx.debug">CNX: End RED escaped text from import</xsl:processing-instruction>
+-->
 </xsl:template>
 
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) -->
 <xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
+<!--
   <xsl:processing-instruction name="cnx.debug">Wrapper element around element with just red XML text: <xsl:value-of select="name()"/></xsl:processing-instruction>
+-->
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
