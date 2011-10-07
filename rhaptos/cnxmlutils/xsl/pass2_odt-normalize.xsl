@@ -172,7 +172,7 @@
   </xsl:template>
 
 
-<xsl:template match="text:changed-region|text:change-start|text:change-end">
+<xsl:template match="text:changed-region|text:change-start|text:change-end|text:change">
   <xsl:processing-instruction name="cnx.warning">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
@@ -345,69 +345,11 @@
 <xsl:template match="office:automatic-styles|office:styles|text:list-style|office:scripts|office:font-face-decls|style:style"/>
 
 
-<xsl:template match="text:span[position() != 1][not(@text:style-name)]"/>
-
-<xsl:template match="text:span[1][not(@text:style-name)]">
-  <xsl:param name="hash" select="'1234'"/>
-  <xsl:variable name="myHash">
-    <xsl:call-template name="make-hash"/>
-  </xsl:variable>
-
-  <xsl:if test="$hash != $myHash">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-      <!-- Include subsequent span text as long as the formatting we care about is the same -->
-      <xsl:apply-templates mode="walker" select="following-sibling::node()[1]">
-        <xsl:with-param name="hash" select="$myHash"/>
-      </xsl:apply-templates>
-    </xsl:copy>
-  </xsl:if>
-  
-  <!-- Create new span tags for anything that wasn't consumed -->
-  <xsl:apply-templates mode="copier" select="following-sibling::node()[1]">
-    <xsl:with-param name="hash" select="$myHash"/>
-  </xsl:apply-templates>
-</xsl:template>
-
-<xsl:template match="node()" mode="walker">
-  <xsl:param name="hash"/>
-  <xsl:apply-templates select="following-sibling::node()[1]" mode="walker">
-    <xsl:with-param name="hash" select="$hash"/>
-  </xsl:apply-templates>
-</xsl:template>
-
-<xsl:template match="node()" mode="copier">
-  <xsl:param name="hash"/>
-  <xsl:apply-templates select="following-sibling::node()[1]" mode="copier">
-    <xsl:with-param name="hash" select="$hash"/>
-  </xsl:apply-templates>
-</xsl:template>
-
-<xsl:template match="text:span" mode="walker">
-  <xsl:param name="hash"/>
-  <xsl:variable name="myHash">
-    <xsl:call-template name="make-hash"/>
-  </xsl:variable>
-  
-  <xsl:if test="$hash = $myHash">
-    <xsl:apply-templates select="node()"/>
-  </xsl:if>
-  <xsl:apply-templates mode="walker" select="following-sibling::node()[1]">
-    <xsl:with-param name="hash" select="$hash"/>
-  </xsl:apply-templates>
-</xsl:template>
-
-<xsl:template mode="hash-maker" match="@*">
-  <xsl:value-of select="name()"/>
-  <xsl:text>=</xsl:text>
-  <xsl:value-of select="."/>
-  <xsl:text> </xsl:text>
-</xsl:template>
-
-<xsl:template mode="hash-maker" match="@fo:font-weight[.='normal']|@fo:font-style[.='normal']"/>
-
-<xsl:template name="make-hash">
-  <xsl:apply-templates mode="hash-maker" select="@*"/>
+<!-- Collapse nested text:span tags -->
+<xsl:template match="text:span[text:span and count(*)=1]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|text:span/@*|text:span/node()"/>
+  </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>
