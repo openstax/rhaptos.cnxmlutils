@@ -144,7 +144,7 @@ def transform(odtfile, debug=False, outputdir=None):
         try:
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError, e:
-            xml = makeXsl('pass1_odt2red-failed.xsl')(xml)
+            xml = makeXsl('pass1_odt2red-failed.xsl')(xml, message="'%s'" % e.msg)
             xml = xml.getroot()
         return xml
 
