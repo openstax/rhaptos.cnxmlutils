@@ -20,13 +20,6 @@
 
   <!-- augmented input xml with /office:document-content/office:styles in oo2oo.xsl  -->
   <xsl:variable name="bold"/>
-  <xsl:key name="list-automatic-styles"
-       match="/office:document-content/office:automatic-styles/text:list-style"
-       use="@style:name"/>
-
-  <xsl:key name="list-styles"
-       match="/office:document-content/office:styles/text:list-style"
-       use="@style:name"/>
 
   <xsl:key name="bookmark" match="//text:bookmark" use="@text:name"/>
 
@@ -46,7 +39,7 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
-  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:text-box|draw:custom-shape|draw:enhanced-geometry">
+  <xsl:template match="draw:line|draw:g|draw:rectangle|draw:custom-shape|draw:enhanced-geometry">
     <xsl:processing-instruction name="cnx.warning">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
   </xsl:template>
 <!-- Discard any ODT attributes -->
@@ -176,7 +169,7 @@
   <!-- Para, Quote(block) -->
   <xsl:template match="text:p">
     <xsl:variable name="Para-Style">
-      <xsl:value-of select="@text:style-name"/>
+      <xsl:value-of select="substring-before(@text:style-name, '_20_Char')"/>
     </xsl:variable>
     <xsl:if test="count(node())=0">
         <xsl:if test="preceding-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_' and following-sibling::*[1]/text:span/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
@@ -209,7 +202,7 @@
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Equation'">
+        <xsl:when test="$Para-Style='CNXML_20_Equation'">
           <equation>
             <xsl:apply-templates select="node()"/>
           </equation>
@@ -268,14 +261,14 @@
             </xsl:if>
           </exercise>
         </xsl:when>
-        <xsl:when test="$Para-Style='CNXML Quote' or $Para-Style='CNXML_20_Quote_20__28_Block_29_'">
+        <xsl:when test="$Para-Style='CNXML_20_Quote' or $Para-Style='CNXML_20_Quote_20__28_Block_29_'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <xsl:apply-templates select="node()"/>
               </xsl:when>
               <xsl:when test="not(normalize-space(.)) and not(descendant::draw:image)">
               </xsl:when>
-              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or preceding-sibling::*[1]/@text:style-name='CNXML Quote')">
+              <xsl:when test="not(descendant::draw:image) and (preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or preceding-sibling::*[1]/@text:style-name='CNXML_20_Quote')">
               </xsl:when>
               <xsl:otherwise>
               <para>
@@ -303,7 +296,7 @@
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML_20_Glossary_20_Section'">
         </xsl:when>
-        <xsl:when test="count(child::*)=1 and text:span/@text:style-name='CNXML_20_Note'">
+        <xsl:when test="count(child::*)=1 and normalize-space(text())='' and text:span/@text:style-name='CNXML_20_Note'">
           <note type="Note">
             <xsl:value-of select="text:span"/>
           </note>
@@ -337,7 +330,7 @@
         <quote display="block">
           <xsl:apply-templates select="node()"/>
         </quote>
-        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or following-sibling::*[1]/@text:style-name='CNXML Quote'">
+        <xsl:if test="following-sibling::*[1]/@text:style-name='CNXML_20_Quote_20__28_Block_29_' or following-sibling::*[1]/@text:style-name='CNXML_20_Quote'">
           <xsl:apply-templates select="following-sibling::*[1]" mode="quoteBlockHelper" />
         </xsl:if>
       </xsl:otherwise>
@@ -421,74 +414,10 @@
 
   <!-- List and list items -->
   <xsl:template match="text:ordered-list[normalize-space(.)]|text:list">
-    <xsl:variable name="list-level">
-      <xsl:value-of select="count(ancestor::text:ordered-list)+1" />
-    </xsl:variable>
-
-    <xsl:variable name="list-style-name">
-      <xsl:choose>
-        <xsl:when test="@text:style-name">
-          <xsl:value-of select="@text:style-name" />
-        </xsl:when>
-        <!-- lists in a nested list inherit the root list style -->
-        <xsl:when test="ancestor::text:ordered-list[@text:style-name]">
-          <xsl:value-of select="ancestor::text:ordered-list[@text:style-name][1]/@text:style-name" />
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name="list-type">
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]">enumerated</xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-bullet[@text:level=$list-level]">bulleted</xsl:when>
-        <xsl:otherwise>bulleted</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='number-style'>
-      <xsl:variable name="format" select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
-      <xsl:variable name="format2" select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-format"/>
-      <xsl:choose>
-        <xsl:when test="$format='1'">arabic</xsl:when>
-        <xsl:when test="$format='A'">upper-alpha</xsl:when>
-        <xsl:when test="$format='a'">lower-alpha</xsl:when>
-        <xsl:when test="$format='I'">upper-roman</xsl:when>
-        <xsl:when test="$format='i'">lower-roman</xsl:when>
-        <xsl:when test="$format2='1'">arabic</xsl:when>
-        <xsl:when test="$format2='A'">upper-alpha</xsl:when>
-        <xsl:when test="$format2='a'">lower-alpha</xsl:when>
-        <xsl:when test="$format2='I'">upper-roman</xsl:when>
-        <xsl:when test="$format2='i'">lower-roman</xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='before'>
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix">
-          <xsl:value-of select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix" />
-        </xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix">
-          <xsl:value-of select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-prefix" />
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name='after'>
-      <xsl:choose>
-        <xsl:when test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix">
-          <xsl:if test="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix != '.'">
-            <xsl:value-of select="key('list-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix" />
-          </xsl:if>
-        </xsl:when>
-        <xsl:when test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix">
-          <xsl:if test="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix != '.'">
-            <xsl:value-of select="key('list-automatic-styles', $list-style-name)/text:list-level-style-number[@text:level=$list-level]/@style:num-suffix" />
-          </xsl:if>
-        </xsl:when>
-      </xsl:choose>
-    </xsl:variable>
+    <xsl:variable name="list-type" select="@list-type"/>
+    <xsl:variable name="number-style" select="@number-style"/>
+    <xsl:variable name="before" select="@mark-prefix"/>
+    <xsl:variable name="after" select="@mark-suffix"/>
 
     <xsl:choose>
       <xsl:when test="@text:continue-numbering='true' and preceding-sibling::*[1][self::text:ordered-list]">
@@ -644,14 +573,16 @@
     <xsl:processing-instruction name="cnx.error">Complex object not supported (maybe OLE/Plugin)</xsl:processing-instruction>
   </xsl:template>
     
-  <xsl:template match="draw:text-box">
-    <xsl:processing-instruction name="cnx.error">Discarding text in text boxes.</xsl:processing-instruction>
-    <xsl:apply-templates select="node()"/>
+  <xsl:template match="draw:frame[draw:text-box]">
+    <xsl:processing-instruction name="cnx.warning">Don't use text boxes.</xsl:processing-instruction>
+    <xsl:apply-templates select="draw:text-box/node()"/>
   </xsl:template>
   
 
   <!-- Any heading inside an exercise, example, block-level element, turn it into a c:title -->
-  <xsl:template match="c:*[self::c:list
+  <xsl:template match="c:*[self::c:section
+                            or self::c:example
+                            or self::c:list
                             or self::c:equation
                             or self::c:code
                             or self::c:figure
@@ -750,7 +681,7 @@
                 <xsl:value-of select="../preceding-sibling::text:p[position()=1]/@text:style-name"/>
               </xsl:variable>
               <xsl:if test="$Style='CNXML_20_Figure_20_Title' or
-                            //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
+                            ../preceding-sibling::text:p[position()=1]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
                 <title>
                   <xsl:if test="../preceding-sibling::text:p[1]/text:bookmark or
                                 ../preceding-sibling::text:p[1]/text:bookmark-start">
@@ -930,7 +861,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
-          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code_20__28_Inline_29_' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML Code'">
+          <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code_20__28_Inline_29_' or //office:document-content/office:automatic-styles/style:style[@style:name=$Style]/@style:parent-style-name='CNXML_20_Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->
@@ -1021,7 +952,7 @@
               <xsl:apply-templates select="node()"/>
             </code>
           </xsl:when>
-          <xsl:when test="$Style='CNXML_20_Code_20__28_Inline_29_' or $Style='CNXML Code'">
+          <xsl:when test="$Style='CNXML_20_Code_20__28_Inline_29_' or $Style='CNXML_20_Code'">
             <xsl:choose>
               <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
                 <!-- code with no text but image(s) -->

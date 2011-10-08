@@ -135,12 +135,15 @@
       text:sequence-decls|
       text:sequence-decl|
       text:tracked-changes|
-      text:s|
       text:tab|
       text:soft-page-break|
       text:p/text:line-break
       ">
     <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  
+  <xsl:template match="text:s">
+    <xsl:text> </xsl:text>
   </xsl:template>
 
   <xsl:template match="text:h[count(node())=0]" />
@@ -169,7 +172,7 @@
   </xsl:template>
 
 
-<xsl:template match="text:changed-region|text:change-start|text:change-end">
+<xsl:template match="text:changed-region|text:change-start|text:change-end|text:change">
   <xsl:processing-instruction name="cnx.warning">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
@@ -257,6 +260,97 @@
   </c:section>
 </xsl:template>
 
+
+<!-- Attach all style info (bold, underline, list numbering, RED, etc)
+      directly onto the element so we don't need to pass around the huge style:style
+      and text:list-style elements that clutter up intermediate XML -->
+
+<!-- Attach the style:style attributes so we don't have to look them up later -->
+<xsl:key name="style-properties" match="//style:style/style:text-properties" use="../@style:name"/>
+
+<!-- This attribute can be found on para/span/list ... -->
+<xsl:template match="@text:style-name">
+  <xsl:variable name="props" select="key('style-properties', .)"/>
+  <xsl:apply-templates select="$props[1]/../@style:parent-style-name" mode="stylizer"/>
+  <xsl:apply-templates select="$props/@*" mode="stylizer"/>
+</xsl:template>
+
+<!-- Notes are RED and we don't want them being treated as escaped XML
+      so don't pass on the fo:color attribute
+-->
+<xsl:template match="@text:style-name[starts-with(.,'CNXML_')]">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- These are the attributes we care about (used in subsequent XSLT passes) -->
+<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-position|@style:parent-style-name|@fo:color[. = '#ff0000']" mode="stylizer">
+  <xsl:attribute name="{name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- The rest don't get transferred -->
+<xsl:template match="@*" mode="stylizer"/>
+
+
+<!-- Normalize lists. Look up the numbering info and attach it to the text:list
+      The odt2cnxml pass will use these attributes later.
+-->
+<xsl:key name="list-styles" match="//text:list-style" use="@style:name"/>
+<!--xsl:key 
+        name="list-automatic-styles"
+        match="/office:document-content/office:automatic-styles/text:list-style"
+        use="@style:name"/>
+    xsl:key name="list-styles"
+       match="/office:document-content/office:styles/text:list-style"
+       use="@style:name"/>
+-->
+
+<xsl:template match="text:ordered-list|text:list">
+  <xsl:variable name="name" select="ancestor-or-self::*[self::text:ordered-list or self::text:list][@text:style-name][1]/@text:style-name"/>
+  <xsl:variable name="props" select="key('style-properties', $name)"/>
+  <xsl:variable name="level" select="count(ancestor::text:ordered-list) + 1"/>
+  <xsl:variable name="style" select="key('list-styles', $name)[position() = last()]"/>
+  <xsl:variable name="typeEl" select="$style/*[@text:level = $level]"/>
+
+  <xsl:variable name="type">
+    <xsl:choose>
+      <xsl:when test="$typeEl[self::text:list-level-style-number]">enumerated</xsl:when>
+<!--  <xsl:when test="$typeEl[self::text:list-level-style-bullet]">bulleted</xsl:when> -->
+      <xsl:otherwise>bulleted</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  
+  <xsl:variable name="numFormat" select="$typeEl/@style:num-format"/>
+  <xsl:variable name="format">
+    <xsl:choose>
+      <xsl:when test="$numFormat='1'">arabic</xsl:when>
+      <xsl:when test="$numFormat='A'">upper-alpha</xsl:when>
+      <xsl:when test="$numFormat='a'">lower-alpha</xsl:when>
+      <xsl:when test="$numFormat='I'">upper-roman</xsl:when>
+      <xsl:when test="$numFormat='i'">lower-roman</xsl:when>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="before" select="$typeEl/@style:num-prefix"/>
+  <!-- Ignore the default suffix of "." -->
+  <xsl:variable name="after" select="$typeEl[@style:num-suffix != '.']/@style:num-suffix"/>
+
+  <text:list list-type="{$type}" number-style="{$format}" mark-prefix="{$before}" mark-suffix="{$after}">
+    <xsl:apply-templates select="@*|node()"/>
+  </text:list>
+
+</xsl:template>
+
+<xsl:template match="office:automatic-styles|office:styles|text:list-style|office:scripts|office:font-face-decls|style:style"/>
+
+
+<!-- Collapse nested text:span tags -->
+<xsl:template match="text:span[text:span and count(*)=1]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|text:span/@*|text:span/node()"/>
+  </xsl:copy>
+</xsl:template>
 
 </xsl:stylesheet>
 

@@ -16,9 +16,6 @@
      XML with no namespace.
 -->
 
-<!-- Returns the color of a given style -->
-<xsl:key name="color" match="//style:style/style:text-properties/@fo:color" use="../../@style:name"/>
-
 <xsl:output encoding="ASCII"/>
 
 <!-- By default pass everything through. Not xincluded because eggs don't play nice -->
@@ -30,7 +27,7 @@
 
 
 <!-- Output all RED text regardless if it's in a span, para, heading, etc -->
-<xsl:template match="*[text() and '#ff0000' = key('color', @text:style-name)]">
+<xsl:template match="*[text() and @fo:color = '#ff0000']">
   <xsl:choose>
     <xsl:when test="count(node()) = 1 and 1 = count(text()) and string-length(normalize-space(text())) = 0">
       <xsl:processing-instruction name="cnx.debug">Silently ignoring red text with nothing in it</xsl:processing-instruction>
@@ -58,7 +55,7 @@
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) -->
-<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*['#ff0000' = key('color', @text:style-name)]) and normalize-space(text()) = '']">
+<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*[@fo:color = '#ff0000']) and normalize-space(text()) = '']">
 <!--
   <xsl:processing-instruction name="cnx.debug">Wrapper element around element with just red XML text: <xsl:value-of select="name()"/></xsl:processing-instruction>
 -->

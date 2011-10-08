@@ -155,10 +155,11 @@ def transform(odtfile, debug=False, outputdir=None):
 
     PIPELINE = [
       replaceSymbols,
-      injectStyles,
-      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings.
+      injectStyles, # include the styles.xml file because it contains list numbering info
+      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings       
       makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9 
                             # and need to be 1. See (testbed) southwood__Lesson_2.doc
+      makeXsl('pass2_odt-collapse-spans.xsl'), # Collapse adjacent spans (for RED)
       redParser, # makeXsl('pass1_odt2red-escape.xsl'),
       makeXsl('pass4_odt-headers.xsl'),
       imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
