@@ -9,6 +9,8 @@
 <!-- This XSL only runs if the odt2red pass failed.
      It inserts a message saying conversion failed -->
 
+<xsl:param name="message">No Default Message</xsl:param>
+
 <!-- By default pass everything through. Not xincluded because eggs don't play nice -->
 <xsl:template match="@*|node()">
   <xsl:copy>
@@ -20,7 +22,7 @@
 <xsl:template match="office:text">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
-    <xsl:processing-instruction name="cnx.error">Converting Red text to XML failed.</xsl:processing-instruction>
+    <xsl:processing-instruction name="cnx.error">Converting Red text to XML failed. Message: <xsl:value-of select="$message"/></xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
   </xsl:copy>
 </xsl:template>
