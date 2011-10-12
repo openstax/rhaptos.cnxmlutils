@@ -29,6 +29,18 @@ OOFFICE_MACRO='macro:///Standard.Module1.SaveAsOOO'
 #' The content of the Macro is as follows
 #' (Tools, Macros, Organize Macros, Open Office.org Basic..., click Standard, click New:
 #
+#Function MakePropertyValue( Optional cName As String, Optional uValue ) _
+#   As com.sun.star.beans.PropertyValue
+#   Dim oPropertyValue As New com.sun.star.beans.PropertyValue
+#   If Not IsMissing( cName ) Then
+#      oPropertyValue.Name = cName
+#   EndIf
+#   If Not IsMissing( uValue ) Then
+#      oPropertyValue.Value = uValue
+#   EndIf
+#   MakePropertyValue() = oPropertyValue
+#End Function
+#
 #' Save document as an OpenOffice 2 file. 
 #Sub SaveAsOOO( cFile, dFile ) 
 #   ' mostly a copy of SaveAsPDF. Save as an OpenOffice file. 
@@ -135,9 +147,11 @@ test ${BATCH} -ne 0 && echo "Filename \tErrors-or-Warnings \t#-Diffs \t%of-text-
 
 SCORE=0 # At the end of the run, a tally will show a "Richness" score. higher = better
 
-for f in $*
+for f in "$@"
 do
 		
+  FULL_PATH="${f}"
+
   if [ ${BATCH} -eq 0 ]; then
     echo "--------------------------"
     echo "Starting ${f}"
@@ -151,10 +165,10 @@ do
   if [ "odt" = $(echo ${f#*.}) -o "doc.odt" = $(echo ${f#*.}) ]; then
     ODT_FILE=${f}
   else
-    ${OOFFICE_BIN} -invisible "${OOFFICE_MACRO}(${f},${ODT_FILE})"
+    ${OOFFICE_BIN} -invisible "${OOFFICE_MACRO}(${FULL_PATH},${ODT_FILE})"
 
     # If there was an error or the file didn't generate print error
-    if [ 0 != $? -o ! -s ${ODT_FILE} ]; then
+    if [ 0 != $? -o ! -s "${ODT_FILE}" ]; then
       echo "ERROR: Could not convert document to Open Office"
       continue
     fi
@@ -175,8 +189,8 @@ do
   # - Remove all spaces
   # - Put 1 character/line
   # - (then diff) to see how much was lost
-  unzip -p ${ODT_FILE} content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
-	xsltproc ${WF_XSL} ${TEMP_XML} | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
+  unzip -p "${ODT_FILE}" content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
+	xsltproc ${WF_XSL} "${TEMP_XML}" | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
 	
 	DIFF_COUNT=0    # If there are no diffs then these are 0 by default
 	DIFF_PERCENT=0
