@@ -108,9 +108,11 @@ def transform(odtfile, debug=False, outputdir=None):
             strMathPath = strMathPath + '/content.xml'
             strMath = zip.read(strMathPath)
             
-            parser = etree.XMLParser(encoding='utf-8')
-            parser.feed(strMath)
-            math = parser.close()
+            #parser = etree.XMLParser(encoding='utf-8')
+            #parser.feed(strMath)
+            #math = parser.close()
+            math = etree.parse(StringIO(strMath)).getroot()
+            
             # Replace the reference to the Math with the actual MathML
             obj.getparent().replace(obj, math)
         return xml
