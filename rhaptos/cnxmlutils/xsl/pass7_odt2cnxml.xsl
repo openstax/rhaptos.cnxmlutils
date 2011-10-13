@@ -636,7 +636,9 @@
     <xsl:variable name='height'>
       <xsl:choose>
         <xsl:when test="@svg:height">
-          <xsl:value-of select="round(number(substring-before(@svg:height, 'in'))*100)" />
+          <xsl:call-template name="cnx.2px">
+            <xsl:with-param name="inches" select="number(substring-before(@svg:height, 'in'))" />
+          </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="0" />
@@ -646,7 +648,9 @@
     <xsl:variable name='width'>
       <xsl:choose>
         <xsl:when test="@svg:width">
-          <xsl:value-of select="round(number(substring-before(@svg:width, 'in'))*100)" />
+          <xsl:call-template name="cnx.2px">
+            <xsl:with-param name="inches" select="number(substring-before(@svg:width, 'in'))" />
+          </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="0" />
@@ -763,6 +767,15 @@
         </xsl:if>
       </xsl:otherwise>
     </xsl:choose>  
+  </xsl:template>
+
+  <!-- Convert other measurements to pixels. Images for example are stored in "in" -->
+  <xsl:template name="cnx.2px">
+    <xsl:param name="emu" select="0"/>
+    <xsl:param name="inches" select="$emu div 914400"/>
+    <xsl:param name="points" select="$inches * 72.0"/>
+    <xsl:param name="px" select="$points * 96.0 div 72.0"/>
+    <xsl:value-of select="$px"/>
   </xsl:template>
 
   <!-- Image in a table -->
