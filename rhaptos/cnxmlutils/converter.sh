@@ -149,8 +149,9 @@ SCORE=0 # At the end of the run, a tally will show a "Richness" score. higher = 
 
 for f in "$@"
 do
-		
-  FULL_PATH="${f}"
+	
+  FULL_PATH=$(dirname "${f}")
+  FULL_PATH=$(cd "${FULL_PATH}"; pwd)/$(basename "${f}")
 
   if [ ${BATCH} -eq 0 ]; then
     echo "--------------------------"
