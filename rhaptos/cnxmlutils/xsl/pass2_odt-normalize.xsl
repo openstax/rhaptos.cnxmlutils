@@ -173,7 +173,7 @@
 
 
 <xsl:template match="text:changed-region|text:change-start|text:change-end|text:change">
-  <xsl:processing-instruction name="cnx.warning">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
+  <xsl:processing-instruction name="cnx.info">This document contains a history of changes. These will be discarded upon import</xsl:processing-instruction>
 </xsl:template>
 
 
