@@ -191,7 +191,7 @@ do
   # - Put 1 character/line
   # - (then diff) to see how much was lost
   unzip -p "${ODT_FILE}" content.xml | xsltproc ${WF_XSL} - | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_ORIG}
-	xsltproc ${WF_XSL} "${TEMP_XML}" | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
+	xsltproc ${WF_XSL} ${TEMP_XML} | grep -o "[^\ ]\+" | tr -d '\n' | sed "s/\(.\)/\1\n/g" > ${WF_CONV}
 	
 	DIFF_COUNT=0    # If there are no diffs then these are 0 by default
 	DIFF_PERCENT=0
