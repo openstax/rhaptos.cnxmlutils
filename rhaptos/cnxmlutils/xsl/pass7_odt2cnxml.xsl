@@ -697,7 +697,7 @@
                 </title>
               </xsl:if>
             </xsl:if>
-            <media alt="">
+            <media>
               <xsl:attribute name="id">
                 <xsl:value-of select="concat($idbase,'_media')" />
               </xsl:attribute>
@@ -742,7 +742,7 @@
                   <xsl:value-of select="../../preceding-sibling::text:p[position()=1]"/>
                 </title>
             </xsl:if>
-            <media alt="">
+            <media>
               <xsl:attribute name="id" >
                 <xsl:value-of select="concat($idbase,'_media')" />
               </xsl:attribute>
@@ -827,7 +827,7 @@
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:otherwise>
-        <media alt="">
+        <media>
           <image mime-type='image/{$type}' src='{@draw:name}.{$type}'/>
         </media>
       </xsl:otherwise>
