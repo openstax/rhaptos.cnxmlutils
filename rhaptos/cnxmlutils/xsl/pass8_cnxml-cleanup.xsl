@@ -1,6 +1,7 @@
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://cnx.rice.edu/cnxml"
+  xmlns:m="http://www.w3.org/1998/Math/MathML"
   exclude-result-prefixes="c"
   version="1.0">
 
@@ -43,6 +44,16 @@
         <xsl:apply-templates select="c:para[not(c:figure)]/node()"/>
       </c:caption>
     </xsl:if>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="c:figure[@alt]/c:media">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:attribute name="alt">
+      <xsl:value-of select="../@alt"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="@*"/>
   </xsl:copy>
 </xsl:template>
 
