@@ -47,6 +47,7 @@
   </xsl:copy>
 </xsl:template>
 
+<!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
 <xsl:template match="c:figure[ancestor-or-self::c:figure[@alt]]/c:media">
   <xsl:copy>
@@ -66,7 +67,6 @@
     <xsl:apply-templates select="node()"/>
   </xsl:copy>
 </xsl:template>
-
 
 <xsl:template match="c:figure//c:figure">
   <xsl:processing-instruction name="cnx.warning">Stripping out nested figure (word import)</xsl:processing-instruction>
@@ -155,6 +155,13 @@
 -->
 <xsl:template match="c:title/c:para">
   <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+<!-- A para that only contains m:math is converted to a c:equation -->
+<xsl:template match="c:para[m:math and count(*) = 1]">
+  <c:equation>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:equation>
 </xsl:template>
 
 <xsl:template match="@*|node()">
