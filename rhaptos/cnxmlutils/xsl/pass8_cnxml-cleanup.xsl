@@ -47,6 +47,7 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="c:figure/@alt"/>
 <xsl:template match="c:figure[@alt]/c:media">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
