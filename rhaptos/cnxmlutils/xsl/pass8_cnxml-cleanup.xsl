@@ -30,14 +30,27 @@
 
 <!-- SHORTCUT: allow "<figure>title [] [] caption</figure>" to create subfigures -->
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
-<xsl:template match="c:figure[c:para]">
+<xsl:template match="c:figure">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
     <xsl:apply-templates select="c:para/c:figure/node()"/>
+    <xsl:choose>
+      <!-- odt2cnxml converts every draw:frame to a <figure><media/></figure> -->
+      <xsl:when test="count(c:figure/c:media) &gt; 1">
+        <xsl:for-each select="c:figure/c:media">
+          <c:subfigure>
+            <xsl:apply-templates select="."/>
+          </c:subfigure>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="c:figure/c:media"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:figure)]"/>
     <xsl:if test="c:para[not(c:figure)]">
       <!-- Convert text inside a <figure/> into a caption -->
       <c:caption>
@@ -158,11 +171,35 @@
 </xsl:template>
 
 <!-- A para that only contains m:math is converted to a c:equation -->
-<xsl:template match="c:para[m:math and count(*) = 1]">
+<xsl:template match="c:para[m:math and count(*) = 1 and normalize-space()='']">
   <c:equation>
     <xsl:apply-templates select="@*|node()"/>
   </c:equation>
 </xsl:template>
+
+<xsl:template match="m:math[not(@display='block') and not(ancestor::c:para)]">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:attribute name="display">block</xsl:attribute>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="c:section/m:math|c:content/m:math">
+  <c:para>
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </c:para>
+</xsl:template>
+
+<xsl:template match="c:media[not(ancestor-or-self::c:figure[@alt])]">
+  <xsl:copy>
+    <xsl:attribute name="alt"></xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
 
 <xsl:template match="@*|node()">
   <xsl:copy>

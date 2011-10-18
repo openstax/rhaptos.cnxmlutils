@@ -344,6 +344,10 @@
 
 <xsl:template match="office:automatic-styles|office:styles|text:list-style|office:scripts|office:font-face-decls|style:style"/>
 
+<!-- When a paragraph only has an image, unwrap it because images can be block-level -->
+<xsl:template match="text:p[draw:frame and count(*)=1 and normalize-space()='']">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
 
 <!-- Collapse nested text:span tags -->
 <xsl:template match="text:span[text:span and count(*)=1]">
