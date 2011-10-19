@@ -60,6 +60,11 @@
   </xsl:copy>
 </xsl:template>
 
+<!-- RED c:caption will have a c:para in it; strip it -->
+<xsl:template match="c:caption/c:para">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
 <xsl:template match="c:figure[ancestor-or-self::c:figure[@alt]]/c:media">

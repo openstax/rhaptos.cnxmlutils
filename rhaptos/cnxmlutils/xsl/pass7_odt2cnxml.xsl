@@ -1475,5 +1475,12 @@
   <xsl:template match="text:bookmark|text:line-break">
     <xsl:processing-instruction name="cnx.info">Ignoring <xsl:value-of select="name()"/></xsl:processing-instruction>
   </xsl:template>
+
+
+<!-- When a paragraph only has an image, unwrap it because images can be block-level -->
+<xsl:template match="text:p[draw:frame and count(*)=1 and normalize-space()='']">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 </xsl:stylesheet>
 
