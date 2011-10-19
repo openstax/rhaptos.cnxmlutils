@@ -16,7 +16,7 @@
      XML with no namespace.
 -->
 
-<xsl:output encoding="ASCII"/>
+<xsl:output encoding="ASCII" indent="yes" method="xml"/>
 
 <!-- By default pass everything through. Not xincluded because eggs don't play nice -->
 <xsl:template match="@*|node()">
@@ -46,7 +46,7 @@
   <xsl:processing-instruction name="cnx.debug">Start RED escaped text from import</xsl:processing-instruction>
 -->
   <!-- Convert "pretty" apostrophes and quotes to simple ones -->
-  <xsl:value-of select="translate(., &quot;&#8221;&#8217;&quot;, &quot;&apos;&apos;&quot;)" disable-output-escaping="yes"/>
+  <xsl:value-of select="translate(., '&#8220;&#8221;&#8217;', '&quot;&quot;&quot;')" disable-output-escaping="yes"/>
 <!--
   <xsl:processing-instruction name="cnx.debug">CNX: End RED escaped text from import</xsl:processing-instruction>
 -->
