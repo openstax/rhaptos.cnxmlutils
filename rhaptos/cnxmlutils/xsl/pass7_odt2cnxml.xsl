@@ -616,7 +616,7 @@
   </xsl:template>
   
   <!-- Figure -->
-  <xsl:template match="draw:frame[draw:image and not(math:math or draw:object or draw:ole-object or draw:text-box)]">
+  <xsl:template match="draw:frame[draw:image and count(*) = 1]">
     <xsl:param name='type'>
       <xsl:value-of select="substring-after(draw:image/@xlink:href,'.')"/>
     </xsl:param> 
@@ -659,6 +659,14 @@
     </xsl:variable>
 
     <xsl:choose>
+      <xsl:when test="self::draw:object-ole and parent::text:p">
+        <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
+        ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
+      </xsl:when>
+      <xsl:when test="(self::draw:object-ole)">
+        <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
+        <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
+      </xsl:when>
       <xsl:when test="($type='svm')">
         <xsl:processing-instruction name="cnx.warning">SVM Objects are not supported (this might be math)</xsl:processing-instruction>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
@@ -689,7 +697,7 @@
                 </title>
               </xsl:if>
             </xsl:if>
-            <media alt="">
+            <media>
               <xsl:attribute name="id">
                 <xsl:value-of select="concat($idbase,'_media')" />
               </xsl:attribute>
@@ -734,7 +742,7 @@
                   <xsl:value-of select="../../preceding-sibling::text:p[position()=1]"/>
                 </title>
             </xsl:if>
-            <media alt="">
+            <media>
               <xsl:attribute name="id" >
                 <xsl:value-of select="concat($idbase,'_media')" />
               </xsl:attribute>
@@ -819,7 +827,7 @@
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:otherwise>
-        <media alt="">
+        <media>
           <image mime-type='image/{$type}' src='{@draw:name}.{$type}'/>
         </media>
       </xsl:otherwise>
