@@ -35,29 +35,33 @@
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
-    <xsl:apply-templates select="c:para/c:figure/node()"/>
     <xsl:choose>
       <!-- odt2cnxml converts every draw:frame to a <figure><media/></figure> -->
-      <xsl:when test="count(c:figure/c:media) &gt; 1">
-        <xsl:for-each select="c:figure/c:media">
+      <xsl:when test="count(c:para/c:media|c:media) &gt; 1">
+        <xsl:for-each select="c:para/c:media|c:media">
           <c:subfigure>
             <xsl:apply-templates select="."/>
           </c:subfigure>
         </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="c:figure/c:media"/>
+        <xsl:apply-templates select="c:para/c:media|c:media"/>
       </xsl:otherwise>
     </xsl:choose>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:figure)]"/>
-    <xsl:if test="c:para[not(c:figure)]">
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:media)]"/>
+    <xsl:if test="c:para[not(c:media)]">
       <!-- Convert text inside a <figure/> into a caption -->
       <c:caption>
-        <xsl:apply-templates select="c:para[not(c:figure)]/node()"/>
+        <xsl:apply-templates select="c:para[not(c:media)]/node()"/>
       </c:caption>
     </xsl:if>
   </xsl:copy>
+</xsl:template>
+
+<!-- RED c:caption will have a c:para in it; strip it -->
+<xsl:template match="c:caption/c:para">
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
@@ -200,6 +204,13 @@
   </xsl:copy>
 </xsl:template>
 
+<!-- SHORTCUT: "figures" in a title are converted into images -->
+<xsl:template match="c:title/c:figure">
+  <xsl:if test="*[not(self::c:media)]">
+    <xsl:processing-instruction>cnx.warning Images in titles can only contain the image (no captions, etc)</xsl:processing-instruction>
+  </xsl:if>
+  <xsl:apply-templates select="c:media"/>
+</xsl:template>
 
 <xsl:template match="@*|node()">
   <xsl:copy>
