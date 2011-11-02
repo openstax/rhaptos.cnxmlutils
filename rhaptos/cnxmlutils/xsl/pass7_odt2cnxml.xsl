@@ -620,154 +620,139 @@
     <xsl:param name='type'>
       <xsl:value-of select="substring-after(draw:image/@xlink:href,'.')"/>
     </xsl:param> 
-    <!-- add extension (from $type) if it doesn't already exist. see also 'helpers.parseContent'.
-    see also below "Image in a table" -->
-    <xsl:variable name='beforeext'>
-      <xsl:value-of select="substring-before(@draw:name, concat('.',$type))"/>
-    </xsl:variable>
-    <xsl:variable name='name'>
-      <xsl:if test="not(string-length($beforeext))">
-        <xsl:value-of select="@draw:name" />
-      </xsl:if>
-      <xsl:if test="boolean(string-length($beforeext))">
-        <xsl:value-of select="$beforeext" />
-      </xsl:if>
-    </xsl:variable>
-    <xsl:variable name='height'>
-      <xsl:choose>
-        <xsl:when test="@svg:height">
-          <xsl:call-template name="cnx.2px">
-            <xsl:with-param name="dist" select="@svg:height" />
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name='width'>
-      <xsl:choose>
-        <xsl:when test="@svg:width">
-          <xsl:call-template name="cnx.2px">
-            <xsl:with-param name="dist" select="@svg:width" />
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="0" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
 
     <xsl:choose>
-      <xsl:when test="self::draw:object-ole and parent::text:p">
+      <xsl:when test="self::draw:object-ole">
         <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
         ***SORRY, THIS MEDIA TYPE IS NOT SUPPORTED.***
-      </xsl:when>
-      <xsl:when test="(self::draw:object-ole)">
-        <xsl:processing-instruction name="cnx.warning">OLE Objects are not supported (this might be math)</xsl:processing-instruction>
-        <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
       <xsl:when test="($type='svm')">
         <xsl:processing-instruction name="cnx.warning">SVM Objects are not supported (this might be math)</xsl:processing-instruction>
         <xsl:comment>Sorry, this media type is not supported.</xsl:comment>
       </xsl:when>
+      <xsl:when test="ancestor-or-self::c:figure">
+        <!-- Skip creating the figure (shortcut) -->
+        <xsl:call-template name="cnx.media">
+          <xsl:with-param name="type" select="$type"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="parent::text:span">
+        <!-- BNW: was inline media and is now figure??? -->
+        <figure>
+          <xsl:if test="../../preceding-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Title'">
+            <title>
+              <xsl:value-of select="../../preceding-sibling::text:p[position()=1]"/>
+            </title>
+          </xsl:if>
+          <xsl:call-template name="cnx.media">
+            <xsl:with-param name="type" select="$type"/>
+          </xsl:call-template>
+          <xsl:if test="../../following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Caption'">
+            <caption>
+              <xsl:value-of select="../../following-sibling::text:p[position()=1]"/>
+            </caption>
+          </xsl:if>
+        </figure>
+      </xsl:when>
       <xsl:otherwise>
-        <xsl:if test="not(parent::text:span)">
-          <figure>
-            <xsl:variable name='idbase'>
-              <xsl:value-of select="generate-id()"/>
-            </xsl:variable>
-            <xsl:attribute name="id">
-              <xsl:value-of select="$idbase"/>
-            </xsl:attribute>
-            <xsl:if test="../preceding-sibling::text:p[position()=1]">
-              <xsl:variable name="Style">
-                <xsl:value-of select="../preceding-sibling::text:p[position()=1]/@text:style-name"/>
-              </xsl:variable>
-              <xsl:if test="$Style='CNXML_20_Figure_20_Title' or
-                            ../preceding-sibling::text:p[position()=1]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
-                <title>
-                  <xsl:if test="../preceding-sibling::text:p[1]/text:bookmark or
-                                ../preceding-sibling::text:p[1]/text:bookmark-start">
-                    <xsl:attribute name="id">
-                      <xsl:value-of select="generate-id(../preceding-sibling::text:p[1])"/>
-                    </xsl:attribute>
-                  </xsl:if>
-                  <xsl:value-of select="../preceding-sibling::text:p[1]"/>
-                </title>
-              </xsl:if>
-            </xsl:if>
-            <media>
-              <xsl:attribute name="id">
-                <xsl:value-of select="concat($idbase,'_media')" />
-              </xsl:attribute>
-              <image mime-type='image/{$type}' src='{$name}.{$type}'>
-                <xsl:attribute name="id" >
-                  <xsl:value-of select="concat($idbase,'__onlineimage')" />
-                </xsl:attribute>
-                <xsl:if test="$height > 0">
-                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
-                </xsl:if>
-                <xsl:if test="$width > 0">
-                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
-                </xsl:if>
-              </image>
-            </media>
-            <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML_20_Figure_20_Caption'">
-                <caption>
-                  <xsl:choose>
-                    <xsl:when test="count(../following-sibling::text:p[1]/child::*)=0">
-                      <xsl:value-of select="../following-sibling::text:p[1]"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:apply-templates select="../following-sibling::text:p[1]/*"/>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </caption>
-            </xsl:if>
-          </figure>
-        </xsl:if>
-        <xsl:if test="parent::text:span">
-          <!-- BNW: was inline media and is now figure??? -->
-          <xsl:variable name='idbase'>
-            <xsl:value-of select="generate-id()"/>
-          </xsl:variable>
-
-          <figure>
-            <xsl:attribute name="id">
-              <xsl:value-of select="$idbase"/>
-            </xsl:attribute>
-            <xsl:if test="../../preceding-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Title'">
-                <title>
-                  <xsl:value-of select="../../preceding-sibling::text:p[position()=1]"/>
-                </title>
-            </xsl:if>
-            <media>
-              <xsl:attribute name="id" >
-                <xsl:value-of select="concat($idbase,'_media')" />
-              </xsl:attribute>
-              <image mime-type='image/{$type}' src='{$name}.{$type}'>
-                <xsl:attribute name="id" >
-                  <xsl:value-of select="concat($idbase,'__onlineimage')" />
-                </xsl:attribute>
-                <xsl:if test="$height > 0">
-                  <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
-                </xsl:if>
-                <xsl:if test="$width > 0">
-                  <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
-                </xsl:if>
-              </image>
-            </media>
-            <xsl:if test="../../following-sibling::text:p[position()=1]/@text:style-name='CNXML_20_Figure_20_Caption'">
-                <caption>
-                  <xsl:value-of select="../../following-sibling::text:p[position()=1]"/>
-                </caption>
-            </xsl:if>
-          </figure>
-        </xsl:if>
+        <figure>
+          <xsl:call-template name="cnx.media-and-caption">
+            <xsl:with-param name="type" select="$type"/>
+          </xsl:call-template>
+        </figure>
       </xsl:otherwise>
     </xsl:choose>  
   </xsl:template>
+
+<xsl:template name="cnx.media-and-caption">
+  <xsl:param name="type"/>
+  <xsl:call-template name="cnx.media">
+    <xsl:with-param name="type" select="$type"/>
+  </xsl:call-template>
+  
+  <xsl:if test="../following-sibling::text:p[1]/@text:style-name='CNXML_20_Figure_20_Caption'">
+    <caption>
+      <xsl:choose>
+        <xsl:when test="count(../following-sibling::text:p[1]/child::*)=0">
+          <xsl:value-of select="../following-sibling::text:p[1]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="../following-sibling::text:p[1]/*"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </caption>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="cnx.media">
+  <xsl:param name='type'>
+    <xsl:value-of select="substring-after(draw:image/@xlink:href,'.')"/>
+  </xsl:param> 
+  <!-- add extension (from $type) if it doesn't already exist. see also 'helpers.parseContent'.
+  see also below "Image in a table" -->
+  <xsl:variable name='beforeext'>
+    <xsl:value-of select="substring-before(@draw:name, concat('.',$type))"/>
+  </xsl:variable>
+  <xsl:variable name='name'>
+    <xsl:if test="not(string-length($beforeext))">
+      <xsl:value-of select="@draw:name" />
+    </xsl:if>
+    <xsl:if test="boolean(string-length($beforeext))">
+      <xsl:value-of select="$beforeext" />
+    </xsl:if>
+  </xsl:variable>
+  <xsl:variable name='height'>
+    <xsl:choose>
+      <xsl:when test="@svg:height">
+        <xsl:call-template name="cnx.2px">
+          <xsl:with-param name="dist" select="@svg:height" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="0" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name='width'>
+    <xsl:choose>
+      <xsl:when test="@svg:width">
+        <xsl:call-template name="cnx.2px">
+          <xsl:with-param name="dist" select="@svg:width" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="0" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:if test="../preceding-sibling::text:p[position()=1]">
+    <xsl:variable name="Style">
+      <xsl:value-of select="../preceding-sibling::text:p[position()=1]/@text:style-name"/>
+    </xsl:variable>
+    <xsl:if test="$Style='CNXML_20_Figure_20_Title' or
+                  ../preceding-sibling::text:p[position()=1]/@style:parent-style-name='CNXML_20_Figure_20_Title'">
+      <title>
+        <xsl:if test="../preceding-sibling::text:p[1]/text:bookmark or
+                      ../preceding-sibling::text:p[1]/text:bookmark-start">
+          <xsl:attribute name="id">
+            <xsl:value-of select="generate-id(../preceding-sibling::text:p[1])"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:value-of select="../preceding-sibling::text:p[1]"/>
+      </title>
+    </xsl:if>
+  </xsl:if>
+  <media>
+    <image mime-type='image/{$type}' src='{$name}.{$type}'>
+      <xsl:if test="$height > 0">
+        <xsl:attribute name="height"><xsl:value-of select="$height"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="$width > 0">
+        <xsl:attribute name="width"><xsl:value-of select="$width"/></xsl:attribute>
+      </xsl:if>
+    </image>
+  </media>
+</xsl:template>
 
   <!-- Convert other measurements to pixels. Images for example are stored in "in" -->
   <xsl:template name="cnx.2px">
