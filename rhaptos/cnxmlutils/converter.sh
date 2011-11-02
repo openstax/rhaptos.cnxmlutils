@@ -230,6 +230,10 @@ do
                     }
       " ${WF_TEMP})
       
+      if [ "${DIFF_COUNT}." == "." ]; then
+        DIFF_COUNT=0
+      fi
+      
       DIFF_PERCENT=$(echo "scale=2;(${DIFF_COUNT} *100) / ${MAX_SIZE}" | bc)
     fi
 	fi
