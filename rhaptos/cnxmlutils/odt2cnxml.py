@@ -105,7 +105,7 @@ def transform(odtfile, debug=False, outputdir=None):
                 strMathPath = strMathPath[2:]
 
             # HACK - need to find the object location from the manifest ...
-            strMathPath = strMathPath + '/content.xml'
+            strMathPath = os.path.join(strMathPath, 'content.xml')
             strMath = zip.read(strMathPath)
             
             #parser = etree.XMLParser(encoding='utf-8')
