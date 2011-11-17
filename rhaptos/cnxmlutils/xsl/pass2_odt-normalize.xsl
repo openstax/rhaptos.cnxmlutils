@@ -283,7 +283,7 @@
 </xsl:template>
 
 <!-- These are the attributes we care about (used in subsequent XSLT passes) -->
-<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-underline-style|@style:text-position|@style:parent-style-name|@fo:color[. = '#ff0000']" mode="stylizer">
+<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-underline-style|@style:text-position|@style:parent-style-name|@fo:color[translate(.,'ABCDEF','abcdef') = '#ff0000']" mode="stylizer">
   <xsl:attribute name="{name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
