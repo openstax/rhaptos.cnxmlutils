@@ -825,22 +825,22 @@
       <xsl:value-of select="@text:style-name"/>
     </xsl:param>
     <xsl:choose>
-      <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-style='italic' and count(child::*)=1 and child::*[1]=draw:image">
+      <xsl:when test="@fo:font-style='italic' and count(child::*)=1 and child::*[1]=draw:image">
         <xsl:apply-templates select="node()"/>
       </xsl:when>
-      <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-style='italic'">
+      <xsl:when test="@fo:font-style='italic'">
         <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
-      <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@fo:font-weight='bold'">
+      <xsl:when test="@fo:font-weight='bold'">
         <emphasis effect='bold'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
-      <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-underline">
+      <xsl:when test="@style:text-underline-style='solid'">
         <emphasis effect='underline'><xsl:apply-templates select="node()"/></emphasis>
       </xsl:when>
-      <xsl:when test="starts-with(//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-position, 'sub ')">
+      <xsl:when test="starts-with(@style:text-position, 'sub ')">
         <sub><xsl:apply-templates select="node()"/></sub>
       </xsl:when>
-      <xsl:when test="starts-with(//office:document-content/office:automatic-styles/style:style[@style:name=$Style]/style:properties/@style:text-position, 'super ')">
+      <xsl:when test="starts-with(@style:text-position, 'super ')">
         <sup><xsl:apply-templates select="node()"/></sup>
       </xsl:when>
       <xsl:when test="//office:document-content/office:automatic-styles/style:style[@style:name=$Style and @style:parent-style-name]">
