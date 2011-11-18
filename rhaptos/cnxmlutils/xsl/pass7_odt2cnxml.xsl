@@ -781,7 +781,7 @@
         <xsl:value-of select="round($px)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$amount"/>
+        <xsl:value-of select="$dist"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
