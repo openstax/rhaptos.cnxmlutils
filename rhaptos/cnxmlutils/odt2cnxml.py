@@ -171,6 +171,7 @@ def transform(odtfile, debug=False, outputdir=None):
       makeXsl('pass8_cnxml-cleanup.xsl'),
       makeXsl('pass9_id-generation.xsl'),
       makeXsl('pass10_processing-instruction-logger.xsl'),
+      makeXsl('pass11_red-unescape.xsl'),
       ]
 
     # "xml" variable gets replaced during each iteration
