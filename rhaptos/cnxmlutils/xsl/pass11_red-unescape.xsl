@@ -22,6 +22,8 @@
   </xsl:template>
   <!-- (but don't output the wrapped para) -->
   <xsl:template match="*[@class='cnx.red-text']">
+<xsl:text>
+</xsl:text>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 </xsl:stylesheet>
