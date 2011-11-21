@@ -152,7 +152,7 @@ There are 2 passes that are done linearly through the para's children.
 <!-- The red property takes precedence over ALL other styles (including CNXML styles) -->
 <xsl:template name="make-hash">
   <xsl:choose>
-    <xsl:when test="@fo:color='#ff0000'">
+    <xsl:when test="translate(@fo:color,'ABCDEF','abcdef')='#ff0000'">
       <xsl:text>RED</xsl:text>
     </xsl:when>
     <xsl:otherwise>

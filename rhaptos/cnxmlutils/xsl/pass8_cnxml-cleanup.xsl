@@ -49,7 +49,7 @@
       </xsl:otherwise>
     </xsl:choose>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:media)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:media)]"/>
     <xsl:if test="c:para[not(c:media)]">
       <!-- Convert text inside a <figure/> into a caption -->
       <c:caption>
@@ -67,22 +67,15 @@
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
 <xsl:template match="c:figure[ancestor-or-self::c:figure[@alt]]/c:media">
-  <xsl:copy>
-    <xsl:apply-templates select="@*"/>
-    <xsl:attribute name="alt">
-      <xsl:value-of select="ancestor::c:figure/@alt"/>
-    </xsl:attribute>
-    <xsl:apply-templates select="node()"/>
-  </xsl:copy>
+  <c:figure alt="{ancestor::c:figure/@alt}">
+    <xsl:apply-templates select="@*|node()"/>
+  </c:figure>
 </xsl:template>
 
 <xsl:template match="c:media[not(@alt) and not(ancestor::c:figure/@alt)]">
-  <xsl:copy>
-    <xsl:apply-templates select="@*"/>
-    <xsl:attribute name="alt">
-    </xsl:attribute>
-    <xsl:apply-templates select="node()"/>
-  </xsl:copy>
+  <c:media alt="">
+    <xsl:apply-templates select="@*|node()"/>
+  </c:media>
 </xsl:template>
 
 <xsl:template match="c:figure//c:figure">
@@ -182,11 +175,9 @@
 </xsl:template>
 
 <xsl:template match="m:math[not(@display='block') and not(ancestor::c:para)]">
-  <xsl:copy>
-    <xsl:apply-templates select="@*"/>
-    <xsl:attribute name="display">block</xsl:attribute>
-    <xsl:apply-templates select="node()"/>
-  </xsl:copy>
+  <m:math display="block">
+    <xsl:apply-templates select="@*|node()"/>
+  </m:math>
 </xsl:template>
 
 <xsl:template match="c:section/m:math|c:content/m:math">
@@ -207,7 +198,7 @@
 <!-- SHORTCUT: "figures" in a title are converted into images -->
 <xsl:template match="c:title/c:figure">
   <xsl:if test="*[not(self::c:media)]">
-    <xsl:processing-instruction>cnx.warning Images in titles can only contain the image (no captions, etc)</xsl:processing-instruction>
+    <xsl:processing-instruction name="cnx.warning">Images in titles can only contain the image (no captions, etc)</xsl:processing-instruction>
   </xsl:if>
   <xsl:apply-templates select="c:media"/>
 </xsl:template>

@@ -27,7 +27,7 @@
 
 
 <!-- Output all RED text regardless if it's in a span, para, heading, etc -->
-<xsl:template match="*[text() and @fo:color = '#ff0000']">
+<xsl:template match="*[text() and translate(@fo:color,'ABCDEF','abcdef') = '#ff0000']">
   <xsl:choose>
     <xsl:when test="count(node()) = 1 and 1 = count(text()) and string-length(normalize-space(text())) = 0">
       <xsl:processing-instruction name="cnx.debug">Silently ignoring red text with nothing in it</xsl:processing-instruction>
@@ -55,7 +55,7 @@
 
 
 <!-- Unwrap elements that only contain red text (like a para, or a span around the red text span) OR a para with some whitespace and then red text -->
-<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*[@fo:color = '#ff0000']) and normalize-space(text()) = '']
+<xsl:template match="*[count(*) &gt;= 1 and count(*) = count(*[translate(@fo:color,'ABCDEF','abcdef') = '#ff0000']) and normalize-space(text()) = '']
 |
 *[count(*[@fo:color = '#ff0000']) &gt;= 1 and not(*[not(self::text:span)]) and not(text:span[* or normalize-space(text()) != ''])]
 
