@@ -11,8 +11,7 @@
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="text()[ancestor::*[@class='red-text']]
-                      |text()[parent::*[starts-with(text(),'&lt;')]]">
+  <xsl:template match="text()[ancestor::*[@class='red-text']]">
     <xsl:value-of select="normalize-space(.)" disable-output-escaping="yes"/>
   </xsl:template>
 </xsl:stylesheet>
