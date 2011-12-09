@@ -1,5 +1,7 @@
 import os
 import sys
+import tempfile
+import shutil
 import zipfile
 import urllib
 import pkg_resources
@@ -31,6 +33,7 @@ STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
 DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
 DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
 
+DRAW_PREFIX = "draw_odg"
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -143,41 +146,55 @@ def transform(odtfile, debug=False, outputdir=None):
         
     def drawPuller(xml):
         styles = DRAW_STYLES_XPATH(xml)
-
+                       
+        empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
+        
+        temp_dirname = tempfile.mkdtemp()
+        print "======"
+        print temp_dirname
+        print "======"
+            
         for i, obj in enumerate(DRAW_XPATH(xml)):
             # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
-            if outputdir is not None: # Copy the whole empty Draw odg and replace contents.xml
-                empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
-                odg_zip = zipfile.ZipFile(os.path.join(outputdir, 'draw%s.odg' % i), 'w', zipfile.ZIP_DEFLATED)    # TODO: Correct output dir
-                for root, dirs, files in os.walk(empty_odg_dirname):
-                    for name in files:
-                        if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
-                            sourcename = os.path.join(root, name)
-                            # http://stackoverflow.com/a/1193171/756056                        
-                            arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
-                            odg_zip.write(sourcename, arcname)
-                
-                content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
-                               
-                # Inject content styles in empty OOo Draw content.xml
-                content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
-                content_styles = content_style_xpath(content)                                
-                for style in styles:
-                    content_styles[0].append(style)
-                
-                # Inject DRAW_XPATH in empty OOo Draw content.xml
-                content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
-                content_page = content_page_xpath(content)
-                content_page[0].append(obj)
-                
-                # write modified content.xml
-                odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
-                
-                # copy styles.xml from odt to odg without modification
-                styles_xml = zip.read('styles.xml')
-                odg_zip.writestr('styles.xml', styles_xml)
+            
+            odg_filename = DRAW_PREFIX + str(i) + '.odg'
+            png_filename = DRAW_PREFIX + str(i) + '.png'
+            
+            odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
+            for root, dirs, files in os.walk(empty_odg_dirname):
+                for name in files:
+                    if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
+                        sourcename = os.path.join(root, name)
+                        # http://stackoverflow.com/a/1193171/756056                        
+                        arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
+                        odg_zip.write(sourcename, arcname)
+            
+            content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
+                           
+            # Inject content styles in empty OOo Draw content.xml
+            content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
+            content_styles = content_style_xpath(content)                                
+            for style in styles:
+                content_styles[0].append(style)
+            
+            # Inject DRAW_XPATH in empty OOo Draw content.xml
+            content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
+            content_page = content_page_xpath(content)
+            content_page[0].append(obj)
+            
+            # write modified content.xml
+            odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
+            
+            # copy styles.xml from odt to odg without modification
+            styles_xml = zip.read('styles.xml')
+            odg_zip.writestr('styles.xml', styles_xml)
 
-                odg_zip.close()
+            odg_zip.close()
+            
+            if outputdir is not None:
+                shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
+                
+            #shutil.rmtree(temp_dirname) # TODO
         
         return xml
 
