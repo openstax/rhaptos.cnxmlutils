@@ -28,9 +28,7 @@ IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object or draw:object-ole) and 
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
-#FONT_FACE_XPATH = etree.XPath('/office:document-content/office:font-face-decls', namespaces=NAMESPACES)
 DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
-#DRAW_CONTENT_XPATH = etree.XPath('*', namespaces=NAMESPACES) # TODO remove? not needed?
 DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
 #TODO: Marvin: Remove later
 DRAW_DEBUG_COUNT_XPATH = etree.XPath('count(//draw:g[not(parent::draw:*)])', namespaces=NAMESPACES)
@@ -148,7 +146,6 @@ def transform(odtfile, debug=False, outputdir=None):
         print "Count of OOo Draw objects: " + str(DRAW_DEBUG_COUNT_XPATH(xml))
 
         styles = DRAW_STYLES_XPATH(xml)
-        #font_faces = FONT_FACE_XPATH(xml)
 
         for i, obj in enumerate(DRAW_XPATH(xml)):
             print "================================================"
@@ -165,14 +162,7 @@ def transform(odtfile, debug=False, outputdir=None):
                             odg_zip.write(sourcename, arcname)
                 
                 content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
-                
-                # Inject content font face in empty OOo Draw content.xml
-                #content_root_xpath = etree.XPath('/office:document-content', namespaces=NAMESPACES)
-                #content_root = content_root_xpath(content)
-                #for font_face in font_faces:
-                    #content_root[0].append(font_face)
-                    
-                
+                               
                 # Inject content styles in empty OOo Draw content.xml
                 content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
                 content_styles = content_style_xpath(content)                                
@@ -182,9 +172,6 @@ def transform(odtfile, debug=False, outputdir=None):
                 # Inject DRAW_XPATH in empty OOo Draw content.xml
                 content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
                 content_page = content_page_xpath(content)
-                #graphics = DRAW_CONTENT_XPATH(obj)  # remove parent draw:g
-                #for graphic in graphics:
-                #    content_page[0].append(graphic)
                 content_page[0].append(obj)
                 
                 # write modified content.xml
