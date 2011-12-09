@@ -27,8 +27,8 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@fo:color[. = '#ff0000']">
-  <xsl:attribute name="class">red-text</xsl:attribute>
-</xsl:tempalte>
+<xsl:template match="@fo:color[translate(.,'ABCDEF','abcdef') = '#ff0000']">
+  <xsl:attribute name="class">cnx.red-text</xsl:attribute>
+</xsl:template>
 
 </xsl:stylesheet>

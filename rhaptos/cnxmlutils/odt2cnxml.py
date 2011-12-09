@@ -47,7 +47,7 @@ def writeXMLFile(filename, content):
     xmlfile.write(content)
     xmlfile.close()
 
-def transform(odtfile, debug=False, outputdir=None):
+def transform(odtfile, debug=False, parsable=False, outputdir=None):
     """ Given an ODT file this returns a tuple containing
         the cnxml, a dictionary of filename -> data, and a list of errors """
     # Store mapping of images extracted from the ODT file (and their bits)
@@ -171,7 +171,6 @@ def transform(odtfile, debug=False, outputdir=None):
       makeXsl('pass8_cnxml-cleanup.xsl'),
       makeXsl('pass9_id-generation.xsl'),
       makeXsl('pass10_processing-instruction-logger.xsl'),
-      makeXsl('pass11_red-unescape.xsl'),
       ]
 
     # "xml" variable gets replaced during each iteration
@@ -183,6 +182,10 @@ def transform(odtfile, debug=False, outputdir=None):
         appendLog(xslDoc)
         if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
         passNum += 1
+
+    # In most cases (EIP) Invalid XML is preferable over valid but Escaped XML
+    if not parsable:
+      xml = (makeXsl('pass11_red-unescape.xsl'))(xml)
 
     return (xml, images, errors)
 
@@ -202,12 +205,13 @@ def main():
       import argparse
       parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
       parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
+      parser.add_argument('-p', dest='parsable', help='Ensure the output is Valid XML (ignore red text)', action='store_true')
       parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
       parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
       args = parser.parse_args()
   
       if args.verbose: print >> sys.stderr, "Transforming..."
-      xml, files, errors = transform(args.odtfile, debug=args.verbose, outputdir=args.outputdir)
+      xml, files, errors = transform(args.odtfile, debug=args.verbose, parsable=args.parsable, outputdir=args.outputdir)
   
       if args.verbose:
           for name, bytes in files.items():
