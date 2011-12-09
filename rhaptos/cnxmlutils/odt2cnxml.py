@@ -1,6 +1,7 @@
 import os
 import sys
 import tempfile
+from copy import deepcopy
 import shutil
 import zipfile
 import urllib
@@ -176,9 +177,9 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
             content_styles = content_style_xpath(content)                                
             for style in styles:
-                content_styles[0].append(style)
+                content_styles[0].append(deepcopy(style))
             
-            # Inject DRAW_XPATH in empty OOo Draw content.xml
+            # Inject drawing in empty OOo Draw content.xml
             content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
             content_page = content_page_xpath(content)
             content_page[0].append(obj)
