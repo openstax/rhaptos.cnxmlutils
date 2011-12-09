@@ -33,7 +33,7 @@ STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
 DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
 DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
 
-DRAW_PREFIX = "draw_odg"
+DRAW_FILENAME_PREFIX = "draw_odg"
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -154,12 +154,12 @@ def transform(odtfile, debug=False, outputdir=None):
         for i, obj in enumerate(DRAW_XPATH(xml)):
             # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
             
-            odg_filename = DRAW_PREFIX + str(i) + '.odg'
-            png_filename = DRAW_PREFIX + str(i) + '.png'
+            odg_filename = DRAW_FILENAME_PREFIX + str(i) + '.odg'
+            png_filename = DRAW_FILENAME_PREFIX + str(i) + '.png'
 
             # add PNG filename as attribute to parent node. The good thing is: The child (obj) will get lost! :-)
             parent = obj.getparent()
-            parent.attrib['png_filename'] = png_filename
+            parent.attrib['ooo_drawing'] = png_filename
             
             odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
             for root, dirs, files in os.walk(empty_odg_dirname):
@@ -192,17 +192,21 @@ def transform(odtfile, debug=False, outputdir=None):
 
             odg_zip.close()
             
-            # convert every odg to png
-            command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
-            os.system(command)
+            # TODO: Better error handling in the future.
+            try:
+                # convert every odg to png
+                command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
+                os.system(command)
 
-            # save every image to memory            
-            image = open(os.path.join(temp_dirname, png_filename), 'r').read()
-            images[png_filename] = image
-            
-            if outputdir is not None:
-                shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
-                shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
+                # save every image to memory            
+                image = open(os.path.join(temp_dirname, png_filename), 'r').read()
+                images[png_filename] = image
+                
+                if outputdir is not None:
+                    shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
+                    shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
+            except:
+                pass
                 
         # delete temporary directory
         shutil.rmtree(temp_dirname)

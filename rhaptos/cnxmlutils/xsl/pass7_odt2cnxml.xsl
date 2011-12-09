@@ -819,11 +819,11 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="text:span[@png_filename]">
+  <xsl:template match="text:span[@ooo_drawing]">
     <media alt="Drawing">
-      <image mime-type="image/png">
+      <image mime-type="image/png"> <!-- use png now because svg export is not working good in OOo -->
         <xsl:attribute name="src">
-          <xsl:value-of select="@png_filename"/>
+          <xsl:value-of select="@ooo_drawing"/>
         </xsl:attribute>
       </image>
     </media>
