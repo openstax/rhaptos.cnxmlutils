@@ -1,5 +1,7 @@
 import os
 import sys
+import tempfile
+import shutil
 import zipfile
 import urllib
 import pkg_resources
@@ -28,6 +30,10 @@ IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object or draw:object-ole) and 
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
+DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
+DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
+
+DRAW_FILENAME_PREFIX = "draw_odg"
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -137,6 +143,75 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             # set the @src correctly
 
         return xml
+        
+    def drawPuller(xml):
+        styles = DRAW_STYLES_XPATH(xml)
+                       
+        empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
+        
+        temp_dirname = tempfile.mkdtemp()
+            
+        for i, obj in enumerate(DRAW_XPATH(xml)):
+            # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
+            
+            odg_filename = DRAW_FILENAME_PREFIX + str(i) + '.odg'
+            png_filename = DRAW_FILENAME_PREFIX + str(i) + '.png'
+
+            # add PNG filename as attribute to parent node. The good thing is: The child (obj) will get lost! :-)
+            parent = obj.getparent()
+            parent.attrib['ooo_drawing'] = png_filename
+            
+            odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
+            for root, dirs, files in os.walk(empty_odg_dirname):
+                for name in files:
+                    if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
+                        sourcename = os.path.join(root, name)
+                        # http://stackoverflow.com/a/1193171/756056                        
+                        arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
+                        odg_zip.write(sourcename, arcname)
+            
+            content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
+                           
+            # Inject content styles in empty OOo Draw content.xml
+            content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
+            content_styles = content_style_xpath(content)                                
+            for style in styles:
+                content_styles[0].append(style)
+            
+            # Inject DRAW_XPATH in empty OOo Draw content.xml
+            content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
+            content_page = content_page_xpath(content)
+            content_page[0].append(obj)
+            
+            # write modified content.xml
+            odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
+            
+            # copy styles.xml from odt to odg without modification
+            styles_xml = zip.read('styles.xml')
+            odg_zip.writestr('styles.xml', styles_xml)
+
+            odg_zip.close()
+            
+            # TODO: Better error handling in the future.
+            try:
+                # convert every odg to png
+                command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
+                os.system(command)
+
+                # save every image to memory            
+                image = open(os.path.join(temp_dirname, png_filename), 'r').read()
+                images[png_filename] = image
+                
+                if outputdir is not None:
+                    shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
+                    shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
+            except:
+                pass
+                
+        # delete temporary directory
+        shutil.rmtree(temp_dirname)
+        
+        return xml
 
     # Reparse after XSL because the RED-escape pass injects arbitrary XML
     def redParser(xml):
@@ -157,6 +232,7 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
         return etree.fromstring(xmlstr)
 
     PIPELINE = [
+      drawPuller, # gets OOo Draw objects out of odt and generate odg (OOo Draw) files
       replaceSymbols,
       injectStyles, # include the styles.xml file because it contains list numbering info
       makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings       
@@ -206,7 +282,7 @@ def main():
       parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
       parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
       parser.add_argument('-p', dest='parsable', help='Ensure the output is Valid XML (ignore red text)', action='store_true')
-      parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
+      parser.add_argument('odtfile', help='/path/to/odtfile')
       parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
       args = parser.parse_args()
   
