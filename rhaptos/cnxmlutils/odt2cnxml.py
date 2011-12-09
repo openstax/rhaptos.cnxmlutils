@@ -156,6 +156,10 @@ def transform(odtfile, debug=False, outputdir=None):
             
             odg_filename = DRAW_PREFIX + str(i) + '.odg'
             png_filename = DRAW_PREFIX + str(i) + '.png'
+
+            # add PNG filename as attribute to parent node. The good thing is: The child (obj) will get lost! :-)
+            parent = obj.getparent()
+            parent.attrib['png_filename'] = png_filename
             
             odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
             for root, dirs, files in os.walk(empty_odg_dirname):
@@ -191,12 +195,17 @@ def transform(odtfile, debug=False, outputdir=None):
             # convert every odg to png
             command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
             os.system(command)
+
+            # save every image to memory            
+            image = open(os.path.join(temp_dirname, png_filename), 'r').read()
+            images[png_filename] = image
             
             if outputdir is not None:
                 shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
                 shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
                 
-            #shutil.rmtree(temp_dirname) # TODO
+        # delete temporary directory
+        shutil.rmtree(temp_dirname)
         
         return xml
 

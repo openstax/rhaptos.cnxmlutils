@@ -819,6 +819,16 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="text:span[@png_filename]">
+    <media alt="Drawing">
+      <image mime-type="image/png">
+        <xsl:attribute name="src">
+          <xsl:value-of select="@png_filename"/>
+        </xsl:attribute>
+      </image>
+    </media>
+  </xsl:template>
+
   <!-- Emphasis, Quote, Code, Foreign, Term-->
   <xsl:template match="text:span">
     <xsl:param name="Style">
