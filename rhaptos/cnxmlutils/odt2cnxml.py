@@ -150,9 +150,6 @@ def transform(odtfile, debug=False, outputdir=None):
         empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
         
         temp_dirname = tempfile.mkdtemp()
-        print "======"
-        print temp_dirname
-        print "======"
             
         for i, obj in enumerate(DRAW_XPATH(xml)):
             # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
@@ -191,8 +188,13 @@ def transform(odtfile, debug=False, outputdir=None):
 
             odg_zip.close()
             
+            # convert every odg to png
+            command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
+            os.system(command)
+            
             if outputdir is not None:
                 shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
+                shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
                 
             #shutil.rmtree(temp_dirname) # TODO
         
