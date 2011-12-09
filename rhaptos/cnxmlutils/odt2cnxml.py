@@ -180,7 +180,7 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
                 content_styles[0].append(deepcopy(style))
             
             # Inject drawing in empty OOo Draw content.xml
-            content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
+            content_page_xpath = etree.XPath('/office:document-content/office:body/office:drawing/draw:page', namespaces=NAMESPACES)
             content_page = content_page_xpath(content)
             content_page[0].append(obj)
             
