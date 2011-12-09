@@ -30,8 +30,7 @@ IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
 DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
 DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
-#TODO: Marvin: Remove later
-DRAW_DEBUG_COUNT_XPATH = etree.XPath('count(//draw:g[not(parent::draw:*)])', namespaces=NAMESPACES)
+
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -143,16 +142,13 @@ def transform(odtfile, debug=False, outputdir=None):
         return xml
         
     def drawPuller(xml):
-        print "Count of OOo Draw objects: " + str(DRAW_DEBUG_COUNT_XPATH(xml))
-
         styles = DRAW_STYLES_XPATH(xml)
 
         for i, obj in enumerate(DRAW_XPATH(xml)):
-            print "================================================"
             # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
             if outputdir is not None: # Copy the whole empty Draw odg and replace contents.xml
                 empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
-                odg_zip = zipfile.ZipFile(os.path.join(outputdir, 'draw%s.odg' % i), 'w')    # TODO: Correct output dir
+                odg_zip = zipfile.ZipFile(os.path.join(outputdir, 'draw%s.odg' % i), 'w', zipfile.ZIP_DEFLATED)    # TODO: Correct output dir
                 for root, dirs, files in os.walk(empty_odg_dirname):
                     for name in files:
                         if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
@@ -175,7 +171,7 @@ def transform(odtfile, debug=False, outputdir=None):
                 content_page[0].append(obj)
                 
                 # write modified content.xml
-                odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8')) # TODO: Remove pretty_print later!
+                odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
                 
                 # copy styles.xml from odt to odg without modification
                 styles_xml = zip.read('styles.xml')
