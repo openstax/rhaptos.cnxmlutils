@@ -49,7 +49,7 @@
       </xsl:otherwise>
     </xsl:choose>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:media)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:media)]"/>
     <xsl:if test="c:para[not(c:media)]">
       <!-- Convert text inside a <figure/> into a caption -->
       <c:caption>
