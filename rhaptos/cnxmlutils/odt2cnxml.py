@@ -28,6 +28,12 @@ IMAGE_XPATH = etree.XPath('//draw:frame[not(draw:object or draw:object-ole) and 
 IMAGE_HREF_XPATH = etree.XPath('draw:image/@xlink:href', namespaces=NAMESPACES)
 IMAGE_NAME_XPATH = etree.XPath('@draw:name', namespaces=NAMESPACES)
 STYLES_XPATH = etree.XPath('//office:styles', namespaces=NAMESPACES)
+#FONT_FACE_XPATH = etree.XPath('/office:document-content/office:font-face-decls', namespaces=NAMESPACES)
+DRAW_XPATH = etree.XPath('//draw:g[not(parent::draw:*)]', namespaces=NAMESPACES)
+#DRAW_CONTENT_XPATH = etree.XPath('*', namespaces=NAMESPACES) # TODO remove? not needed?
+DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-styles/*', namespaces=NAMESPACES)
+#TODO: Marvin: Remove later
+DRAW_DEBUG_COUNT_XPATH = etree.XPath('count(//draw:g[not(parent::draw:*)])', namespaces=NAMESPACES)
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -137,6 +143,60 @@ def transform(odtfile, debug=False, outputdir=None):
             # set the @src correctly
 
         return xml
+        
+    def drawPuller(xml):
+        print "Count of OOo Draw objects: " + str(DRAW_DEBUG_COUNT_XPATH(xml))
+
+        styles = DRAW_STYLES_XPATH(xml)
+        #font_faces = FONT_FACE_XPATH(xml)
+
+        for i, obj in enumerate(DRAW_XPATH(xml)):
+            print "================================================"
+            # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
+            if outputdir is not None: # Copy the whole empty Draw odg and replace contents.xml
+                empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
+                odg_zip = zipfile.ZipFile(os.path.join(outputdir, 'draw%s.odg' % i), 'w')    # TODO: Correct output dir
+                for root, dirs, files in os.walk(empty_odg_dirname):
+                    for name in files:
+                        if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
+                            sourcename = os.path.join(root, name)
+                            # http://stackoverflow.com/a/1193171/756056                        
+                            arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
+                            odg_zip.write(sourcename, arcname)
+                
+                content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
+                
+                # Inject content font face in empty OOo Draw content.xml
+                #content_root_xpath = etree.XPath('/office:document-content', namespaces=NAMESPACES)
+                #content_root = content_root_xpath(content)
+                #for font_face in font_faces:
+                    #content_root[0].append(font_face)
+                    
+                
+                # Inject content styles in empty OOo Draw content.xml
+                content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
+                content_styles = content_style_xpath(content)                                
+                for style in styles:
+                    content_styles[0].append(style)
+                
+                # Inject DRAW_XPATH in empty OOo Draw content.xml
+                content_page_xpath = etree.XPath('/office:document-content/office:body/office:graphics/draw:page', namespaces=NAMESPACES)
+                content_page = content_page_xpath(content)
+                #graphics = DRAW_CONTENT_XPATH(obj)  # remove parent draw:g
+                #for graphic in graphics:
+                #    content_page[0].append(graphic)
+                content_page[0].append(obj)
+                
+                # write modified content.xml
+                odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8')) # TODO: Remove pretty_print later!
+                
+                # copy styles.xml from odt to odg without modification
+                styles_xml = zip.read('styles.xml')
+                odg_zip.writestr('styles.xml', styles_xml)
+
+                odg_zip.close()
+        
+        return xml
 
     # Reparse after XSL because the RED-escape pass injects arbitrary XML
     def redParser(xml):
@@ -157,6 +217,7 @@ def transform(odtfile, debug=False, outputdir=None):
         return etree.fromstring(xmlstr)
 
     PIPELINE = [
+      drawPuller, # gets OOo Draw objects out of odt and generate odg (OOo Draw) files
       replaceSymbols,
       injectStyles, # include the styles.xml file because it contains list numbering info
       makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings       
