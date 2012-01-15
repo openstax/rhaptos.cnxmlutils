@@ -43,7 +43,7 @@
     <xsl:processing-instruction name="cnx.warning">This importer does not support importing lines, rectangles, or other shapes</xsl:processing-instruction>
   </xsl:template>
 <!-- Discard any ODT attributes -->
-<xsl:template match="@text:*"/>
+<xsl:template match="@text:*|@style:*"/>
 
 <xsl:template match="text:note[text:note-citation]">
   <c:footnote id="import-auto-footnote-{text:note-citation/text()}">
@@ -310,7 +310,7 @@
             </xsl:when>
             <xsl:otherwise>
               <para>
-                <xsl:apply-templates select="node()"/>
+                <xsl:apply-templates select="@*|node()"/>
               </para>
             </xsl:otherwise>
           </xsl:choose>
@@ -819,7 +819,7 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="text:span[@ooo_drawing]">
+  <xsl:template match="*[@ooo_drawing]">
     <media alt="Drawing">
       <image mime-type="image/png"> <!-- use png now because svg export is not working good in OOo -->
         <xsl:attribute name="src">

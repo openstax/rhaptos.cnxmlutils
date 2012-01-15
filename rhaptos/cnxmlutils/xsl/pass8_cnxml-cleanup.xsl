@@ -28,6 +28,17 @@
 <!-- Remove all debug processing instructions -->
 <xsl:template match="processing-instruction('cnx.debug')|processing-instruction('cnx.info')"/>
 
+<!-- (Marvin:) Enclose <space> in paragraph if it has no valid parent -->
+<xsl:template match="c:space[not(
+  parent::c:preformat|parent::c:para|parent::c:title|parent::c:label|parent::c:cite|parent::c:cite-title|parent::c:link|parent::c:emphasis|parent::c:term|parent::c:sub|parent::c:sup|parent::c:quote|parent::c:foreign|parent::c:footnote|parent::c:note|parent::c:item|parent::c:code|parent::c:caption|parent::c:commentary|parent::c:meaning|parent::c:entry
+)]">
+  <c:para>
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </c:para>
+</xsl:template>
+
 <!-- SHORTCUT: allow "<figure>title [] [] caption</figure>" to create subfigures -->
 <!-- Figures cannot have para tags in them and images are converted into figures as well (so it'll be a nested figure/para/figure ) -->
 <xsl:template match="c:figure">
@@ -49,7 +60,7 @@
       </xsl:otherwise>
     </xsl:choose>
     <!-- Captions and such -->
-    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:subfigure or self::c:media)]"/>
+    <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:media)]"/>
     <xsl:if test="c:para[not(c:media)]">
       <!-- Convert text inside a <figure/> into a caption -->
       <c:caption>
