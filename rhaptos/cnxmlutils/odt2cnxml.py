@@ -283,7 +283,7 @@ def main():
       parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
       parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
       parser.add_argument('-p', dest='parsable', help='Ensure the output is Valid XML (ignore red text)', action='store_true')
-      parser.add_argument('odtfile', help='/path/to/odtfile')
+      parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
       parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
       args = parser.parse_args()
   
