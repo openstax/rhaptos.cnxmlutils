@@ -61,6 +61,20 @@
     <xsl:apply-templates select="node()"/>
   </xsl:template>
 
+  <!-- Preserve the @class="cnx.red-text" on a para that contains only 1 span with red text -->
+  <xsl:template match="text:p[count(*[@class='cnx.red-text']) &gt; 0 and count(*[not(@class='cnx.red-text')]) = 0]">
+    <para>
+      <xsl:apply-templates select="*/@*"/>
+      <xsl:apply-templates select="node()"/>
+    </para>
+  </xsl:template>
+  
+  <xsl:template match="text:span[@class='cnx.red-text']">
+    <span>
+      <xsl:apply-templates select="@*|node()"/>
+    </span>
+  </xsl:template>
+
   <xsl:template match="c:*">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
