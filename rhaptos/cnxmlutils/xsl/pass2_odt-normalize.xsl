@@ -124,7 +124,7 @@
 
 <!-- productions make sure the unmodified input is written to output -->
 
-  <xsl:template match="text:p[count(text() | child::*[not(self::text:s)]) &lt; 1]"/>
+  <xsl:template match="text:p[count(text() | child::*[not(self::text:s)]) &lt; 1][not(@ooo_drawing)]"/>
 
 <!-- remove empty para, headers, and spans. -->
 
@@ -145,12 +145,12 @@
   <xsl:template match="text:s">
     <xsl:text> </xsl:text>
   </xsl:template>
+  
+  <xsl:template match="text:h[count(node())=0][not(@ooo_drawing)]" />
 
-  <xsl:template match="text:h[count(node())=0]" />
+  <xsl:template match="text:span[count(node())=0][not(@ooo_drawing)]" />
 
-  <xsl:template match="text:span[count(node())=0]" />
-
-  <xsl:template match="text:p[count(node())=0]">
+  <xsl:template match="text:p[count(node())=0][not(@ooo_drawing)]">
     <xsl:if test="@text:style-name='CNXML_20_Code_20__28_Block_29_' and preceding-sibling::*[1]/@text:style-name='CNXML_20_Code_20__28_Block_29_'">
       <xsl:copy-of select="."/>
     </xsl:if>
@@ -283,7 +283,7 @@
 </xsl:template>
 
 <!-- These are the attributes we care about (used in subsequent XSLT passes) -->
-<xsl:template match="@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-underline-style|@style:text-position|@style:parent-style-name|@fo:color[translate(.,'ABCDEF','abcdef') = '#ff0000']" mode="stylizer">
+<xsl:template match="@ooo_drawing|@fo:font-style|@fo:font-weight|@style:text-underline|@style:text-underline-style|@style:text-position|@style:parent-style-name|@fo:color[translate(.,'ABCDEF','abcdef') = '#ff0000']" mode="stylizer">
   <xsl:attribute name="{name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
