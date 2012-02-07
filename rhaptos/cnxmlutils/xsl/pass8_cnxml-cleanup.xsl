@@ -66,14 +66,12 @@
 
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
-<xsl:template match="c:figure[ancestor-or-self::c:figure[@alt]]/c:media">
-  <c:figure alt="{ancestor::c:figure/@alt}">
-    <xsl:apply-templates select="@*|node()"/>
-  </c:figure>
-</xsl:template>
 
-<xsl:template match="c:media[not(@alt) and not(ancestor::c:figure/@alt)]">
-  <c:media alt="">
+<xsl:template match="c:media">
+  <xsl:variable name="alt">
+    <xsl:value-of select="ancestor::c:figure[@alt]/@alt"/>
+  </xsl:variable>
+  <c:media alt="{$alt}">
     <xsl:apply-templates select="@*|node()"/>
   </c:media>
 </xsl:template>
@@ -186,13 +184,6 @@
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </c:para>
-</xsl:template>
-
-<xsl:template match="c:media[not(ancestor-or-self::c:figure[@alt])]">
-  <xsl:copy>
-    <xsl:attribute name="alt"></xsl:attribute>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
 </xsl:template>
 
 <!-- SHORTCUT: "figures" in a title are converted into images -->
