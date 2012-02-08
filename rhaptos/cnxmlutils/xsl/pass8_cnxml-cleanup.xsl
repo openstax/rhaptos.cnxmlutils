@@ -66,7 +66,7 @@
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
 
-<xsl:template match="c:media">
+<xsl:template match="c:media" name="cnx.media">
   <xsl:variable name="alt">
     <xsl:value-of select="ancestor::c:figure[@alt]/@alt"/>
   </xsl:variable>
@@ -83,9 +83,7 @@
 <!-- SHORTCUT: Any time there are multiple images in a c:figure wrap them in a c:subfigure -->
 <xsl:template match="c:media[not(parent::c:subfigure) and count(ancestor::c:figure//c:media) &gt; 1]">
   <c:subfigure>
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
+    <xsl:call-template name="cnx.media"/>
   </c:subfigure>
 </xsl:template>
 
