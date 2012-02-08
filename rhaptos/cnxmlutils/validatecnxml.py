@@ -1,5 +1,4 @@
 import os
-import argparse
 from lxml import etree
 
 dirname = os.path.dirname(__file__)
@@ -15,14 +14,18 @@ def validate(cnxmlstr):
         print "Document validates against cnxml 0.7"
     else:
         print relaxng.error_log
-    return valid
+    return valid, relaxng.error_log
 
 def main():
-    parser = argparse.ArgumentParser(description='Validate CNXML')
-    parser.add_argument('cnxmlfile', help='/path/to/cnxmlfile', type=file)
-    args = parser.parse_args()
+    try:
+        import argparse
+        parser = argparse.ArgumentParser(description='Validate CNXML')
+        parser.add_argument('cnxmlfile', help='/path/to/cnxmlfile', type=file)
+        args = parser.parse_args()
 
-    validate(args.cnxmlfile.read())
+        validate(args.cnxmlfile.read())
+    except ImportError:
+        print "argparse is needed for commandline"
 
 if __name__ == '__main__':
     main()
