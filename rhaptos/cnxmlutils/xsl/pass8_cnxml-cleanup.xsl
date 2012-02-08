@@ -46,19 +46,7 @@
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
-    <xsl:choose>
-      <!-- odt2cnxml converts every draw:frame to a <figure><media/></figure> -->
-      <xsl:when test="count(c:para/c:media|c:media) &gt; 1">
-        <xsl:for-each select="c:para/c:media|c:media">
-          <c:subfigure>
-            <xsl:apply-templates select="."/>
-          </c:subfigure>
-        </xsl:for-each>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="c:para/c:media|c:media"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:apply-templates select="c:para/c:media|c:media"/>
     <!-- Captions and such -->
     <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:media)]"/>
     <xsl:if test="c:para[not(c:media)]">
