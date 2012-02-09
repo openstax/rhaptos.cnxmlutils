@@ -26,7 +26,7 @@ def validate(cnxmlstr, validator='lxml'):
         cmdargs = ["jing", schemafn, tmploc]
         process = subprocess.Popen(cmdargs,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        stdout, stderr = process.communicate(cnxmlstr)
+        stdout, stderr = process.communicate()
         valid = not stdout
         msg = ''
         if valid:
