@@ -27,7 +27,7 @@ def validate(cnxmlstr, validator='lxml'):
         process = subprocess.Popen(cmdargs,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         stdout, stderr = process.communicate(cnxmlstr)
-        valid = stdout is None
+        valid = not stdout
         msg = ''
         if valid:
             return valid, msg
