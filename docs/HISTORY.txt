@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.1 (unreleased)
+----------------
+
+- Handle bold and italic paragraph styles
+  [rochecompaan]
+
+
 1.0
 ---
 

@@ -202,6 +202,26 @@
             </title>
           </para>
         </xsl:when>
+        <xsl:when test="@fo:font-style='italic' and @fo:font-weight='bold'">
+           <para>
+                <emphasis effect='bold'><emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@fo:font-style='italic'">
+            <para>
+                <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@fo:font-weight='bold'">
+            <para>
+                <emphasis effect='bold'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@style:text-underline-style='solid'">
+            <para>
+                <emphasis effect='underline'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
+        </xsl:when>
         <xsl:when test="$Para-Style='CNXML_20_Example'">
           <xsl:choose>
             <xsl:when test="not(normalize-space(.)) and descendant::draw:image">
@@ -851,6 +871,9 @@
     <xsl:choose>
       <xsl:when test="@fo:font-style='italic' and count(child::*)=1 and child::*[1]=draw:image">
         <xsl:apply-templates select="node()"/>
+      </xsl:when>
+      <xsl:when test="@fo:font-style='italic' and @fo:font-weight='bold'">
+        <emphasis effect="bold"><emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis></emphasis>
       </xsl:when>
       <xsl:when test="@fo:font-style='italic'">
         <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>
