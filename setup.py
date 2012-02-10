@@ -24,9 +24,7 @@ setup(name='rhaptos.cnxmlutils',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          #'lxml',
-          #'argparse',
-          # -*- Extra requirements: -*-
+          'lxml',
       ],
       entry_points="""
       # -*- Entry points: -*-
