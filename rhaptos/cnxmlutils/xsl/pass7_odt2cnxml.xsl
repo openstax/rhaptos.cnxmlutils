@@ -470,11 +470,18 @@
               <xsl:value-of select="$before" />
             </xsl:attribute>
           </xsl:if>
+          <!--
+            TODO: mark-suffix produces sometimes unreadable (low/high-ansi?) text,
+            it needs to be checked if the content of mark-suffix is readable.
+            Ignore it now. (Marvin Reimer)
+          -->
+          <!--
           <xsl:if test="string-length($after)>0">
             <xsl:attribute name="mark-suffix">
               <xsl:value-of select="$after" />
             </xsl:attribute>
           </xsl:if>
+          -->
           <xsl:apply-templates select="node()"/>
           <xsl:call-template name="check.for.continued.numbering">
             <xsl:with-param name="current.list" select="." />
