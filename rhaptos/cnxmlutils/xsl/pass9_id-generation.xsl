@@ -22,6 +22,7 @@
 
 <!-- Insert a @id for elements that require it (RED text import didn't add them) -->
 <xsl:template match="
+    c:div|
     c:para|
     c:list|
     c:term|
@@ -44,7 +45,6 @@
     c:rule|
     c:statement|
     c:proof|
-    c:equation|
     c:commentary|
     c:section">
   <xsl:element name="{local-name()}" namespace="http://cnx.rice.edu/cnxml">

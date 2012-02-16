@@ -55,8 +55,15 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-  <!-- Discard the :para element when it only contains c: elements -->
-  <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
+  <!-- Discard the :para element when it only contains non-inline c: elements -->
+  <xsl:template match="text:p[normalize-space(text()) = '' and
+      count(*) = count(c:*) and count(*) &gt;= 1 and not(
+        c:text-extras or c:span or c:term or c:cite or c:cite-title or
+        c:foreign or c:emphasis or c:sub or c:sup or c:inline-code or
+        c:inline-preformat or c:inline-quote or c:inline-note or
+        c:inline-list or c:inline-media or c:footnote or c:link or
+        c:newline or c:space
+      )]">
     <xsl:processing-instruction name="cnx.debug">Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
