@@ -86,7 +86,7 @@ UNICODE_DICTIONARY = {
   , "&#xF041;":"&#33;"
   , "&#xF042;":"&#8704;"
   , "&#xF043;":"&#35;"
-  , "&#xF044;":"&#8707;"
+  , "&#xF044;":"&#916;"
   , "&#xF045;":"&#37;"
   , "&#xF046;":"&#38;"
   , "&#xF047;":"&#8717;"
@@ -215,6 +215,6 @@ def replace(text):
     num = int(hex[3:-1], 16)
     #uni = unichr(num)
     decimal = '&#' + str(num) + ';'
-    for key in [ hex, decimal ]: #uni
-      text = text.replace(key, value)
+    text = text.replace(hex, value)
+    text = text.replace(decimal, value)
   return text
