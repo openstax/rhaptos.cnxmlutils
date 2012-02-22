@@ -55,8 +55,15 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-  <!-- Discard the :para element when it only contains c: elements -->
-  <xsl:template match="text:p[normalize-space(text()) = '' and count(*) = count(c:*) and count(*) &gt;= 1]">
+  <!-- Discard the :para element when it only contains non-inline c: elements -->
+  <xsl:template match="text:p[normalize-space(text()) = '' and
+      count(*) = count(c:*) and count(*) &gt;= 1 and not(
+        c:text-extras or c:span or c:term or c:cite or c:cite-title or
+        c:foreign or c:emphasis or c:sub or c:sup or c:inline-code or
+        c:inline-preformat or c:inline-quote or c:inline-note or
+        c:inline-list or c:inline-media or c:footnote or c:link or
+        c:newline or c:space
+      )]">
     <xsl:processing-instruction name="cnx.debug">Unwrapping a para around RED elements <xsl:for-each select="*"><xsl:value-of select="name()"/></xsl:for-each></xsl:processing-instruction>
     <xsl:apply-templates select="node()"/>
   </xsl:template>
@@ -201,6 +208,26 @@
               <xsl:value-of select="."/>
             </title>
           </para>
+        </xsl:when>
+        <xsl:when test="@fo:font-style='italic' and @fo:font-weight='bold'">
+           <para>
+                <emphasis effect='bold'><emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@fo:font-style='italic'">
+            <para>
+                <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@fo:font-weight='bold'">
+            <para>
+                <emphasis effect='bold'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
+        </xsl:when>
+        <xsl:when test="@style:text-underline-style='solid'">
+            <para>
+                <emphasis effect='underline'><xsl:apply-templates select="node()"/></emphasis>
+            </para>
         </xsl:when>
         <xsl:when test="$Para-Style='CNXML_20_Example'">
           <xsl:choose>
@@ -450,11 +477,18 @@
               <xsl:value-of select="$before" />
             </xsl:attribute>
           </xsl:if>
+          <!--
+            TODO: mark-suffix produces sometimes unreadable (low/high-ansi?) text,
+            it needs to be checked if the content of mark-suffix is readable.
+            Ignore it now. (Marvin Reimer)
+          -->
+          <!--
           <xsl:if test="string-length($after)>0">
             <xsl:attribute name="mark-suffix">
               <xsl:value-of select="$after" />
             </xsl:attribute>
           </xsl:if>
+          -->
           <xsl:apply-templates select="node()"/>
           <xsl:call-template name="check.for.continued.numbering">
             <xsl:with-param name="current.list" select="." />
@@ -851,6 +885,9 @@
     <xsl:choose>
       <xsl:when test="@fo:font-style='italic' and count(child::*)=1 and child::*[1]=draw:image">
         <xsl:apply-templates select="node()"/>
+      </xsl:when>
+      <xsl:when test="@fo:font-style='italic' and @fo:font-weight='bold'">
+        <emphasis effect="bold"><emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis></emphasis>
       </xsl:when>
       <xsl:when test="@fo:font-style='italic'">
         <emphasis effect='italics'><xsl:apply-templates select="node()"/></emphasis>

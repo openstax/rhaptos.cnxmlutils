@@ -229,7 +229,7 @@
   </text:h>
 </xsl:template>
 
-<!-- Some headings are in "Outline" format.
+<!-- Some headings are in "Outline" or "WWNum1" format.
     Only the heading is in the list and they look like this:
     <list style-name="Outline">
       <list-item>
@@ -243,10 +243,9 @@
     </list>
     <p>Body</p>
   -->
-<xsl:template match="text:*[self::text:list or self::text:list-item][ancestor-or-self::*[@text:style-name='Outline']]">
+<xsl:template match="text:*[self::text:list or self::text:list-item][ancestor-or-self::*[@text:style-name='Outline' or @text:style-name='WWNum1']]">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
-
 
 <!-- See space64__Chuong_02-NgonNguJava.doc -->
 <xsl:template match="text:section">
