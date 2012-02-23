@@ -246,6 +246,7 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
       mathIncluder,
       makeXsl('pass7_odt2cnxml.xsl'),
       makeXsl('pass8_cnxml-cleanup.xsl'),
+      makeXsl('pass8.5_cnxml-cleanup.xsl'),
       makeXsl('pass9_id-generation.xsl'),
       makeXsl('pass10_processing-instruction-logger.xsl'),
       ]
