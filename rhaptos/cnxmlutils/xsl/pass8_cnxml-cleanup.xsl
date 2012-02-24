@@ -96,6 +96,12 @@
     </c:meaning>
   </c:definition>
 </xsl:template>
+<!-- SHORTCUT: allow "<glossary> <term>word</term> <meaning>meaning</meaning> \n ... </glossary>".
+When <term/> and <meaning/> are on the same line they end up wrapped in a <para/> so remove the <para/>.
+ -->
+<xsl:template match="c:definition/c:para">
+    <xsl:apply-templates select="node()"/>
+</xsl:template>
 
 <xsl:template match="c:term/text()">
   <xsl:value-of select="normalize-space(.)"/>
