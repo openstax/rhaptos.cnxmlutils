@@ -88,7 +88,6 @@ def main():
     args = parser.parse_args()
 
     if args.collection_dir:
-      print "Using '%s'" % args.collection_dir
       html = transform_collection(args.collection_dir)
     elif args.collection:
       html = transform_collxml(args.collection)
