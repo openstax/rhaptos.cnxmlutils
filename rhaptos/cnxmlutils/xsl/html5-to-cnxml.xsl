@@ -204,11 +204,41 @@
 </xsl:template>
 
 <!-- ========================= -->
+<!-- Figures and subfigures    -->
+<!-- ========================= -->
+
+<!-- A subfigure -->
+<xsl:template match="x:figure//x:figure">
+  <c:subfigure>
+    <xsl:call-template name="figure-body"/>
+  </c:subfigure>
+</xsl:template>
+<xsl:template match="x:figure">
+  <c:figure>
+    <xsl:call-template name="figure-body"/>
+  </c:figure>
+</xsl:template>
+
+<xsl:template name="figure-body">
+  <xsl:apply-templates select="@*"/>
+  <!-- Akin to figure captions -->
+  <xsl:if test="x:figcaption">
+    <xsl:apply-templates select="x:span[@class='title']"/>
+    <c:caption>
+      <xsl:apply-templates select="node()[not(self::x:span[@class='title'])]"/>
+    </c:caption>
+  </xsl:if>
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+
+<!-- ========================= -->
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
 <xsl:template match="x:table">
   <c:table summary="{@summary}">
+    <!-- Akin to figure captions -->
     <xsl:if test="x:caption">
       <xsl:apply-templates select="x:span[@class='title']"/>
       <c:caption>

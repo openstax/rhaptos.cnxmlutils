@@ -250,6 +250,24 @@
   </xsl:attribute>
 </xsl:template>
 
+<!-- ========================= -->
+<!-- Figures and subfigures    -->
+<!-- ========================= -->
+
+<xsl:template match="c:figure[not(@orient or @type)]|c:subfigure[not(@type)]">
+  <figure>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="c:caption or c:title">
+      <figcaption>
+        <xsl:apply-templates select="c:title"/>
+        <!-- NOTE: caption loses the optional id -->
+        <xsl:appy-templates select="c:caption/node()"/>
+      </figcaption>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </figure>
+</xsl:template>
+
 
 <!-- ========================= -->
 <!-- Tables: partial support   -->
@@ -287,5 +305,36 @@
 <xsl:template match="c:entry">
   <td><xsl:apply-templates select="@*|node()"/></td>
 </xsl:template>
+
+
+<!-- ========================= -->
+<!-- Media: Partial Support    -->
+<!-- ========================= -->
+
+<xsl:template match="c:media[not(@display or @longdesc or node())]">
+  <span class="media">
+    <xsl:apply-templates select="@*|node()"/>
+  </span>
+</xsl:template>
+
+<xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
+  <img src="{@src}" data-mime-type="{@mime-type}">
+    <xsl:if test="@for">
+      <xsl:apply-templates mode="class" select=".">
+        <xsl:with-param name="newClasses">
+          <xsl:text>for-</xsl:text>
+          <xsl:value-of select="@for"/>
+        </xsl:with-param>
+      </xsl:apply-templates>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </img>
+</xsl:template>
+<xsl:template match="c:image/@width|c:image/@height">
+  <xsl:attribute name="{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 
 </xsl:stylesheet>
