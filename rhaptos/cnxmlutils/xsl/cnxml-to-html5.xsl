@@ -22,7 +22,7 @@
 <xsl:template match="c:title[ancestor::c:content]|c:label" priority="0">
   <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></xsl:message>
   <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
@@ -35,37 +35,55 @@
 
 <xsl:template match="node()" priority="-100">
   <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="@id|@class">
   <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="c:content">
-  <body><xsl:apply-templates select="@*|node()"/></body>
+  <body><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></body>
+</xsl:template>
+
+<xsl:template mode="class" match="node()"/>
+<xsl:template mode="class" match="*">
+  <xsl:param name="newClasses"/>
+  <xsl:attribute name="class">
+    <xsl:if test="@class">
+      <xsl:value-of select="@class"/>
+      <xsl:text> </xsl:text>
+    </xsl:if>
+    <xsl:if test="$newClasses">
+      <xsl:value-of select="$newClasses"/>
+      <xsl:text> </xsl:text>
+    </xsl:if>
+    <xsl:value-of select="local-name()"/>
+  </xsl:attribute>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:title">
-  <div class="title"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:para/c:title">
-  <span class="title"><xsl:apply-templates select="@*|node()"/></span>
+<xsl:template match="c:para/c:title|c:table/c:title">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
+
 
 <!-- ========================= -->
 
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
-  <div class="section">
+  <div><xsl:apply-templates mode="class" select="."/>
     <xsl:text> </xsl:text>
     <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="."/>
       <xsl:apply-templates select="@id|c:title/@*|c:title/node()"/>
     </xsl:element>
     <xsl:apply-templates select="node()[not(self::c:title)]">
@@ -76,67 +94,67 @@
 
 
 <xsl:template match="c:para">
-  <p><xsl:apply-templates select="@*|node()"/></p>
+  <p><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
 <xsl:template match="c:example">
-  <div class="example"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:exercise">
-  <div class="exercise"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:problem">
-  <div class="problem"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:solution">
-  <div class="solution"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
-  <div class="commentary"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:equation">
-  <div class="equation"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:rule[not(@type)]">
-  <div class="rule"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:quote">
-  <q><xsl:apply-templates select="@*|node()"/></q>
+  <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
 </xsl:template>
 
 <xsl:template match="c:code[not(@type)]">
-  <code><xsl:apply-templates select="@*|node()"/></code>
+  <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:note[not(@type) and not(@display)]">
-  <div class="note"><xsl:apply-templates select="@*|node()"/></div>
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:list[@list-type='enumerated']">
   <ol>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </ol>
 </xsl:template>
 
 <xsl:template match="c:list[not(@list-type) or @list-type='bulleted']">
   <ul>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </ul>
 </xsl:template>
 
 <xsl:template match="c:item">
-  <li><xsl:apply-templates select="@*|node()"/></li>
+  <li><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></li>
 </xsl:template>
 
 <xsl:template match="c:list/@start-value">
@@ -151,47 +169,47 @@
 <!-- ========================= -->
 
 <xsl:template match="c:figure[not(c:subfigure)]">
-  <figure><xsl:apply-templates select="@*|node()"/></figure>
+  <figure><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></figure>
 </xsl:template>
 
 <xsl:template match="c:caption">
-  <caption><xsl:apply-templates select="@*|node()"/></caption>
+  <caption><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></caption>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
-  <strong><xsl:apply-templates select="@*|node()"/></strong>
+  <strong><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics']">
-  <em><xsl:apply-templates select="@*|node()"/></em>
+  <em><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></em>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='underline']">
-  <u><xsl:apply-templates select="@*|node()"/></u>
+  <u><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></u>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <span class="smallcaps"><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <span class="normal"><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:term[not(@url or @document or @target-id or @resource or @version)]">
-  <span class="term"><xsl:apply-templates select="@*|node()"/></span>
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:sub">
-  <sub><xsl:apply-templates select="@*|node()"/></sub>
+  <sub><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></sub>
 </xsl:template>
 
 <xsl:template match="c:sup">
-  <sup><xsl:apply-templates select="@*|node()"/></sup>
+  <sup><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></sup>
 </xsl:template>
 
 <!-- ========================= -->
@@ -230,6 +248,44 @@
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
+</xsl:template>
+
+
+<!-- ========================= -->
+<!-- Tables: partial support   -->
+<!-- ========================= -->
+
+<xsl:template match="c:table[not(c:label) and count(c:tgroup) = 1]">
+  <table summary="{@summary}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="c:caption or c:title">
+      <caption>
+        <xsl:apply-templates select="c:title"/>
+        <!-- NOTE: caption loses the optional id -->
+        <xsl:appy-templates select="c:caption/node()"/>
+      </caption>
+    </xsl:if>
+    
+    <xsl:apply-templates select="c:tgroup"/>
+  </table>
+</xsl:template>
+
+<xsl:template match="c:tgroup">
+  <xsl:apply-templates select="c:thead|c:tbody|c:tfoot"/>
+</xsl:template>
+
+<xsl:template match="c:thead|c:tbody|c:tfoot">
+  <xsl:element name="{local-name()}">
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="c:row">
+  <tr><xsl:apply-templates select="@*|node()"/></tr>
+</xsl:template>
+
+<xsl:template match="c:entry">
+  <td><xsl:apply-templates select="@*|node()"/></td>
 </xsl:template>
 
 </xsl:stylesheet>

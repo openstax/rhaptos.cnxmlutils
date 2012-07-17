@@ -203,4 +203,37 @@
   </xsl:attribute>
 </xsl:template>
 
+<!-- ========================= -->
+<!-- Tables: partial support   -->
+<!-- ========================= -->
+
+<xsl:template match="x:table">
+  <c:table summary="{@summary}">
+    <xsl:if test="x:caption">
+      <xsl:apply-templates select="x:span[@class='title']"/>
+      <c:caption>
+        <xsl:apply-templates select="node()[not(self::x:span[@class='title'])]"/>
+      </c:caption>
+    </xsl:if>
+    
+    <c:tgroup>
+      <xsl:apply-templates select="node()[not(self::x:caption)]"/>
+    </c:tgroup>
+  </c:table>
+</xsl:template>
+
+<xsl:template match="x:thead|x:tbody|x:tfoot">
+  <xsl:element name="c:{local-name()}">
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="x:tr">
+  <c:row><xsl:apply-templates select="@*|node()"/></c:row>
+</xsl:template>
+
+<xsl:template match="x:td">
+  <c:entry><xsl:apply-templates select="@*|node()"/></c:entry>
+</xsl:template>
+
 </xsl:stylesheet>
