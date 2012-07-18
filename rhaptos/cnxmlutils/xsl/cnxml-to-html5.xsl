@@ -40,9 +40,7 @@
 </xsl:template>
 
 <xsl:template match="@id|@class">
-  <xsl:copy>
-    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
+  <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="c:content">
@@ -81,7 +79,6 @@
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
   <div><xsl:apply-templates mode="class" select="."/>
-    <xsl:text> </xsl:text>
     <xsl:element name="h{$depth}">
       <xsl:apply-templates mode="class" select="."/>
       <xsl:apply-templates select="@id|c:title/@*|c:title/node()"/>
@@ -168,16 +165,6 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:figure[not(c:subfigure)]">
-  <figure><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></figure>
-</xsl:template>
-
-<xsl:template match="c:caption">
-  <caption><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></caption>
-</xsl:template>
-
-<!-- ========================= -->
-
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
   <strong><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></strong>
 </xsl:template>
@@ -261,10 +248,10 @@
       <figcaption>
         <xsl:apply-templates select="c:title"/>
         <!-- NOTE: caption loses the optional id -->
-        <xsl:appy-templates select="c:caption/node()"/>
+        <xsl:apply-templates select="c:caption/node()"/>
       </figcaption>
     </xsl:if>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
   </figure>
 </xsl:template>
 
@@ -273,8 +260,11 @@
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
+<xsl:template match="c:table/@summary">
+  <xsl:copy/>
+</xsl:template>
 <xsl:template match="c:table[not(c:label) and count(c:tgroup) = 1]">
-  <table summary="{@summary}">
+  <table>
     <xsl:apply-templates select="@*"/>
     <xsl:if test="c:caption or c:title">
       <caption>
@@ -306,6 +296,7 @@
   <td><xsl:apply-templates select="@*|node()"/></td>
 </xsl:template>
 
+<xsl:template match="c:colspec/@*|c:spanspec/@*|c:entry/@*"/>
 
 <!-- ========================= -->
 <!-- Media: Partial Support    -->
@@ -317,6 +308,7 @@
   </span>
 </xsl:template>
 
+<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
   <img src="{@src}" data-mime-type="{@mime-type}">
     <xsl:if test="@for">
@@ -331,9 +323,7 @@
   </img>
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
-  <xsl:attribute name="{local-name()}">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
+  <xsl:copy/>
 </xsl:template>
 
 

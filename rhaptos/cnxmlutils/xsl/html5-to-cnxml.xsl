@@ -38,11 +38,7 @@
 
 <!-- ========================= -->
 
-<xsl:template match="x:div[@class='title']">
-  <c:title><xsl:apply-templates select="@*|node()"/></c:title>
-</xsl:template>
-
-<xsl:template match="x:span[@class='title']">
+<xsl:template match="x:*[@class='title']">
   <c:title><xsl:apply-templates select="@*|node()"/></c:title>
 </xsl:template>
 
@@ -137,16 +133,6 @@
 
 <!-- ========================= -->
 
-<xsl:template match="x:figure">
-  <c:figure><xsl:apply-templates select="@*|node()"/></c:figure>
-</xsl:template>
-
-<xsl:template match="x:caption">
-  <c:caption><xsl:apply-templates select="@*|node()"/></c:caption>
-</xsl:template>
-
-<!-- ========================= -->
-
 <xsl:template match="x:strong|x:b">
   <c:emphasis><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
@@ -221,14 +207,16 @@
 
 <xsl:template name="figure-body">
   <xsl:apply-templates select="@*"/>
-  <!-- Akin to figure captions -->
-  <xsl:if test="x:figcaption">
-    <xsl:apply-templates select="x:span[@class='title']"/>
+  <!-- pull the title out of the caption -->
+  <xsl:apply-templates select="x:figcaption/x:*[@class='title']"/>
+  <xsl:apply-templates select="node()[not(self::x:figcaption)]"/>
+  <!-- only generate the caption tag if there is something other than the title in it -->
+  <!-- According to the spec, the caption must come at the end of a figure -->
+  <xsl:if test="x:figcaption/node()[not(self::x:*[@class='title'])]">
     <c:caption>
-      <xsl:apply-templates select="node()[not(self::x:span[@class='title'])]"/>
+      <xsl:apply-templates select="x:figcaption/node()[not(self::x:*[@class='title'])]"/>
     </c:caption>
   </xsl:if>
-  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 
@@ -239,10 +227,10 @@
 <xsl:template match="x:table">
   <c:table summary="{@summary}">
     <!-- Akin to figure captions -->
-    <xsl:if test="x:caption">
-      <xsl:apply-templates select="x:span[@class='title']"/>
+    <xsl:apply-templates select="x:caption/x:*[@class='title']"/>
+    <xsl:if test="x:caption/node()[not(self::x:*[@class='title'])]">
       <c:caption>
-        <xsl:apply-templates select="node()[not(self::x:span[@class='title'])]"/>
+        <xsl:apply-templates select="x:caption/node()[not(self::x:*[@class='title'])]"/>
       </c:caption>
     </xsl:if>
     
@@ -264,6 +252,31 @@
 
 <xsl:template match="x:td">
   <c:entry><xsl:apply-templates select="@*|node()"/></c:entry>
+</xsl:template>
+
+
+<!-- ========================= -->
+<!-- Media: Partial Support    -->
+<!-- ========================= -->
+
+<xsl:template match="x:span[@class='media']">
+  <c:media>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:media>
+</xsl:template>
+
+<xsl:template match="x:img">
+  <c:image src="{@src}" mime-type="{@data-mime-type}">
+    <xsl:if test="contains(@class, 'for-')">
+      <xsl:attribute name="for">
+        <xsl:value-of select="substring-before(substring-after(@class, 'for-'), ' ')"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:image>
+</xsl:template>
+<xsl:template match="x:img/@width|x:img/@height">
+  <xsl:copy/>
 </xsl:template>
 
 </xsl:stylesheet>
