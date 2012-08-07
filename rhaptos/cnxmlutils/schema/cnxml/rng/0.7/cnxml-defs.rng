@@ -818,6 +818,7 @@
       <ref name="video"/>
       <ref name="java-applet"/>
       <ref name="flash"/>
+      <ref name="iframe"/>
       <ref name="labview"/>
       <ref name="text"/>
       <ref name="download"/>
@@ -1706,6 +1707,21 @@
       <optional>
         <ref name="flash-vars-attribute"/>
       </optional>
+    </element>
+  </define>
+
+  <define name="iframe">
+    <element name="iframe">
+      <ref name="src-attribute"/>
+    <optional>
+      <ref name="id-attribute"/>
+    </optional>
+    <optional>
+      <ref name="height-attribute"/>
+    </optional>
+    <optional>
+      <ref name="width-attribute"/>
+    </optional>
     </element>
   </define>
 
