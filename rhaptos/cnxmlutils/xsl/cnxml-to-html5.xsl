@@ -33,7 +33,7 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="node()" priority="-100">
+<xsl:template match="node()[not(self::*)]" priority="-100">
   <xsl:copy>
     <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
@@ -132,7 +132,7 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:note[not(@type) and not(@display)]">
+<xsl:template match="c:note[not(@type)]">
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
@@ -191,6 +191,15 @@
   <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
+<xsl:template match="c:foreign[not(@url or @document or @target-id or @resource or @version)]">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
+
+<xsl:template match="c:footnote">
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
+
 <xsl:template match="c:sub">
   <sub><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></sub>
 </xsl:template>
@@ -198,6 +207,7 @@
 <xsl:template match="c:sup">
   <sup><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></sup>
 </xsl:template>
+
 
 <!-- ========================= -->
 <!-- Links: encode in @data-*  -->
@@ -324,6 +334,28 @@
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
+</xsl:template>
+
+<!-- ========================= -->
+<!-- Glossary: Partial Support -->
+<!-- ========================= -->
+
+<xsl:template match="c:definition[not(@type)]">
+  <div class="definition">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>  
+</xsl:template>
+
+<xsl:template match="c:meaning[not(c:title)]">
+  <div class="meaning">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>  
+</xsl:template>
+
+<xsl:template match="c:seealso[not(@type)]">
+  <span class="seealso">
+    <xsl:apply-templates select="@*|node()"/>
+  </span>  
 </xsl:template>
 
 

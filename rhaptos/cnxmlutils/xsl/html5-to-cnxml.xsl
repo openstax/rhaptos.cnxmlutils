@@ -159,6 +159,14 @@
   <c:term><xsl:apply-templates select="@*|node()"/></c:term>
 </xsl:template>
 
+<xsl:template match="x:span[@class='foreign']">
+  <c:foreign><xsl:apply-templates select="@*|node()"/></c:foreign>
+</xsl:template>
+
+<xsl:template match="x:span[@class='footnote']">
+  <c:footnote><xsl:apply-templates select="@*|node()"/></c:footnote>
+</xsl:template>
+
 <xsl:template match="x:sub">
   <c:sub><xsl:apply-templates select="@*|node()"/></c:sub>
 </xsl:template>
@@ -277,6 +285,28 @@
 </xsl:template>
 <xsl:template match="x:img/@width|x:img/@height">
   <xsl:copy/>
+</xsl:template>
+
+<!-- ========================= -->
+<!-- Glossary: Partial Support -->
+<!-- ========================= -->
+
+<xsl:template match="x:div[@class='definition']">
+  <c:definition>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:definition>
+</xsl:template>
+
+<xsl:template match="x:div[@class='meaning']">
+  <c:meaning>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:meaning>
+</xsl:template>
+
+<xsl:template match="x:span[@class='seealso']">
+  <c:seealso>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:seealso>
 </xsl:template>
 
 </xsl:stylesheet>
