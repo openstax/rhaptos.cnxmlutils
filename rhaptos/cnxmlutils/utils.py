@@ -9,11 +9,20 @@ except ImportError:
     from StringIO import StringIO
 import pkg_resources
 from lxml import etree
-# XXX uncessary back ref
-from rhaptos.cnxmlutils.xml2xhtml import MODULE_BODY_XPATH
 
 
-__all__ = ('cnxml_to_html', 'html_to_cnxml',)
+__all__ = (
+    'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
+    'cnxml_to_html', 'html_to_cnxml',
+    )
+
+NAMESPACES = {
+    'xhtml':'http://www.w3.org/1999/xhtml',
+    }
+XHTML_INCLUDE_XPATH = etree.XPath('//xhtml:a[@class="include"]',
+                                  namespaces=NAMESPACES)
+XHTML_MODULE_BODY_XPATH = etree.XPath('//xhtml:body', namespaces=NAMESPACES)
+
 
 def _to_io_object(s):
     """If necessary it will convert the string to an io object
