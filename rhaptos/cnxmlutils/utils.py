@@ -55,7 +55,7 @@ def cnxml_to_html(cnxml_source):
     xml = etree.parse(source)
     # Run the CNXML to HTML transform
     xml = _transform(xml, 'cnxml-to-html5.xsl')
-    xml = MODULE_BODY_XPATH(xml)
+    xml = XHTML_MODULE_BODY_XPATH(xml)
     return etree.tostring(xml[0])
 
 def html_to_cnxml(html_source, cnxml_source):
