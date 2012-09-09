@@ -51,7 +51,7 @@
 <!-- Modules before the first subcollection are preface frontmatter -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(preceding-sibling::col:subcollection)]" priority="100">
 	<section class="preface">
-		<xsl:apply-templates select="@*|node()"/>
+		<xsl:apply-templates select="@*"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
 	</section>
 </xsl:template>
@@ -59,7 +59,7 @@
 <!-- Modules after the last subcollection are appendices -->
 <xsl:template match="col:collection/col:content[col:subcollection and col:module]/col:module[not(following-sibling::col:subcollection)]" priority="100">
   <section class="appendix">
-		<xsl:apply-templates select="@*|node()"/>
+		<xsl:apply-templates select="@*"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
   </section>
 </xsl:template>
@@ -68,7 +68,7 @@
 <!-- Free-floating Modules in a col:collection should be treated as Chapters -->
 <xsl:template match="col:collection/col:content/col:subcollection/col:module"> 
   <section class="chapter">
-		<xsl:apply-templates select="@*|node()"/>
+		<xsl:apply-templates select="@*"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
 	</section>
 </xsl:template>
@@ -87,7 +87,7 @@
 
 <xsl:template match="col:collection/col:content[not(col:subcollection)]/col:module">
   <section class="chapter">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="@*"/>
 		<xsl:call-template name="cnx.xinclude.module"/>
   </section>
 </xsl:template>
@@ -104,7 +104,7 @@
 
 <xsl:template match="col:module">
   <section>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="@*"/>
     <xsl:call-template name="cnx.xinclude.module"/>
   </section>
 </xsl:template>
@@ -125,7 +125,7 @@
     <xsl:choose>
       <xsl:when test="md:title">
         <xsl:attribute name="class">
-          <xsl:text>xinclude override-label</xsl:text>
+          <xsl:text>xinclude overridden-label</xsl:text>
         </xsl:attribute>
         <xsl:apply-templates select="md:title/node()"/>
       </xsl:when>
