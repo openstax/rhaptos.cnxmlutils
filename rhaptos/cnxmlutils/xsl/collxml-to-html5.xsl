@@ -121,7 +121,7 @@
 <xsl:template match="col:module/md:title"/>
 
 <xsl:template name="cnx.xinclude.module">
-  <a class="xinclude" href="{@repository}/{@document}/{@version}/">
+  <a class="xinclude" href="{@repository}/{@document}/{@version}">
     <xsl:choose>
       <xsl:when test="md:title">
         <xsl:attribute name="class">

@@ -116,16 +116,16 @@
 
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
-  <div><xsl:apply-templates mode="class" select="."/>
+  <section><xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*[local-name() != 'id' and local-name() != 'class']"/>
     <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="."/>
+      <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="@id|c:title/@*|c:title/node()"/>
     </xsl:element>
     <xsl:apply-templates select="node()[not(self::c:title)]">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
-  </div>
+  </section>
 </xsl:template>
 
 
