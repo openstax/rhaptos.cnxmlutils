@@ -26,6 +26,9 @@
 <!-- TODO: Don't ignore @class -->
 <xsl:template match="@class"/>
 
+<!-- Ignore title, it is handled explicitly below. -->
+<xsl:template match="/x:body/x:div[@class='title']" />
+
 <xsl:template match="m:*/@class">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
@@ -33,13 +36,17 @@
 </xsl:template>
 
 <xsl:template match="x:body">
-  <c:content><xsl:apply-templates select="@*|node()"/></c:content>
-</xsl:template>
-
-<!-- ========================= -->
-
-<xsl:template match="x:*[@class='title']">
-  <c:title><xsl:apply-templates select="@*|node()"/></c:title>
+  <c:document xmlns="http://cnx.rice.edu/cnxml"
+              xmlns:md="http://cnx.rice.edu/mdml"
+              xmlns:bib="http://bibtexml.sf.net/"
+              xmlns:m="http://www.w3.org/1998/Math/MathML"
+              xmlns:q="http://cnx.rice.edu/qml/1.0"
+              cnxml-version="0.7" module-id="new" id="_root">
+      <c:title>
+        <xsl:apply-templates select="x:div[@class='title']/text()" />
+      </c:title>
+      <c:content><xsl:apply-templates select="@*|node()"/></c:content>
+  </c:document>
 </xsl:template>
 
 <!-- ========================= -->
