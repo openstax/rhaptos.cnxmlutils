@@ -2,11 +2,11 @@ import os
 import subprocess
 from tempfile import NamedTemporaryFile
 from lxml import etree
+from pkg_resources import resource_filename
 
-dirname = os.path.dirname(__file__)
+schemafn = resource_filename('rhaptos.cnxmlutils', 'schema/cnxml/rng/0.7/cnxml.rng')
 
 def validate(cnxmlstr, validator='lxml'):
-    schemafn = os.path.join(dirname, 'schema/cnxml/rng/0.7/cnxml.rng')
     if validator == 'lxml':
         schemafile = open(schemafn)
         relaxng_doc = etree.parse(schemafile)
