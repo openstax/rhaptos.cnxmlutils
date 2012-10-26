@@ -409,5 +409,10 @@
   </span>  
 </xsl:template>
 
+<!-- not covered elements (Marvin) -->
+
+<xsl:template match="c:newline">
+  <br/>
+</xsl:template>
 
 </xsl:stylesheet>

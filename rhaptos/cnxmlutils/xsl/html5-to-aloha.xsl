@@ -20,10 +20,22 @@ This simplified Aloha HTML5 fits more the Aloha structure and editing.
 -->
 
 <!-- default copy all -->
-<xsl:template match="@*">
+<xsl:template match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
+</xsl:template>
+
+<!-- remove div sections -->
+<xsl:template match="div[@class='section']">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<!-- remove classes from strong and emphasis -->
+<xsl:template match="strong|em">
+  <xsl:element name="{local-name()}">
+    <xsl:apply-templates/>
+  </xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>
