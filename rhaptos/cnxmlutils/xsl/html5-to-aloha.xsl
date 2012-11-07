@@ -32,10 +32,14 @@ This simplified Aloha HTML5 fits more the Aloha structure and editing.
 </xsl:template>
 
 <!-- remove classes from strong and emphasis -->
-<xsl:template match="strong|em">
+<xsl:template match="strong|em|table|body">
   <xsl:element name="{local-name()}">
     <xsl:apply-templates/>
   </xsl:element>
+</xsl:template>
+
+<xsl:template match="span[@class='media']">
+  <xsl:apply-templates/>
 </xsl:template>
 
 </xsl:stylesheet>
