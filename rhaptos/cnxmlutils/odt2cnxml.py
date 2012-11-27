@@ -85,15 +85,15 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
                       'level':'CRITICAL',
                       'id'   :'(none)',
                       'msg'  :str(text) })
-                    
+
     def injectStyles(xml):
         # HACK - need to find the object location from the manifest ...
         strStyles = zip.read('styles.xml')
-        
+
         parser = etree.XMLParser()
         parser.feed(strStyles)
         stylesXml = parser.close()
-        
+
         for i, obj in enumerate(STYLES_XPATH(stylesXml)):
           xml.append(obj)
 
@@ -114,12 +114,12 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             # HACK - need to find the object location from the manifest ...
             strMathPath = os.path.join(strMathPath, 'content.xml')
             strMath = zip.read(strMathPath)
-            
+
             #parser = etree.XMLParser(encoding='utf-8')
             #parser.feed(strMath)
             #math = parser.close()
             math = etree.parse(StringIO(strMath)).getroot()
-            
+
             # Replace the reference to the Math with the actual MathML
             obj.getparent().replace(obj, math)
         return xml
@@ -139,79 +139,79 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
 
             image = zip.read(strPath)
             images[strName] = image
-            
-            # Later on, an XSL pass will convert the draw:frame to a c:image and 
+
+            # Later on, an XSL pass will convert the draw:frame to a c:image and
             # set the @src correctly
 
         return xml
-        
+
     def drawPuller(xml):
         styles = DRAW_STYLES_XPATH(xml)
-                       
+
         empty_odg_dirname = os.path.join(dirname, 'empty_odg_template')
-        
+
         temp_dirname = tempfile.mkdtemp()
-            
+
         for i, obj in enumerate(DRAW_XPATH(xml)):
             # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
-            
+
             odg_filename = DRAW_FILENAME_PREFIX + str(i) + '.odg'
             png_filename = DRAW_FILENAME_PREFIX + str(i) + '.png'
 
             # add PNG filename as attribute to parent node. The good thing is: The child (obj) will get lost! :-)
             parent = obj.getparent()
             parent.attrib['ooo_drawing'] = png_filename
-            
+
             odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
             for root, dirs, files in os.walk(empty_odg_dirname):
                 for name in files:
                     if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
                         sourcename = os.path.join(root, name)
-                        # http://stackoverflow.com/a/1193171/756056                        
+                        # http://stackoverflow.com/a/1193171/756056
                         arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
                         odg_zip.write(sourcename, arcname)
-            
+
             content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
-                           
+
             # Inject content styles in empty OOo Draw content.xml
             content_style_xpath = etree.XPath('/office:document-content/office:automatic-styles', namespaces=NAMESPACES)
-            content_styles = content_style_xpath(content)                                
+            content_styles = content_style_xpath(content)
             for style in styles:
                 content_styles[0].append(deepcopy(style))
-            
+
             # Inject drawing in empty OOo Draw content.xml
             content_page_xpath = etree.XPath('/office:document-content/office:body/office:drawing/draw:page', namespaces=NAMESPACES)
             content_page = content_page_xpath(content)
             content_page[0].append(obj)
-            
+
             # write modified content.xml
             odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
-            
+
             # copy styles.xml from odt to odg without modification
             styles_xml = zip.read('styles.xml')
             odg_zip.writestr('styles.xml', styles_xml)
 
             odg_zip.close()
-            
+
             # TODO: Better error handling in the future.
             try:
                 # convert every odg to png
                 command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
                 os.system(command)
 
-                # save every image to memory            
+                # save every image to memory
                 image = open(os.path.join(temp_dirname, png_filename), 'r').read()
                 images[png_filename] = image
-                
+
                 if outputdir is not None:
                     shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
                     shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
             except:
                 pass
-                
+
         # delete temporary directory
         shutil.rmtree(temp_dirname)
-        
+
         return xml
 
     # Reparse after XSL because the RED-escape pass injects arbitrary XML
@@ -236,8 +236,8 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
       drawPuller, # gets OOo Draw objects out of odt and generate odg (OOo Draw) files
       replaceSymbols,
       injectStyles, # include the styles.xml file because it contains list numbering info
-      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings       
-      makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9 
+      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings
+      makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9
                             # and need to be 1. See (testbed) southwood__Lesson_2.doc
       makeXsl('pass2_odt-collapse-spans.xsl'), # Collapse adjacent spans (for RED)
       redParser, # makeXsl('pass1_odt2red-escape.xsl'),
@@ -286,10 +286,10 @@ def main():
       parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
       parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
       args = parser.parse_args()
-  
+
       if args.verbose: print("Transforming...", file=sys.stderr)
       xml, files, errors = transform(args.odtfile, debug=args.verbose, parsable=args.parsable, outputdir=args.outputdir)
-  
+
       if args.verbose:
           for name, bytes in list(files.items()):
               print("Extracted %s (%d)" % (name, len(bytes)), file=sys.stderr)
@@ -300,7 +300,7 @@ def main():
         invalids = validate(xml)
         if invalids: print(invalids, file=sys.stderr)
         print(etree.tostring(xml, pretty_print=True))
-      
+
       if invalids:
         return 1
     except ImportError:
