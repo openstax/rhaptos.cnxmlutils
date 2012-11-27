@@ -7,14 +7,8 @@ from rhaptos.cnxmlutils.odt2cnxml import transform
 
 dirname = os.path.abspath(os.path.dirname(__file__))
 
+
 class TestTransform(unittest.TestCase):
-
-    def setUp(self):
-        self.cwd = os.getcwd()
-        os.chdir(dirname)
-
-    def tearDown(self):
-        os.chdir(self.cwd)
 
     def test_bolditalic(self):
         odtfile = os.path.join(dirname, 'data', 'bolditalic.odt')
