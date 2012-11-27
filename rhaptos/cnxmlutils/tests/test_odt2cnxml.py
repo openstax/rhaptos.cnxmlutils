@@ -12,8 +12,9 @@ class TestTransform(unittest.TestCase):
 
     def test_bolditalic(self):
         odtfile = os.path.join(dirname, 'data', 'bolditalic.odt')
-        validcnxml = open(
-            os.path.join(dirname, 'data', 'bolditalic.cnxml')).read()
+        valid_cnxmlfile = os.path.join(dirname, 'data', 'bolditalic.cnxml')
+        with open(valid_cnxmlfile) as f:
+            validcnxml = f.read()
         # remove newlines and indentation and ids
         validcnxml = validcnxml.replace('\n', '')
         validcnxml = re.sub('>\s+<', '><', validcnxml)
