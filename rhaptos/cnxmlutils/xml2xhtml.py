@@ -1,20 +1,25 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import tempfile
-from copy import deepcopy
+import argparse
 import shutil
 import zipfile
-import urllib.request, urllib.parse, urllib.error
-import pkg_resources
+import urllib.request
+import urllib.parse
+import urllib.error
+from copy import deepcopy
 from io import StringIO
+
+import pkg_resources
 from lxml import etree, html
-from rhaptos.cnxmlutils.utils import (
+from .utils import (
     NAMESPACES,
     XHTML_INCLUDE_XPATH as INCLUDE_XPATH,
     XHTML_MODULE_BODY_XPATH as MODULE_BODY_XPATH,
     )
-dirname = os.path.dirname(__file__)
 
+dirname = os.path.dirname(__file__)
 
 
 def makeXsl(filename):
@@ -73,12 +78,6 @@ def transform_collection(collection_dir):
 
 
 def main():
-    try:
-      import argparse
-    except ImportError:
-      print("argparse is needed for commandline")
-      return 2
-
     parser = argparse.ArgumentParser(description='Convert a Connexions XML markup to HTML (cnxml, collxml, and mdml)')
     parser.add_argument('-d', dest='collection_dir', help='Convert an unzipped collection to a single HTML file. Provide /path/to/collection')
     parser.add_argument('-c', dest='collection', help='The file being converted is a collxml document (collection definition)', type=argparse.FileType('r'))
