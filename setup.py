@@ -26,9 +26,6 @@ setup(name='rhaptos.cnxmlutils',
           'setuptools',
           'lxml',
       ],
-      extras_require={
-          'cmdline_support': ['argparse'],
-          },
       entry_points="""
       # -*- Entry points: -*-
       """,
