@@ -4,9 +4,9 @@ import tempfile
 from copy import deepcopy
 import shutil
 import zipfile
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import pkg_resources
-from cStringIO import StringIO
+from io import StringIO
 from lxml import etree, html
 from rhaptos.cnxmlutils.utils import (
     NAMESPACES,
@@ -76,7 +76,7 @@ def main():
     try:
       import argparse
     except ImportError:
-      print "argparse is needed for commandline"
+      print("argparse is needed for commandline")
       return 2
 
     parser = argparse.ArgumentParser(description='Convert a Connexions XML markup to HTML (cnxml, collxml, and mdml)')
@@ -93,7 +93,7 @@ def main():
     elif args.module:
       html = transform_cnxml(args.module)
     else:
-      print >> sys.stderr, "Must specify either -d -c or -m"
+      print("Must specify either -d -c or -m", file=sys.stderr)
       return 1
 
     args.html_file.write(etree.tostring(html))

@@ -15,7 +15,7 @@ from xml.sax import ContentHandler
 from xml.sax.saxutils import escape
 from xml.sax.saxutils import quoteattr
 from xml.sax.handler import EntityResolver
-from StringIO import StringIO
+from io import StringIO
 import random
 
 class docHandler(ContentHandler):
@@ -76,7 +76,7 @@ class docHandler(ContentHandler):
         if self.tableLevel or self.listLevel or self.deletion:
             return
 
-        level = attrs.get(u'text:level')
+        level = attrs.get('text:level')
 
         if not end_tag:
             self.endSections(level)
@@ -92,7 +92,7 @@ class docHandler(ContentHandler):
         if not end_tag:
             self.document.append('<office:body')
             if attrs:
-                for attr, value in attrs.items():
+                for attr, value in list(attrs.items()):
                     self.document.append(' %s=%s' % (attr,quoteattr(value)))
             self.document.append('>')
         else:
@@ -109,7 +109,7 @@ class docHandler(ContentHandler):
     def outputStartElement(self, name, attrs):
         self.document.append('<%s' % name)
         if attrs:
-            for attr, value in attrs.items():
+            for attr, value in list(attrs.items()):
                 self.document.append(' %s=%s' % (attr,quoteattr(value)))
         self.document.append('>')
 
@@ -139,7 +139,7 @@ class docHandler(ContentHandler):
             # are going to insert <section> before.  we have reached a point
             # where all sections need to be closed. EG </office:body> or </text:section>,
             # both of which are hierarchical => scope closure for all open <section> tags
-            bClosedAllSections = ( level == u'0' )
+            bClosedAllSections = ( level == '0' )
             if bClosedAllSections:
                 # have reached a point where all sections need to be closed
                 iSectionsClosed = len(self.header_stack)
@@ -170,10 +170,10 @@ class docHandler(ContentHandler):
             return iSectionsClosed
 
         except IndexError:
-            print level
+            print(level)
             raise
 
-    def endSections(self, level=u'0'):
+    def endSections(self, level='0'):
         """Closes all sections of level >= sectnum. Defaults to closing all open sections"""
 
         iSectionsClosed = self.storeSectionState(level)
@@ -203,10 +203,10 @@ def addSectionTags(s):
     # Parse the file; your handler's methods will get called
     parser.parse(s)
 
-    return u''.join(dh.document).encode('UTF-8')
+    return ''.join(dh.document).encode('UTF-8')
 
 if __name__ == "__main__":
     file = sys.argv[1]
     f = open(file)
-    print addSectionTags(f)
+    print(addSectionTags(f))
 

@@ -4,9 +4,9 @@ import tempfile
 from copy import deepcopy
 import shutil
 import zipfile
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import pkg_resources
-from cStringIO import StringIO
+from io import StringIO
 from lxml import etree, html
 
 try:
@@ -14,7 +14,7 @@ try:
 except ImportError:
     import simplejson as json
 
-import symbols
+from . import symbols
 
 dirname = os.path.dirname(__file__)
 
@@ -82,9 +82,9 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
                     errors.append(dict)
                 except ValueError:
                     errors.append({
-                      u'level':u'CRITICAL',
-                      u'id'   :u'(none)',
-                      u'msg'  :unicode(text) })
+                      'level':'CRITICAL',
+                      'id'   :'(none)',
+                      'msg'  :str(text) })
                     
     def injectStyles(xml):
         # HACK - need to find the object location from the manifest ...
@@ -221,7 +221,7 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
         appendLog(xsl)
         try:
             xml = etree.fromstring(etree.tostring(result))
-        except etree.XMLSyntaxError, e:
+        except etree.XMLSyntaxError as e:
             msg = str(e)
             xml = makeXsl('pass1_odt2red-failed.xsl')(xml, message="'%s'" % msg.replace("'", '"'))
             xml = xml.getroot()
@@ -287,24 +287,24 @@ def main():
       parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
       args = parser.parse_args()
   
-      if args.verbose: print >> sys.stderr, "Transforming..."
+      if args.verbose: print("Transforming...", file=sys.stderr)
       xml, files, errors = transform(args.odtfile, debug=args.verbose, parsable=args.parsable, outputdir=args.outputdir)
   
       if args.verbose:
-          for name, bytes in files.items():
-              print >> sys.stderr, "Extracted %s (%d)" % (name, len(bytes))
+          for name, bytes in list(files.items()):
+              print("Extracted %s (%d)" % (name, len(bytes)), file=sys.stderr)
       for err in errors:
-          print >> sys.stderr, err
+          print(err, file=sys.stderr)
       if xml is not None:
-        if args.verbose: print >> sys.stderr, "Validating..."
+        if args.verbose: print("Validating...", file=sys.stderr)
         invalids = validate(xml)
-        if invalids: print >> sys.stderr, invalids
-        print etree.tostring(xml, pretty_print=True)
+        if invalids: print(invalids, file=sys.stderr)
+        print(etree.tostring(xml, pretty_print=True))
       
       if invalids:
         return 1
     except ImportError:
-      print "argparse is needed for commandline"
+      print("argparse is needed for commandline")
 
 if __name__ == '__main__':
     sys.exit(main())

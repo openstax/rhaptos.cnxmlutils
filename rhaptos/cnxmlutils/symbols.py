@@ -211,7 +211,7 @@ UNICODE_DICTIONARY = {
 
 def replace(text):
   """Replace both the hex and decimal versions of symbols in an XML string"""
-  for hex, value in UNICODE_DICTIONARY.items():
+  for hex, value in list(UNICODE_DICTIONARY.items()):
     num = int(hex[3:-1], 16)
     #uni = unichr(num)
     decimal = '&#' + str(num) + ';'

@@ -14,9 +14,9 @@ def validate(cnxmlstr, validator='lxml'):
         cnxmldoc= etree.fromstring(cnxmlstr)
         valid = relaxng.validate(cnxmldoc)
         if valid:
-            print "Document validates against cnxml 0.7"
+            print("Document validates against cnxml 0.7")
         else:
-            print relaxng.error_log
+            print(relaxng.error_log)
         return valid, relaxng.error_log
     elif validator == 'jing':
         tmpfile = NamedTemporaryFile() # doesn't take stdin, so make a file
@@ -69,7 +69,7 @@ def main():
 
         validate(args.cnxmlfile.read())
     except ImportError:
-        print "argparse is needed for commandline"
+        print("argparse is needed for commandline")
 
 if __name__ == '__main__':
     main()

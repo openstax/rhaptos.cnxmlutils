@@ -4,9 +4,9 @@ Some of thses are used to tranform from one source format to another.
 
 """
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 import pkg_resources
 from lxml import etree
 

@@ -7,9 +7,9 @@ The results are sent to standard out.
 """
 import sys
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 import pkg_resources
 from lxml import etree
 from rhaptos.cnxmlutils.utils import html_to_cnxml
