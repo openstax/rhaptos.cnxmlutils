@@ -75,11 +75,21 @@ def transform_collection(collection_dir):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert a Connexions XML markup to HTML (cnxml, collxml, and mdml)')
-    parser.add_argument('-d', dest='collection_dir', help='Convert an unzipped collection to a single HTML file. Provide /path/to/collection')
-    parser.add_argument('-c', dest='collection', help='The file being converted is a collxml document (collection definition)', type=argparse.FileType('r'))
-    parser.add_argument('-m', dest='module', help='The file being converted is a cnxml document (module)', type=argparse.FileType('r'))
-    parser.add_argument('html_file', help='/path/to/outputfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+    parser = argparse.ArgumentParser(
+        description="Convert a Connexions XML markup to HTML "
+                    "(cnxml, collxml, and mdml)")
+    parser.add_argument('-d', dest='collection_dir',
+                        help="Convert an unzipped collection to a single "
+                             "HTML file. Provide /path/to/collection")
+    parser.add_argument('-c', dest='collection', type=argparse.FileType('r'),
+                        help="The file being converted is a collxml document "
+                             "(collection definition)")
+    parser.add_argument('-m', dest='module', type=argparse.FileType('r'),
+                        help="The file being converted is a cnxml document "
+                             "(module)")
+    parser.add_argument('html_file', nargs='?', type=argparse.FileType('w'),
+                        default=sys.stdout,
+                        help="/path/to/outputfile")
     args = parser.parse_args()
 
     if args.collection_dir:
@@ -93,6 +103,7 @@ def main():
       return 1
 
     args.html_file.write(etree.tostring(html))
+
 
 if __name__ == '__main__':
     sys.exit(main())
