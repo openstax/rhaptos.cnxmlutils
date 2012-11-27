@@ -1,28 +1,29 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import tempfile
-from copy import deepcopy
 import shutil
 import zipfile
-import urllib.request, urllib.parse, urllib.error
-import pkg_resources
+import argparse
+import urllib.request
+import urllib.parse
+import urllib.error
+import json
 from io import StringIO
-from lxml import etree, html
+from copy import deepcopy
 
-try:
-    import json
-except ImportError:
-    import simplejson as json
+import pkg_resources
+from lxml import etree, html
 
 from . import symbols
 
 dirname = os.path.dirname(__file__)
 
 NAMESPACES = {
-  'office':'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
-  'draw':'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
-  'xlink':'http://www.w3.org/1999/xlink',
-  }
+    'office': 'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
+    'draw': 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0',
+    'xlink': 'http://www.w3.org/1999/xlink',
+    }
 
 MATH_XPATH = etree.XPath('//draw:object[@xlink:href]', namespaces=NAMESPACES)
 MATH_HREF_XPATH = etree.XPath('@xlink:href', namespaces=NAMESPACES)
@@ -36,15 +37,17 @@ DRAW_STYLES_XPATH = etree.XPath('/office:document-content/office:automatic-style
 
 DRAW_FILENAME_PREFIX = "draw_odg"
 
+
 def makeXsl(filename):
-  """ Helper that creates a XSLT stylesheet """
-  pkg = 'xsl'
-  package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
-  if package != '':
-      pkg = package + '.' + pkg
-  path = pkg_resources.resource_filename(pkg, filename)
-  xml = etree.parse(path)
-  return etree.XSLT(xml)
+    """Helper that creates a XSLT stylesheet."""
+    pkg = 'xsl'
+    package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
+    if package != '':
+        pkg = package + '.' + pkg
+    path = pkg_resources.resource_filename(pkg, filename)
+    xml = etree.parse(path)
+    return etree.XSLT(xml)
+
 
 def writeXMLFile(filename, content):
     """ Used only for debugging to write out intermediate files"""
@@ -53,6 +56,7 @@ def writeXMLFile(filename, content):
     content = etree.tostring(content, pretty_print=True)
     xmlfile.write(content)
     xmlfile.close()
+
 
 def transform(odtfile, debug=False, parsable=False, outputdir=None):
     """ Given an ODT file this returns a tuple containing
@@ -81,10 +85,10 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
                     dict = json.loads(text)
                     errors.append(dict)
                 except ValueError:
-                    errors.append({
-                      'level':'CRITICAL',
-                      'id'   :'(none)',
-                      'msg'  :str(text) })
+                    errors.append({'level': 'CRITICAL',
+                                   'id': '(none)',
+                                   'msg': str(text),
+                                   })
 
     def injectStyles(xml):
         # HACK - need to find the object location from the manifest ...
@@ -95,16 +99,16 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
         stylesXml = parser.close()
 
         for i, obj in enumerate(STYLES_XPATH(stylesXml)):
-          xml.append(obj)
+            xml.append(obj)
 
         return xml
-
 
     # All MathML is stored in separate files "Object #/content.xml"
     # This converter includes the MathML by looking up the file in the zip
     def mathIncluder(xml):
         for i, obj in enumerate(MATH_XPATH(xml)):
-            strMathPath = MATH_HREF_XPATH(obj)[0] # Or obj.get('{%s}href' % XLINK_NS)
+            # Do the following or obj.get('{%s}href' % XLINK_NS)
+            strMathPath = MATH_HREF_XPATH(obj)[0]
             if strMathPath[0] == '#':
                 strMathPath = strMathPath[1:]
             # Remove leading './' Zip doesn't like it
@@ -140,8 +144,8 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             image = zip.read(strPath)
             images[strName] = image
 
-            # Later on, an XSL pass will convert the draw:frame to a c:image and
-            # set the @src correctly
+            # Later on, an XSL pass will convert the draw:frame
+            # to a c:image and set the @src correctly
 
         return xml
 
@@ -153,22 +157,30 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
         temp_dirname = tempfile.mkdtemp()
 
         for i, obj in enumerate(DRAW_XPATH(xml)):
-            # Copy everything except content.xml from the empty ODG (OOo Draw) template into a new zipfile
+            # Copy everything except content.xml from the empty ODG
+            # (OOo Draw) template into a new zipfile
 
             odg_filename = DRAW_FILENAME_PREFIX + str(i) + '.odg'
             png_filename = DRAW_FILENAME_PREFIX + str(i) + '.png'
 
-            # add PNG filename as attribute to parent node. The good thing is: The child (obj) will get lost! :-)
+            # add PNG filename as attribute to parent node.
+            # The good thing is: The child (obj) will get lost! :-)
             parent = obj.getparent()
             parent.attrib['ooo_drawing'] = png_filename
 
-            odg_zip = zipfile.ZipFile(os.path.join(temp_dirname, odg_filename), 'w', zipfile.ZIP_DEFLATED)
+            odg_zip_path = os.path.join(temp_dirname, odg_filename)
+            odg_zip = zipfile.ZipFile(odg_zip_path, 'w', zipfile.ZIP_DEFLATED)
             for root, dirs, files in os.walk(empty_odg_dirname):
                 for name in files:
-                    if name not in ('content.xml', 'styles.xml'):   # copy everything inside ZIP except content.xml or styles.xml
+                    if name not in ('content.xml', 'styles.xml'):
+                        # copy everything inside ZIP except
+                        # content.xml or styles.xml
                         sourcename = os.path.join(root, name)
                         # http://stackoverflow.com/a/1193171/756056
-                        arcname = os.path.join(root[len(empty_odg_dirname):], name)  # Path name inside the ZIP file, empty_odg_template is the root folder
+                        # Path name inside the ZIP file,
+                        # empty_odg_template is the root folder
+                        arcname = os.path.join(root[len(empty_odg_dirname):],
+                                               name)
                         odg_zip.write(sourcename, arcname)
 
             content = etree.parse(os.path.join(empty_odg_dirname, 'content.xml'))
@@ -185,7 +197,9 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             content_page[0].append(obj)
 
             # write modified content.xml
-            odg_zip.writestr('content.xml', etree.tostring(content, xml_declaration=True, encoding='UTF-8'))
+            content = etree.tostring(content, ml_declaration=True,
+                                     encoding='UTF-8')
+            odg_zip.writestr('content.xml', content)
 
             # copy styles.xml from odt to odg without modification
             styles_xml = zip.read('styles.xml')
@@ -196,22 +210,33 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             # TODO: Better error handling in the future.
             try:
                 # convert every odg to png
-                command = '/usr/bin/soffice -headless -nologo -nofirststartwizard "macro:///Standard.Module1.SaveAsPNG(%s,%s)"' % (os.path.join(temp_dirname, odg_filename),os.path.join(temp_dirname, png_filename))
+                macro = '"macro:///Standard.Module1.SaveAsPNG(%s,%s)"' \
+                    % (os.path.join(temp_dirname, odg_filename),
+                       os.path.join(temp_dirname, png_filename),
+                       )
+                command = ['/usr/bin/soffice', '-headless', '-nologo',
+                           '-nofirststartwizard', macro,
+                           ]
+                command = ' '.join(command)
                 os.system(command)
 
                 # save every image to memory
-                image = open(os.path.join(temp_dirname, png_filename), 'r').read()
+                image_path = os.path.join(temp_dirname, png_filename)
+                image = open(image_path, 'r').read()
                 images[png_filename] = image
 
                 if outputdir is not None:
-                    shutil.copy (os.path.join(temp_dirname, odg_filename), os.path.join(outputdir, odg_filename))
-                    shutil.copy (os.path.join(temp_dirname, png_filename), os.path.join(outputdir, png_filename))
+                    temp_odg_path = os.path.join(temp_dirname, odg_filename)
+                    out_odg_path = os.path.join(outputdir, odg_filename)
+                    shutil.copy(temp_odg_path, out_odg_path)
+                    temp_png_path = os.path.join(temp_dirname, png_filename)
+                    out_png_path = os.path.join(outputdir, png_filename)
+                    shutil.copy(temp_png_path, out_png_path)
             except:
                 pass
 
         # delete temporary directory
         shutil.rmtree(temp_dirname)
-
         return xml
 
     # Reparse after XSL because the RED-escape pass injects arbitrary XML
@@ -223,7 +248,8 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             xml = etree.fromstring(etree.tostring(result))
         except etree.XMLSyntaxError as e:
             msg = str(e)
-            xml = makeXsl('pass1_odt2red-failed.xsl')(xml, message="'%s'" % msg.replace("'", '"'))
+            xsl = makeXsl('pass1_odt2red-failed.xsl')
+            xml = xsl(xml, message="'%s'" % msg.replace("'", '"'))
             xml = xml.getroot()
         return xml
 
@@ -233,43 +259,53 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
         return etree.fromstring(xmlstr)
 
     PIPELINE = [
-      drawPuller, # gets OOo Draw objects out of odt and generate odg (OOo Draw) files
-      replaceSymbols,
-      injectStyles, # include the styles.xml file because it contains list numbering info
-      makeXsl('pass2_odt-normalize.xsl'), # This needs to be done 2x to fix headings
-      makeXsl('pass2_odt-normalize.xsl'), # In the worst case all headings are 9
-                            # and need to be 1. See (testbed) southwood__Lesson_2.doc
-      makeXsl('pass2_odt-collapse-spans.xsl'), # Collapse adjacent spans (for RED)
-      redParser, # makeXsl('pass1_odt2red-escape.xsl'),
-      makeXsl('pass4_odt-headers.xsl'),
-      imagePuller, # Need to run before math because both have a <draw:image> (see xpath)
-      mathIncluder,
-      makeXsl('pass7_odt2cnxml.xsl'),
-      makeXsl('pass8_cnxml-cleanup.xsl'),
-      makeXsl('pass9_id-generation.xsl'),
-      makeXsl('pass10_processing-instruction-logger.xsl'),
-      ]
+        # gets OOo Draw objects out of odt and generate odg (OOo Draw) files
+        drawPuller,
+        replaceSymbols,
+        # include the styles.xml file because it contains list numbering info
+        injectStyles,
+        # This needs to be done 2x to fix headings
+        makeXsl('pass2_odt-normalize.xsl'),
+        # In the worst case all headings are 9
+        makeXsl('pass2_odt-normalize.xsl'),
+        # and need to be 1. See (testbed) southwood__Lesson_2.doc
+        # Collapse adjacent spans (for RED)
+        makeXsl('pass2_odt-collapse-spans.xsl'),
+        redParser,
+        # makeXsl('pass1_odt2red-escape.xsl'),
+        makeXsl('pass4_odt-headers.xsl'),
+        # Need to run before math because both have a <draw:image> (see xpath)
+        imagePuller,
+        mathIncluder,
+        makeXsl('pass7_odt2cnxml.xsl'),
+        makeXsl('pass8_cnxml-cleanup.xsl'),
+        makeXsl('pass9_id-generation.xsl'),
+        makeXsl('pass10_processing-instruction-logger.xsl'),
+        ]
 
     # "xml" variable gets replaced during each iteration
     passNum = 0
     for xslDoc in PIPELINE:
-        if debug: errors.append("DEBUG: Starting pass %d" % passNum)
+        if debug:
+            errors.append("DEBUG: Starting pass %d" % passNum)
         xml = xslDoc(xml)
 
         appendLog(xslDoc)
-        if outputdir is not None: writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
+        if outputdir is not None:
+            writeXMLFile(os.path.join(outputdir, 'pass%d.xml' % passNum), xml)
         passNum += 1
 
     # In most cases (EIP) Invalid XML is preferable over valid but Escaped XML
     if not parsable:
-      xml = (makeXsl('pass11_red-unescape.xsl'))(xml)
+        xml = (makeXsl('pass11_red-unescape.xsl'))(xml)
 
     return (xml, images, errors)
+
 
 def validate(xml):
     # Validate against schema
     schemafile = open(os.path.join(dirname,
-                              'schema/cnxml/rng/0.7/cnxml.rng'))
+                                   'schema/cnxml/rng/0.7/cnxml.rng'))
     relaxng_doc = etree.parse(schemafile)
     relaxng = etree.RelaxNG(relaxng_doc)
     if relaxng.validate(xml):
@@ -277,34 +313,39 @@ def validate(xml):
     else:
         return relaxng.error_log
 
+
 def main():
-    try:
-      import argparse
-      parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
-      parser.add_argument('-v', dest='verbose', help='Verbose printing to stderr', action='store_true')
-      parser.add_argument('-p', dest='parsable', help='Ensure the output is Valid XML (ignore red text)', action='store_true')
-      parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
-      parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
-      args = parser.parse_args()
+    parser = argparse.ArgumentParser(description='Convert odt file to CNXML')
+    parser.add_argument('-v', dest='verbose', action='store_true',
+                        help='Verbose printing to stderr')
+    parser.add_argument('-p', dest='parsable', action='store_true',
+                        help='Ensure the output is Valid XML '
+                             '(ignore red text)')
+    parser.add_argument('odtfile', help='/path/to/odtfile', type=file)
+    parser.add_argument('outputdir', help='/path/to/outputdir', nargs='?')
+    args = parser.parse_args()
 
-      if args.verbose: print("Transforming...", file=sys.stderr)
-      xml, files, errors = transform(args.odtfile, debug=args.verbose, parsable=args.parsable, outputdir=args.outputdir)
+    if args.verbose:
+        print("Transforming...", file=sys.stderr)
+    xml, files, errors = transform(args.odtfile, debug=args.verbose,
+                                   parsable=args.parsable,
+                                   outputdir=args.outputdir)
 
-      if args.verbose:
-          for name, bytes in list(files.items()):
-              print("Extracted %s (%d)" % (name, len(bytes)), file=sys.stderr)
-      for err in errors:
-          print(err, file=sys.stderr)
-      if xml is not None:
-        if args.verbose: print("Validating...", file=sys.stderr)
+    if args.verbose:
+        for name, bytes in list(files.items()):
+            print("Extracted %s (%d)" % (name, len(bytes)), file=sys.stderr)
+    for err in errors:
+        print(err, file=sys.stderr)
+    if xml is not None:
+        if args.verbose:
+            print("Validating...", file=sys.stderr)
         invalids = validate(xml)
-        if invalids: print(invalids, file=sys.stderr)
+        if invalids:
+            print(invalids, file=sys.stderr)
         print(etree.tostring(xml, pretty_print=True))
 
-      if invalids:
+    if invalids:
         return 1
-    except ImportError:
-      print("argparse is needed for commandline")
 
 if __name__ == '__main__':
     sys.exit(main())
