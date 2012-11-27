@@ -212,9 +212,12 @@ UNICODE_DICTIONARY = {
 def replace(text):
   """Replace both the hex and decimal versions of symbols in an XML string"""
   for hex, value in list(UNICODE_DICTIONARY.items()):
+    hex = hex.encode('utf-8')
+    value = value.encode('utf-8')
     num = int(hex[3:-1], 16)
     #uni = unichr(num)
     decimal = '&#' + str(num) + ';'
+    decimal = decimal.encode('utf-8')
     text = text.replace(hex, value)
     text = text.replace(decimal, value)
   return text

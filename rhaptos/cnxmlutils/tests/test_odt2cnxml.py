@@ -18,16 +18,10 @@ class TestTransform(unittest.TestCase):
         validcnxml = validcnxml.replace('\n', '')
         validcnxml = re.sub('>\s+<', '><', validcnxml)
         validcnxml = re.sub('id=\".*?\"', '', validcnxml)
+        validcnxml = validcnxml.encode('utf-8')
 
         cnxml, images, errors = transform(odtfile)
         cnxml = etree.tostring(cnxml)
         # strip ids
-        cnxml = re.sub('id=\".*?\"', '', cnxml)
+        cnxml = re.sub(b'id=\".*?\"', b'', cnxml)
         self.assertEqual(cnxml, validcnxml)
-
-def test_suite():
-    from unittest import TestSuite, makeSuite
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestTransform))
-    return suite
-
