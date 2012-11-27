@@ -5,7 +5,7 @@ from lxml import etree
 
 from rhaptos.cnxmlutils.odt2cnxml import transform
 
-dirname = os.path.dirname(__file__)
+dirname = os.path.abspath(os.path.dirname(__file__))
 
 class TestTransform(unittest.TestCase):
 
