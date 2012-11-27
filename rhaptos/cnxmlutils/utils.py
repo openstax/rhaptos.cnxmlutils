@@ -13,9 +13,11 @@ from lxml import etree
 
 __all__ = (
     'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
+    'make_xsl'
     'cnxml_to_html', 'html_to_cnxml',
     )
 
+PACKAGE = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
 NAMESPACES = {
     'xhtml':'http://www.w3.org/1999/xhtml',
     }
@@ -32,22 +34,17 @@ def _to_io_object(s):
         s = StringIO(s)
     return s
 
-def _make_xsl(filename):
-    """Helper that creates a XSLT stylesheet """
-    package = 'rhaptos.cnxmlutils'
-    sub_package = 'xsl'
-
-    if package != '':
-        pkg = package + '.' + sub_package
-        path = pkg_resources.resource_filename(pkg, filename)
-        xml = etree.parse(path)
-        return etree.XSLT(xml)
-
 def _transform(xml, xsl_filename):
     """Transforms the xml using the specifiec xsl file."""
-    xslt = _make_xsl(xsl_filename)
+    xslt = make_xsl(xsl_filename, 'rhatpos.cnxmlutils.xsl')
     xml = xslt(xml)
     return xml
+
+def make_xsl(filename, package=PACKAGE):
+    """Helper that creates a XSLT stylesheet."""
+    path = pkg_resources.resource_filename(package, filename)
+    xml = etree.parse(path)
+    return etree.XSLT(xml)
 
 def cnxml_to_html(cnxml_source):
     """Transform the CNXML source to HTML"""

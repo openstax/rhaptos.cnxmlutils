@@ -16,6 +16,7 @@ import pkg_resources
 from lxml import etree, html
 
 from . import symbols
+from .utils import PACKAGE, make_xsl
 
 dirname = os.path.dirname(__file__)
 
@@ -39,15 +40,9 @@ DRAW_FILENAME_PREFIX = "draw_odg"
 
 
 def makeXsl(filename):
-    """Helper that creates a XSLT stylesheet."""
-    pkg = 'xsl'
-    package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
-    if package != '':
-        pkg = package + '.' + pkg
-    path = pkg_resources.resource_filename(pkg, filename)
-    xml = etree.parse(path)
-    return etree.XSLT(xml)
-
+    """A backward compatible shim to create XSLT stylesheet object."""
+    package = '.'.join([PACKAGE, 'xsl'])
+    return make_xsl(filename, package=package)
 
 def writeXMLFile(filename, content):
     """ Used only for debugging to write out intermediate files"""

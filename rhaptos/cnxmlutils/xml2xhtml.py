@@ -17,20 +17,17 @@ from .utils import (
     NAMESPACES,
     XHTML_INCLUDE_XPATH as INCLUDE_XPATH,
     XHTML_MODULE_BODY_XPATH as MODULE_BODY_XPATH,
+    PACKAGE,
+    make_xsl,
     )
 
 dirname = os.path.dirname(__file__)
 
 
 def makeXsl(filename):
-  """ Helper that creates a XSLT stylesheet """
-  pkg = 'cnxml2html'
-  package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
-  if package != '':
-      pkg = package + '.' + pkg
-  path = pkg_resources.resource_filename(pkg, filename)
-  xml = etree.parse(path)
-  return etree.XSLT(xml)
+    """A backward compatible shim to create XSLT stylesheet object."""
+    package = '.'.join([PACKAGE, 'cnxml2html'])
+    return make_xsl(filename, package=package)
 
 def transform_collxml(collxml_file):
     """ Given a collxml file (collection.xml) this returns an HTML version of it
