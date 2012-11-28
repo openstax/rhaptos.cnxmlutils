@@ -1,14 +1,10 @@
-#!/usr/bin/env python
-#
-# addsectiontags - parse OpenOffice XML and add section tags based on
-# headings
-#
+# -*- coding: utf-8 -*-
 # Author: Adan Galvan, Brent Hendricks, Ross Reedstrom
 # (C) 2005-2010 Rice University
 #
 # This software is subject to the provisions of the GNU Lesser General
 # Public License Version 2.1 (LGPL).  See LICENSE.txt for details.
-
+"""Parse OpenOffice XML and add section tags based on headings."""
 import sys
 from xml.sax import make_parser
 from xml.sax import ContentHandler
@@ -62,7 +58,7 @@ class docHandler(ContentHandler):
 
     def handleSection(self, name, end_tag, attrs={}):
         # text:section is hierarchical while text:h is not
- 
+
         if not end_tag:
             self.document.append("<!-- close all open sections -->\n")
             self.endSections()
@@ -128,7 +124,7 @@ class docHandler(ContentHandler):
 
     def storeSectionState(self, level):
         """
-        Takes a header tagname (e.g. 'h1') and adjusts the 
+        Takes a header tagname (e.g. 'h1') and adjusts the
         stack that remembers the headers seen.
         """
 
@@ -209,4 +205,3 @@ if __name__ == "__main__":
     file = sys.argv[1]
     f = open(file)
     print(addSectionTags(f))
-
