@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" id="imported-from-openoffice" module-id="imported-from-openoffice" cnxml-version="0.7" class="introduction">
+  <title>Introduction to Culture</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://cnx.org/content</md:repository>
+  <md:content-url>http://cnx.org/content/m42983/latest/</md:content-url>
+  <md:content-id>m42983</md:content-id>
+  <md:title>Introduction to Culture</md:title>
+  <md:version>1.2</md:version>
+  <md:created>2012/01/31 15:24:05 US/Central</md:created>
+  <md:revised>2012/05/07 11:40:29.971 GMT-5</md:revised>
+  <md:actors>
+    <md:organization userid="OpenStaxCollege">
+      <md:shortname>OpenStax College</md:shortname>
+      <md:fullname>OpenStax College</md:fullname>
+      <md:email>info@openstaxcollege.org</md:email>
+    </md:organization>
+    <md:person userid="OSCRiceUniversity">
+      <md:firstname>Rice</md:firstname>
+      <md:surname>University</md:surname>
+      <md:fullname>Rice University</md:fullname>
+      <md:email>daniel@openstaxcollege.org</md:email>
+    </md:person>
+    <md:person userid="soccap">
+      <md:firstname>Sociology</md:firstname>
+      <md:surname>Cap</md:surname>
+      <md:fullname>Sociology Cap</md:fullname>
+      <md:email>dcwill@rice.edu</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">OpenStaxCollege</md:role>
+    <md:role type="maintainer">OpenStaxCollege soccap</md:role>
+    <md:role type="licensor">OSCRiceUniversity</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/3.0/" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>Culture</md:keyword>
+    <md:keyword>Society</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Social Sciences</md:subject>
+  </md:subjectlist>
+  <md:abstract></md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+<content>
+            <?chapter-toc label="Learning Objectives"?>
+            <?cnx.eoc class="section-summary" title="Section Summary"?>
+            <?cnx.eoc class="section-quiz" title="Section Quiz"?>
+            <?cnx.eoc class="short-answer" title="Short Answer"?>
+            <?cnx.eoc class="further-research" title="Further Research"?>
+            <?cnx.eoc class="references" title="References"?>
+
+    <para>Are there rules for eating at McDonald’s? Generally, we do not think about rules in a fast food restaurant, but if you look around one on a typical weekday, you will see people acting as if they were trained for the role of fast food customer. They stand in line, pick items from the colorful menus, swipe debit cards to pay, and wait to collect trays of food. After a quick meal, customers wad up their paper wrappers and toss them into garbage cans. Customers’ movement through this fast food routine is orderly and predictable, even if no rules are posted and no officials direct the process.</para>
+    <para id="import-auto-id1315490">If you want more insight into these unwritten rules, think about what would happen if you behaved according to some other standards. (You would be doing what sociologists call ethnomethodology: deliberately disrupting social norms in order to learn about them.) For example, call ahead for reservations, ask the cashier detailed questions about the food’s ingredients or how it is prepared. Ask to have your meal served to you at your table. Or throw your trash on the ground as you leave. Chances are, you will elicit hostile responses from the restaurant employees and your fellow customers.</para>
+    <para id="import-auto-id2850627">People have written entire books analyzing the significance of fast food customs. They examine the extensive, detailed physicality of fast food: the food itself, wrappers, bags, trays, those tiny ketchup packets, the tables and chairs, and even the restaurant building. Everything about a chain restaurant reflects <term id="import-auto-id2679286">culture</term>, the beliefs and behaviors that a social group shares. Sociological analysis can be applied to every expression of culture, from sporting events to holidays, from education to transportation, from fashion to etiquette.</para>
+    <para id="import-auto-id1184912">In everyday conversation, people rarely distinguish between the terms <emphasis effect="italics">culture</emphasis> and <emphasis effect="italics">society,</emphasis> but the terms have slightly different meanings, and the distinction is important to a sociologist. A <term id="import-auto-id1820599">society</term> describes a group of people who share a community and a culture. By “community,” sociologists refer to a definable region—as small as a neighborhood (Brooklyn, or “the east side of town”), as large as a country (Ethiopia, the United States, or Nepal), or somewhere in between (in America, this might include someone who identifies with Southern or Midwestern society). To clarify, a culture represents the <emphasis effect="italics">beliefs and practices</emphasis> of a group, while society represents the <emphasis effect="italics">people</emphasis> who share those beliefs and practices. Neither society nor culture could exist without the other. In this chapter, we examine the relationship between culture and society in greater detail, paying special attention to the elements and forces that shape culture, including diversity and cultural changes. A final discussion touches on the different theoretical perspectives from which sociologists research culture.</para>
+    </content>
+    <glossary>
+    <definition id="import-auto-id1355669"><term>culture</term> <meaning id="fs-id1446338">shared beliefs, values, and practices</meaning></definition>
+    <definition id="import-auto-id2301684"><term>society</term> <meaning id="fs-id2694145"> people who live in a definable community and who share a culture</meaning></definition>
+    </glossary>
+
+</document>
