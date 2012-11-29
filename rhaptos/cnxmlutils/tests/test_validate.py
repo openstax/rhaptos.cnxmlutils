@@ -40,3 +40,37 @@ class ValidationTest(unittest.TestCase):
         self.assertIn('<string>:67:0:ERROR:RELAXNGV:RELAXNG_ERR_ATTRVALID: '
                       'Element para failed to validate attributes',
                       err.split('\n'))
+
+    def test_validates_using_jing(self):
+        # Basic test for complete validation.
+        document_path = os.path.join(TEST_DATA, 'module-without-resources',
+                                     'index.cnxml')
+        with open(document_path, 'r') as doc:
+            document = doc.read()
+
+            from rhaptos.cnxmlutils.validate import (
+                JING_VALIDATOR, validate,
+            )
+        valid, err = validate(document, JING_VALIDATOR)
+
+        self.assertTrue(valid)
+        self.assertEqual('', err)
+
+    def test_invalid_using_jing(self):
+        # Test for an invalid cnxml file.
+        document_path = os.path.join(TEST_DATA, 'module-invalid',
+                                     'index.cnxml')
+        with open(document_path, 'r') as doc:
+            document = doc.read()
+
+        from rhaptos.cnxmlutils.validate import (
+            JING_VALIDATOR, validate,
+            )
+        valid, err = validate(document, JING_VALIDATOR)
+
+        self.assertTrue(not valid)
+        expected_results = ['On line 67, column 11:  error element "para" '
+                            'missing required attribute "id"',
+                            '\tcontext: ', '', '',
+                            ]
+        self.assertEqual(expected_results, err.split('\n'))

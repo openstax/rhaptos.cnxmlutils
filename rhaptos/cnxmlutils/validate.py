@@ -39,7 +39,7 @@ def lxml_validator(cnxml):
 def jing_validator(cnxml):
     """Validates a CNXML document using jing."""
     tmpfile = NamedTemporaryFile() # doesn't take stdin, so make a file
-    tmpfile.write(cnxml)
+    tmpfile.write(cnxml.encode('utf-8'))
     tmpfile.flush()
     tmploc = tmpfile.name
     cmdargs = ["jing", SCHEMA, tmploc]
@@ -52,8 +52,8 @@ def jing_validator(cnxml):
     if valid:
         return valid, msg
 
-    cnxmlstr = cnxmlstr.split('\n')
-    for line in stdout.split('\n'):
+    cnxml = cnxml.split('\n')
+    for line in stdout.decode('utf-8').split('\n'):
         if not line:
             continue
         parts = line.split(':')
@@ -65,7 +65,7 @@ def jing_validator(cnxml):
             column = int(column)
             msg += 'On line %s, column %s: %s\n' % (line, column,
                                                     ''.join(parts[3:]))
-            msg += '\tcontext: %s\n\n' % cnxmlstr[line-1][column-50:column+50]
+            msg += '\tcontext: %s\n\n' % cnxml[line-1][column-50:column+50]
         except ValueError:
             # not a line number, so use the whole thing
             line = 0
