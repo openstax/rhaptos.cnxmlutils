@@ -12,20 +12,14 @@ from lxml import etree
 
 
 __all__ = (
-    'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
     'make_xsl', 'transform',
     )
 
 PACKAGE = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
-NAMESPACES = {
-    'xhtml':'http://www.w3.org/1999/xhtml',
-    }
-XHTML_INCLUDE_XPATH = etree.XPath('//xhtml:a[@class="include"]',
-                                  namespaces=NAMESPACES)
-XHTML_MODULE_BODY_XPATH = etree.XPath('//xhtml:body', namespaces=NAMESPACES)
+DEFAULT_XSL_PACKAGE = '.'.join([PACKAGE, 'xsl'])
 
 
-def transform(xml, xsl_filename, xsl_package='rhatpos.cnxmlutils.xsl'):
+def transform(xml, xsl_filename, xsl_package=DEFAULT_XSL_PACKAGE):
     """Transforms the xml using the specifiec xsl file."""
     xslt = make_xsl(xsl_filename, xsl_package)
     xml = xslt(xml)
