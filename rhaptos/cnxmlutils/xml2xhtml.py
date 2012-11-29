@@ -14,11 +14,13 @@ from io import StringIO
 import pkg_resources
 from lxml import etree, html
 from .utils import (
+    PACKAGE,
+    make_xsl,
+    )
+from .html import (
     NAMESPACES,
     XHTML_INCLUDE_XPATH as INCLUDE_XPATH,
     XHTML_MODULE_BODY_XPATH as MODULE_BODY_XPATH,
-    PACKAGE,
-    make_xsl,
     )
 
 dirname = os.path.dirname(__file__)
