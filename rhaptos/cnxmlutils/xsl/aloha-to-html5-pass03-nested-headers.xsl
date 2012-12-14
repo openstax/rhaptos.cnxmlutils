@@ -29,7 +29,6 @@
 
 <!--
 Transforms headers to nested headers.
-Pass1 transformation is precondition for this pass.
 Before and after this transformation the Google Docs HTML is no valid HTML anymore!
 
 A treewalk algorithm is used to get nested headers.
