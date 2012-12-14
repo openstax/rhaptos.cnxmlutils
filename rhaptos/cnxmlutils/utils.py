@@ -64,7 +64,7 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
     partial(_transform, 'aloha-to-html5-pass01-leveled-headers.xsl'),
     partial(_transform, 'aloha-to-html5-pass02-new-min-header-level.xsl'),
     partial(_transform, 'aloha-to-html5-pass03-nested-headers.xsl'),
-    partial(_transform, 'html5_indent.xsl')
+    partial(_transform, 'aloha-to-html5-pass04-headers2sections.xsl'),
 ]
 
 def aloha_to_html(html_source):

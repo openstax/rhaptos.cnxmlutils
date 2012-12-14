@@ -119,10 +119,6 @@ Output:
   </xsl:if>
 </xsl:template>
 
-<!-- Do not copy level attribute from Pass1 -->
-<!-- TODO: Currently it is copied for debugging -->
-<!-- <xsl:template match="@level"/> -->
-
 <!-- Copy & Walk through the HTML -->
 <xsl:template match="node()" mode="walker_pass2">
   <xsl:param name="level" select="1"/>

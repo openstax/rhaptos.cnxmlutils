@@ -62,7 +62,7 @@ Important if headers always start at level 2 or the first header is not in level
     <xsl:attribute name="level">
       <xsl:value-of select="$new_level"/>
     </xsl:attribute>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="@*"/> <!-- only copy flattened @title, no redundant header content like select="@*|node()" -->
   </xsl:copy>
 </xsl:template>
 
