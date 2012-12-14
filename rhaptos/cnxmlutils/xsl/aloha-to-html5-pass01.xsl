@@ -32,8 +32,7 @@
 </xsl:template>
 
 <!-- Change header to <h level="x"> -->
-<xsl:template match="h1|h2|h3|h4|h5|h6"> 
-  <!-- get title content without comments -->
+<xsl:template match="x:h1|x:h2|x:h3|x:h4|x:h5|x:h6"> 
   <xsl:variable name="title_nodeset">
     <xsl:apply-templates mode="cleantitle"/>
   </xsl:variable>
@@ -49,7 +48,7 @@
           </p>
       </xsl:when>
       <!-- convert headings inside lists to paragraphs -->
-      <xsl:when test="ancestor::li">
+      <xsl:when test="ancestor::x:li">
           <p>
               <xsl:apply-templates/>
           </p>
@@ -59,24 +58,21 @@
             <xsl:message>INFO: Renaming HTML header to leveled header</xsl:message>
             <xsl:attribute name="level" >                          <!-- insert level attribute -->
               <xsl:choose>
-                <!-- make sure that the very first heading has level 1! Otherwise transformation will loose content -->
-                <!-- <xsl:when test="generate-id((//h1[1]|//h2[1]|//h3[1]|//h4[1]|//h5[1]|//h6[1])[1]) = generate-id(.)">1</xsl:when> -->
-                <xsl:when test="self::h1">1</xsl:when>
-                <xsl:when test="self::h2">2</xsl:when>
-                <xsl:when test="self::h3">3</xsl:when>
-                <xsl:when test="self::h4">4</xsl:when>
-                <xsl:when test="self::h5">5</xsl:when>
-                <xsl:when test="self::h6">6</xsl:when>
+                <xsl:when test="self::x:h1">1</xsl:when>
+                <xsl:when test="self::x:h2">2</xsl:when>
+                <xsl:when test="self::x:h3">3</xsl:when>
+                <xsl:when test="self::x:h4">4</xsl:when>
+                <xsl:when test="self::x:h5">5</xsl:when>
+                <xsl:when test="self::x:h6">6</xsl:when>
               </xsl:choose>
             </xsl:attribute>
 
-            <!-- <xsl:if test="string-length($title_content) &gt; 0"> -->
-                <xsl:attribute name="title">
-                  <xsl:value-of select="$title_content"/>
-                </xsl:attribute>
-            <!-- </xsl:if> -->
+              <!-- copy header text and also remove all stylings of a header -->
+              <xsl:attribute name="title">
+                <xsl:value-of select="$title_content"/>
+              </xsl:attribute>
 
-            <xsl:apply-templates select="@*"/>        <!-- copy all remaining attributes -->
+            <xsl:apply-templates select="@*"/> <!-- copy all remaining attributes -->
 
             <!-- copy all children which do not have any content -->
             <xsl:apply-templates/>

@@ -32,7 +32,7 @@
 </xsl:template>
 
 <!-- At the beginning of body XSLT should walk step by step through the HTML -->
-<xsl:template match="body">
+<xsl:template match="x:body">
   <xsl:message>start walking</xsl:message>
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
