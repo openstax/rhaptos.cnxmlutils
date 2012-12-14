@@ -19,7 +19,13 @@
   exclude-result-prefixes="exsl x m mml"
   >
 
-<xsl:output omit-xml-declaration="yes" encoding="ASCII" indent="no"/>
+<xsl:output
+  method="xml"
+  encoding="UTF-8"
+  indent="no"/>
+
+<xsl:strip-space elements="*"/>
+<xsl:preserve-space elements="xh:p xh:span xh:li xh:td xh:a xh:h1 xh:h2 xh:h3 xh:h4 xh:h5 xh:h6"/> <!-- TODO: Is this really all content? Many HTML5 tags are not covered now -->
 
 <!--
 This XSLT transforms headers and lists of XHTML.

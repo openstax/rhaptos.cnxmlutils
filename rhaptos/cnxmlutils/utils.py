@@ -46,6 +46,7 @@ def _make_xsl(filename):
 def _transform(xsl_filename, xml):
     """Transforms the xml using the specifiec xsl file."""
     xslt = _make_xsl(xsl_filename)
+    print xsl_filename
     xml = xslt(xml)
     return xml
 
@@ -60,8 +61,10 @@ def cnxml_to_html(cnxml_source):
 
 
 ALOHA2HTML_TRANSFORM_PIPELINE = [
-    partial(_transform, 'aloha-to-html5-pass01.xsl'),
-    partial(_transform, 'aloha-to-html5-pass02.xsl'),
+    partial(_transform, 'aloha-to-html5-pass01-leveled-headers.xsl'),
+    partial(_transform, 'aloha-to-html5-pass02-new-min-header-level.xsl'),
+    partial(_transform, 'aloha-to-html5-pass03-nested-headers.xsl'),
+    partial(_transform, 'html5_indent.xsl')
 ]
 
 def aloha_to_html(html_source):
@@ -70,7 +73,7 @@ def aloha_to_html(html_source):
     xml = etree.parse(source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
-    return etree.tostring(xml)
+    return etree.tostring(xml, pretty_print=True)
 
 def html_to_cnxml(html_source, cnxml_source):
     """Transform the HTML to CNXML. We need the original CNXML content in

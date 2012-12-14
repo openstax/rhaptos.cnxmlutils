@@ -19,7 +19,13 @@
   exclude-result-prefixes="exsl x m mml"
   >
 
-<xsl:output omit-xml-declaration="yes" encoding="ASCII" indent="no"/>
+<xsl:output
+  method="xml"
+  encoding="UTF-8"
+  indent="no"/>
+
+<xsl:strip-space elements="*"/>
+<xsl:preserve-space elements="xh:p xh:span xh:li xh:td xh:a"/>
 
 <!--
 Transforms headers to nested headers.
