@@ -19,9 +19,31 @@
   exclude-result-prefixes="exsl x m mml"
   >
 
-<xsl:output omit-xml-declaration="yes" encoding="ASCII"/>
+<xsl:output omit-xml-declaration="yes" encoding="ASCII" indent="no"/>
 
 <!--
+Transforms headers to nested headers.
+Pass1 transformation is precondition for this pass.
+Before and after this transformation the Google Docs HTML is no valid HTML anymore!
+
+A treewalk algorithm is used to get nested headers.
+How to use treewalk in XSLT: http://www.dpawson.co.uk/xsl/sect2/N4486.html#d5509e1105
+
+Input example:
+  <cnhtml:h level="1" titlecontent="Heading1">
+    Heading1
+  </cnhtml:h>
+  <cnhtml:h level="2" titlecontent="Heading2">
+    Heading2
+  </cnhtml:h>
+
+Output:
+  <cnhtml:h titlecontent="Heading1">
+    Heading1
+    <cnhtml:h titlecontent="Heading2">
+      Heading2
+    </cnhtml:h>
+  </cnhtml:h>
 -->
 
 <!-- default copy all -->

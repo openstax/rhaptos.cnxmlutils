@@ -19,9 +19,13 @@
   exclude-result-prefixes="exsl x m mml"
   >
 
-<xsl:output omit-xml-declaration="yes" encoding="ASCII"/>
+<xsl:output omit-xml-declaration="yes" encoding="ASCII" indent="no"/>
 
 <!--
+This XSLT transforms headers and lists of XHTML.
+
+It transforms all tags: <h1>,<h2>,<h3>,<h4>,<h5>,<h6> to <cnhtml:h level="x">
+e.g. <h1></h1> to <cnhtml:h level="1"></cnhtml:h>
 -->
 
 <!-- default copy all -->
