@@ -103,12 +103,12 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
 
 def aloha_to_html(html_source):
     """Converts HTML5 from Aloha to a more structured HTML5"""
-    tidy_xhtml5 = _tidy2xhtml5(html_source)
+    tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
     source = _string2io(tidy_xhtml5)
     xml = etree.parse(source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
-    return etree.tostring(xml)
+    return etree.tostring(xml, pretty_print=True)
 
 def html_to_cnxml(html_source, cnxml_source):
     """Transform the HTML to CNXML. We need the original CNXML content in
