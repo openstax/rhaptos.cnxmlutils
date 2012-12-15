@@ -85,6 +85,7 @@ def _transform(xsl_filename, xml):
     return xml
 
 def _transform_string(xsl_filename, xml_string):
+    """Transforms the xml using the specifiec xsl file. Input and output are strings."""
     source = _string2io(xml_string)
     xml = etree.parse(source)
     return etree.tostring(_transform(xsl_filename, xml))

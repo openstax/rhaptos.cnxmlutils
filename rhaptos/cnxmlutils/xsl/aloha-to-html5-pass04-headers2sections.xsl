@@ -21,7 +21,7 @@
 
 <xsl:output
   method="xml"
-  encoding="UTF-8"
+  encoding="ASCII"
   indent="no"/>
 
 <xsl:strip-space elements="*"/>
