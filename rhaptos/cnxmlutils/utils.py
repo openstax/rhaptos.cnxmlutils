@@ -11,6 +11,8 @@ import pkg_resources
 from lxml import etree
 from functools import partial
 from tidylib import tidy_document # requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
+from xml.sax.saxutils import unescape # for unescaping math from Mathjax script tag
+from copy import deepcopy
 
 __all__ = (
     'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
@@ -84,6 +86,19 @@ def _transform(xsl_filename, xml):
     xml = xslt(xml)
     return xml
 
+def _unescape_math(xml):
+    """Unescapes Math from Mathjax to MathML."""
+    xpath_math_script = etree.XPath('//x:script[@type="math/mml"]', namespaces={'x':'http://www.w3.org/1999/xhtml'})
+    math_script_list = xpath_math_script(xml)
+    for mathscript in math_script_list:
+        math = mathscript.text
+        math = unescape(unescape(math)) # some browsers double escape like e.g. Firefox
+        mathscript.clear()
+        mathscript.set('type', 'math/mml')
+        new_math = etree.fromstring(math)
+        mathscript.append( new_math )
+    return xml
+
 def cnxml_to_html(cnxml_source):
     """Transform the CNXML source to HTML"""
     source = _string2io(cnxml_source)
@@ -99,6 +114,9 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
     partial(_transform, 'aloha-to-html5-pass02-new-min-header-level.xsl'),
     partial(_transform, 'aloha-to-html5-pass03-nested-headers.xsl'),
     partial(_transform, 'aloha-to-html5-pass04-headers2sections.xsl'),
+    _unescape_math,
+    partial(_transform, 'aloha-to-html5-pass05-mathjax2mathml.xsl'),
+    partial(_transform, 'aloha-to-html5-pass06-postprocessing.xsl'),
 ]
 
 def aloha_to_html(html_source):
