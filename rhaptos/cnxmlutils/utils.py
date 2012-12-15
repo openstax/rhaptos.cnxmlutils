@@ -84,12 +84,6 @@ def _transform(xsl_filename, xml):
     xml = xslt(xml)
     return xml
 
-def _transform_string(xsl_filename, xml_string):
-    """Transforms the xml using the specifiec xsl file. Input and output are strings."""
-    source = _string2io(xml_string)
-    xml = etree.parse(source)
-    return etree.tostring(_transform(xsl_filename, xml))
-
 def cnxml_to_html(cnxml_source):
     """Transform the CNXML source to HTML"""
     source = _string2io(cnxml_source)
@@ -101,19 +95,20 @@ def cnxml_to_html(cnxml_source):
 
 
 ALOHA2HTML_TRANSFORM_PIPELINE = [
-    _tidy2xhtml5,
-    partial(_transform_string, 'aloha-to-html5-pass01-leveled-headers.xsl'),
-    partial(_transform_string, 'aloha-to-html5-pass02-new-min-header-level.xsl'),
-    partial(_transform_string, 'aloha-to-html5-pass03-nested-headers.xsl'),
-    partial(_transform_string, 'aloha-to-html5-pass04-headers2sections.xsl'),
+    partial(_transform, 'aloha-to-html5-pass01-leveled-headers.xsl'),
+    partial(_transform, 'aloha-to-html5-pass02-new-min-header-level.xsl'),
+    partial(_transform, 'aloha-to-html5-pass03-nested-headers.xsl'),
+    partial(_transform, 'aloha-to-html5-pass04-headers2sections.xsl'),
 ]
 
 def aloha_to_html(html_source):
     """Converts HTML5 from Aloha to a more structured HTML5"""
-    xml = html_source
+    tidy_xhtml5 = _tidy2xhtml5(html_source)
+    source = _string2io(tidy_xhtml5)
+    xml = etree.parse(source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
-    return xml
+    return etree.tostring(xml)
 
 def html_to_cnxml(html_source, cnxml_source):
     """Transform the HTML to CNXML. We need the original CNXML content in
