@@ -10,7 +10,7 @@
 <xsl:output
   method="xml"
   encoding="ASCII"
-  indent="yes"/>
+  indent="no"/>
 
 <xsl:strip-space elements="*"/>
 <xsl:preserve-space elements="xh:p xh:span xh:li xh:td xh:a"/>

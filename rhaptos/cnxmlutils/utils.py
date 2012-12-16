@@ -148,6 +148,7 @@ def html_to_cnxml(html_source, cnxml_source):
 HTML2VALID_CNXML_TRANSFORM_PIPELINE = [
     partial(_transform, 'html5-to-cnxml-pass01-cleanup.xsl'),
     partial(_transform, 'html5-to-cnxml-pass02-enclose-para.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass03-xhtml2cnxml.xsl'),
 ]
 
 def html_to_valid_cnxml(html_source):
