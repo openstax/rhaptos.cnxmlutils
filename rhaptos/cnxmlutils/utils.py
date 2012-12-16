@@ -152,6 +152,7 @@ HTML2VALID_CNXML_TRANSFORM_PIPELINE = [
     # TODO: Recognize mime type of images here!
     partial(_transform, 'html5-to-cnxml-pass04-postprocessing.xsl'),
     partial(_transform, 'html5-to-cnxml-pass05-cnxml-id-generation.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass06-cnxml-postprocessing.xsl'),
 ]
 
 def html_to_valid_cnxml(html_source):
