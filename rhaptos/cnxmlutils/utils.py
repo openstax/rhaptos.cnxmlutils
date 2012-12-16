@@ -144,3 +144,23 @@ def html_to_cnxml(html_source, cnxml_source):
     replaceable_node.getparent().replace(replaceable_node, xml.getroot())
     # Set the content into the existing cnxml source
     return etree.tostring(cnxml)
+
+HTML2VALID_CNXML_TRANSFORM_PIPELINE = [
+    partial(_transform, 'html5-to-cnxml-pass01-cleanup.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass02-enclose-para.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass03-xhtml2cnxml.xsl'),
+    # TODO: Recognize mime type of images here!
+    partial(_transform, 'html5-to-cnxml-pass04-postprocessing.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass05-cnxml-id-generation.xsl'),
+    partial(_transform, 'html5-to-cnxml-pass06-cnxml-postprocessing.xsl'),
+]
+
+def html_to_valid_cnxml(html_source):
+    """Transform the HTML to valid CNXML (used for OERPUB). No original CNXML is needed.
+    If HTML is from Aloha please use aloha_to_html before using this method
+    """
+    source = _string2io(html_source)
+    xml = etree.parse(source)
+    for i, transform in enumerate(HTML2VALID_CNXML_TRANSFORM_PIPELINE):
+        xml = transform(xml)
+    return etree.tostring(xml, pretty_print=True)
