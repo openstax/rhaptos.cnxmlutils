@@ -244,7 +244,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
     <xsl:choose>
       
       <!-- Do we have table headers in first row? -->
-      <xsl:when test="xh:tr[1]/xh:th">
+      <xsl:when test="xh:tr[1]/xh:th and xh:tr[2]">
         <xsl:attribute name="cols">
           <!-- get number of column from the first row -->
           <xsl:value-of select="count(xh:tr[1]/xh:th)"/>
@@ -269,32 +269,30 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
             </xsl:for-each>
           </row>
         </thead>
-        <xsl:if test="xh:tr[2]"> <!-- only proceed if we do not have just a header row -->
-          <tbody>
-            <xsl:variable name="first_tr">
-              <xsl:value-of select="generate-id(xh:tr[1])"/>
-            </xsl:variable>
-            <xsl:for-each select="xh:tr[generate-id(.) != $first_tr]"> <!--ignore first tr with headers -->
-              <row>
-                <xsl:for-each select="xh:td">
-                  <entry>
-                    <xsl:apply-templates select="*"/>
-                  </entry>
-                </xsl:for-each>
-              </row>
-            </xsl:for-each>
-          </tbody>
-        </xsl:if>
+        <tbody>
+          <xsl:variable name="first_tr">
+            <xsl:value-of select="generate-id(xh:tr[1])"/>
+          </xsl:variable>
+          <xsl:for-each select="xh:tr[generate-id(.) != $first_tr]"> <!--ignore first tr with headers -->
+            <row>
+              <xsl:for-each select="xh:td">
+                <entry>
+                  <xsl:apply-templates select="*"/>
+                </entry>
+              </xsl:for-each>
+            </row>
+          </xsl:for-each>
+        </tbody>
       </xsl:when>
 
-      <!-- No table headers -->
+      <!-- No table headers or just tables with headers -->
       <xsl:otherwise>
         <xsl:attribute name="cols">
           <!-- get number of column from the first row -->
-          <xsl:value-of select="count(xh:tr[1]/xh:td)"/>
+          <xsl:value-of select="count(xh:tr[1]/xh:td|xh:tr[1]/xh:th)"/>
         </xsl:attribute>
         <!-- get column width -->
-        <xsl:for-each select="xh:tr[1]/xh:td">
+        <xsl:for-each select="xh:tr[1]/xh:td|xh:tr[1]/xh:th">
           <colspec>
             <xsl:attribute name="colnum">
               <xsl:value-of select="position()"/>
@@ -307,7 +305,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         <tbody>
           <xsl:for-each select="xh:tr">
             <row>
-              <xsl:for-each select="xh:td">
+              <xsl:for-each select="xh:td|xh:th">
                 <entry>
                   <xsl:apply-templates select="*"/>
                 </entry>
