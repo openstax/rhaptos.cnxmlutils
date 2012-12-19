@@ -183,7 +183,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 </xsl:template>
 
 <!-- copy text from specific text-nodes -->
-<xsl:template match="xh:p/text()|xh:span/text()|xh:li/text()|xh:td/text()|xh:a/text()">
+<xsl:template match="xh:p/text()|xh:span/text()|xh:li/text()|xh:th/text()|xh:td/text()|xh:a/text()">
   <xsl:value-of select="."/>
 </xsl:template>
 
@@ -241,32 +241,80 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- table body -->
 <xsl:template match="xh:tbody">
   <tgroup>
-    <xsl:attribute name="cols">
-      <!-- get number of column from the first row -->
-      <xsl:value-of select="count(xh:tr[1]/xh:td)"/>
-    </xsl:attribute>
-    <!-- get column width -->
-    <xsl:for-each select="xh:tr[1]/xh:td">
-      <colspec>
-        <xsl:attribute name="colnum">
-          <xsl:value-of select="position()"/>
+    <xsl:choose>
+      
+      <!-- Do we have table headers in first row? -->
+      <xsl:when test="xh:tr[1]/xh:th">
+        <xsl:attribute name="cols">
+          <!-- get number of column from the first row -->
+          <xsl:value-of select="count(xh:tr[1]/xh:th)"/>
         </xsl:attribute>
-        <xsl:attribute name="colwidth">
-          <xsl:value-of select="@width"/>
-        </xsl:attribute>
-      </colspec>
-    </xsl:for-each>
-    <tbody>
-      <xsl:for-each select="xh:tr">
-        <row>
-          <xsl:for-each select="xh:td">
-            <entry>
-              <xsl:apply-templates select="*"/>
-            </entry>
+        <!-- get column width -->
+        <xsl:for-each select="xh:tr[1]/xh:th">
+          <colspec>
+            <xsl:attribute name="colnum">
+              <xsl:value-of select="position()"/>
+            </xsl:attribute>
+            <xsl:attribute name="colwidth">
+              <xsl:value-of select="@width"/>
+            </xsl:attribute>
+          </colspec>
+        </xsl:for-each>
+        <thead>
+          <row>
+            <xsl:for-each select="xh:tr[1]/xh:th">
+              <entry>
+                <xsl:apply-templates select="*"/>
+              </entry>
+            </xsl:for-each>
+          </row>
+        </thead>
+        <tbody>
+          <xsl:variable name="first_tr">
+            <xsl:value-of select="generate-id(xh:tr[1])"/>
+          </xsl:variable>
+          <xsl:for-each select="xh:tr[generate-id(.) != $first_tr]"> <!--ignore first tr with headers -->
+            <row>
+              <xsl:for-each select="xh:td">
+                <entry>
+                  <xsl:apply-templates select="*"/>
+                </entry>
+              </xsl:for-each>
+            </row>
           </xsl:for-each>
-        </row>
-      </xsl:for-each>
-    </tbody>
+        </tbody>
+      </xsl:when>
+
+      <!-- No table headers -->
+      <xsl:otherwise>
+        <xsl:attribute name="cols">
+          <!-- get number of column from the first row -->
+          <xsl:value-of select="count(xh:tr[1]/xh:td)"/>
+        </xsl:attribute>
+        <!-- get column width -->
+        <xsl:for-each select="xh:tr[1]/xh:td">
+          <colspec>
+            <xsl:attribute name="colnum">
+              <xsl:value-of select="position()"/>
+            </xsl:attribute>
+            <xsl:attribute name="colwidth">
+              <xsl:value-of select="@width"/>
+            </xsl:attribute>
+          </colspec>
+        </xsl:for-each>
+        <tbody>
+          <xsl:for-each select="xh:tr">
+            <row>
+              <xsl:for-each select="xh:td">
+                <entry>
+                  <xsl:apply-templates select="*"/>
+                </entry>
+              </xsl:for-each>
+            </row>
+          </xsl:for-each>
+        </tbody>
+      </xsl:otherwise>
+    </xsl:choose>
   </tgroup>
 </xsl:template>
 
@@ -383,7 +431,6 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:select
 	|xh:style
 	|xh:textarea
-	|xh:th
 	|xh:thead
 	|xh:tfoot
 	|xh:tt
