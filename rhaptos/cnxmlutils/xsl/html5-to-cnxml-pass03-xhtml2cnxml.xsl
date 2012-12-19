@@ -233,6 +233,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <xsl:template match="xh:table">
   <table>
     <xsl:attribute name="summary" select=""/>
+    <xsl:attribute name="pgwide">1</xsl:attribute>
     <xsl:apply-templates select="xh:tbody"/>
   </table>
 </xsl:template>
@@ -244,18 +245,23 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       <!-- get number of column from the first row -->
       <xsl:value-of select="count(xh:tr[1]/xh:td)"/>
     </xsl:attribute>
+    <!-- get column width -->
+    <xsl:for-each select="xh:tr[1]/xh:td">
+      <colspec>
+        <xsl:attribute name="colnum">
+          <xsl:value-of select="position()"/>
+        </xsl:attribute>
+        <xsl:attribute name="colwidth">
+          <xsl:value-of select="@width"/>
+        </xsl:attribute>
+      </colspec>
+    </xsl:for-each>
     <tbody>
       <xsl:for-each select="xh:tr">
         <row>
           <xsl:for-each select="xh:td">
             <entry>
-              <!-- Ignore paragraphs and headings, only process span -->
-              <xsl:apply-templates select="*[not(self::xh:table)]"/>
-              <!-- TODO: Support nested tables? -->
-              <xsl:if test="xh:table">
-                <xsl:text>ERROR! Nested tables are not supported!</xsl:text>
-                <xsl:message>Warning: Nested tables are not supported! The nested table will be ignored!</xsl:message>
-              </xsl:if>
+              <xsl:apply-templates select="*"/>
             </entry>
           </xsl:for-each>
         </row>
@@ -330,8 +336,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <!-- TODO! ignore tags -->
 <xsl:template match="
-	xh:table
-	|xh:abbr
+	xh:abbr
 	|xh:acronym
 	|xh:address
 	|xh:applet
