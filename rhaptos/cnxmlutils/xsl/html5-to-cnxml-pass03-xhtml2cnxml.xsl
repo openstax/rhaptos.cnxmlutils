@@ -269,20 +269,22 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
             </xsl:for-each>
           </row>
         </thead>
-        <tbody>
-          <xsl:variable name="first_tr">
-            <xsl:value-of select="generate-id(xh:tr[1])"/>
-          </xsl:variable>
-          <xsl:for-each select="xh:tr[generate-id(.) != $first_tr]"> <!--ignore first tr with headers -->
-            <row>
-              <xsl:for-each select="xh:td">
-                <entry>
-                  <xsl:apply-templates select="*"/>
-                </entry>
-              </xsl:for-each>
-            </row>
-          </xsl:for-each>
-        </tbody>
+        <xsl:if test="xh:tr[2]"> <!-- only proceed if we do not have just a header row -->
+          <tbody>
+            <xsl:variable name="first_tr">
+              <xsl:value-of select="generate-id(xh:tr[1])"/>
+            </xsl:variable>
+            <xsl:for-each select="xh:tr[generate-id(.) != $first_tr]"> <!--ignore first tr with headers -->
+              <row>
+                <xsl:for-each select="xh:td">
+                  <entry>
+                    <xsl:apply-templates select="*"/>
+                  </entry>
+                </xsl:for-each>
+              </row>
+            </xsl:for-each>
+          </tbody>
+        </xsl:if>
       </xsl:when>
 
       <!-- No table headers -->
