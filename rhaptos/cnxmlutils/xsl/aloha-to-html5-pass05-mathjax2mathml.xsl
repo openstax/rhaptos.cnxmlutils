@@ -35,16 +35,13 @@ Requires that MathML is unescaped with python!
 - Remove Firefox specific math
 
 Input example:
-  <span class="MathJax">
-    ....
-  </span>
-  <script type="math/mml">
+  <span class="math-element">
     <math>
       <semantics>
         <mroot>
           <mrow>
           ...
-  </script>  
+  </span>
 
 Output:
     <math>
@@ -79,11 +76,11 @@ Output:
 <!-- remove Firefox math attribute -->
 <xsl:template match="@_moz-math-font-style"/>
 
-<!-- remove MathJax' spans -->
-<xsl:template match="x:span[contains(@class, 'MathJax')]"/>
+<!-- remove MathJax' script -->
+<xsl:template match="x:script[contains(@type, 'math')]"/>
 
-<!-- remove <script> surrounding Mathjax content -->
-<xsl:template match="x:script[@type='math/mml']">
+<!-- remove <span class="math-element"> surrounding Mathjax' MathML content -->
+<xsl:template match="x:span[@class='math-element']">
   <xsl:apply-templates />
 </xsl:template>
 
