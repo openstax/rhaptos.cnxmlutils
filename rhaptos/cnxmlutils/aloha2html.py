@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
-"""Converts a piece of HTML5 (just the body tag element) and an existing
-CNXML document into a CNXML document. The existing CNXML Document is necessary
-to preserve the previously document's metadata.
+"""
+Converts HTML5 from Aloha to a more structured HTML5 where:
+- Headers are sections
+- Mathjax will be replaced with real MathML
 The results are sent to standard out.
-
 """
 import sys
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
 import pkg_resources
-from lxml import etree
-from rhaptos.cnxmlutils.utils import html_to_cnxml
-
+from rhaptos.cnxmlutils.utils import aloha_to_html
 
 def main():
     try:
@@ -29,12 +23,9 @@ def main():
                         type=argparse.FileType('r'),
                         default=sys.stdin,
                         help="the filesystem location of the html document")
-    parser.add_argument('cnxml_document', nargs=1,
-                        type=argparse.FileType('r'),
-                        help="the existing CNXML document")
     args = parser.parse_args()
 
-    result = html_to_cnxml(args.document[0], args.cnxml_document[0])
+    result = aloha_to_html(args.document[0])
 
     print(result)
 

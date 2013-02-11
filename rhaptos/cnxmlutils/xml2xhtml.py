@@ -8,15 +8,14 @@ import urllib
 import pkg_resources
 from cStringIO import StringIO
 from lxml import etree, html
-
+from rhaptos.cnxmlutils.utils import (
+    NAMESPACES,
+    XHTML_INCLUDE_XPATH as INCLUDE_XPATH,
+    XHTML_MODULE_BODY_XPATH as MODULE_BODY_XPATH,
+    )
 dirname = os.path.dirname(__file__)
 
-NAMESPACES = {
-  'xhtml':'http://www.w3.org/1999/xhtml',
-  }
 
-INCLUDE_XPATH = etree.XPath('//xhtml:a[@class="include"]', namespaces=NAMESPACES)
-MODULE_BODY_XPATH = etree.XPath('//xhtml:body', namespaces=NAMESPACES)
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
@@ -46,29 +45,29 @@ def transform_cnxml(cnxml_file):
     return xml
 
 def transform_collection(collection_dir):
-    """ Given an unzipped collection generate a giant HTML file representing 
+    """ Given an unzipped collection generate a giant HTML file representing
         the entire collection (including loading and converting individual modules) """
-    
+
     collxml_file = open(os.path.join(collection_dir, 'collection.xml'))
     collxml_html = transform_collxml(collxml_file)
-    
+
     # For each included module, parse and convert it
     for node in INCLUDE_XPATH(collxml_html):
         href = node.attrib['href']
         module = href.split('@')[0]
         # version = None # We don't care about version
         module_dir = os.path.join(collection_dir, module)
-        
+
         # By default, use the index_auto_generated.cnxml file for the module
         module_path = os.path.join(module_dir, 'index_auto_generated.cnxml')
         if not os.path.exists(module_path):
           module_path = os.path.join(module_dir, 'index.cnxml')
-        
+
         module_html = transform_cnxml(module_path)
-        
+
         # Replace the include link with the body of the module
         module_body = MODULE_BODY_XPATH(module_html)
-        
+
         node.getparent().replace(node, module_body[0])
     return collxml_html
 
@@ -96,7 +95,7 @@ def main():
     else:
       print >> sys.stderr, "Must specify either -d -c or -m"
       return 1
-    
+
     args.html_file.write(etree.tostring(html))
 
 if __name__ == '__main__':
