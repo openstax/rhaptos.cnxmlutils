@@ -264,7 +264,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
           <row>
             <xsl:for-each select="xh:tr[1]/xh:th">
               <entry>
-                <xsl:apply-templates select="*"/>
+                <xsl:apply-templates select="node()"/>
               </entry>
             </xsl:for-each>
           </row>
@@ -277,7 +277,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
             <row>
               <xsl:for-each select="xh:td">
                 <entry>
-                  <xsl:apply-templates select="*"/>
+                  <xsl:apply-templates select="node()"/>
                 </entry>
               </xsl:for-each>
             </row>
@@ -307,7 +307,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
             <row>
               <xsl:for-each select="xh:td|xh:th">
                 <entry>
-                  <xsl:apply-templates select="*"/>
+                  <xsl:apply-templates select="node()"/>
                 </entry>
               </xsl:for-each>
             </row>
