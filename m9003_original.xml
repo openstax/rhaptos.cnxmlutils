@@ -1,0 +1,2139 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m9003" module-id="" cnxml-version="0.7">
+	<title>CNXML 0.5 Stress Test</title>
+	<metadata xmlns:md="http://cnx.rice.edu/mdml"
+          mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://wakizashi.cnx.rice.edu:8080/content</md:repository>
+  <md:content-url>http://wakizashi.cnx.rice.edu:8080/content/m9003/2.68</md:content-url>
+  <md:content-id>m9003</md:content-id>
+  <md:title>CNXML 0.5 Stress Test</md:title>
+  <md:version>2.68</md:version>
+  <md:created>2000/06/22</md:created>
+  <md:revised>2008/12/19 14:01:39 US/Central</md:revised>
+  <md:actors>
+    <md:person userid="maxwell">
+      <md:firstname>Max</md:firstname>
+      <md:surname>Starkenburg</md:surname>
+      <md:fullname>Max Starkenburg</md:fullname>
+      <md:email>maxwell@rice.edu</md:email>
+    </md:person>
+    <md:person userid="cbearden">
+      <md:firstname>Charles</md:firstname>
+      <md:surname>Bearden</md:surname>
+      <md:fullname>Chuck Bearden</md:fullname>
+      <md:email>cbearden@rice.edu</md:email>
+    </md:person>
+    <md:person userid="brentmh">
+      <md:firstname>Brent</md:firstname>
+      <md:surname>Hendricks</md:surname>
+      <md:fullname>Brent Hendricks</md:fullname>
+      <md:email>brentmh@rice.edu</md:email>
+    </md:person>
+    <md:person userid="mizar">
+      <md:firstname>Christine</md:firstname>
+      <md:surname>Donica</md:surname>
+      <md:fullname>Christine Donica</md:fullname>
+      <md:email>mizar@alumni.rice.edu</md:email>
+    </md:person>
+    <md:person userid="bnwest">
+      <md:firstname>Brian</md:firstname>
+      <md:surname>West</md:surname>
+      <md:fullname>Brian West</md:fullname>
+      <md:email>bnwest@cnx.org</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">mizar maxwell brentmh cbearden</md:role>
+    <md:role type="maintainer">mizar maxwell brentmh cbearden bnwest</md:role>
+    <md:role type="licensor">mizar maxwell brentmh cbearden</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/1.0" />
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract>This module attempts to use all of the CNXML 0.5 tags.  It supplies examples of all the tags.  People interested in this module would be those who are learning CNXML and those who need an example for testing, such as stylesheets.</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+	<content>
+		<para id="opening_paragraph">This brief paragraph was put in before a section tag 
+to ensure that it was styled correctly.</para><equation id="content_equation">
+			<title>This equation has been thrown in as a child of content for styling purposes.</title>
+			<m:math mode="inline">
+				<m:apply>
+					<m:eq/>
+					<m:apply>
+						<m:cos/>
+
+						<m:apply>
+							<m:times/>
+							<m:cn>2</m:cn>
+							<m:pi/>
+							<m:ci>f</m:ci>
+							<m:ci>t</m:ci>
+						</m:apply>
+
+					</m:apply>
+					<m:apply>
+						<m:divide/>
+						<m:apply>
+							<m:plus/>
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:times/>
+
+									<m:imaginaryi/>
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:minus/>
+									<m:apply>
+										<m:times/>
+										<m:imaginaryi/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+						</m:apply>
+						<m:apply>
+
+							<m:times/>
+							<m:cn>2</m:cn>
+						</m:apply>
+					</m:apply>
+				</m:apply>
+			</m:math>
+		</equation>
+		<section id="sec01">
+
+			<title>General Example with Equation</title>
+			<para id="p01">
+	The complex exponential defines the notion of frequency: It is
+	the <emphasis>only</emphasis> signal that contains only one
+	frequency component.  The sinusoid consists of two frequency
+	components: one at the frequency
+	
+	<m:math mode="inline">
+					<m:ci>
+						<m:mo>+</m:mo>
+						<m:msub>
+
+							<m:mi>f</m:mi>
+							<m:mn>0</m:mn>
+						</m:msub>
+					</m:ci>
+				</m:math>
+				<!--$+f_0$--> 
+	
+	and the other at 
+	
+	<m:math mode="inline">
+					<m:apply>
+
+						<m:minus/>
+						<m:ci>
+							<m:msub>
+								<m:mi>f</m:mi>
+								<m:mn>0</m:mn>
+							</m:msub>
+						</m:ci>
+					</m:apply>
+
+				</m:math>
+				<!--$-f_0$-->.  
+	
+	<equation id="eqn3">
+					<title>This is Euler's relation relating things like e's and cosines</title>
+					<m:math mode="inline">
+						<m:apply>
+							<m:eq/>
+							<m:apply>
+								<m:cos/>
+
+								<m:apply>
+									<m:times/>
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+
+							</m:apply>
+							<m:apply>
+								<m:divide/>
+								<m:apply>
+									<m:plus/>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:times/>
+
+											<m:imaginaryi/>
+											<m:cn>2</m:cn>
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:minus/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+
+									<m:times/>
+									<m:cn>2</m:cn>
+								</m:apply>
+							</m:apply>
+						</m:apply>
+					</m:math>
+				</equation>
+				<equation id="eqn4">
+
+					<title>Euler's relation</title>
+					<m:math mode="inline">
+						<m:apply>
+							<m:eq/>
+							<m:apply>
+								<m:sin/>
+								<m:apply>
+									<m:times/>
+
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+							<m:apply>
+
+								<m:divide/>
+								<m:apply>
+									<m:minus/>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:times/>
+											<m:imaginaryi/>
+											<m:cn>2</m:cn>
+
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+
+											<m:minus/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:times/>
+									<m:cn>2</m:cn>
+									<m:imaginaryi/>
+
+								</m:apply>
+							</m:apply>
+						</m:apply>
+					</m:math>
+				</equation>
+				<equation id="eqn5">
+					<title>Another Euler's relation</title>
+					<m:math mode="inline">
+
+						<m:apply>
+							<m:eq/>
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:times/>
+									<m:imaginaryi/>
+									<m:cn>2</m:cn>
+
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+							<m:apply>
+								<m:plus/>
+								<m:apply>
+
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:times/>
+									<m:imaginaryi/>
+									<m:apply>
+										<m:sin/>
+										<m:apply>
+											<m:times/>
+
+											<m:cn>2</m:cn>
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+
+							</m:apply>
+						</m:apply>
+					</m:math>
+				</equation>
+	
+	
+	The complex exponential signal can thus be written in terms of
+	its real and imaginary parts using Euler's relation.  Thus,
+	sinusoidal signals can be expressed as either the real or the
+	imaginary part of a complex exponential signal (the choice
+	depends on whether cosine or sine phase is needed) or as the
+	sum of two complex exponentials.  These two decompositions are
+	mathematically equivalent to each other.
+	
+      </para>
+		</section>
+		<section id="sec1">
+			<title>Section:  ICSA</title>
+
+			<para id="secp1">
+	The Rice Sailing Team is part of a sailing coalition called ICSA which
+	stands for  Inter-Collegiate Sailing Association.  The ICSA is the
+	governing body for collegete sailing programs in the US.  Volunteers of
+	ICSA develop the racing rules.  They also organize the national
+	regattas.  To be a member of ICSA, a college must pay money to a
+	sub-district. 
+      </para>
+			<section id="sec2">
+				<title>SEISA</title>
+				<para id="secp2">
+	  Rice is a member of the SEISA district of ICSA.  SEISA stands for
+	  South-Eastern Inter-Collegiate Sailing Association.  SEISA is the
+	  organization that the South-East colleges compete in.  The schools gather
+	  to compete for all normal regattas.  One or two schools from SEISA will
+	  qualify for the National competitions hosted by ICSA.
+	</para>
+				<section id="sec3">
+
+					<title>RUST: Rice University Sailing Team</title>
+					<para id="secp3">
+	    RUST is Rice's competitive sailing team.  Rice is a member of
+	    SEISA. This
+	    district is made up of several schools, including UT, A&amp;M,
+	    A&amp;M
+	    Galveston, UNO, Tulane, Kansas, and UWF. The Rice Sailing Club is
+	    open to all
+	    members of the student community, including graduate
+	    students. Beginner and expert sailors alike are encouraged to
+	    practice with the team.  RUST is a small and easy-going club. There
+	    are
+	    no attendance requirements, and everyone who wants to sail can
+	    sail. Members pay yearly dues to help cover expenses, but every
+	    member not only gets to sail, but gets a sailing club T-shirt too!
+	    
+	  </para>
+					<para id="secp3_beatles1">For the benefit of Mr. Kite, there
+	    will be a show tonight on trampoline.  The Hendersons will
+	    all be there, late Pablo Fanques Fair - what a scene.  Over
+	    men and horses, hoops and garters, lastly through a hogshead
+	    of real fire!  In this way Mr. K. will challenge the world!
+	    The celebrated Mr. K. performs his feat on Saturday at
+	    Bishopsgate.  The Hendersons will dance and sing as Mr. Kite
+	    flys through the ring - don't be late.  Messrs. K and
+	    H. assure the public their production will be second to
+	    none.  And course Henry The Horse dances the waltz!</para>
+					<equation id="section_equation">
+						<title>This equation has been thrown in as a child of section for styling purposes</title>
+
+						<m:math mode="inline">
+							<m:apply>
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+
+								</m:apply>
+							</m:apply>
+						</m:math>
+					</equation>
+				</section>
+				<section id="sec3_2">
+					<title>Section Three Point Two</title>
+					<para id="sec3_2_p">Section 3.2</para>
+
+				</section>
+				<section id="sec3_3">
+					<title>Section Three Point Three</title>
+					<para id="sec3_3_p">Section 3.3</para>
+					<section id="sec4">
+						<title>four levels down</title>
+						<section id="sec5">
+
+							<title>five levels down</title>
+							<section id="sec6">
+								<title>six levels down</title>
+								<section id="sec7">
+									<title>seven levels down</title>
+									<section id="sec8">
+										<title>eight levels down</title>
+
+										<section id="sec9">
+											<title>nine levels down</title>
+											<section id="sec12">
+												<title>how low can you go?</title>
+												<section id="sec13">
+													<title>as low as you want</title>
+													<section id="sec14">
+
+														<title>CNXML is limitless in it's powers</title>
+														<para id="bottom_section">You get the picture!</para>
+													</section>
+												</section>
+											</section>
+										</section>
+									</section>
+								</section>
+
+							</section>
+						</section>
+					</section>
+				</section>
+			</section>
+		</section>
+		<section id="list">
+			<title>List</title>
+
+			<para id="apara">
+	Hello and welcome to my list of things to do.  The following list
+	is <emphasis>within</emphasis> a paragraph, whereas the subsequent
+	ordered list is <emphasis>preceded</emphasis> by a paragraph.
+	<list id="list1">
+					<item>This is an item.  The length of this item has been
+	    extended for quality assurance of its style upon wrapping, assuming it
+	    extends for more than the width of the screen, which is
+	    why it may appear that I am dragging this sentence out for a
+	    long time..</item>
+					<item>
+	    This is another item with a list nested inside of it.
+	    <list id="list2">
+
+							<item>The next subitem contains a named equation.</item>
+							<item>
+								<equation id="eqn4_list">
+									<title>Euler's relation</title>
+									<m:math mode="inline">
+										<m:apply>
+											<m:eq/>
+											<m:apply>
+
+												<m:sin/>
+												<m:apply>
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+											<m:apply>
+												<m:divide/>
+												<m:apply>
+													<m:minus/>
+													<m:apply>
+														<m:exp/>
+														<m:apply>
+
+															<m:times/>
+															<m:imaginaryi/>
+															<m:cn>2</m:cn>
+															<m:pi/>
+															<m:ci>f</m:ci>
+															<m:ci>t</m:ci>
+														</m:apply>
+
+													</m:apply>
+													<m:apply>
+														<m:exp/>
+														<m:apply>
+															<m:minus/>
+															<m:apply>
+																<m:times/>
+																<m:imaginaryi/>
+																<m:cn>2</m:cn>
+
+																<m:pi/>
+																<m:ci>f</m:ci>
+																<m:ci>t</m:ci>
+															</m:apply>
+														</m:apply>
+													</m:apply>
+												</m:apply>
+												<m:apply>
+
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:imaginaryi/>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:math>
+								</equation>
+
+							</item>
+						</list>
+					</item>
+				</list>
+                                This is not a new paragraph.
+
+                                This is also not a new paragraph.
+ 			</para>
+			<para id="new">
+	This is a new paragraph.
+      </para>
+			<list id="list1b" list-type="enumerated"><title> Example Enumerated List </title><item>This is an enumerated list item not located within
+	  paragraph tags.</item>
+				<item>
+	  This is another item with a list nested inside of it.
+	  <list id="list2b"><item>This is a subitem.  But the subitem is not enumerated.</item>
+						<item>This is another subitem.</item>
+
+					</list>
+				</item>
+				<item> Yet another item</item>
+			</list><list id="note_rule_def_list">
+				<title>A list of notes, definitions, and rules</title>
+				<item>
+					<note type="warning" id="id3640101"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	      dangerous</emphasis>. Please handle with caution. </note>
+
+				</item>
+				<item>
+					<note type="note" id="id3640125"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	      dangerous</emphasis>. Please handle with caution. </note>
+				</item>
+				<item>
+					<definition id="note_list">
+						<term>note</term>
+
+						<meaning id="id3640164">A short letter.</meaning>
+						<example id="noteex1_list"><para id="pn1_list">Bob, Your son called. -Mary</para></example>
+						<meaning id="id3640190">A different meaning for the term.</meaning>
+						<example id="noteex2_list"><para id="pn2_list">A first example.</para></example>
+						<example id="noteex3_list"><para id="pn3_list">A second example.</para></example>
+						<meaning id="id3640234">
+
+							<equation id="list_defintion_equation">
+								<m:math mode="inline">
+									<m:apply>
+										<m:eq/>
+										<m:apply>
+											<m:root/>
+											<m:ci>t</m:ci>
+										</m:apply>
+
+										<m:apply>
+											<m:sum/>
+											<m:bvar><m:ci>n</m:ci></m:bvar>
+											<m:lowlimit>
+												<m:apply>
+													<m:minus/>
+													<m:infinity/>
+												</m:apply>
+
+											</m:lowlimit>
+											<m:uplimit>
+												<m:infinity/>
+											</m:uplimit>
+											<m:apply>
+												<m:times/>
+												<m:apply>
+													<m:power/>
+													<m:apply>
+
+														<m:minus/>
+														<m:cn>1</m:cn>
+													</m:apply>
+													<m:ci>n</m:ci>
+												</m:apply>
+												<m:ci>A</m:ci>
+												<m:apply>
+
+													<m:ci type="fn">
+														<m:msub>
+															<m:mo>p</m:mo>
+															<m:mrow>
+																<m:mi>T</m:mi>
+																<m:mo>/</m:mo>
+																<m:mn>2</m:mn>
+
+															</m:mrow>
+														</m:msub>
+													</m:ci>
+													<m:apply>
+														<m:minus/>
+														<m:ci>t</m:ci>
+														<m:apply>
+															<m:times/>
+
+															<m:ci>n</m:ci>
+															<m:apply>
+																<m:divide/>
+																<m:ci>T</m:ci>
+																<m:cn>2</m:cn>
+															</m:apply>
+														</m:apply>
+
+													</m:apply>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:math>
+							</equation>
+						</meaning>
+					</definition>
+
+				</item>
+				<item>
+					<rule type="theorem" id="rulephth_list">
+						<title>Pythagorean Theorem</title>
+						<statement id="id3640403">
+							<para id="st1_list">On a right triangle, the sum of the
+		squares of the sides equals the square of the hypotenus.
+	      </para>
+						</statement>
+						<proof id="id3640422">
+
+							<title>proof name</title>
+							<para id="pr1_list">
+		Your favorite proof goes here.
+	      </para>
+<example id="ajsidofjaioef">
+<para id="ajsdfiajsfdiojasdof">
+  This example is a child of the proof.  The next one is not.
+</para>
+</example>
+						</proof>
+						<example id="phthex1_list">
+
+							<para id="phthexp1_list">
+		Take a right triangle whose sides are of length 3, 4, and 5.
+		In this case the sum of the square of the two shorter sides is
+		9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	      </para>
+						</example>
+					</rule>
+				</item>
+			</list><para id="element-822">This paragraph contains an inline list, i.e. a list with <code>type="inline</code>: <list id="ajsklfj" list-type="labeled-item" display="inline"><item>This item has no name</item><item><label>Name</label>This is item has a name</item></list>.  Next is an inline list with a name<list id="asdjfajkls3344df" list-type="labeled-item" display="inline"><title>List name</title><item><label>First item name</label>First item text</item><item>2nd item text</item></list> blah blah blah.  This paragraph also contains a named-item list, i.e. a list with <code>type="named-item"</code>: <list id="ajfiow" list-type="labeled-item"><title>name of list</title><item>This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>namenamename</label>This item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>n</label>This item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item></list></para>
+
+		</section>
+		<section id="cnxnlink">
+			<title>CNXN and Link</title>
+			<para id="cnxn_p">If you want to learn more about things in general, you can look
+	at other pages in CNX world.  To learn more about CNXML, go to
+	the <link url="http://cnx.org/aboutus/technology/cnxml/0.5/spec/">CNXML 0.5
+	  spec</link>.  Then you can write things like
+	<code display="inline">&lt;cnxn&gt;</code> and <code display="inline">&lt;link&gt;</code> in CNXML.
+	You will also be able to make 
+	<link document="m9000" target-id="cnln" strength="3">CNXN's</link>
+
+	between things you wrote and things other people have written.
+	For example, to learn more about Rice sailing, you can look right here at the 
+	<link target-id="sec1" strength="1">sailing section</link> in this module.  Or you
+	could link to something even less relevant, say 
+	<link document="m0520" strength="1">digital communication
+	  receivers</link>.  To go to a topic which is a bit more relavant to
+	writing <code display="inline"> &lt;cnxn&gt; </code> tags, you could visit the
+	module about <link document="m9004" strength="2">using emacs</link>. If you
+	have more questions about Connexions basics,
+	you could look at the <link document="m9001" strength="2"> FAQ </link>.
+	So if you want to learn more about the world in which you live,
+	Connexions is the
+	place to be. 
+      </para><list id="element-980" list-type="bulleted"><title>empty cnxn testing</title><item>
+
+To another module: <link document="m0003" strength="1"/>
+</item>
+<item>
+To a subfigure: <link target-id="lena_as_signal_vertical"/>
+</item>
+<item>
+To a figure: <link target-id="ascii"/>
+</item>
+<item>
+To a paragraph: <link target-id="opening_paragraph"/>
+</item>
+<item>
+To an equation: <link target-id="content_equation"/>
+
+</item>
+<item>
+To a note with no type attribute: <link target-id="cnxn_to_null_note"/>
+</item>
+<item>
+To a note with type attribute equal to null string: <link target-id="cnxn_to_null_string_note"/>
+</item>
+<item>
+To a note with a type attribute other than "note": <link target-id="cnxn_to_not_note"/>
+</item>
+<item>
+To a footnote: <link target-id="cnxn_to_footnote"/>
+</item>
+
+<item>
+To a rule: <link target-id="parseval"/>
+</item>
+<item>
+To an emphasis: <link target-id="cnxn_to_emphasis"/>
+</item>
+<item>
+To a definition: <link target-id="asjf903"/>
+</item>
+<item>
+To an exercise outside of an example: <link target-id="exercise_equation"/>
+</item>
+<item>
+
+To a problem outside an example: <link target-id="cnxn_to_problem"/>
+</item>
+<item>
+To a solution outside an example: <link target-id="cnxn_to_single_solution"/>
+</item>
+<item>
+To a solution (one of many) outside an example: <link target-id="cnxn_to_2nd_solution"/>
+</item>
+<item>
+To an exercise inside an example: <link target-id="exercise_in_example_2"/>
+</item>
+<item>
+To a problem inside an example: <link target-id="cnxn_to_problem_in_example"/>
+
+</item>
+<item>
+To a solution inside an example: <link target-id="cnxn_to_single_solution_in_example"/>
+</item>
+<item>
+To a solution (one of many) inside an example: <link target-id="cnxn_to_2nd_solution_in_example"/>
+</item>
+<item>
+To a glossary: <link id="cnxncnxn" target-id="gloss"/>
+</item>
+<item>
+To a cnxn: <link target-id="cnxncnxn"/>
+</item>
+<item>
+To a table caption: <link target-id="tablecaption"/>
+</item>
+<item>
+To a figure caption: <link target-id="figurecaption"/>
+</item>
+<item>
+To an example with no numbering <link target-id="phthex1_example"/>
+</item>
+<item>
+To an example after an example with no numbering <link target-id="element-2839"/>
+</item></list>
+		</section>
+		<section id="example">
+
+			<title>Example</title>
+			<example id="exp01">
+				<para id="p02">
+	  As an example of signal complexity, we can express the pulse  
+	  
+	  <m:math mode="inline">
+						<m:apply>
+							<m:ci type="fn">
+								<m:msub>
+									<m:mo>p</m:mo>
+
+									<m:mrow>
+										<m:mi>Δ</m:mi>
+									</m:mrow>
+								</m:msub>
+							</m:ci>
+							<m:ci>t</m:ci>
+						</m:apply>
+					</m:math> 
+	  as a sum of delayed unit steps.  
+	</para>
+
+				<equation id="eqn01">
+					<m:math mode="inline">
+						<m:apply>
+							<m:eq/>
+							<m:apply>
+								<m:ci type="fn">
+									<m:msub>
+										<m:mo>p</m:mo>
+
+										<m:mrow>
+											<m:mi>Δ</m:mi>
+										</m:mrow>
+									</m:msub>
+								</m:ci>
+								<m:ci>t</m:ci>
+							</m:apply>
+							<m:apply>
+
+								<m:minus/>
+								<m:apply>
+									<m:ci type="fn">u</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+								<m:apply>
+									<m:ci type="fn">u</m:ci>
+
+									<m:apply>
+										<m:minus/>
+										<m:ci>t</m:ci>
+										<m:ci>Δ</m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+						</m:apply>
+
+					</m:math>
+				</equation>
+				<para id="p03">
+	  Thus, the pulse is a more complex signal than the step. Be that
+	  as it may, the pulse is very useful to us.
+	</para>
+			</example>
+			<example id="example_pain">
+				<title>CNXML can be a pain</title>
+				<para id="example_pain_p">This sentence, although it is very
+	  <emphasis>unimportant</emphasis> and
+	  <emphasis>irrelevant</emphasis>, contains emphasis within the
+	  <code display="inline">&lt;example&gt;</code> tag.  For an example of
+	  <code display="inline">&lt;cite&gt;</code> within
+	  <code display="inline">&lt;example&gt;</code>, see <cite><cite-title>Things That
+	    Are a Pain to Style in CNXML</cite-title></cite> by Max Starkenburg.  For an
+	  example of <code display="inline">&lt;emphasis&gt;</code> within
+	  <code display="inline">&lt;cite&gt;</code> within
+	  <code display="inline">&lt;example&gt;</code>, please see <cite><cite-title>Things
+	    That Are a <emphasis>Pain in the Butt</emphasis> to Style in
+	    CNXML</cite-title></cite>, also by Max Starkenburg.  This sentence contains
+	  <code display="inline"><emphasis id="cnxn_to_emphasis">emphasized codeline</emphasis></code>
+
+	  within an example.  This sentence contains a 
+	  <link target-id="cnxnlink" strength="2">cnxn</link> within an example.  This
+	  sentence contains a <link url="http://www.link.com">link</link>.  This
+	  sentence contains a <term>term</term>.  This sentence contains a
+	  <term><code display="inline">codeline term</code></term>.
+	</para>
+				<para id="example_pain_p2">This paragraph has just been thrown in to
+	  ensure that it is styled correctly.  It has nothing to say, but is long
+	  anwyay, just to make sure that it continues to the next line.
+	</para>
+			</example>
+
+			<example id="example_codeblock">
+				<code display="block" id="html_beginning">
+	  &lt;html&gt;               
+	  &lt;head&gt;
+	  &lt;title&gt;Codeblock within the example tag&lt;/title&gt;
+	  &lt;/head&gt;
+
+	  &lt;body bgcolor="#ffffff" link="#990000"&gt;
+	</code>
+			</example>
+			<example id="example_list">
+				<list id="list_in_example" list-type="enumerated">
+					<title>Example List in Example</title>
+					<item>This is an enumerated list item.</item>
+
+					<item>This is another item with a list inside of it.
+	    <list id="example_sublist" list-type="bulleted">
+							<item>This is a bulleted list item</item>
+							<item>This is another bulleted list item</item>
+						</list>
+					</item>
+				</list>
+			</example>
+
+			<example id="example_figure"><figure id="figure_in_example">
+					<media id="id3664247" alt=""><image src="lena.png" mime-type="image/png"/></media>
+					<caption id="figurecaption">This figure is inside of the <code display="inline">&lt;example&gt;</code> tag.</caption>
+				</figure>
+			</example>
+			<example id="example_table"><table frame="all" id="table1_example" summary="">
+					
+					<tgroup cols="4">
+						<thead>
+							<row>
+								<entry>Transform</entry>
+								<entry>Time Domain</entry>
+								<entry>Frequency Domain</entry>
+
+								<entry>Convolution</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Continuous-Time Fourier Series</entry>
+								<entry align="center">
+									<m:math display="inline">
+
+										<m:apply>
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-open">
+
+												<m:cn>0</m:cn>
+												<m:ci>T</m:ci>
+											</m:interval>
+										</m:apply>
+									</m:math>
+								</entry>
+								<entry align="center">
+									<m:math>
+
+										<m:apply>
+											<m:ci>
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:integers/>
+
+										</m:apply>
+									</m:math>
+								</entry>
+								<entry>Continuous-Time Circular</entry>
+							</row>
+							<row>
+								<entry>Continuous-Time Fourier Transform</entry>
+								<entry align="center">
+
+									<m:math>
+										<m:apply>
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+
+											<m:reals/>
+										</m:apply>
+									</m:math>
+								</entry>
+								<entry align="center">
+									<m:math>
+										<m:apply>
+											<m:ci>
+												<m:msup>
+
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:reals/>
+										</m:apply>
+									</m:math>
+								</entry>
+
+								<entry>Continuous-Time Linear</entry>
+							</row>
+							<row>
+								<entry>Discrete-Time Fourier Transform</entry>
+								<entry align="center">
+									<m:math>
+										<m:apply>
+											<m:ci>
+
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:integers/>
+										</m:apply>
+									</m:math>
+
+								</entry>
+								<entry align="center">
+									<m:math>
+										<m:apply>
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-open">
+												<m:cn>0</m:cn>
+												<m:apply>
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+
+												</m:apply>
+											</m:interval>
+										</m:apply>
+									</m:math>
+								</entry>
+								<entry>Discrete-Time Linear</entry>
+							</row>
+							<row>
+
+								<entry>Discrete Fourier Transform</entry>
+								<entry align="center">
+									<m:math>
+										<m:apply>
+											<m:ci>
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-closed">
+												<m:cn>0</m:cn>
+												<m:apply>
+													<m:minus/>
+													<m:ci>N</m:ci>
+													<m:cn>1</m:cn>
+
+												</m:apply>
+											</m:interval>
+										</m:apply>
+									</m:math>
+								</entry>
+								<entry align="center">
+									<m:math>
+										<m:apply>
+											<m:ci>
+
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup></m:ci>
+											<m:interval closure="closed-closed">
+												<m:cn>0</m:cn>
+												<m:apply>
+
+													<m:minus/>
+													<m:ci>N</m:ci>
+													<m:cn>1</m:cn>
+												</m:apply>
+											</m:interval>
+										</m:apply>
+									</m:math>
+								</entry>
+
+								<entry>Discrete-Time Circular</entry>
+							</row>
+						</tbody>
+					</tgroup>
+<caption id="tablecaption">Table of Fourier Representations</caption>
+				</table>
+			</example>
+			<example id="example_definition">
+
+				<para id="example_definition_para">
+					<definition id="note_example">
+						<term>note</term>
+						<meaning id="id3664792">A short letter.</meaning>
+						<example id="noteex1_example">
+							<para id="pn1_example">Bob, Your son called. -Mary</para>
+						</example>
+
+					</definition>
+				</para>
+				<para id="example_rule_para">
+					<rule type="theorem" id="rulephth_example">
+						<title>Pythagorean Theorem</title>
+						<statement id="id3664850">
+							<para id="st1_example">On a right triangle, the sum of the
+		squares of the sides equals the square of the hypotenus.
+	      </para>
+						</statement>
+
+						<proof id="id3664868">
+							<title>proof name</title>
+							<para id="pr1_example">
+		Your favorite proof goes here.
+	      </para>
+						</proof>
+						<example id="phthex1_example">
+							<para id="phthexp1_example">
+		Take a right triangle whose sides are of length 3, 4, and 5.
+		In this case the sum of the square of the two shorter sides is
+		9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	      </para>
+
+						</example>
+					</rule>
+				</para>
+				<para id="example_notes">
+					<note type="warning" id="id3664927"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	      dangerous</emphasis>. Please hande with caution. </note>
+					<note type="note" id="id3664945"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	      dangerous</emphasis>. Please hande with caution. </note>
+
+				</para>
+			</example>
+		</section>
+
+
+<definition id="asjf903"><term>23h8902</term>
+<meaning id="id3664980">aj2390tj</meaning>
+</definition>
+<rule type="of thumb" id="fj920qg3"><label>Of thumb</label>
+<statement id="id3664997">
+<para id="j2930fj29g">jaf3j9w0gea ja jdlfasdnfl</para></statement>
+
+</rule>
+
+
+<section id="exercise">
+			<title>Exercise</title>
+			<exercise id="swsuper">
+				<problem id="id3665038">
+					<para id="p04">
+	    Express a square wave having period 
+	    
+	    <m:math mode="inline">
+							<m:ci>T</m:ci>
+
+						</m:math> 	  
+	    and amplitude 
+	    
+	    <m:math mode="inline">
+							<m:ci>A</m:ci>
+						</m:math> 
+	    
+	    as a superposition of delayed and amplitude-scaled pulses.
+	  </para>
+					<para id="problem_extra">
+	    This is an extra paragraph thrown in for styling purposes.
+	  </para>
+				</problem>
+
+				<solution id="cnxn_to_single_solution">
+					<para id="solution_p">This is a paragraph that begins a 
+	    solution.  The equation is nested in the paragraph.
+	    <equation id="solution">
+							<m:math mode="inline">
+								<m:apply>
+									<m:eq/>
+									<m:apply>
+										<m:root/>
+										<m:ci>t</m:ci>
+
+									</m:apply>
+									<m:apply>
+										<m:sum/>
+										<m:bvar><m:ci>n</m:ci></m:bvar>
+										<m:lowlimit>
+											<m:apply>
+												<m:minus/>
+												<m:infinity/>
+
+											</m:apply>
+										</m:lowlimit>
+										<m:uplimit>
+											<m:infinity/>
+										</m:uplimit>
+										<m:apply>
+											<m:times/>
+											<m:apply>
+												<m:power/>
+
+												<m:apply>
+													<m:minus/>
+													<m:cn>1</m:cn>
+												</m:apply>
+												<m:ci>n</m:ci>
+											</m:apply>
+											<m:ci>A</m:ci>
+
+											<m:apply>
+												<m:ci type="fn">
+													<m:msub>
+														<m:mo>p</m:mo>
+														<m:mrow>
+															<m:mi>T</m:mi>
+															<m:mo>/</m:mo>
+
+															<m:mn>2</m:mn>
+														</m:mrow>
+													</m:msub>
+												</m:ci>
+												<m:apply>
+													<m:minus/>
+													<m:ci>t</m:ci>
+													<m:apply>
+
+														<m:times/>
+														<m:ci>n</m:ci>
+														<m:apply>
+															<m:divide/>
+															<m:ci>T</m:ci>
+															<m:cn>2</m:cn>
+														</m:apply>
+
+													</m:apply>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+							</m:math>
+						</equation>
+					</para>
+
+					<para id="solution_extra">
+	    This is an extra paragraph thrown in for styling purposes.
+	  </para>
+				</solution>
+			</exercise>
+			<example id="element-729"><exercise id="exercise_in_example_1">
+<problem id="id3665275">
+  <para id="element-183">
+    Problem Text Here
+  </para>
+
+</problem>
+
+<solution id="cnxn_to_single_solution_in_example">
+  <para id="element-172">
+    Solution Text Here
+  </para>
+</solution>
+</exercise>
+
+<example id="element-2839">
+  <exercise id="element-2934">
+    <problem id="id3665333">
+      <para id="element-5782">
+        Exercise/problem nested inside example nested inside example.
+      </para>
+    </problem>
+    <solution id="id3665352">
+      <para id="element-3828">
+        Solution nested inside example nested inside example.
+      </para>
+    </solution>
+  </exercise>
+</example>
+<section id="element-349">
+<title>section for testing purposes only</title>
+<exercise id="element-426"><problem id="id3665396">
+  <para id="element-185">
+    Problem Text Here
+  </para>
+</problem>
+<solution id="id3665413">
+  <para id="element-230">
+    Solution Text Here
+  </para>
+</solution>
+</exercise>
+</section>
+
+<exercise id="exercise_in_example_2"><problem id="cnxn_to_problem_in_example">
+  <para id="element-184">
+    Problem Text Here
+  </para>
+</problem>
+
+<solution id="id3665462">
+  <para id="element-173">
+    Solution 1 Text Here
+  </para>
+</solution>
+
+<solution id="cnxn_to_2nd_solution_in_example">
+  <para id="element-174">
+    Solution 2 Text Here
+  </para>
+</solution>
+</exercise>
+
+</example><exercise id="exercise_equation"><problem id="cnxn_to_problem">
+					<equation id="problem_equation">
+						<title>This equation has been thrown in as a child of problem for styling purposes</title>
+						<m:math mode="inline">
+
+							<m:apply>
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+										<m:plus/>
+
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+												<m:apply>
+
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+								</m:apply>
+
+							</m:apply>
+						</m:math>
+					</equation>
+				</problem>
+				<solution id="id3665646">
+					<para id="exercise_solution_para">The solution is to use Mozilla, and not IE, nor Netscape.  The latter two browsers have serious CSS bugs.  For an equation inside a solution, see the above exercise.</para>
+				</solution>
+<solution id="cnxn_to_2nd_solution">
+	<para id="exercise_solution_para_2">Note the ability to have more than one solution per exercise.</para>
+
+				</solution>
+			</exercise><exercise id="element-316"><problem id="id3665697">
+  <para id="element-792">
+    This exercise contains a problem but no solution
+  </para>
+</problem>
+</exercise>
+<example id="following_example">
+  <exercise id="following_example_exercise">
+    <problem id="id3665736">
+      <para id="asdf123">Another exercise in an an example following the other ones</para>
+
+    </problem>
+    <solution id="id3665753">
+      <para id="asdjfaie0">Solution text</para>
+    </solution>
+  </exercise>
+</example>
+		</section>
+		<section id="code">
+			<title>Codeline and Codeblock</title>
+
+			<para id="p05">Try running this in MATLAB.</para>
+			<code display="block" id="id3665798">
+				<emphasis>for</emphasis> n=1:1000
+	y(n) = sum(a.*y(n-1:-1:n-p)) + sum(b.*x(n:-1:n-q));
+	end
+      </code>
+			<para id="p06">
+	The <code display="inline">for</code> command repeats its contents while
+	incrementing a counter.
+      </para>
+
+			<para id="code01">
+				<code display="inline">&lt;!-- some codeline and codeblock are
+	  <emphasis>emphasized</emphasis> more than others --&gt;</code>
+			</para>
+			<para id="code02">
+				<code display="inline">&lt;!-- 
+	  codeline can be <link url="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</link> and <link document="m9000" target-id="cnln" strength="3">cnxn'ed</link> too --&gt;</code>
+
+			</para>
+			<code display="block" id="id3665905">
+	codeblock
+	can be 
+	<link url="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</link> and
+	<link document="m9000" target-id="cnln" strength="3">cnxn'ed</link>
+	as well
+      </code>
+		</section>
+		<section id="definition">
+
+			<title>Definition, Term, Meaning, and Example</title>
+			<definition id="note">
+				<term>note</term>
+				<meaning id="id3665970">A short letter.</meaning>
+				<example id="noteex1"><para id="pn1">Bob, Your son called. -Mary</para></example>
+				<meaning id="id3665994">A different meaning for the term.</meaning>
+
+				<example id="noteex2"><para id="pn2">A first example.</para></example>
+				<example id="noteex3"><para id="pn3">A second example.</para></example>
+			</definition>
+			<para id="pardef1">
+	I can also define a new <term>term</term> in the middle of a
+	sentence.  A term is a new word that is being defined for the
+	first time.
+      </para>
+			<para id="para_definition">The following definition will be the
+	child of a <code display="inline">&lt;para&gt;</code> tag to ensure that it
+	is styled well.</para>
+
+			<definition id="perl_definition">
+				<term>
+					<code display="inline">#!/usr/local/bin/perl/</code>
+				</term>
+				<meaning id="id3666104">The first line of every Perl program</meaning>
+				<example id="perl_example">
+					<para id="perl_para">This program will produce a 2-column
+	    listing of a file.
+	  </para>
+
+					<code display="block" id="perl_codeblock">
+	    #!/usr/local/bin/perl/
+	    while( $1 = &gt;STDIN&gt; ) {
+	    chop( $1 );
+	    if( $1 =~ s/^Desig:\s+// ) {
+	    $desig = $1;
+	    next;
+	    }
+	    if( $1 =~ s/^Area:\s+// ) {
+	    $area = $1;
+	    printf( "%-12s %\n", $desig, $area );
+	    }
+	    }
+	  </code>
+					<para id="half_half_term">
+	    This sentence contains a term which is <term>half regular
+	      <code display="inline">half codeline</code></term>.
+	  </para>
+				</example>
+
+			</definition>
+			<para id="perl_inline_p">Feast your eyes on this:
+	<term><code display="inline">#!/usr/local/bin/perl/</code></term> is a term
+	smack dab in the middle of a sentence!  Amazing!  This example,
+	<term><code display="inline">#!/usr<emphasis>/local/</emphasis>bin/perl/</code></term>
+	, is a codeline term with emphasis on
+	<code display="inline"><emphasis>/local/</emphasis></code>.  The next example is a
+	<term><code display="inline">codeline term with a <link url="http://www.link.com">link</link>
+
+	    and <link document="#" strength="1">cnxn</link></code></term>.	
+      </para>
+			<definition id="definition_equation">
+				<term>equation</term>
+				<meaning id="id3666293">
+					<equation id="meaning_equation">
+						<title>This equation has been thrown in as a child of meaning for styling purposes</title>
+
+						<m:math mode="inline">
+							<m:apply>
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+
+								</m:apply>
+							</m:apply>
+						</m:math>
+					</equation>
+				</meaning>
+			</definition>
+		</section>
+		<section id="notes">
+			<title> Note </title>
+
+			<para id="note1">Chemistry lab was always a lot of fun.  We played
+	with a lot of chemicals such as Sulfuric and Hydrochloric acid.
+	<note type="warning" id="cnxn_to_not_note"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	    dangerous</emphasis>. Please handle with caution. </note>
+			</para>
+			<para id="note2">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuri and Hydrochloric acid.
+<note type="" id="cnxn_to_null_string_note"> This note does <emphasis>not</emphasis> have a string in its type attribute. 
+	  Please handle with caution. </note>
+
+<note id="cnxn_to_null_note"> This note does <emphasis>not</emphasis> have a type attribute. 
+	  Please handle with caution. </note>
+			</para>
+			<para id="note3">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuric and Hydrocholic acid.
+	<footnote id="id3666538"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	    dangerous</emphasis>. Please handle with caution. </footnote>   Adding another footnote here. <footnote id="cnxn_to_footnote">This note was added to test styling.</footnote>
+
+			</para>
+			<para id="note4">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuric and Hydrocholic acid.
+	<footnote id="id3666581"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	    dangerous</emphasis>. Please handle with caution. Also handle this note with caution, because it contains the attribute <code display="inline">type="FOOTNOTE"</code>, not <code display="inline">type="footnote"</code>, and will thus be styled differently.</footnote>
+			</para>
+		</section>
+
+		<section id="rule">
+			<title>Rule</title>
+			<rule type="theorem" id="rulephth">
+				<title>Pythagorean Theorem</title>
+				<statement id="id3666653">
+					<para id="st1">On a right triangle, the sum of the
+	    squares of the sides equals the square of the hypotenus.
+	  </para>
+				</statement>
+
+				<proof id="id3666672">
+					<title>This proof was thrown into to have a child of equation for styling purposes</title>
+					<equation id="proof_equation">
+						<m:math mode="inline">
+							<m:apply>
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+						</m:math>
+					</equation>
+				</proof>
+
+				<example id="phthex1">
+					<para id="phthexp1">
+	    Take a right triangle whose sides are of length 3, 4, and 5.
+	    In this case the sum of the square of the two shorter sides is
+	    9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	  </para>
+				</example>
+			</rule>
+			<rule type="property" id="rule1"><label>Property</label>
+				<statement id="id3666839">
+					<para id="rule1para1">
+
+	    If 
+	    
+	    <m:math display="inline">
+							<m:apply>
+								<m:ci type="fn">s</m:ci>
+								<m:ci>t</m:ci>
+							</m:apply>
+						</m:math>
+	    
+	    is real,
+	    
+	    <m:math display="inline">
+
+							<m:apply><m:eq/>
+								<m:ci><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>−</m:mo>
+											<m:mi>k</m:mi>
+										</m:mrow>
+
+									</m:msub></m:ci>
+								<m:ci><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+									</m:msubsup></m:ci>
+							</m:apply>
+
+						</m:math>
+					</para>
+					<para id="rule1para2">
+	    This result follows from the integral that calculates the
+	    
+	    <m:math display="inline">
+							<m:ci>
+								<m:msub>
+									<m:mi>c</m:mi>
+									<m:mi>k</m:mi>
+
+								</m:msub>
+							</m:ci>
+						</m:math>
+	    
+	    from the signal. Furthermore, this result means that
+	    
+	    <m:math display="inline">
+							<m:apply><m:eq/>
+								<m:apply>
+									<m:ci type="fn">Re</m:ci>
+									<m:ci>
+
+										<m:msub>
+											<m:mi>c</m:mi>
+											<m:mi>k</m:mi>
+										</m:msub>
+									</m:ci>
+								</m:apply>
+								<m:apply><m:ci type="fn">Re</m:ci>
+
+									<m:ci><m:msub>
+											<m:mi>c</m:mi>
+											<m:mrow>
+												<m:mo>−</m:mo>
+												<m:mi>k</m:mi>
+											</m:mrow>
+										</m:msub></m:ci>
+
+								</m:apply>
+							</m:apply>
+						</m:math>
+	    
+	    : The real part of the Fourier coefficients for real-valued signals is even. Similarly,
+	    
+	    <m:math display="inline">
+							<m:apply><m:eq/>
+								<m:apply><m:ci type="fn">Im</m:ci>
+									<m:ci><m:msub>
+											<m:mi>c</m:mi>
+
+											<m:mi>k</m:mi>
+										</m:msub></m:ci>
+								</m:apply>
+								<m:apply><m:minus/>
+									<m:apply><m:ci type="fn">Im</m:ci>
+										<m:ci><m:msub>
+												<m:mi>c</m:mi>
+
+												<m:mrow>
+													<m:mo>−</m:mo>
+													<m:mi>k</m:mi>
+												</m:mrow>
+											</m:msub></m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+
+						</m:math>
+	    
+	    : The imaginary parts of the Fourier coefficients have odd symmetry. Consequently,
+	    if you are given the Fourier coefficients for positive indices and zero and are
+	    told the signal is real-valued, you can find the negative-indexed coefficients,
+	    hence the entire spectrum. This kind of symmetry, 
+	    
+	    <m:math display="inline">
+							<m:apply><m:eq/>
+								<m:ci><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>−</m:mo>
+
+											<m:mi>k</m:mi>
+										</m:mrow>
+									</m:msub></m:ci>
+								<m:ci><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+
+									</m:msubsup></m:ci>
+							</m:apply>
+						</m:math>
+	    
+	    , is known as <emphasis>conjugate symmetry</emphasis>. We can phrase the property concisely by
+	    saying:
+	    
+	    <rule type="property" id="conjugate"><label>Property</label>
+							<statement id="id3667121">
+								<para id="crulepara1">
+		  Real-valued periodic signals have a conjugate-symmetric spectrum.
+		</para>
+
+							</statement>
+						</rule>
+					</para>
+				</statement>
+			</rule>
+			<para id="para3">
+	The Fourier series obeys:
+	<rule type="theorem" id="parseval">
+					<title>Parseval's Theorem</title>
+
+					<statement id="id3667170">
+						<para id="parsevalpara1">
+	      Power calculated in the time domain
+	      equals the power calculated in the frequency domain.
+	    </para>
+						<para id="parsevalpara2">
+							<equation id="parsevaleqn">
+								<m:math display="block">
+									<m:apply>
+										<m:eq/>
+
+										<m:apply>
+											<m:times/>
+											<m:apply>
+												<m:divide/>
+												<m:cn>1</m:cn>
+												<m:ci>T</m:ci>
+											</m:apply>
+											<m:apply>
+
+												<m:int/>
+												<m:bvar><m:ci>t</m:ci></m:bvar>
+												<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+												<m:uplimit><m:ci>T</m:ci></m:uplimit>
+												<m:apply><m:ci type="fn">
+														<m:msup>
+															<m:mi>s</m:mi>
+
+															<m:mn>2</m:mn>
+														</m:msup></m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+										<m:apply><m:sum/>
+											<m:bvar><m:ci>k</m:ci></m:bvar>
+
+											<m:lowlimit><m:apply><m:minus/>
+													<m:infinity/>
+												</m:apply></m:lowlimit>
+											<m:uplimit><m:infinity/></m:uplimit>
+											<m:apply>
+												<m:power/>
+												<m:apply>
+													<m:abs/>
+													<m:ci><m:msub>
+
+															<m:mi>c</m:mi>
+															<m:mi>k</m:mi>
+														</m:msub></m:ci>
+												</m:apply>
+												<m:degree><m:cn>2</m:cn></m:degree>
+											</m:apply>
+										</m:apply>
+
+									</m:apply>
+								</m:math>
+							</equation>
+	      
+	      This result is a (simpler) re-expression of how to calculate a signal's power than with the 
+	      <link document="m0062" target-id="power" strength="2">
+		real-valued Fourier series expression for power
+	      </link>.
+	    </para>
+					</statement>
+				</rule>
+
+			</para>
+		</section>
+		<section id="cite">
+			<title>Cite</title>
+			<para id="parcite1">
+	Useful information about the color blue can be found in
+	<cite><cite-title>The Big Book of the Color Blue</cite-title></cite>.
+      </para>
+			<para id="parcite2">
+
+	Emphatic information about emphasizing can be found in <cite><cite-title>The
+	  <emphasis>Gigantic</emphasis> Book of Emphasis</cite-title></cite>.
+      </para>
+		</section>
+		<section id="figure">
+			<title> Figures </title>
+			<para id="parafigure">
+
+        Here is an example of a figure with a large table inside
+        it.  For exhaustive examples of figures, subfigures, and captions in many shapes, sizes, and combinations, see <link document="m10221" strength="3"/>.  Currently, figures cannot be placed in paragraph tags.
+      </para>
+			<figure id="ascii" orient="horizontal">
+				<title>Ascii table</title>
+				<table frame="all" id="table_ascii" summary="">
+					<title>Budget - Comparison by year</title>
+					<tgroup cols="4" align="left" colsep="1" rowsep="1">
+						<colspec colnum="2" colname="c2"/>
+
+						<colspec colnum="4" colname="c4"/>
+						<tbody valign="top">
+							<row>
+								<entry>Income</entry>
+								<entry>12,293</entry>
+								<entry>12,398</entry>
+								<entry>14,298</entry>
+
+							</row>
+							<row>
+								<entry>Expenditure</entry>
+								<entry>293</entry>
+								<entry>398</entry>
+								<entry>298</entry>
+							</row>
+
+							<row>
+								<entry>Surplus</entry>
+								<entry>12000</entry>
+								<entry>12000</entry>
+								<entry>14000</entry>
+							</row>
+						</tbody>
+
+					</tgroup>
+				</table>
+				<caption>
+	  And here we can add more information about the table in a
+	  caption!
+	</caption>
+			</figure>
+			<section id="subfigure">
+				<title>Subfigures</title>
+				<figure id="lena" orient="horizontal">
+
+					<title>The Subsequent Figure Does Not Have a Name</title>
+					<subfigure id="sublena">
+						<media id="id3667666" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<caption>Lena</caption>
+					</subfigure>
+					<subfigure id="id3667684">
+						<media id="id3667689" alt=""><image src="lenamesh.png" mime-type="image/png"/></media>
+						<caption>Lena as a signal</caption>
+
+					</subfigure>
+					<subfigure id="id3667707">
+						<media id="id3667713" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<caption>Lena again</caption>
+					</subfigure>
+					<caption>
+	    On the left and right is the <link url="http://www.cs.cmu.edu/~chuck/lennapg/editor.html">classic "Lena" image</link>,
+	    which is used ubiquitously as a test image.  It contains
+	    straight and curved lines, complicated texture, and a face. In
+	    the middle is a perspective display of the Lena image as a
+	    signal: a function of two <link target-id="rulephth" strength="1">spatial variables</link>. The colors merely
+	    help show what signal values are about the same size. In this
+	    image, signal values range between 0 and 255; why is that?
+	  </caption>
+
+				</figure>
+				<figure id="lena2" orient="vertical">
+					<subfigure id="id3667777">
+						<media id="id3667783" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<caption>Lena</caption>
+					</subfigure>
+					<subfigure id="lena_as_signal_vertical">
+						<media id="id3667811" alt=""><image src="lenamesh.png" mime-type="image/png" height="145" width="180"/></media>
+						<caption>Lena as a signal</caption>
+					</subfigure>
+					<caption>
+	    This example is the same as the last, except that
+	    <code display="inline">orient='vertical'</code>.  So, the subfigures
+	    should be on top of each other.
+	  </caption>
+
+				</figure>
+			</section>
+		</section>
+		<section id="table">
+			<title>Tables</title>
+			<para id="tab">
+	Here's is a very simple example of a table, similiar to ones
+	seen previously in this module.
+      </para>
+			<table frame="all" id="budgettable1" summary="">
+
+				<title>Budget - Comparison by year</title>
+				<tgroup cols="4" align="left" colsep="1" rowsep="1">
+					<colspec colnum="2" colname="c2"/>
+					<colspec colnum="4" colname="c4"/>
+					<thead valign="top">
+						<row>
+							<entry morerows="1" align="center">Item</entry>
+							<entry namest="c2" nameend="c4" align="center">Year</entry>
+
+						</row>
+						<row>
+							<entry align="center">1998</entry>
+							<entry align="center">1999</entry>
+							<entry align="center">2000</entry>
+						</row>
+					</thead>
+
+					<tbody valign="top">
+						<row>
+							<entry>Income</entry>
+							<entry>12,293</entry>
+							<entry>12,398</entry>
+							<entry>14,298</entry>
+						</row>
+
+						<row>
+							<entry>Expenditure</entry>
+							<entry>293</entry>
+							<entry>398</entry>
+							<entry>298</entry>
+						</row>
+						<row>
+
+							<entry>Surplus</entry>
+							<entry>12000</entry>
+							<entry>12000</entry>
+							<entry>14000</entry>
+						</row>
+					</tbody>
+				</tgroup>
+
+<caption>This caption put in to test styling.</caption>
+			</table>
+
+		</section>
+		<section id="quote_foreign">
+			<title>Quotes and Foreign Terms</title>
+			<para id="quotfor1">Two new elements added in CNXML 0.5 are <term>quote</term> and <term>foreign</term>.  A <term>quote</term> of type "block" might look like this: 
+				<quote display="block" id="id3668180">I define the <emphasis>real</emphasis> as that which holds its characters on such a tenure that it makes not the slightest difference what any man or men may have <emphasis>thought</emphasis> them to be, or ever will have <emphasis>thought</emphasis> them to be, here using thought to include, imagining, opining, and willing (as long as forcible <emphasis>means</emphasis> are not used); but the real thing's characters will remain absolutely untouched. --C.S. Peirce, <cite><cite-title>Collected Papers</cite-title></cite> 6.495.</quote>
+
+				Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term>quote</term> of type 'inline'): <quote display="inline" class="no-marks">Everything should be made as simple as possible, but not one bit simpler</quote>.</para>
+			<para id="quotfor2">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as <foreign>Fahrvergnügen</foreign> and <foreign id="cnxn_to_foreign">sang-froid</foreign>.</para>
+			<note type="irrelevant" id="id3668279"><label>Irrelevant</label>It is possible to include a block quote inside a note, with <term>foreign</term> elements interspersed:
+			<quote display="block" id="id3668295"><foreign>"Freundschaftsbezeigungen"</foreign> seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." <foreign>"Unabhängigkeitserklärungen"</foreign> seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. <foreign>"Generalstaatsverordnetenversammlungen"</foreign> seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge.  --Mark Twain, <cite><cite-title>"The Awful German Language"</cite-title></cite></quote>
+
+			</note>
+		</section>
+		<section id="concl">
+			<title>Conclusion</title>
+			<para id="cc">
+	For more information on all of the CNXML used in this
+	module, please refer to the <link url="http://cnx.rice.edu/cnxml/0.5/spec/">CNXML Spec</link>.
+      </para>
+		</section>
+
+
+<figure id="printscreendiffs" orient="horizontal">
+<subfigure id="id3668390">
+<media id="id3668395" alt=""><image src="tall-72.png" mime-type="image/png"/></media>
+<caption>72 dpi</caption>
+</subfigure>
+<subfigure id="id3668413">
+<media id="id3668418" alt=""><image src="tall-150.png" mime-type="image/png"/></media>
+<caption>150 dpi</caption>
+</subfigure>
+<subfigure id="id3668436">
+<media id="id3668441" alt=""><image src="tall-300.png" mime-type="image/png"/></media>
+<caption>300 dpi</caption>
+
+</subfigure>
+<caption>An example of how media that appear to be the same size on screen can be a different size in print due to resolution.</caption>
+</figure>
+
+	</content>
+	<glossary id="gloss">
+		<definition id="gloss_def1">
+			<term>glossary</term>
+			<meaning id="id3668494">A listing of terms together with their meanings.</meaning>
+
+			<example id="id3668502"><para id="gloss_def1_p1"><link target-id="gloss_def1">This very glossary.</link></para></example>
+			<seealso><term><link document="m11171" target-id="missesdef">Misses</link></term></seealso>
+		</definition>
+	</glossary>
+</document>
