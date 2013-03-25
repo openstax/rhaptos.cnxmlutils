@@ -34,11 +34,6 @@ Output
   </xsl:copy>
 </xsl:template>
 
-<!-- remove all divs (but preserve content of divs -->
-<xsl:template match="xh:div">
-  <xsl:apply-templates/>
-</xsl:template>
-
 <!-- remove everything from header except title and metadata -->
 <xsl:template match="xh:head/xh:*[not(self::xh:title or self::xh:meta)]"/>
 

@@ -42,7 +42,7 @@ Postprocessing
   </xsl:copy>
 </xsl:template>
 
-<!-- remove first div title which is double -->
+<!-- remove first div title which is doubled -->
 <xsl:template match="//x:div[@class='title'][not(preceding::x:div[@class='title'])]"/>
 
 

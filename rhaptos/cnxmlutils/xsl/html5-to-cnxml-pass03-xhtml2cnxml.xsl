@@ -91,6 +91,22 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </xsl:choose>
 </xsl:template>
 
+<!-- div equation -->
+<xsl:template match="xh:div[@class = 'equation']">
+  <equation>
+    <!-- TODO: id -->
+    <xsl:apply-templates/>
+  </equation>
+</xsl:template>
+
+<!-- div titles -->
+<xsl:template match="xh:div[@class = 'title']">
+  <title>
+    <!-- TODO: id -->
+    <xsl:value-of select="."/>
+  </title>
+</xsl:template>
+
 <!-- paragraphs -->
 <xsl:template match="xh:p">
   <para>
