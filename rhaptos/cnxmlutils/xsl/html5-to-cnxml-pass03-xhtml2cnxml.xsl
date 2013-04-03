@@ -123,7 +123,13 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </meaning>
 </xsl:template>
 
-
+<!-- div definition -->
+<xsl:template match="xh:div[@class = 'definition']">
+  <definition>
+    <!-- TODO: id -->
+    <xsl:apply-templates/>
+  </definition>
+</xsl:template>
 
 <!-- paragraphs -->
 <xsl:template match="xh:p">
@@ -163,6 +169,12 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- br -->
 <xsl:template match="xh:p/xh:br">
   <newline/>
+</xsl:template>
+
+<xsl:template match="xh:span[@class = 'term']">
+  <term>
+    <xsl:value-of select="."/>
+  </term>
 </xsl:template>
 
 <!-- span -->
