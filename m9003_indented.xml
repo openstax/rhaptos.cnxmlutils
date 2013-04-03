@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m9003" module-id="" cnxml-version="0.7">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" cnxml-version="0.7" id="m9003" module-id="">
 	<title>CNXML 0.5 Stress Test</title>
 	<metadata mdml-version="0.5">
   <!-- WARNING! The 'metadata' section is read only. Do not edit below.
@@ -604,12 +604,12 @@ to ensure that it was styled correctly.</para><equation id="content_equation">
 			</list><list id="note_rule_def_list">
 				<title>A list of notes, definitions, and rules</title>
 				<item>
-					<note type="warning" id="id3640101"> Sulfuric and Hydrochloric Acid are <emphasis>very
+					<note id="id3640101" type="warning"> Sulfuric and Hydrochloric Acid are <emphasis>very
 	      dangerous</emphasis>. Please handle with caution. </note>
 
 				</item>
 				<item>
-					<note type="note" id="id3640125"> Sulfuric and Hydrochloric Acid are <emphasis>very
+					<note id="id3640125" type="note"> Sulfuric and Hydrochloric Acid are <emphasis>very
 	      dangerous</emphasis>. Please handle with caution. </note>
 				</item>
 				<item>
@@ -696,7 +696,7 @@ to ensure that it was styled correctly.</para><equation id="content_equation">
 
 				</item>
 				<item>
-					<rule type="theorem" id="rulephth_list">
+					<rule id="rulephth_list" type="theorem">
 						<title>Pythagorean Theorem</title>
 						<statement id="id3640403">
 							<para id="st1_list">On a right triangle, the sum of the
@@ -725,7 +725,7 @@ to ensure that it was styled correctly.</para><equation id="content_equation">
 						</example>
 					</rule>
 				</item>
-			</list><para id="element-822">This paragraph contains an inline list, i.e. a list with <code>type="inline</code>: <list id="ajsklfj" list-type="labeled-item" display="inline"><item>This item has no name</item><item><label>Name</label>This is item has a name</item></list>.  Next is an inline list with a name<list id="asdjfajkls3344df" list-type="labeled-item" display="inline"><title>List name</title><item><label>First item name</label>First item text</item><item>2nd item text</item></list> blah blah blah.  This paragraph also contains a named-item list, i.e. a list with <code>type="named-item"</code>: <list id="ajfiow" list-type="labeled-item"><title>name of list</title><item>This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>namenamename</label>This item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>n</label>This item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item></list></para>
+			</list><para id="element-822">This paragraph contains an inline list, i.e. a list with <code>type="inline</code>: <list display="inline" id="ajsklfj" list-type="labeled-item"><item>This item has no name</item><item><label>Name</label>This is item has a name</item></list>.  Next is an inline list with a name<list display="inline" id="asdjfajkls3344df" list-type="labeled-item"><title>List name</title><item><label>First item name</label>First item text</item><item>2nd item text</item></list> blah blah blah.  This paragraph also contains a named-item list, i.e. a list with <code>type="named-item"</code>: <list id="ajfiow" list-type="labeled-item"><title>name of list</title><item>This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>namenamename</label>This item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item><item><label>n</label>This item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</item></list></para>
 
 		</section>
 		<section id="cnxnlink">
@@ -736,11 +736,11 @@ to ensure that it was styled correctly.</para><equation id="content_equation">
 	  spec</link>.  Then you can write things like
 	<code display="inline">&lt;cnxn&gt;</code> and <code display="inline">&lt;link&gt;</code> in CNXML.
 	You will also be able to make 
-	<link document="m9000" target-id="cnln" strength="3">CNXN's</link>
+	<link document="m9000" strength="3" target-id="cnln">CNXN's</link>
 
 	between things you wrote and things other people have written.
 	For example, to learn more about Rice sailing, you can look right here at the 
-	<link target-id="sec1" strength="1">sailing section</link> in this module.  Or you
+	<link strength="1" target-id="sec1">sailing section</link> in this module.  Or you
 	could link to something even less relevant, say 
 	<link document="m0520" strength="1">digital communication
 	  receivers</link>.  To go to a topic which is a bit more relavant to
@@ -918,7 +918,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 	  <code display="inline"><emphasis id="cnxn_to_emphasis">emphasized codeline</emphasis></code>
 
 	  within an example.  This sentence contains a 
-	  <link target-id="cnxnlink" strength="2">cnxn</link> within an example.  This
+	  <link strength="2" target-id="cnxnlink">cnxn</link> within an example.  This
 	  sentence contains a <link url="http://www.link.com">link</link>.  This
 	  sentence contains a <term>term</term>.  This sentence contains a
 	  <term><code display="inline">codeline term</code></term>.
@@ -954,7 +954,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			</example>
 
 			<example id="example_figure"><figure id="figure_in_example">
-					<media id="id3664247" alt=""><image src="lena.png" mime-type="image/png"/></media>
+					<media alt="" id="id3664247"><image mime-type="image/png" src="lena.png"/></media>
 					<caption id="figurecaption">This figure is inside of the <code display="inline">&lt;example&gt;</code> tag.</caption>
 				</figure>
 			</example>
@@ -1150,7 +1150,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 					</definition>
 				</para>
 				<para id="example_rule_para">
-					<rule type="theorem" id="rulephth_example">
+					<rule id="rulephth_example" type="theorem">
 						<title>Pythagorean Theorem</title>
 						<statement id="id3664850">
 							<para id="st1_example">On a right triangle, the sum of the
@@ -1175,9 +1175,9 @@ To an example after an example with no numbering <link target-id="element-2839"/
 					</rule>
 				</para>
 				<para id="example_notes">
-					<note type="warning" id="id3664927"> Sulfuric and Hydrochloric Acid are <emphasis>very
+					<note id="id3664927" type="warning"> Sulfuric and Hydrochloric Acid are <emphasis>very
 	      dangerous</emphasis>. Please hande with caution. </note>
-					<note type="note" id="id3664945"> Sulfuric and Hydrochloric Acid are <emphasis>very
+					<note id="id3664945" type="note"> Sulfuric and Hydrochloric Acid are <emphasis>very
 	      dangerous</emphasis>. Please hande with caution. </note>
 
 				</para>
@@ -1188,7 +1188,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 <definition id="asjf903"><term>23h8902</term>
 <meaning id="id3664980">aj2390tj</meaning>
 </definition>
-<rule type="of thumb" id="fj920qg3"><label>Of thumb</label>
+<rule id="fj920qg3" type="of thumb"><label>Of thumb</label>
 <statement id="id3664997">
 <para id="j2930fj29g">jaf3j9w0gea ja jdlfasdnfl</para></statement>
 
@@ -1467,14 +1467,14 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			</para>
 			<para id="code02">
 				<code display="inline">&lt;!-- 
-	  codeline can be <link url="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</link> and <link document="m9000" target-id="cnln" strength="3">cnxn'ed</link> too --&gt;</code>
+	  codeline can be <link url="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</link> and <link document="m9000" strength="3" target-id="cnln">cnxn'ed</link> too --&gt;</code>
 
 			</para>
 			<code display="block" id="id3665905">
 	codeblock
 	can be 
 	<link url="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</link> and
-	<link document="m9000" target-id="cnln" strength="3">cnxn'ed</link>
+	<link document="m9000" strength="3" target-id="cnln">cnxn'ed</link>
 	as well
       </code>
 		</section>
@@ -1611,12 +1611,12 @@ To an example after an example with no numbering <link target-id="element-2839"/
 
 			<para id="note1">Chemistry lab was always a lot of fun.  We played
 	with a lot of chemicals such as Sulfuric and Hydrochloric acid.
-	<note type="warning" id="cnxn_to_not_note"> Sulfuric and Hydrochloric Acid are <emphasis>very
+	<note id="cnxn_to_not_note" type="warning"> Sulfuric and Hydrochloric Acid are <emphasis>very
 	    dangerous</emphasis>. Please handle with caution. </note>
 			</para>
 			<para id="note2">Chemistry lab was always a lot of fun. We played
 	with a lot of chemicals such as Sulfuri and Hydrochloric acid.
-<note type="" id="cnxn_to_null_string_note"> This note does <emphasis>not</emphasis> have a string in its type attribute. 
+<note id="cnxn_to_null_string_note" type=""> This note does <emphasis>not</emphasis> have a string in its type attribute. 
 	  Please handle with caution. </note>
 
 <note id="cnxn_to_null_note"> This note does <emphasis>not</emphasis> have a type attribute. 
@@ -1637,7 +1637,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 
 		<section id="rule">
 			<title>Rule</title>
-			<rule type="theorem" id="rulephth">
+			<rule id="rulephth" type="theorem">
 				<title>Pythagorean Theorem</title>
 				<statement id="id3666653">
 					<para id="st1">On a right triangle, the sum of the
@@ -1715,7 +1715,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 	  </para>
 				</example>
 			</rule>
-			<rule type="property" id="rule1"><label>Property</label>
+			<rule id="rule1" type="property"><label>Property</label>
 				<statement id="id3666839">
 					<para id="rule1para1">
 
@@ -1845,7 +1845,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 	    , is known as <emphasis>conjugate symmetry</emphasis>. We can phrase the property concisely by
 	    saying:
 	    
-	    <rule type="property" id="conjugate"><label>Property</label>
+	    <rule id="conjugate" type="property"><label>Property</label>
 							<statement id="id3667121">
 								<para id="crulepara1">
 		  Real-valued periodic signals have a conjugate-symmetric spectrum.
@@ -1858,7 +1858,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			</rule>
 			<para id="para3">
 	The Fourier series obeys:
-	<rule type="theorem" id="parseval">
+	<rule id="parseval" type="theorem">
 					<title>Parseval's Theorem</title>
 
 					<statement id="id3667170">
@@ -1921,7 +1921,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 							</equation>
 	      
 	      This result is a (simpler) re-expression of how to calculate a signal's power than with the 
-	      <link document="m0062" target-id="power" strength="2">
+	      <link document="m0062" strength="2" target-id="power">
 		real-valued Fourier series expression for power
 	      </link>.
 	    </para>
@@ -1953,10 +1953,10 @@ To an example after an example with no numbering <link target-id="element-2839"/
 				<title>Ascii table</title>
 				<table frame="all" id="table_ascii" summary="">
 					<title>Budget - Comparison by year</title>
-					<tgroup cols="4" align="left" colsep="1" rowsep="1">
-						<colspec colnum="2" colname="c2"/>
+					<tgroup align="left" cols="4" colsep="1" rowsep="1">
+						<colspec colname="c2" colnum="2"/>
 
-						<colspec colnum="4" colname="c4"/>
+						<colspec colname="c4" colnum="4"/>
 						<tbody valign="top">
 							<row>
 								<entry>Income</entry>
@@ -1993,16 +1993,16 @@ To an example after an example with no numbering <link target-id="element-2839"/
 
 					<title>The Subsequent Figure Does Not Have a Name</title>
 					<subfigure id="sublena">
-						<media id="id3667666" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<media alt="" id="id3667666"><image mime-type="image/png" src="lena.png"/></media>
 						<caption>Lena</caption>
 					</subfigure>
 					<subfigure id="id3667684">
-						<media id="id3667689" alt=""><image src="lenamesh.png" mime-type="image/png"/></media>
+						<media alt="" id="id3667689"><image mime-type="image/png" src="lenamesh.png"/></media>
 						<caption>Lena as a signal</caption>
 
 					</subfigure>
 					<subfigure id="id3667707">
-						<media id="id3667713" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<media alt="" id="id3667713"><image mime-type="image/png" src="lena.png"/></media>
 						<caption>Lena again</caption>
 					</subfigure>
 					<caption>
@@ -2010,7 +2010,7 @@ To an example after an example with no numbering <link target-id="element-2839"/
 	    which is used ubiquitously as a test image.  It contains
 	    straight and curved lines, complicated texture, and a face. In
 	    the middle is a perspective display of the Lena image as a
-	    signal: a function of two <link target-id="rulephth" strength="1">spatial variables</link>. The colors merely
+	    signal: a function of two <link strength="1" target-id="rulephth">spatial variables</link>. The colors merely
 	    help show what signal values are about the same size. In this
 	    image, signal values range between 0 and 255; why is that?
 	  </caption>
@@ -2018,11 +2018,11 @@ To an example after an example with no numbering <link target-id="element-2839"/
 				</figure>
 				<figure id="lena2" orient="vertical">
 					<subfigure id="id3667777">
-						<media id="id3667783" alt=""><image src="lena.png" mime-type="image/png"/></media>
+						<media alt="" id="id3667783"><image mime-type="image/png" src="lena.png"/></media>
 						<caption>Lena</caption>
 					</subfigure>
 					<subfigure id="lena_as_signal_vertical">
-						<media id="id3667811" alt=""><image src="lenamesh.png" mime-type="image/png" height="145" width="180"/></media>
+						<media alt="" id="id3667811"><image height="145" mime-type="image/png" src="lenamesh.png" width="180"/></media>
 						<caption>Lena as a signal</caption>
 					</subfigure>
 					<caption>
@@ -2043,13 +2043,13 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			<table frame="all" id="budgettable1" summary="">
 
 				<title>Budget - Comparison by year</title>
-				<tgroup cols="4" align="left" colsep="1" rowsep="1">
-					<colspec colnum="2" colname="c2"/>
-					<colspec colnum="4" colname="c4"/>
+				<tgroup align="left" cols="4" colsep="1" rowsep="1">
+					<colspec colname="c2" colnum="2"/>
+					<colspec colname="c4" colnum="4"/>
 					<thead valign="top">
 						<row>
-							<entry morerows="1" align="center">Item</entry>
-							<entry namest="c2" nameend="c4" align="center">Year</entry>
+							<entry align="center" morerows="1">Item</entry>
+							<entry align="center" nameend="c4" namest="c2">Year</entry>
 
 						</row>
 						<row>
@@ -2092,9 +2092,9 @@ To an example after an example with no numbering <link target-id="element-2839"/
 			<para id="quotfor1">Two new elements added in CNXML 0.5 are <term>quote</term> and <term>foreign</term>.  A <term>quote</term> of type "block" might look like this: 
 				<quote display="block" id="id3668180">I define the <emphasis>real</emphasis> as that which holds its characters on such a tenure that it makes not the slightest difference what any man or men may have <emphasis>thought</emphasis> them to be, or ever will have <emphasis>thought</emphasis> them to be, here using thought to include, imagining, opining, and willing (as long as forcible <emphasis>means</emphasis> are not used); but the real thing's characters will remain absolutely untouched. --C.S. Peirce, <cite><cite-title>Collected Papers</cite-title></cite> 6.495.</quote>
 
-				Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term>quote</term> of type 'inline'): <quote display="inline" class="no-marks">Everything should be made as simple as possible, but not one bit simpler</quote>.</para>
+				Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term>quote</term> of type 'inline'): <quote class="no-marks" display="inline">Everything should be made as simple as possible, but not one bit simpler</quote>.</para>
 			<para id="quotfor2">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as <foreign>Fahrvergn&#252;gen</foreign> and <foreign id="cnxn_to_foreign">sang-froid</foreign>.</para>
-			<note type="irrelevant" id="id3668279"><label>Irrelevant</label>It is possible to include a block quote inside a note, with <term>foreign</term> elements interspersed:
+			<note id="id3668279" type="irrelevant"><label>Irrelevant</label>It is possible to include a block quote inside a note, with <term>foreign</term> elements interspersed:
 			<quote display="block" id="id3668295"><foreign>"Freundschaftsbezeigungen"</foreign> seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." <foreign>"Unabh&#228;ngigkeitserkl&#228;rungen"</foreign> seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. <foreign>"Generalstaatsverordnetenversammlungen"</foreign> seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge.  --Mark Twain, <cite><cite-title>"The Awful German Language"</cite-title></cite></quote>
 
 			</note>
@@ -2110,15 +2110,15 @@ To an example after an example with no numbering <link target-id="element-2839"/
 
 <figure id="printscreendiffs" orient="horizontal">
 <subfigure id="id3668390">
-<media id="id3668395" alt=""><image src="tall-72.png" mime-type="image/png"/></media>
+<media alt="" id="id3668395"><image mime-type="image/png" src="tall-72.png"/></media>
 <caption>72 dpi</caption>
 </subfigure>
 <subfigure id="id3668413">
-<media id="id3668418" alt=""><image src="tall-150.png" mime-type="image/png"/></media>
+<media alt="" id="id3668418"><image mime-type="image/png" src="tall-150.png"/></media>
 <caption>150 dpi</caption>
 </subfigure>
 <subfigure id="id3668436">
-<media id="id3668441" alt=""><image src="tall-300.png" mime-type="image/png"/></media>
+<media alt="" id="id3668441"><image mime-type="image/png" src="tall-300.png"/></media>
 <caption>300 dpi</caption>
 
 </subfigure>
