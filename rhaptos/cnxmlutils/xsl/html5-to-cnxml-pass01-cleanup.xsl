@@ -18,7 +18,7 @@
 <!--
 - Merges DIVs
 - Remove not needed header content
-- Remove scripts, comments, iframes
+- Remove scripts, comments
 
 Example input:
 <body><div>Hello<div> this <div> is </div>some </div>text</div></body>
@@ -42,8 +42,5 @@ Output
 
 <!-- remove scripts -->
 <xsl:template match="xh:script"/>
-
-<!-- remove iframes -->
-<xsl:template match="xh:iframe"/>
 
 </xsl:stylesheet>
