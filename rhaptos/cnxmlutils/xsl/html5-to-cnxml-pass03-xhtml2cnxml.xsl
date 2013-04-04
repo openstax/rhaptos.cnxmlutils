@@ -143,12 +143,6 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   <newline/>
 </xsl:template>
 
-<xsl:template match="xh:span[@class = 'term']">
-  <term>
-    <xsl:value-of select="."/>
-  </term>
-</xsl:template>
-
 <!-- span -->
 <xsl:template match="xh:span">
   <xsl:choose>
@@ -194,6 +188,18 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       <xsl:apply-templates/>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<!-- span copy classes to cnxml tags -->
+<xsl:template match="xh:span[@class]">
+  <xsl:element name="{@class}">
+    <xsl:if test="@id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="@id"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates/>
+  </xsl:element>
 </xsl:template>
 
 <xsl:template match="xh:div/text()">

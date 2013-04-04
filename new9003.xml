@@ -1,8 +1,8 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" id="gd-idm224720" cnxml-version="0.7" module-id="new">
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" id="gd-idm467424" cnxml-version="0.7" module-id="new">
   <title>CNXML 0.5 Stress Test</title>
   <content>
-    <para id="gd-idm474096">"</para>
-    <para id="gd-idp139104">This brief paragraph was put in before a section tag to ensure that it was styled correctly.</para>
+    <para id="gd-idm264880">"</para>
+    <para id="gd-idm484160">This brief paragraph was put in before a section tag to ensure that it was styled correctly.</para>
     <equation id="content_equation">
       <title id="2e49322f-791b-63c3-230e-febe4c3c10db">This equation has been thrown in as a child of content for styling purposes.</title>
       <m:math>
@@ -11,9 +11,9 @@
         </m:merror>
       </m:math>
     </equation>
-    <section id="gd-idm235632">
+    <section id="gd-idm277952">
       <title>General Example with Equation</title>
-      <para id="gd-idm241024">The complex exponential defines the notion of frequency: It is the <emphasis effect="bold">only</emphasis> signal that contains only one frequency component. The sinusoid consists of two frequency components: one at the frequency <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math> and the other at <m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>.</para>
+      <para id="gd-idm1020976">The complex exponential defines the notion of frequency: It is the <emphasis effect="bold">only</emphasis> signal that contains only one frequency component. The sinusoid consists of two frequency components: one at the frequency <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math> and the other at <m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>.</para>
       <equation id="eqn3">
         <title id="a67a80c6-e689-1c39-b534-9c943c79f210">This is Euler's relation relating things like e's and cosines</title>
         <m:math>
@@ -38,18 +38,18 @@
           </m:merror>
         </m:math>
       </equation>
-      <para id="gd-idm255168">The complex exponential signal can thus be written in terms of its real and imaginary parts using Euler's relation. Thus, sinusoidal signals can be expressed as either the real or the imaginary part of a complex exponential signal (the choice depends on whether cosine or sine phase is needed) or as the sum of two complex exponentials. These two decompositions are mathematically equivalent to each other.</para>
+      <para id="gd-idm188144">The complex exponential signal can thus be written in terms of its real and imaginary parts using Euler's relation. Thus, sinusoidal signals can be expressed as either the real or the imaginary part of a complex exponential signal (the choice depends on whether cosine or sine phase is needed) or as the sum of two complex exponentials. These two decompositions are mathematically equivalent to each other.</para>
     </section>
-    <section id="gd-idp98960">
+    <section id="gd-idm283616">
       <title>Section: ICSA</title>
-      <para id="gd-idp179184">The Rice Sailing Team is part of a sailing coalition called ICSA which stands for Inter-Collegiate Sailing Association. The ICSA is the governing body for collegete sailing programs in the US. Volunteers of ICSA develop the racing rules. They also organize the national regattas. To be a member of ICSA, a college must pay money to a sub-district.</para>
-      <section id="gd-idp12416">
+      <para id="gd-idm29184">The Rice Sailing Team is part of a sailing coalition called ICSA which stands for Inter-Collegiate Sailing Association. The ICSA is the governing body for collegete sailing programs in the US. Volunteers of ICSA develop the racing rules. They also organize the national regattas. To be a member of ICSA, a college must pay money to a sub-district.</para>
+      <section id="gd-idp851760">
         <title>SEISA</title>
-        <para id="gd-idp213792">Rice is a member of the SEISA district of ICSA. SEISA stands for South-Eastern Inter-Collegiate Sailing Association. SEISA is the organization that the South-East colleges compete in. The schools gather to compete for all normal regattas. One or two schools from SEISA will qualify for the National competitions hosted by ICSA.</para>
-        <section id="gd-idp139968">
+        <para id="gd-idp848848">Rice is a member of the SEISA district of ICSA. SEISA stands for South-Eastern Inter-Collegiate Sailing Association. SEISA is the organization that the South-East colleges compete in. The schools gather to compete for all normal regattas. One or two schools from SEISA will qualify for the National competitions hosted by ICSA.</para>
+        <section id="gd-idp102560">
           <title>RUST: Rice University Sailing Team</title>
-          <para id="gd-idm214672">RUST is Rice's competitive sailing team. Rice is a member of SEISA. This district is made up of several schools, including UT, A&amp;M, A&amp;M Galveston, UNO, Tulane, Kansas, and UWF. The Rice Sailing Club is open to all members of the student community, including graduate students. Beginner and expert sailors alike are encouraged to practice with the team. RUST is a small and easy-going club. There are no attendance requirements, and everyone who wants to sail can sail. Members pay yearly dues to help cover expenses, but every member not only gets to sail, but gets a sailing club T-shirt too!</para>
-          <para id="gd-idp29328">For the benefit of Mr. Kite, there will be a show tonight on trampoline. The Hendersons will all be there, late Pablo Fanques Fair - what a scene. Over men and horses, hoops and garters, lastly through a hogshead of real fire! In this way Mr. K. will challenge the world! The celebrated Mr. K. performs his feat on Saturday at Bishopsgate. The Hendersons will dance and sing as Mr. Kite flys through the ring - don't be late. Messrs. K and H. assure the public their production will be second to none. And course Henry The Horse dances the waltz!</para>
+          <para id="gd-idm206192">RUST is Rice's competitive sailing team. Rice is a member of SEISA. This district is made up of several schools, including UT, A&amp;M, A&amp;M Galveston, UNO, Tulane, Kansas, and UWF. The Rice Sailing Club is open to all members of the student community, including graduate students. Beginner and expert sailors alike are encouraged to practice with the team. RUST is a small and easy-going club. There are no attendance requirements, and everyone who wants to sail can sail. Members pay yearly dues to help cover expenses, but every member not only gets to sail, but gets a sailing club T-shirt too!</para>
+          <para id="gd-idm144272">For the benefit of Mr. Kite, there will be a show tonight on trampoline. The Hendersons will all be there, late Pablo Fanques Fair - what a scene. Over men and horses, hoops and garters, lastly through a hogshead of real fire! In this way Mr. K. will challenge the world! The celebrated Mr. K. performs his feat on Saturday at Bishopsgate. The Hendersons will dance and sing as Mr. Kite flys through the ring - don't be late. Messrs. K and H. assure the public their production will be second to none. And course Henry The Horse dances the waltz!</para>
           <equation id="section_equation">
             <title id="0d9399de-510f-715e-6051-db7c00dd05ce">This equation has been thrown in as a child of section for styling purposes</title>
             <m:math>
@@ -59,41 +59,41 @@
             </m:math>
           </equation>
         </section>
-        <section id="gd-idm286768">
+        <section id="gd-idm210624">
           <title>Section Three Point Two</title>
-          <para id="gd-idm245216">Section 3.2</para>
+          <para id="gd-idm210240">Section 3.2</para>
         </section>
-        <section id="gd-idm244928">
+        <section id="gd-idm208896">
           <title>Section Three Point Three</title>
-          <para id="gd-idm228976">Section 3.3</para>
-          <section id="gd-idm228656">
+          <para id="gd-idm208464">Section 3.3</para>
+          <section id="gd-idp877440">
             <title>four levels down</title>
-            <section id="gd-idm190976">
+            <section id="gd-idp877888">
               <title>five levels down</title>
-              <section id="gd-idm190256">
+              <section id="gd-idp86144">
                 <title>six levels down</title>
-                <para id="gd-idm189872">seven levels down eight levels down nine levels down how low can you go? as low as you want CNXML is limitless in it's powers</para>
-                <para id="gd-idm18464">You get the picture!</para>
+                <para id="gd-idm526960">seven levels down eight levels down nine levels down how low can you go? as low as you want CNXML is limitless in it's powers</para>
+                <para id="gd-idm526560">You get the picture!</para>
               </section>
-              <div id="gd-idm18208"/>
+              <div id="gd-idm526304"/>
             </section>
-            <div id="gd-idm18080"/>
+            <div id="gd-idm518368"/>
           </section>
         </section>
       </section>
     </section>
-    <section id="gd-idm17952"><title>List</title><para id="gd-idm73200">Hello and welcome to my list of things to do. The following list is <emphasis effect="bold">within</emphasis> a paragraph, whereas the subsequent ordered list is <emphasis effect="bold">preceded</emphasis> by a paragraph.</para><list id="gd-idp137408"><item>This is an item. The length of this item has been extended for quality assurance of its style upon wrapping, assuming it extends for more than the width of the screen, which is why it may appear that I am dragging this sentence out for a long time..</item><item>This is another item with a list nested inside of it.
-<list id="gd-idp333808"><item>The next subitem contains a named equation.</item><item><equation id="eqn4_list"><title id="b4b2fdd8-e8a2-8e7e-21d8-d0bc07c4c32c">Euler's relation</title><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation></item></list></item></list><para id="gd-idp9632">This is not a new paragraph. This is also not a new paragraph.</para><para id="gd-idp4128">This is a new paragraph.</para><list id="gd-idp4384" list-type="enumerated"><item><title id="69d72322-3acd-5655-199c-3a0b24275e6d">Example Enumerated List</title></item><item>This is an enumerated list item not located within paragraph tags.</item><item>This is another item with a list nested inside of it.
-<list id="gd-idm175776"><item>This is a subitem. But the subitem is not enumerated.</item><item>This is another subitem.</item></list></item><item>Yet another item</item></list><list id="gd-idp42896"><item><title id="de3a6ec8-75ed-8468-aa78-9c674e06ccac">A list of notes, definitions, and rules</title></item><item>Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</item><item>Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</item><item><definition id="note_list"><term id="gd-idm55728">note</term><meaning id="id3640164">A short letter.</meaning><example id="noteex1_list"><para id="gd-idp206256">Bob, Your son called. -Mary</para></example><meaning id="id3640190">A different meaning for the term.</meaning><example id="noteex2_list"><para id="gd-idm207696">A first example.</para></example><example id="noteex3_list"><para id="gd-idm207120">A second example.</para></example><meaning id="id3640234"><equation id="list_defintion_equation"><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation></meaning></definition></item><item>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.proof nameYour favorite proof goes here.This example is a child of the proof. The next one is not.Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.</item></list><para id="gd-idm46976">This paragraph contains an inline list, i.e. a list with <code id="gd-idm14288" display="block">type="inline
-</code>: </para><list id="gd-idm13664">This item has no nameNameThis is item has a name<item>. Next is an inline list with a name</item></list>List name<list id="gd-idp341360">First item nameFirst item text2nd item text<item>blah blah blah. This paragraph also contains a named-item list, i.e. a list with <code id="gd-idm156560" display="block">type="named-item"
-</code>: </item></list>name of list<list id="gd-idm58112">This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluffnamenamenameThis item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluffnThis item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</list></section>
-    <section id="gd-idp335840">
+    <section id="gd-idm518240"><title>List</title><para id="gd-idm431456">Hello and welcome to my list of things to do. The following list is <emphasis effect="bold">within</emphasis> a paragraph, whereas the subsequent ordered list is <emphasis effect="bold">preceded</emphasis> by a paragraph.</para><list id="gd-idm298064"><item>This is an item. The length of this item has been extended for quality assurance of its style upon wrapping, assuming it extends for more than the width of the screen, which is why it may appear that I am dragging this sentence out for a long time..</item><item>This is another item with a list nested inside of it.
+<list id="gd-idm99232"><item>The next subitem contains a named equation.</item><item><equation id="eqn4_list"><title id="b4b2fdd8-e8a2-8e7e-21d8-d0bc07c4c32c">Euler's relation</title><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation></item></list></item></list><para id="gd-idm235728">This is not a new paragraph. This is also not a new paragraph.</para><para id="gd-idm235472">This is a new paragraph.</para><list id="gd-idm193984" list-type="enumerated"><item><title id="69d72322-3acd-5655-199c-3a0b24275e6d">Example Enumerated List</title></item><item>This is an enumerated list item not located within paragraph tags.</item><item>This is another item with a list nested inside of it.
+<list id="gd-idp92448"><item>This is a subitem. But the subitem is not enumerated.</item><item>This is another subitem.</item></list></item><item>Yet another item</item></list><list id="gd-idm415648"><item><title id="de3a6ec8-75ed-8468-aa78-9c674e06ccac">A list of notes, definitions, and rules</title></item><item>Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</item><item>Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</item><item><definition id="note_list"><term id="gd-idm374560">note</term><meaning id="id3640164">A short letter.</meaning><example id="noteex1_list"><para id="gd-idm299808">Bob, Your son called. -Mary</para></example><meaning id="id3640190">A different meaning for the term.</meaning><example id="noteex2_list"><para id="gd-idp103520">A first example.</para></example><example id="noteex3_list"><para id="gd-idp104096">A second example.</para></example><meaning id="id3640234"><equation id="list_defintion_equation"><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation></meaning></definition></item><item>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.proof nameYour favorite proof goes here.This example is a child of the proof. The next one is not.Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.</item></list><para id="gd-idm199776">This paragraph contains an inline list, i.e. a list with <code id="gd-idm199520" display="block">type="inline
+</code>: </para><list id="gd-idm168000">This item has no nameNameThis is item has a name<item>. Next is an inline list with a name</item></list>List name<list id="gd-idm215040">First item nameFirst item text2nd item text<item>blah blah blah. This paragraph also contains a named-item list, i.e. a list with <code id="gd-idp581712" display="block">type="named-item"
+</code>: </item></list>name of list<list id="gd-idm479024">This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluffnamenamenameThis item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluffnThis item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</list></section>
+    <section id="gd-idm253424">
       <title>CNXN and Link</title>
-      <para id="gd-idp336224">If you want to learn more about things in general, you can look at other pages in CNX world. To learn more about CNXML, go to the <link url="http://cnx.org/aboutus/technology/cnxml/0.5/spec/" window="new">CNXML 0.5 spec</link>. Then you can write things like <code id="gd-idp112896" display="block">&lt;cnxn&gt;
-</code> and <code id="gd-idp115392" display="block">&lt;link&gt;
-</code> in CNXML. You will also be able to make <link url="/m9000#cnln" window="new">CNXN's</link> between things you wrote and things other people have written. For example, to learn more about Rice sailing, you can look right here at the <link target-id="">sailing section</link> in this module. Or you could link to something even less relevant, say <link url="/m0520" window="new">digital communication receivers</link>. To go to a topic which is a bit more relavant to writing <code id="gd-idm174768" display="block">&lt;cnxn&gt;
+      <para id="gd-idm253040">If you want to learn more about things in general, you can look at other pages in CNX world. To learn more about CNXML, go to the <link url="http://cnx.org/aboutus/technology/cnxml/0.5/spec/" window="new">CNXML 0.5 spec</link>. Then you can write things like <code id="gd-idm243536" display="block">&lt;cnxn&gt;
+</code> and <code id="gd-idm156944" display="block">&lt;link&gt;
+</code> in CNXML. You will also be able to make <link url="/m9000#cnln" window="new">CNXN's</link> between things you wrote and things other people have written. For example, to learn more about Rice sailing, you can look right here at the <link target-id="">sailing section</link> in this module. Or you could link to something even less relevant, say <link url="/m0520" window="new">digital communication receivers</link>. To go to a topic which is a bit more relavant to writing <code id="gd-idm122016" display="block">&lt;cnxn&gt;
 </code> tags, you could visit the module about <link url="/m9004" window="new">using emacs</link>. If you have more questions about Connexions basics, you could look at the <link url="/m9001" window="new">FAQ</link> . So if you want to learn more about the world in which you live, Connexions is the place to be.</para>
-      <list id="gd-idp98032">
+      <list id="gd-idm252736">
         <item>
           <title id="db16b8dc-1a01-90a1-e968-9ee5b491781d">empty cnxn testing</title>
         </item>
@@ -125,26 +125,27 @@
         <item>To an example after an example with no numbering <link target-id="">[link]</link></item>
       </list>
     </section>
-    <section id="gd-idm8720"><title>Example</title><example id="exp01"><para id="gd-idp116352">As an example of signal complexity, we can express the pulse <m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>    as a sum of delayed unit steps.</para><equation id="eqn01"><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation><para id="gd-idp926464">Thus, the pulse is a more complex signal than the step. Be that as it may, the pulse is very useful to us.</para></example><example id="example_pain"><title id="cde41220-7a9e-0cee-343d-3ccd0517e2c5">CNXML can be a pain</title><para id="gd-idm80960">This sentence, although it is very <emphasis effect="bold">unimportant</emphasis> and <emphasis effect="bold">irrelevant</emphasis>, contains emphasis within the <code id="gd-idp822368" display="block">&lt;example&gt;
-</code> tag. For an example of <code id="gd-idp254784" display="block">&lt;cite&gt;
-</code> within <code id="gd-idp255472" display="block">&lt;example&gt;
-</code>, see Things That Are a Pain to Style in CNXML by Max Starkenburg. For an example of <code id="gd-idm208752" display="block">&lt;emphasis&gt;
-</code> within <code id="gd-idm208064" display="block">&lt;cite&gt;
-</code> within <code id="gd-idp130032" display="block">&lt;example&gt;
-</code>, please see Things That Are a Pain in the Butt to Style in CNXML, also by Max Starkenburg. This sentence contains <code id="gd-idm169920" display="block">emphasized codeline
-</code> within an example. This sentence contains a <link target-id="">cnxn</link> within an example. This sentence contains a <link url="http://www.link.com" window="new">link</link>. This sentence contains a <term id="gd-idp10336">term</term>. This sentence contains a <term id="gd-idp10752">codeline term</term>.</para><para id="gd-idm95328">This paragraph has just been thrown in to ensure that it is styled correctly. It has nothing to say, but is long anwyay, just to make sure that it continues to the next line.</para></example><example id="example_codeblock"><code id="gd-idp146416" display="block">&lt;html&gt; &lt;head&gt; &lt;title&gt;Codeblock within the example tag&lt;/title&gt; &lt;/head&gt; &lt;body bgcolor="#ffffff" link="#990000"&gt;
-</code></example><example id="example_list"><list id="gd-idm257232" list-type="enumerated"><item><title id="c567d094-8b20-694f-0447-25e41bab0535">Example List in Example</title></item><item>This is an enumerated list item.</item><item>This is another item with a list inside of it.
-<list id="gd-idp41520"><item>This is a bulleted list item</item><item>This is another bulleted list item</item></list></item></list></example><example id="example_figure"><media id="gd-idp309552" alt=""><image mime-type="" src="lena.png"/></media>This figure is inside of the <code id="gd-idp927264" display="block">&lt;example&gt;
-</code> tag.</example><example id="example_table"><table id="gd-idm206720" summary="" pgwide="1"><tgroup cols="4"><colspec colnum="1" colwidth=""/><colspec colnum="2" colwidth=""/><colspec colnum="3" colwidth=""/><colspec colnum="4" colwidth=""/><tbody><row><entry>Continuous-Time Fourier Series</entry><entry><m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Continuous-Time Circular</entry></row><row><entry>Continuous-Time Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Continuous-Time Linear</entry></row><row><entry>Discrete-Time Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Discrete-Time Linear</entry></row><row><entry>Discrete Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Discrete-Time Circular</entry></row></tbody></tgroup></table></example><example id="example_definition"><para id="gd-idp344064"><newline/></para><definition id="note_example"><term id="gd-idp344688">note</term><meaning id="id3664792">A short letter.</meaning><example id="noteex1_example"><para id="gd-idm167760">Bob, Your son called. -Mary</para></example></definition><para id="gd-idm167456"><newline/></para>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.proof nameYour favorite proof goes here.Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.<para id="gd-idp17264">Sulfuric and Hydrochloric Acid are very dangerous. Please hande with caution.Sulfuric and Hydrochloric Acid are very dangerous. Please hande with caution.</para></example><definition id="asjf903"><term id="gd-idp18064">23h8902</term><meaning id="id3664980">aj2390tj</meaning></definition><para id="gd-idp27136"><newline/></para>jaf3j9w0gea ja jdlfasdnfl</section>
-    <section id="gd-idp27648">
+    <section id="gd-idm113408"><title>Example</title><example id="exp01"><para id="gd-idm123248">As an example of signal complexity, we can express the pulse <m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>    as a sum of delayed unit steps.</para><equation id="eqn01"><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation><para id="gd-idm409008">Thus, the pulse is a more complex signal than the step. Be that as it may, the pulse is very useful to us.</para></example><example id="example_pain"><title id="cde41220-7a9e-0cee-343d-3ccd0517e2c5">CNXML can be a pain</title><para id="gd-idp98080">This sentence, although it is very <emphasis effect="bold">unimportant</emphasis> and <emphasis effect="bold">irrelevant</emphasis>, contains emphasis within the <code id="gd-idp603264" display="block">&lt;example&gt;
+</code> tag. For an example of <code id="gd-idm358608" display="block">&lt;cite&gt;
+</code> within <code id="gd-idm357920" display="block">&lt;example&gt;
+</code>, see Things That Are a Pain to Style in CNXML by Max Starkenburg. For an example of <code id="gd-idp104832" display="block">&lt;emphasis&gt;
+</code> within <code id="gd-idp105520" display="block">&lt;cite&gt;
+</code> within <code id="gd-idp630800" display="block">&lt;example&gt;
+</code>, please see Things That Are a Pain in the Butt to Style in CNXML, also by Max Starkenburg. This sentence contains <code id="gd-idm469104" display="block">emphasized codeline
+</code> within an example. This sentence contains a <link target-id="">cnxn</link> within an example. This sentence contains a <link url="http://www.link.com" window="new">link</link>. This sentence contains a <term id="gd-idm111968">term</term>. This sentence contains a <term id="gd-idm111504"><code id="gd-idm111344" display="block">codeline term
+</code></term>.</para><para id="gd-idm110768">This paragraph has just been thrown in to ensure that it is styled correctly. It has nothing to say, but is long anwyay, just to make sure that it continues to the next line.</para></example><example id="example_codeblock"><code id="gd-idm294944" display="block">&lt;html&gt; &lt;head&gt; &lt;title&gt;Codeblock within the example tag&lt;/title&gt; &lt;/head&gt; &lt;body bgcolor="#ffffff" link="#990000"&gt;
+</code></example><example id="example_list"><list id="gd-idm146816" list-type="enumerated"><item><title id="c567d094-8b20-694f-0447-25e41bab0535">Example List in Example</title></item><item>This is an enumerated list item.</item><item>This is another item with a list inside of it.
+<list id="gd-idm205056"><item>This is a bulleted list item</item><item>This is another bulleted list item</item></list></item></list></example><example id="example_figure"><media id="gd-idm92176" alt=""><image mime-type="" src="lena.png"/></media>This figure is inside of the <code id="gd-idm90992" display="block">&lt;example&gt;
+</code> tag.</example><example id="example_table"><table id="gd-idm439696" summary="" pgwide="1"><tgroup cols="4"><colspec colnum="1" colwidth=""/><colspec colnum="2" colwidth=""/><colspec colnum="3" colwidth=""/><colspec colnum="4" colwidth=""/><tbody><row><entry>Continuous-Time Fourier Series</entry><entry><m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Continuous-Time Circular</entry></row><row><entry>Continuous-Time Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Continuous-Time Linear</entry></row><row><entry>Discrete-Time Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Discrete-Time Linear</entry></row><row><entry>Discrete Fourier Transform</entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry><m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></entry><entry>Discrete-Time Circular</entry></row></tbody></tgroup></table></example><example id="example_definition"><para id="gd-idm456928"><newline/></para><definition id="note_example"><term id="gd-idm456304">note</term><meaning id="id3664792">A short letter.</meaning><example id="noteex1_example"><para id="gd-idm367776">Bob, Your son called. -Mary</para></example></definition><para id="gd-idm367472"><newline/></para>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.proof nameYour favorite proof goes here.Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.<para id="gd-idm354688">Sulfuric and Hydrochloric Acid are very dangerous. Please hande with caution.Sulfuric and Hydrochloric Acid are very dangerous. Please hande with caution.</para></example><definition id="asjf903"><term id="gd-idm353888">23h8902</term><meaning id="id3664980">aj2390tj</meaning></definition><para id="gd-idm331456"><newline/></para>jaf3j9w0gea ja jdlfasdnfl</section>
+    <section id="gd-idm331024">
       <title>Exercise</title>
       <exercise id="swsuper">
         <problem id="id3665038">
-          <para id="gd-idp52432">Express a square wave having period <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>   and amplitude <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>    as a superposition of delayed and amplitude-scaled pulses.</para>
-          <para id="gd-idm162656">This is an extra paragraph thrown in for styling purposes.</para>
+          <para id="gd-idm329744">Express a square wave having period <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>   and amplitude <m:math><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>    as a superposition of delayed and amplitude-scaled pulses.</para>
+          <para id="gd-idm90464">This is an extra paragraph thrown in for styling purposes.</para>
         </problem>
         <solution id="cnxn_to_single_solution">
-          <para id="gd-idm217360">This is a paragraph that begins a solution. The equation is nested in the paragraph.</para>
+          <para id="gd-idm89840">This is a paragraph that begins a solution. The equation is nested in the paragraph.</para>
           <equation id="solution">
             <m:math>
               <m:merror>
@@ -152,49 +153,49 @@
               </m:merror>
             </m:math>
           </equation>
-          <para id="gd-idp918176">This is an extra paragraph thrown in for styling purposes.</para>
+          <para id="gd-idm336240">This is an extra paragraph thrown in for styling purposes.</para>
         </solution>
       </exercise>
       <example id="element-729">
         <exercise id="exercise_in_example_1">
           <problem id="id3665275">
-            <para id="gd-idm91056">Problem Text Here</para>
+            <para id="gd-idm318384">Problem Text Here</para>
           </problem>
           <solution id="cnxn_to_single_solution_in_example">
-            <para id="gd-idm90304">Solution Text Here</para>
+            <para id="gd-idm473280">Solution Text Here</para>
           </solution>
         </exercise>
         <example id="element-2839">
           <exercise id="element-2934">
             <problem id="id3665333">
-              <para id="gd-idm127440">Exercise/problem nested inside example nested inside example.</para>
+              <para id="gd-idm471760">Exercise/problem nested inside example nested inside example.</para>
             </problem>
             <solution id="id3665352">
-              <para id="gd-idm111104">Solution nested inside example nested inside example.</para>
+              <para id="gd-idm323552">Solution nested inside example nested inside example.</para>
             </solution>
           </exercise>
         </example>
-        <section id="gd-idm110704">
+        <section id="gd-idm323152">
           <title>section for testing purposes only</title>
-          <div id="gd-idm110320"/>
+          <div id="gd-idm322768"/>
         </section>
         <exercise id="element-426">
           <problem id="id3665396">
-            <para id="gd-idm89584">Problem Text Here</para>
+            <para id="gd-idm346912">Problem Text Here</para>
           </problem>
           <solution id="id3665413">
-            <para id="gd-idm88896">Solution Text Here</para>
+            <para id="gd-idm346224">Solution Text Here</para>
           </solution>
         </exercise>
         <exercise id="exercise_in_example_2">
           <problem id="cnxn_to_problem_in_example">
-            <para id="gd-idm87664">Problem Text Here</para>
+            <para id="gd-idm477456">Problem Text Here</para>
           </problem>
           <solution id="id3665462">
-            <para id="gd-idm86976">Solution 1 Text Here</para>
+            <para id="gd-idm476768">Solution 1 Text Here</para>
           </solution>
           <solution id="cnxn_to_2nd_solution_in_example">
-            <para id="gd-idm86272">Solution 2 Text Here</para>
+            <para id="gd-idm325680">Solution 2 Text Here</para>
           </solution>
         </exercise>
       </example>
@@ -210,54 +211,54 @@
           </equation>
         </problem>
         <solution id="id3665646">
-          <para id="gd-idp53680">The solution is to use Mozilla, and not IE, nor Netscape. The latter two browsers have serious CSS bugs. For an equation inside a solution, see the above exercise.</para>
+          <para id="gd-idm364096">The solution is to use Mozilla, and not IE, nor Netscape. The latter two browsers have serious CSS bugs. For an equation inside a solution, see the above exercise.</para>
         </solution>
         <solution id="cnxn_to_2nd_solution">
-          <para id="gd-idp54480">Note the ability to have more than one solution per exercise.</para>
+          <para id="gd-idm363296">Note the ability to have more than one solution per exercise.</para>
         </solution>
       </exercise>
       <exercise id="element-316">
         <problem id="id3665697">
-          <para id="gd-idm78944">This exercise contains a problem but no solution</para>
+          <para id="gd-idm356208">This exercise contains a problem but no solution</para>
         </problem>
       </exercise>
       <example id="following_example">
         <exercise id="following_example_exercise">
           <problem id="id3665736">
-            <para id="gd-idp55568">Another exercise in an an example following the other ones</para>
+            <para id="gd-idm352672">Another exercise in an an example following the other ones</para>
           </problem>
           <solution id="id3665753">
-            <para id="gd-idp56224">Solution text</para>
+            <para id="gd-idm352016">Solution text</para>
           </solution>
         </exercise>
       </example>
     </section>
-    <section id="gd-idp56640">
+    <section id="gd-idm351520">
       <title>Codeline and Codeblock</title>
-      <para id="gd-idm116688">Try running this in MATLAB.</para>
-      <para id="gd-idm116432">
-        <code id="gd-idm116304" display="block">for
+      <para id="gd-idm370272">Try running this in MATLAB.</para>
+      <para id="gd-idm370016">
+        <code id="gd-idm369888" display="block">for
  n=1:1000 y(n) = sum(a.*y(n-1:-1:n-p)) + sum(b.*x(n:-1:n-q)); end
 </code>
       </para>
-      <para id="gd-idm115776">The <code id="gd-idm115520" display="block">for
+      <para id="gd-idm369360">The <code id="gd-idm369104" display="block">for
 </code> command repeats its contents while incrementing a counter.</para>
-      <para id="gd-idm83664">
-        <code id="gd-idm83536" display="block">&lt;!-- some codeline and codeblock are 
+      <para id="gd-idm362608">
+        <code id="gd-idm362480" display="block">&lt;!-- some codeline and codeblock are 
 emphasized
  more than others --&gt;
 </code>
       </para>
-      <para id="gd-idm82976">
-        <code id="gd-idm82848" display="block">&lt;!-- codeline can be 
+      <para id="gd-idm361920">
+        <code id="gd-idm361792" display="block">&lt;!-- codeline can be 
 linked
  and 
 cnxn'ed
  too --&gt;
 </code>
       </para>
-      <para id="gd-idm107440">
-        <code id="gd-idm107312" display="block">codeblock can be 
+      <para id="gd-idm361264">
+        <code id="gd-idm349392" display="block">codeblock can be 
 linked
  and 
 cnxn'ed
@@ -265,39 +266,51 @@ cnxn'ed
 </code>
       </para>
     </section>
-    <section id="gd-idm106448">
+    <section id="gd-idm348528">
       <title>Definition, Term, Meaning, and Example</title>
       <definition id="note">
-        <term id="gd-idm86000">note</term>
+        <term id="gd-idm347728">note</term>
         <meaning id="id3665970">A short letter.</meaning>
         <example id="noteex1">
-          <para id="gd-idm84720">Bob, Your son called. -Mary</para>
+          <para id="gd-idm350144">Bob, Your son called. -Mary</para>
         </example>
         <meaning id="id3665994">A different meaning for the term.</meaning>
         <example id="noteex2">
-          <para id="gd-idm125888">A first example.</para>
+          <para id="gd-idm341008">A first example.</para>
         </example>
         <example id="noteex3">
-          <para id="gd-idm125200">A second example.</para>
+          <para id="gd-idm340320">A second example.</para>
         </example>
       </definition>
-      <para id="gd-idm113200">I can also define a new <term id="gd-idm112896">term</term> in the middle of a sentence. A term is a new word that is being defined for the first time.</para>
-      <para id="gd-idm112400">The following definition will be the child of a <code id="gd-idm112080" display="block">&lt;para&gt;
+      <para id="gd-idm340064">I can also define a new <term id="gd-idm345520">term</term> in the middle of a sentence. A term is a new word that is being defined for the first time.</para>
+      <para id="gd-idm345024">The following definition will be the child of a <code id="gd-idm344704" display="block">&lt;para&gt;
 </code> tag to ensure that it is styled well.</para>
       <definition id="perl_definition">
-        <term id="gd-idm101216">#!/usr/local/bin/perl/</term>
+        <term id="gd-idm314464">
+          <code id="gd-idm314304" display="block">#!/usr/local/bin/perl/
+</code>
+        </term>
         <meaning id="id3666104">The first line of every Perl program</meaning>
         <example id="perl_example">
-          <para id="gd-idm99888">This program will produce a 2-column listing of a file.</para>
-          <code id="gd-idm130336" display="block">#!/usr/local/bin/perl/ while( $1 = &gt;STDIN&gt; ) { chop( $1 ); if( $1 =~ s/^Desig:\s+// ) { $desig = $1; next; } if( $1 =~ s/^Area:\s+// ) { $area = $1; printf( "%-12s %\n", $desig, $area ); } }
+          <para id="gd-idm360912">This program will produce a 2-column listing of a file.</para>
+          <code id="gd-idm360560" display="block">#!/usr/local/bin/perl/ while( $1 = &gt;STDIN&gt; ) { chop( $1 ); if( $1 =~ s/^Desig:\s+// ) { $desig = $1; next; } if( $1 =~ s/^Area:\s+// ) { $area = $1; printf( "%-12s %\n", $desig, $area ); } }
 </code>
-          <para id="gd-idm129600">This sentence contains a term which is <term id="gd-idm129296">half regular half codeline</term>.</para>
+          <para id="gd-idm359824">This sentence contains a term which is <term id="gd-idm359568">half regular <code id="gd-idm359280" display="block">half codeline
+</code></term>.</para>
         </example>
       </definition>
-      <para id="gd-idm128832">Feast your eyes on this: <term id="gd-idm109216">#!/usr/local/bin/perl/</term> is a term smack dab in the middle of a sentence! Amazing! This example, <term id="gd-idm108832">#!/usr/local/bin/perl/</term> , is a codeline term with emphasis on <code id="gd-idm108400" display="block">/local/
-</code>. The next example is a <term id="gd-idp200880">codeline term with a link and cnxn</term>.</para>
+      <para id="gd-idm335136">Feast your eyes on this: <term id="gd-idm334880"><code id="gd-idm334752" display="block">#!/usr/local/bin/perl/
+</code></term> is a term smack dab in the middle of a sentence! Amazing! This example, <term id="gd-idm334096"><code id="gd-idm333968" display="block">#!/usr
+/local/
+bin/perl/
+</code></term> , is a codeline term with emphasis on <code id="gd-idm108896" display="block">/local/
+</code>. The next example is a <term id="gd-idm108224"><code id="gd-idm108064" display="block">codeline term with a 
+link
+ and 
+cnxn
+</code></term>.</para>
       <definition id="definition_equation">
-        <term id="gd-idp201744">equation</term>
+        <term id="gd-idm154192">equation</term>
         <meaning id="id3666293">
           <equation id="meaning_equation">
             <title id="9be1767e-3472-7a8d-b874-118572759c65">This equation has been thrown in as a child of meaning for styling purposes</title>
@@ -310,34 +323,34 @@ cnxn'ed
         </meaning>
       </definition>
     </section>
-    <section id="gd-idm105024">
+    <section id="gd-idm130320">
       <title>Note</title>
-      <para id="gd-idm104640">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrochloric acid. Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</para>
-      <para id="gd-idm104176">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuri and Hydrochloric acid. This note does not have a string in its type attribute. Please handle with caution.</para>
+      <para id="gd-idm129936">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrochloric acid. Sulfuric and Hydrochloric Acid are very dangerous. Please handle with caution.</para>
+      <para id="gd-idm129472">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuri and Hydrochloric acid. This note does not have a string in its type attribute. Please handle with caution.</para>
       <note id="cnxn_to_null_note">This note does <emphasis effect="bold">not</emphasis> have a type attribute. Please handle with caution.</note>
-      <para id="gd-idm102432">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrocholic acid.</para>
+      <para id="gd-idm237392">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrocholic acid.</para>
       <footnote id="id3666538">Sulfuric and Hydrochloric Acid are <emphasis effect="bold">very dangerous</emphasis>. Please handle with caution.</footnote>
-      <para id="gd-idm96624">Adding another footnote here.</para>
+      <para id="gd-idm333200">Adding another footnote here.</para>
       <footnote id="cnxn_to_footnote">This note was added to test styling.</footnote>
-      <para id="gd-idm99632">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrocholic acid.</para>
-      <footnote id="id3666581">Sulfuric and Hydrochloric Acid are <emphasis effect="bold">very dangerous</emphasis>. Please handle with caution. Also handle this note with caution, because it contains the attribute <code id="gd-idm97920" display="block">type="FOOTNOTE"
-</code>, not <code id="gd-idp191568" display="block">type="footnote"
+      <para id="gd-idm332320">Chemistry lab was always a lot of fun. We played with a lot of chemicals such as Sulfuric and Hydrocholic acid.</para>
+      <footnote id="id3666581">Sulfuric and Hydrochloric Acid are <emphasis effect="bold">very dangerous</emphasis>. Please handle with caution. Also handle this note with caution, because it contains the attribute <code id="gd-idm119744" display="block">type="FOOTNOTE"
+</code>, not <code id="gd-idm339632" display="block">type="footnote"
 </code>, and will thus be styled differently.</footnote>
     </section>
-    <section id="gd-idp192400"><title>Rule</title>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.This proof was thrown into to have a child of equation for styling purposes<m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.<para id="gd-idp211856"><newline/></para>If <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   is real, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>This result follows from the integral that calculates the <m:math display="inline"><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>   from the signal. Furthermore, this result means that <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   : The real part of the Fourier coefficients for real-valued signals is even. Similarly, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   : The imaginary parts of the Fourier coefficients have odd symmetry. Consequently, if you are given the Fourier coefficients for positive indices and zero and are told the signal is real-valued, you can find the negative-indexed coefficients, hence the entire spectrum. This kind of symmetry, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>    , is known as conjugate symmetry. We can phrase the property concisely by saying: PropertyReal-valued periodic signals have a conjugate-symmetric spectrum.<para id="gd-idp108640">The Fourier series obeys:</para>Parseval's TheoremPower calculated in the time domain equals the power calculated in the frequency domain.<equation id="parsevaleqn"><m:math display="block"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation><para id="gd-idm232016">This result is a (simpler) re-expression of how to calculate a signal's power than with the</para><link url="/m0062#power" window="new">real-valued Fourier series expression for power</link><para id="gd-idm203680">.</para></section>
-    <section id="gd-idm124688">
+    <section id="gd-idm338800"><title>Rule</title>Pythagorean TheoremOn a right triangle, the sum of the squares of the sides equals the square of the hypotenus.This proof was thrown into to have a child of equation for styling purposes<m:math><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>Take a right triangle whose sides are of length 3, 4, and 5. In this case the sum of the square of the two shorter sides is 9+16=25. The square of the hypotenus is 25. So the theorem holds.<para id="gd-idm399920"><newline/></para>If <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   is real, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>This result follows from the integral that calculates the <m:math display="inline"><m:merror><m:mtext>Unknown node type: ci</m:mtext></m:merror></m:math>   from the signal. Furthermore, this result means that <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   : The real part of the Fourier coefficients for real-valued signals is even. Similarly, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>   : The imaginary parts of the Fourier coefficients have odd symmetry. Consequently, if you are given the Fourier coefficients for positive indices and zero and are told the signal is real-valued, you can find the negative-indexed coefficients, hence the entire spectrum. This kind of symmetry, <m:math display="inline"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math>    , is known as conjugate symmetry. We can phrase the property concisely by saying: PropertyReal-valued periodic signals have a conjugate-symmetric spectrum.<para id="gd-idm46144">The Fourier series obeys:</para>Parseval's TheoremPower calculated in the time domain equals the power calculated in the frequency domain.<equation id="parsevaleqn"><m:math display="block"><m:merror><m:mtext>Unknown node type: apply</m:mtext></m:merror></m:math></equation><para id="gd-idm85952">This result is a (simpler) re-expression of how to calculate a signal's power than with the</para><link url="/m0062#power" window="new">real-valued Fourier series expression for power</link><para id="gd-idm84784">.</para></section>
+    <section id="gd-idm338176">
       <title>Cite</title>
-      <para id="gd-idm203168">Useful information about the color blue can be found in The Big Book of the Color Blue.</para>
-      <para id="gd-idm202912">Emphatic information about emphasizing can be found in The Gigantic Book of Emphasis.</para>
+      <para id="gd-idm159744">Useful information about the color blue can be found in The Big Book of the Color Blue.</para>
+      <para id="gd-idm159488">Emphatic information about emphasizing can be found in The Gigantic Book of Emphasis.</para>
     </section>
-    <section id="gd-idm202624"><title>Figures</title><para id="gd-idp203168">Here is an example of a figure with a large table inside it. For exhaustive examples of figures, subfigures, and captions in many shapes, sizes, and combinations, see <link url="/m10221" window="new">[link]</link>. Currently, figures cannot be placed in paragraph tags.</para>Ascii tableTable 2Income12,29312,39814,298Expenditure293398298Surplus120001200014000
-And here we can add more information about the table in a caption!<section id="gd-idp204848"><title>Subfigures</title>The Subsequent Figure Does Not Have a Name<media id="gd-idp66160" alt=""><image mime-type="" src="lena.png"/></media>Lena<media id="gd-idp67440" alt=""><image mime-type="" src="lenamesh.png"/></media>Lena as a signal<media id="gd-idm213600" alt=""><image mime-type="" src="lena.png"/></media>Lena again
-On the left and right is the classic "Lena" image, which is used ubiquitously as a test image. It contains straight and curved lines, complicated texture, and a face. In the middle is a perspective display of the Lena image as a signal: a function of two spatial variables. The colors merely help show what signal values are about the same size. In this image, signal values range between 0 and 255; why is that?<media id="gd-idm211936" alt=""><image mime-type="" src="lena.png"/></media>Lena<media id="gd-idp921296" alt=""><image mime-type="" src="lenamesh.png" height="145" width="180"/></media>Lena as a signal
-This example is the same as the last, except that orient='vertical'. So, the subfigures should be on top of each other.<div id="gd-idp65856"/></section></section>
-    <section id="gd-idm122048">
+    <section id="gd-idm159200"><title>Figures</title><para id="gd-idm158816">Here is an example of a figure with a large table inside it. For exhaustive examples of figures, subfigures, and captions in many shapes, sizes, and combinations, see <link url="/m10221" window="new">[link]</link>. Currently, figures cannot be placed in paragraph tags.</para>Ascii tableTable 2Income12,29312,39814,298Expenditure293398298Surplus120001200014000
+And here we can add more information about the table in a caption!<section id="gd-idm157328"><title>Subfigures</title>The Subsequent Figure Does Not Have a Name<media id="gd-idp69984" alt=""><image mime-type="" src="lena.png"/></media>Lena<media id="gd-idp71216" alt=""><image mime-type="" src="lenamesh.png"/></media>Lena as a signal<media id="gd-idp683168" alt=""><image mime-type="" src="lena.png"/></media>Lena again
+On the left and right is the classic "Lena" image, which is used ubiquitously as a test image. It contains straight and curved lines, complicated texture, and a face. In the middle is a perspective display of the Lena image as a signal: a function of two spatial variables. The colors merely help show what signal values are about the same size. In this image, signal values range between 0 and 255; why is that?<media id="gd-idp684832" alt=""><image mime-type="" src="lena.png"/></media>Lena<media id="gd-idm171184" alt=""><image mime-type="" src="lenamesh.png" height="145" width="180"/></media>Lena as a signal
+This example is the same as the last, except that orient='vertical'. So, the subfigures should be on top of each other.<div id="gd-idp69488"/></section></section>
+    <section id="gd-idm168944">
       <title>Tables</title>
-      <para id="gd-idm121664">Here's is a very simple example of a table, similiar to ones seen previously in this module.</para>
-      <table id="gd-idm121296" summary="" pgwide="1">
+      <para id="gd-idm126784">Here's is a very simple example of a table, similiar to ones seen previously in this module.</para>
+      <table id="gd-idm126416" summary="" pgwide="1">
         <tgroup cols="4">
           <colspec colnum="1" colwidth=""/>
           <colspec colnum="2" colwidth=""/>
@@ -366,14 +379,14 @@ This example is the same as the last, except that orient='vertical'. So, the sub
         </tgroup>
       </table>
     </section>
-    <section id="gd-idm50928">
+    <section id="gd-idm105152">
       <title>Quotes and Foreign Terms</title>
-      <para id="gd-idp1472">Two new elements added in CNXML 0.5 are <term id="gd-idp1728">quote</term> and <term id="gd-idp2112">foreign</term>. A <term id="gd-idp2496">quote</term> of type "block" might look like this:  Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term id="gd-idp3104">quote</term> of type 'inline'): .</para>
-      <para id="gd-idp3552">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as Fahrvergn&#252;gen and sang-froid.</para>
-      <para id="gd-idp109984">IrrelevantIt is possible to include a block quote inside a note, with foreign elements interspersed: "Freundschaftsbezeigungen" seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." "Unabh&#228;ngigkeitserkl&#228;rungen" seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. "Generalstaatsverordnetenversammlungen" seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge. --Mark Twain, "The Awful German Language"</para>
+      <para id="gd-idm104768">Two new elements added in CNXML 0.5 are <term id="gd-idm104512">quote</term> and <term id="gd-idm104128">foreign</term>. A <term id="gd-idm492624">quote</term> of type "block" might look like this:  Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <term id="gd-idm492016">quote</term> of type 'inline'): .</para>
+      <para id="gd-idm491568">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as <foreign>Fahrvergn&#252;gen</foreign> and <foreign id="cnxn_to_foreign">sang-froid</foreign>.</para>
+      <para id="gd-idm490000">IrrelevantIt is possible to include a block quote inside a note, with foreign elements interspersed: "Freundschaftsbezeigungen" seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." "Unabh&#228;ngigkeitserkl&#228;rungen" seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. "Generalstaatsverordnetenversammlungen" seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge. --Mark Twain, "The Awful German Language"</para>
     </section>
-    <section id="gd-idp111040"><title>Conclusion</title><para id="gd-idp111424">For more information on all of the CNXML used in this module, please refer to the <link url="http://cnx.rice.edu/cnxml/0.5/spec/" window="new">CNXML Spec</link>.</para><media id="gd-idp914832" alt=""><image mime-type="" src="tall-72.png"/></media>72 dpi<media id="gd-idp916064" alt=""><image mime-type="" src="tall-150.png"/></media>150 dpi<media id="gd-idp922752" alt=""><image mime-type="" src="tall-300.png"/></media>300 dpi
-An example of how media that appear to be the same size on screen can be a different size in print due to resolution.<para id="gd-idp924128">"</para></section>
+    <section id="gd-idm134224"><title>Conclusion</title><para id="gd-idm133840">For more information on all of the CNXML used in this module, please refer to the <link url="http://cnx.rice.edu/cnxml/0.5/spec/" window="new">CNXML Spec</link>.</para><media id="gd-idm132688" alt=""><image mime-type="" src="tall-72.png"/></media>72 dpi<media id="gd-idm131456" alt=""><image mime-type="" src="tall-150.png"/></media>150 dpi<media id="gd-idm163456" alt=""><image mime-type="" src="tall-300.png"/></media>300 dpi
+An example of how media that appear to be the same size on screen can be a different size in print due to resolution.<para id="gd-idm162080">"</para></section>
   </content>
 </document>
 
