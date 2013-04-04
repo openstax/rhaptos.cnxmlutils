@@ -9,4 +9,7 @@ Code is hosted at:
 - http://github.com/rochecompaan/rhaptos.cnxmlutils/
 - https://software.cnx.rice.edu/svn/rhaptos/packages/rhaptos.cnxmlutils/trunk
 
-The license can be found at LICENSE.txt
+License
+-------
+
+This software is subject to the provisions of the GNU Affero General Public License Version 3.0 (AGPL). See license.txt for details. Copyright (c) 2013 Rice University
