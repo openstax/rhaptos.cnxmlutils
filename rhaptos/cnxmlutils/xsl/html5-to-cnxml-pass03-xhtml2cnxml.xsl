@@ -91,66 +91,16 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </xsl:choose>
 </xsl:template>
 
-<!-- div equation -->
-<xsl:template match="xh:div[@class = 'equation']">
-  <equation>
-    <!-- TODO: id -->
+<!-- div copy classes to new tags -->
+<xsl:template match="xh:div[@class]">
+  <xsl:element name="{@class}">
+    <xsl:if test="@id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="@id"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates/>
-  </equation>
-</xsl:template>
-
-<!-- div titles -->
-<xsl:template match="xh:div[@class = 'title']">
-  <title>
-    <!-- TODO: id -->
-    <xsl:value-of select="."/>
-  </title>
-</xsl:template>
-
-<!-- div example -->
-<xsl:template match="xh:div[@class = 'example']">
-  <example>
-    <!-- TODO: id -->
-    <xsl:apply-templates/>
-  </example>
-</xsl:template>
-
-<!-- div meaning -->
-<xsl:template match="xh:div[@class = 'meaning']">
-  <meaning>
-    <!-- TODO: id -->
-    <xsl:apply-templates/>
-  </meaning>
-</xsl:template>
-
-<!-- div definition -->
-<xsl:template match="xh:div[@class = 'definition']">
-  <definition>
-    <!-- TODO: id -->
-    <xsl:apply-templates/>
-  </definition>
-</xsl:template>
-
-<!-- div exercise -->
-<xsl:template match="xh:div[@class = 'exercise']">
-  <exercise>
-    <!-- TODO: id -->
-    <xsl:apply-templates/>
-  </exercise>
-</xsl:tenmplate>
-
-<!-- div problem -->
-<xsl:template match="xh:div[@class = 'problem']">
-  <problem>
-    <xsl:apply-templates/>
-  </problem>
-</xsl:template>
-
-<!-- div solution -->
-<xsl:template match="xh:div[@class = 'solution']">
-  <solution>
-    <xsl:apply-templates/>
-  </solution>
+  </xsl:element>
 </xsl:template>
 
 <!-- paragraphs -->
