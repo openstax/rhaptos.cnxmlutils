@@ -193,11 +193,13 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- span copy classes to cnxml tags -->
 <xsl:template match="xh:span[@class]">
   <xsl:element name="{@class}">
+    <!-- TODO: ignore ids for now
     <xsl:if test="@id">
       <xsl:attribute name="id">
         <xsl:value-of select="@id"/>
       </xsl:attribute>
     </xsl:if>
+    -->
     <xsl:apply-templates/>
   </xsl:element>
 </xsl:template>
