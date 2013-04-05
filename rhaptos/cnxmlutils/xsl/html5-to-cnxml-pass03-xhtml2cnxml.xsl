@@ -112,30 +112,35 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <!-- em (italics) -->
 <xsl:template match="xh:em">
-  <xsl:choose>
-    <xsl:when test="not(ancestor::xh:strong|ancestor::xh:em)">
-      <emphasis effect="italics">
-        <xsl:apply-templates/>
-      </emphasis>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:apply-templates/>
-    </xsl:otherwise>
-  </xsl:choose>
+  <emphasis effect="italics">
+    <xsl:apply-templates/>
+  </emphasis>
 </xsl:template>
 
 <!-- strong (bold) -->
 <xsl:template match="xh:strong">
-  <xsl:choose>
-    <xsl:when test="not(ancestor::xh:strong|ancestor::xh:em)">
-      <emphasis effect="bold">
-        <xsl:apply-templates/>
-      </emphasis>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:apply-templates/>
-    </xsl:otherwise>
-  </xsl:choose>
+  <emphasis effect="bold">
+    <xsl:apply-templates/>
+  </emphasis>
+</xsl:template>
+
+<!-- underline -->
+<xsl:template match="xh:u">
+  <emphasis effect="underline">
+    <xsl:apply-templates/>
+  </emphasis>
+</xsl:template>
+
+<xsl:template match="xh:sub">
+  <sub>
+    <xsl:apply-templates/>
+  </sub>
+</xsl:template>
+
+<xsl:template match="xh:sup">
+  <sup>
+    <xsl:apply-templates/>
+  </sup>
 </xsl:template>
 
 <!-- br -->
@@ -486,10 +491,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:small
 	|xh:strike
 	|xh:title
-	|xh:u
   |xh:b
-	|xh:sub
-	|xh:sup
 	|xh:label
 	|xh:link
 	|xh:font
