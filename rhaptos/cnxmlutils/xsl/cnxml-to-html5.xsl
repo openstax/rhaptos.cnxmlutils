@@ -161,6 +161,14 @@
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
+<xsl:template match="c:statement">
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
+<xsl:template match="c:proof">
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
 <xsl:template match="c:quote">
   <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
 </xsl:template>
