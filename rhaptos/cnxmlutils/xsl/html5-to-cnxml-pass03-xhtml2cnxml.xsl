@@ -95,9 +95,11 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <xsl:template match="xh:div[@class]">
   <xsl:element name="{@class}">
     <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
+      <xsl:if test="string(number(substring(@id,1,1))) = 'NaN'"> <!-- check if first character is number -->
+        <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+        </xsl:attribute>
+      </xsl:if>
     </xsl:if>
     <xsl:apply-templates/>
   </xsl:element>
@@ -198,13 +200,13 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- span copy classes to cnxml tags -->
 <xsl:template match="xh:span[@class]">
   <xsl:element name="{@class}">
-    <!-- TODO: ignore ids for now
     <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="@id"/>
-      </xsl:attribute>
+      <xsl:if test="string(number(substring(@id,1,1))) = 'NaN'">
+        <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+        </xsl:attribute>
+      </xsl:if>
     </xsl:if>
-    -->
     <xsl:apply-templates/>
   </xsl:element>
 </xsl:template>
