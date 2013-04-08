@@ -81,6 +81,12 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="@type">
+  <xsl:attribute name="data-{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
 <xsl:template match="c:content">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
@@ -157,7 +163,7 @@
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:rule[not(@type)]">
+<xsl:template match="c:rule">
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
@@ -173,13 +179,13 @@
   <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
 </xsl:template>
 
-<xsl:template match="c:code[not(@type)]">
+<xsl:template match="c:code">
   <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="c:note[not(@type)]">
+<xsl:template match="c:note">
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
@@ -310,7 +316,7 @@
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
-<xsl:template match="c:figure[not(@orient or @type)]|c:subfigure[not(@type)]">
+<xsl:template match="c:figure[not(@orient)]|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
@@ -399,7 +405,7 @@
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
 
-<xsl:template match="c:definition[not(@type)]">
+<xsl:template match="c:definition">
   <div class="definition">
     <xsl:apply-templates select="@*|node()"/>
   </div>  
@@ -411,7 +417,7 @@
   </div>  
 </xsl:template>
 
-<xsl:template match="c:seealso[not(@type)]">
+<xsl:template match="c:seealso">
   <span class="seealso">
     <xsl:apply-templates select="@*|node()"/>
   </span>  
