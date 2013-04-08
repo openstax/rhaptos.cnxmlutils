@@ -74,7 +74,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <!-- HTML body -->
 <xsl:template match="xh:body">
-  <xsl:apply-templates/>
+  <xsl:apply-templates select="@*|node()"/>
 </xsl:template>
 
 <!-- div -->
@@ -82,11 +82,11 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   <xsl:choose>
     <xsl:when test="./text()">
       <para>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
       </para>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="@*|node()"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -101,47 +101,47 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
 
 <!-- paragraphs -->
 <xsl:template match="xh:p">
   <para>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </para>
 </xsl:template>
 
 <!-- em (italics) -->
 <xsl:template match="xh:em">
   <emphasis effect="italics">
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </emphasis>
 </xsl:template>
 
 <!-- strong (bold) -->
 <xsl:template match="xh:strong">
   <emphasis effect="bold">
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </emphasis>
 </xsl:template>
 
 <!-- underline -->
 <xsl:template match="xh:u">
   <emphasis effect="underline">
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </emphasis>
 </xsl:template>
 
 <xsl:template match="xh:sub">
   <sub>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </sub>
 </xsl:template>
 
 <xsl:template match="xh:sup">
   <sup>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </sup>
 </xsl:template>
 
@@ -155,27 +155,27 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   <xsl:choose>
     <!-- Do we have a header? Then do not apply any emphasis to the <title> -->
      <xsl:when test="parent::cnhtml:h">
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="@*|node()"/>
     </xsl:when>
     <!-- First super- and supformat text -->
     <xsl:when test="contains(@style, 'vertical-align:super')">
       <sup>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
       </sup>
     </xsl:when>
     <xsl:when test="contains(@style, 'vertical-align:sub')">
       <sub>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
       </sub>
     </xsl:when>
     <xsl:when test="contains(@style, 'font-style:italic')">
       <emphasis effect='italics'>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
       </emphasis>
     </xsl:when>
     <xsl:when test="contains(@style, 'font-weight:bold')">
       <emphasis effect='bold'>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
       </emphasis>
     </xsl:when>
     <xsl:when test="contains(@style, 'text-decoration:underline')">
@@ -183,16 +183,16 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       <xsl:choose>
         <xsl:when test="text()">
           <emphasis effect='underline'>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="@*|node()"/>
           </emphasis>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates/>
+          <xsl:apply-templates select="@*|node()"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="@*|node()"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -207,7 +207,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
 
@@ -234,7 +234,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       </para>
     </xsl:if>
     -->
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="@*|node()"/>
   </section>
 </xsl:template>
 
@@ -244,21 +244,21 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- unordered listings -->
 <xsl:template match="xh:ul">
     <list>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
     </list>
 </xsl:template>
 
 <!-- ordered listings -->
 <xsl:template match="xh:ol">
     <list list-type="enumerated">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
     </list>    
 </xsl:template>
 
 <!-- listings content -->
 <xsl:template match="xh:li">
     <item>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="@*|node()"/>
     </item>
 </xsl:template>
 
@@ -361,7 +361,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	        <xsl:attribute name="bookmark">
 	          <xsl:value-of select="@href"/>
 	        </xsl:attribute>
-	        <xsl:apply-templates/>
+	        <xsl:apply-templates select="@*|node()"/>
 	      </link>
       </xsl:when>
       <!-- external link -->
@@ -374,7 +374,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 		      <xsl:if test="not(starts-with(@href, 'mailto'))">
 		        <xsl:attribute name="window">new</xsl:attribute>
 		      </xsl:if>
-		      <xsl:apply-templates/>
+		      <xsl:apply-templates select="@*|node()"/>
 		    </link>
 	    </xsl:otherwise>
     </xsl:choose>
@@ -385,7 +385,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   		<xsl:attribute name="name">
   			<xsl:value-of select="@name"/>
   		</xsl:attribute>
-  		<xsl:apply-templates/>
+  		<xsl:apply-templates select="@*|node()"/>
   	</cnxtra:bookmark>
 	</xsl:if>
 </xsl:template>
@@ -499,16 +499,25 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:font
 	|xh:big
   ">
-<!--  <xsl:apply-templates/> -->
+<!--  <xsl:apply-templates select="@*|node()"/> -->
 </xsl:template>
   
-
-<!-- underline -->
-<!--
-<xsl:template match="hr">
-  <underline/>
+<!-- handle attributes -->
+<xsl:template match="@id">
+  <xsl:if test="string(number(substring(.,1,1))) = 'NaN'">
+    <xsl:copy/>
+  </xsl:if>
 </xsl:template>
--->
+
+<xsl:template match="@data-type">
+  <xsl:attribute name="type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
+<xsl:template match="@*">
+  <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/@<xsl:value-of select="local-name()"/></xsl:message>
+</xsl:template>
 
 <!-- handle math -->
 <xsl:template match="m:math">
