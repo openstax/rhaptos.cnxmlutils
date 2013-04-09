@@ -432,6 +432,16 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </figure>
 </xsl:template>
 
+<xsl:template match="xh:figure">
+  <figure>
+    <xsl:apply-templates select="@*|node()"/>
+  </figure>
+</xsl:template>
+
+<xsl:template match="xh:figcaption">
+  <xsl:apply-templates select="@*|node()"/>
+</xsl:template>
+
 <!-- TODO! ignore tags -->
 <xsl:template match="
 	xh:abbr
