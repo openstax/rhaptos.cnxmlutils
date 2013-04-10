@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Copyright (C) 2013 Rice University
+
+This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
+See LICENSE.txt for details.
+"""
+
+"""
 Converts HTML5 from Aloha to a more structured HTML5 where:
 - Headers are sections
 - Mathjax will be replaced with real MathML
