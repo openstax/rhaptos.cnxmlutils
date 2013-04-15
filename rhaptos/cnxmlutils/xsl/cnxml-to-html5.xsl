@@ -319,7 +319,6 @@
 <xsl:template match="c:figure[not(@orient)]|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
     <xsl:if test="c:caption or c:title">
       <figcaption>
         <xsl:apply-templates select="c:title"/>
@@ -327,6 +326,7 @@
         <xsl:apply-templates select="c:caption/node()"/>
       </figcaption>
     </xsl:if>
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
   </figure>
 </xsl:template>
 
