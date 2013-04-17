@@ -60,7 +60,7 @@ Deprecated:
   <xsl:choose>
   -->
     <!-- <xsl:if test="text()"> -->
-      <media>
+      <media alt="">
         <xsl:attribute name="alt">
           <xsl:value-of select="@alt"/>
         </xsl:attribute>
