@@ -521,10 +521,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <!-- convert data-attribute names to normal attributes -->
 <xsl:template match="@*[starts-with(name(), 'data-')]">
-  <xsl:variable name="attr">
-    <xsl:value-of select="substring(local-name(.), 6)"/>
-  </xsl:variable>
-  <xsl:attribute name="$attr">
+  <xsl:attribute name="{substring(name(), 6)}">
     <xsl:value-of select="."/>
   </xsl:attribute>  
 </xsl:template>
