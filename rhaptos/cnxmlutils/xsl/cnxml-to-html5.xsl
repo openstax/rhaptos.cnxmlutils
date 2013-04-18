@@ -77,11 +77,17 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@id|@class">
+<xsl:template match="@id">
   <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="@type">
+  <xsl:attribute name="data-{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
+<xsl:template match="@class">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>  
@@ -95,10 +101,6 @@
 <xsl:template mode="class" match="*">
   <xsl:param name="newClasses"/>
   <xsl:attribute name="class">
-    <xsl:if test="@class">
-      <xsl:value-of select="@class"/>
-      <xsl:text> </xsl:text>
-    </xsl:if>
     <xsl:if test="$newClasses">
       <xsl:value-of select="$newClasses"/>
       <xsl:text> </xsl:text>
@@ -106,7 +108,7 @@
     <xsl:value-of select="local-name()"/>
   </xsl:attribute>
 </xsl:template>
-
+ 
 <!-- ========================= -->
 
 <xsl:template match="c:title">
