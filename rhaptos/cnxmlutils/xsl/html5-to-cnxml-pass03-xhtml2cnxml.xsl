@@ -126,8 +126,8 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </emphasis>
 </xsl:template>
 
-<!-- underline -->
-<xsl:template match="xh:u">
+<!-- underline (first part is a tidy workaround) -->
+<xsl:template match="@class[contains(., 'c1')]|xh:u">
   <emphasis effect="underline">
     <xsl:apply-templates select="@*|node()"/>
   </emphasis>
