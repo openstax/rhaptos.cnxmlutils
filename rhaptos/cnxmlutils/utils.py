@@ -13,6 +13,7 @@ from functools import partial
 from tidylib import tidy_document # requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
 from xml.sax.saxutils import unescape # for unescaping math from Mathjax script tag
 from copy import deepcopy
+from xhtmlpremailer import xhtmlPremailer
 
 __all__ = (
     'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
@@ -54,8 +55,14 @@ def _tidy2xhtml5(html):
             'doctype': 'html5',
             })
     # print xhtml5
-    # quit()
     return xhtml5
+
+# Move CSS from stylesheet inside the tags with. BTW: Premailer does this usually for old email clients.
+# Use a special XHTML Premailer which does not destroy the XML structure.
+def _premail(xhtml):
+    premailer = xhtmlPremailer(xhtml)
+    premailed_xhtml = premailer.transform()
+    return premailed_xhtml
 
 def _io2string(s):
     """If necessary it will convert the io object to an string
@@ -125,7 +132,9 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
 def aloha_to_html(html_source):
     """Converts HTML5 from Aloha to a more structured HTML5"""
     tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
-    source = _string2io(tidy_xhtml5)
+    premailed_xhtml5 = _premail(tidy_xhtml5) # move css from classes to attributes
+    # print premailed_xhtml5
+    source = _string2io(premailed_xhtml5)
     xml = etree.parse(source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
