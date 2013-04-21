@@ -108,11 +108,23 @@
     <xsl:value-of select="local-name()"/>
   </xsl:attribute>
 </xsl:template>
- 
+
+<!-- ========================= -->
+
+<xsl:template match="c:label" />
+
+<xsl:template mode="label" match="c:label">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
+
 <!-- ========================= -->
 
 <xsl:template match="c:title">
-  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates mode="label" select="../c:label"/>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title">
@@ -188,7 +200,24 @@
 <!-- ========================= -->
 
 <xsl:template match="c:note">
-  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
+    <!-- <xsl:if test="*[1][name()='label'] and *[2][name()!='title']"> fails -->
+    <!-- <xsl:if test="child[1][name()='label']">  works -->
+    <!-- <xsl:if test="*[1][name()='label']"> works -->
+    <!-- <xsl:if test="child::*[1][name()='label']"> works -->
+    <!-- <xsl:if test="child::*[2][name()='title']"> works -->
+    <!-- <xsl:if test="child::*[2][name()!='title']"> fails -->
+    <!-- <xsl:if test="child::*[name()='label'] and child::*[name()='title']"> works -->
+    <!-- <xsl:if test="child::label[position()=1]"> fails -->
+    <!-- <xsl:if test="boolean(child::*[1][name()='label']) and boolean(child::*[2][name()!='title'])"> fails -->
+    <!-- <xsl:if test="boolean(child::*[1][name()='label']) and boolean(child::*[2][name()='title']) = false()"> works -->
+    <xsl:if test="boolean(*[1][name()='label']) and boolean(*[2][name()='title']) = false()">
+      <xsl:apply-templates mode="label" select="c:label"/>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </div>
 </xsl:template>
 
 <!-- ========================= -->
