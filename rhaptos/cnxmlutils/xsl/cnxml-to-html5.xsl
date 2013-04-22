@@ -204,7 +204,9 @@
   <div>
     <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*"/>
-    <xsl:if test="boolean(*[1][name()='label']) and boolean(*[2][name()='title']) = false()">
+    <!-- take care of label, if note has a label but not a title; 
+         title template handles the case when both title and label are present -->
+    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
       <xsl:apply-templates mode="label" select="c:label"/>
     </xsl:if>
     <xsl:apply-templates select="node()"/>
