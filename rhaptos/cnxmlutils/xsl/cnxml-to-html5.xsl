@@ -122,8 +122,9 @@
 <xsl:template match="c:title">
   <div>
     <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
     <xsl:apply-templates mode="label" select="../c:label"/>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="node()"/>
   </div>
 </xsl:template>
 
