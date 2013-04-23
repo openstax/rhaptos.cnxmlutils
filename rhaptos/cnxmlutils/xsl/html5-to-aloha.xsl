@@ -38,8 +38,4 @@ This simplified Aloha HTML5 fits more the Aloha structure and editing.
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="span[@class='media']">
-  <xsl:apply-templates/>
-</xsl:template>
-
 </xsl:stylesheet>

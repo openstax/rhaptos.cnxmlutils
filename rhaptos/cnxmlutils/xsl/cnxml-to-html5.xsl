@@ -425,6 +425,10 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="c:iframe">
+  <iframe><xsl:apply-templates select="@*|node()"/></iframe>
+</xsl:template>
+
 <!-- ========================= -->
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
