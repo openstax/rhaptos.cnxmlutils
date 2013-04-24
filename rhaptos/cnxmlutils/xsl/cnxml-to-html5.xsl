@@ -401,6 +401,12 @@
   </span>
 </xsl:template>
 
+<xsl:template match="c:media[child::c:iframe]">
+  <div class="media">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
   <img src="{@src}" data-mime-type="{@mime-type}">
