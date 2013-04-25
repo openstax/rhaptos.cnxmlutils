@@ -122,13 +122,18 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
     partial(_transform, 'aloha-to-html5-pass06-postprocessing.xsl'),
 ]
 
-def aloha_to_html(html_source):
-    """Converts HTML5 from Aloha to a more structured HTML5"""
+def aloha_to_etree(html_source):
+    """ Converts HTML5 from Aloha editor output to a lxml etree. """
     tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
     source = _string2io(tidy_xhtml5)
     xml = etree.parse(source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
+    return xml
+
+def aloha_to_html(html_source):
+    """Converts HTML5 from Aloha to a more structured HTML5"""
+    xml = aloha_to_etree(html_source)
     return etree.tostring(xml, pretty_print=True)
 
 def html_to_cnxml(html_source, cnxml_source):
