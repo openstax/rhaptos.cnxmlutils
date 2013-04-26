@@ -432,6 +432,20 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </figure>
 </xsl:template>
 
+<xsl:template match="xh:div[@class='media']/xh:iframe">
+  <iframe>
+    <xsl:attribute name="width">
+      <xsl:value-of select="@width"/>
+    </xsl:attribute>
+    <xsl:attribute name="height">
+      <xsl:value-of select="@height"/>
+    </xsl:attribute>
+    <xsl:attribute name="src">
+      <xsl:value-of select="@src"/>
+    </xsl:attribute>        
+  </iframe>
+</xsl:template>
+
 <xsl:template match="xh:figure">
   <figure>
     <xsl:apply-templates select="@*|node()"/>

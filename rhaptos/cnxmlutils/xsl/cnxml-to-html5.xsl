@@ -63,13 +63,13 @@
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
+
 <!-- MathJax doesn't like MathML with a prefix -->
 <xsl:template match="m:*">
   <xsl:element name="{local-name()}" namespaceURI="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
-
 
 <xsl:template match="node()[not(self::*)]" priority="-100">
   <xsl:copy>
@@ -81,13 +81,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type">
-  <xsl:attribute name="data-{local-name()}">
-    <xsl:value-of select="."/>
-  </xsl:attribute>  
-</xsl:template>
-
-<xsl:template match="@class">
+<xsl:template match="@type|@class|@alt">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>  
@@ -407,6 +401,12 @@
   </span>
 </xsl:template>
 
+<xsl:template match="c:media[child::c:iframe]">
+  <div class="media">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
   <img src="{@src}" data-mime-type="{@mime-type}">
@@ -423,6 +423,10 @@
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="c:iframe">
+  <iframe><xsl:apply-templates select="@*|node()"/></iframe>
 </xsl:template>
 
 <!-- ========================= -->
