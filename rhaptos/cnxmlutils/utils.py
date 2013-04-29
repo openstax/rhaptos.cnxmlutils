@@ -125,7 +125,7 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
 def aloha_to_etree(html_source):
     """ Converts HTML5 from Aloha editor output to a lxml etree. """
     tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
-    xml = etree.fromstring(tidy_xhtml5, etree.HTMLParser())
+    xml = etree.fromstring(tidy_xhtml5)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
     return xml
@@ -162,12 +162,15 @@ HTML2VALID_CNXML_TRANSFORM_PIPELINE = [
     partial(_transform, 'html5-to-cnxml-pass06-cnxml-postprocessing.xsl'),
 ]
 
+def etree_to_valid_cnxml(tree, **kwargs):
+    for i, transform in enumerate(HTML2VALID_CNXML_TRANSFORM_PIPELINE):
+        tree = transform(tree)
+    return etree.tostring(tree, **kwargs)
+
 def html_to_valid_cnxml(html_source):
     """Transform the HTML to valid CNXML (used for OERPUB). No original CNXML is needed.
     If HTML is from Aloha please use aloha_to_html before using this method
     """
     source = _string2io(html_source)
     xml = etree.parse(source)
-    for i, transform in enumerate(HTML2VALID_CNXML_TRANSFORM_PIPELINE):
-        xml = transform(xml)
-    return etree.tostring(xml, pretty_print=True)
+    return etree_to_valid_cnxml(xml, pretty_print=True)
