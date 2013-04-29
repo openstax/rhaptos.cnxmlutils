@@ -74,14 +74,9 @@ def _string2io(s):
 
 def _make_xsl(filename):
     """Helper that creates a XSLT stylesheet """
-    package = 'rhaptos.cnxmlutils'
-    sub_package = 'xsl'
-
-    if package != '':
-        pkg = package + '.' + sub_package
-        path = pkg_resources.resource_filename(pkg, filename)
-        xml = etree.parse(path)
-        return etree.XSLT(xml)
+    path = pkg_resources.resource_filename('rhaptos.cnxmlutils.xsl', filename)
+    xml = etree.parse(path)
+    return etree.XSLT(xml)
 
 def _transform(xsl_filename, xml):
     """Transforms the xml using the specifiec xsl file."""
