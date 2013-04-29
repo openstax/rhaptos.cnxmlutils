@@ -125,8 +125,7 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
 def aloha_to_etree(html_source):
     """ Converts HTML5 from Aloha editor output to a lxml etree. """
     tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
-    source = _string2io(tidy_xhtml5)
-    xml = etree.parse(source)
+    xml = etree.fromstring(tidy_xhtml5, etree.HTMLParser())
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
     return xml
