@@ -100,5 +100,11 @@ Deprecated:
   -->
 </xsl:template>
 
+<xsl:template match="cnx:title[cnx:label]">
+  <xsl:apply-templates select="cnx:label"/>
+  <title>
+    <xsl:apply-templates select="@*|node()[not(self::cnx:label)]"/> 
+  </title>
+</xsl:template>
 
 </xsl:stylesheet>
