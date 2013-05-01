@@ -81,7 +81,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt">
+<xsl:template match="@type|@class|@alt|@url">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>  

@@ -211,6 +211,20 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </xsl:element>
 </xsl:template>
 
+<!-- quotes -->
+<xsl:template match="xh:q[@class]">
+  <xsl:element name="{@class}">
+    <xsl:if test="@id">
+      <xsl:if test="string(number(substring(@id,1,1))) = 'NaN'">
+        <xsl:attribute name="id">
+          <xsl:value-of select="@id"/>
+        </xsl:attribute>
+      </xsl:if>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
 <xsl:template match="xh:div/text()">
   <xsl:value-of select="."/>
 </xsl:template>
@@ -497,7 +511,6 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:optgroup
 	|xh:option
 	|xh:param
-	|xh:q
 	|xh:s
 	|xh:samp
 	|xh:script
