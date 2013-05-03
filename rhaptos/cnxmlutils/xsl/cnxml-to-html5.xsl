@@ -184,15 +184,28 @@
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:quote">
-  <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
-</xsl:template>
-
 <xsl:template match="c:code">
   <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <!-- ========================= -->
+
+<xsl:template match="c:quote[@display='inline']">
+  <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
+</xsl:template>
+
+<xsl:template match="c:quote">
+  <blockquote>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
+    <!-- take care of label, if quote has a label but not a title; 
+         title template handles the case when both title and label are present -->
+    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
+      <xsl:apply-templates mode="label" select="c:label"/>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </blockquote>
+</xsl:template>
 
 <xsl:template match="c:note">
   <div>

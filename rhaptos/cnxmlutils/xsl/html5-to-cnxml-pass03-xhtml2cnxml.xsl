@@ -212,7 +212,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 </xsl:template>
 
 <!-- quotes -->
-<xsl:template match="xh:q[@class]">
+<xsl:template match="xh:q[@class]|xh:blockquote[@class]">
   <xsl:element name="{@class}">
     <xsl:if test="@id">
       <xsl:if test="string(number(substring(@id,1,1))) = 'NaN'">
@@ -480,7 +480,6 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:base
 	|xh:basefont
 	|xh:bdo
-	|xh:blockquote
 	|xh:button
 	|xh:caption
 	|xh:center
@@ -530,7 +529,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:small
 	|xh:strike
 	|xh:title
-  |xh:b
+	|xh:b
 	|xh:label
 	|xh:link
 	|xh:font
