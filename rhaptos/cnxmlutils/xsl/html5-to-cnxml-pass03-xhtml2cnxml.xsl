@@ -212,6 +212,12 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 </xsl:template>
 
 <!-- quotes -->
+<xsl:template match="xh:q[@class]/@cite|xh:blockquote[@class]/@cite">
+  <xsl:attribute name="url">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
 <xsl:template match="xh:q[@class]|xh:blockquote[@class]">
   <xsl:element name="{@class}">
     <xsl:if test="@id">

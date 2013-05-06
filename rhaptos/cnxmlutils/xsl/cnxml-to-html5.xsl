@@ -190,6 +190,12 @@
 
 <!-- ========================= -->
 
+<xsl:template match="c:quote/@url">
+  <xsl:attribute name="cite">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
 <xsl:template match="c:quote[@display='inline']">
   <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
 </xsl:template>
