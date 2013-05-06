@@ -213,6 +213,8 @@
   </blockquote>
 </xsl:template>
 
+<!-- ========================= -->
+
 <xsl:template match="c:note">
   <div>
     <xsl:apply-templates mode="class" select="."/>
@@ -224,6 +226,12 @@
     </xsl:if>
     <xsl:apply-templates select="node()"/>
   </div>
+</xsl:template>
+
+<!-- ========================= -->
+
+<xsl:template match="c:cite">
+  <cite><xsl:apply-templates select="@*|node()"/></cite>
 </xsl:template>
 
 <!-- ========================= -->
