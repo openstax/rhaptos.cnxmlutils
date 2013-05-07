@@ -9,6 +9,7 @@ except ImportError:
     from StringIO import StringIO
 import pkg_resources
 from lxml import etree
+from lxml.html import tostring as tohtml
 from functools import partial
 from tidylib import tidy_document # requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
 from xml.sax.saxutils import unescape # for unescaping math from Mathjax script tag
@@ -26,13 +27,41 @@ XHTML_INCLUDE_XPATH = etree.XPath('//xhtml:a[@class="include"]',
                                   namespaces=NAMESPACES)
 XHTML_MODULE_BODY_XPATH = etree.XPath('//xhtml:body', namespaces=NAMESPACES)
 
+def _pre_tidy(html):
+    """ This method transforms a few things before tidy runs. When we get rid
+        of tidy, this can go away. """
+    tree = etree.fromstring(html, etree.HTMLParser())
+    for el in tree.xpath('//u'):
+        el.tag = 'em'
+        c = el.attrib.get('class', '').split()
+        if 'underline' not in c:
+            c.append('underline')
+            el.attrib['class'] = ' '.join(c)
+
+    return tohtml(tree)
+
+def _post_tidy(html):
+    """ This method transforms post tidy. Will go away when tidy goes away. """
+    tree = etree.fromstring(html, etree.HTMLParser())
+    for el in tree.xpath('//em'):
+        c = el.attrib.get('class', '').split()
+        if 'underline' in c:
+            c.remove('underline')
+            el.tag = 'u'
+            if c:
+                el.attrib['class'] = ' '.join(c)
+            elif 'class' in el.attrib:
+                del(el.attrib['class'])
+                
+    return tohtml(tree)
+
 # Tidy up the Google Docs HTML Soup
 def _tidy2xhtml5(html):
     """Tidy up a html4/5 soup to a parsable valid XHTML5.
     Requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
     """
-    #import pdb;pdb.set_trace()
     html = _io2string(html)
+    html = _pre_tidy(html) # Pre-process
     xhtml5, errors = tidy_document(html,
         options={
             'output-xml': 1,       # create xml output
@@ -53,8 +82,8 @@ def _tidy2xhtml5(html):
             'new-inline-tags': 'abs, and, annotation, annotation-xml, apply, approx, arccos, arccosh, arccot, arccoth, arccsc, arccsch, arcsec, arcsech, arcsin, arcsinh, arctan, arctanh, arg, bind, bvar, card, cartesianproduct, cbytes, ceiling, cerror, ci, cn, codomain, complexes, compose, condition, conjugate, cos, cosh, cot, coth, cs, csc, csch, csymbol, curl, declare, degree, determinant, diff, divergence, divide, domain, domainofapplication, el, emptyset, eq, equivalent, eulergamma, exists, exp, exponentiale, factorial, factorof, false, floor, fn, forall, gcd, geq, grad, gt, ident, image, imaginary, imaginaryi, implies, in, infinity, int, integers, intersect, interval, inverse, lambda, laplacian, lcm, leq, limit, list, ln, log, logbase, lowlimit, lt, maction, malign, maligngroup, malignmark, malignscope, math, matrix, matrixrow, max, mean, median, menclose, merror, mfenced, mfrac, mfraction, mglyph, mi, min, minus, mlabeledtr, mlongdiv, mmultiscripts, mn, mo, mode, moment, momentabout, mover, mpadded, mphantom, mprescripts, mroot, mrow, ms, mscarries, mscarry, msgroup, msline, mspace, msqrt, msrow, mstack, mstyle, msub, msubsup, msup, mtable, mtd, mtext, mtr, munder, munderover, naturalnumbers, neq, none, not, notanumber, note, notin, notprsubset, notsubset, or, otherwise, outerproduct, partialdiff, pi, piece, piecewise, plus, power, primes, product, prsubset, quotient, rationals, real, reals, reln, rem, root, scalarproduct, sdev, sec, sech, selector, semantics, sep, set, setdiff, share, sin, sinh, subset, sum, tan, tanh, tendsto, times, transpose, true, union, uplimit, variance, vector, vectorproduct, xor',
             'doctype': 'html5',
             })
-    # print xhtml5
-    # quit()
+
+    xhtml5 = _post_tidy(xhtml5)
     return xhtml5
 
 def _io2string(s):
