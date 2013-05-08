@@ -42,7 +42,7 @@ def _pre_tidy(html):
 
 def _post_tidy(html):
     """ This method transforms post tidy. Will go away when tidy goes away. """
-    tree = etree.fromstring(html, etree.HTMLParser())
+    tree = etree.fromstring(html)
     for el in tree.xpath('//em'):
         c = el.attrib.get('class', '').split()
         if 'underline' in c:
@@ -53,7 +53,7 @@ def _post_tidy(html):
             elif 'class' in el.attrib:
                 del(el.attrib['class'])
                 
-    return tohtml(tree)
+    return tree
 
 # Tidy up the Google Docs HTML Soup
 def _tidy2xhtml5(html):
@@ -83,8 +83,10 @@ def _tidy2xhtml5(html):
             'doctype': 'html5',
             })
 
-    xhtml5 = _post_tidy(xhtml5)
-    return xhtml5
+    #return xhtml5
+    # return the tree itself, there is another modification below to avoid
+    # another parse
+    return _post_tidy(xhtml5)
 
 def _io2string(s):
     """If necessary it will convert the io object to an string
@@ -148,8 +150,9 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
 
 def aloha_to_etree(html_source):
     """ Converts HTML5 from Aloha editor output to a lxml etree. """
-    tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
-    xml = etree.fromstring(tidy_xhtml5)
+    #tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
+    #xml = etree.fromstring(tidy_xhtml5)
+    xml = _tidy2xhtml5(html_source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
     return xml
