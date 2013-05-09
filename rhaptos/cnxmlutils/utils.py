@@ -43,7 +43,8 @@ def _pre_tidy(html):
 def _post_tidy(html):
     """ This method transforms post tidy. Will go away when tidy goes away. """
     tree = etree.fromstring(html)
-    for el in tree.xpath('//em'):
+    for el in tree.xpath('//x:em',
+            namespaces={'x': 'http://www.w3.org/1999/xhtml'}):
         c = el.attrib.get('class', '').split()
         if 'underline' in c:
             c.remove('underline')
