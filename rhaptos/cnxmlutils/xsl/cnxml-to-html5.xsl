@@ -81,7 +81,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect">
+<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>  
@@ -229,6 +229,10 @@
 </xsl:template>
 
 <!-- ========================= -->
+
+<xsl:template match="c:cite-title">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
 
 <xsl:template match="c:cite">
   <cite><xsl:apply-templates select="@*|node()"/></cite>
