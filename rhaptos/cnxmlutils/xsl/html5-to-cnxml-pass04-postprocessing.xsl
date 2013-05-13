@@ -100,6 +100,11 @@ Deprecated:
   -->
 </xsl:template>
 
+<!-- remove placeholder media tags.  media tags without @alt are not valid in cnxml -->
+<xsl:template match="cnx:media[not(@alt)]">
+  <xsl:apply-templates select="@*|node()"/>
+</xsl:template>
+
 <xsl:template match="cnx:title[cnx:label]">
   <xsl:apply-templates select="cnx:label"/>
   <title>
