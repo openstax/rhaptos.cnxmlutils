@@ -54,12 +54,43 @@ Deprecated:
 </xsl:template>
 
 <!-- convert images to CNXML -->
+<xsl:template match="cnx:media/cnxtra:image">
+  <!-- there still needs to be a cnx:media template that reaches down 
+       into this mathc and pulls out the image's @alt -->
+        <image>
+          <xsl:attribute name="mime-type">
+            <xsl:value-of select="@mime-type"/>
+          </xsl:attribute>
+          <xsl:attribute name="src">
+            <xsl:choose>
+              <xsl:when test="text()">
+                <xsl:value-of select="."/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@src"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:if test="@height &gt; 0">
+            <xsl:attribute name="height">
+              <xsl:value-of select="@height"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@width &gt; 0">
+            <xsl:attribute name="width">
+              <xsl:value-of select="@width"/>
+            </xsl:attribute>
+          </xsl:if>
+        </image>
+</xsl:template>
+
 <xsl:template match="cnxtra:image">
   <!-- just ignore images which cannot be uploaded -->
   <!--
   <xsl:choose>
   -->
     <!-- <xsl:if test="text()"> -->
+    <!-- need to wrap any stand alone image element with a media element -->
       <media>
         <xsl:attribute name="alt">
           <xsl:value-of select="@alt"/>
