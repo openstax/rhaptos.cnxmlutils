@@ -450,7 +450,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <xsl:template match="xh:iframe">
   <figure>
-    <media>
+    <media alt="">
       <iframe>
         <xsl:attribute name="width">
           <xsl:value-of select="@width"/>
