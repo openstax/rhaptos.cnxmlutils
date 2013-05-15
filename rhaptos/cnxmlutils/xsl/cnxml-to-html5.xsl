@@ -449,6 +449,11 @@
         </xsl:with-param>
       </xsl:apply-templates>
     </xsl:if>
+    <xsl:if test="parent::c:media[@alt]">
+      <xsl:attribute name="alt">
+        <xsl:value-of select="parent::c:media/@alt"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </img>
 </xsl:template>
