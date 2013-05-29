@@ -66,7 +66,7 @@ def _tidy2xhtml5(html):
     html = _pre_tidy(html) # Pre-process
     xhtml5, errors = tidy_document(html,
         options={
-            'merge-divs': 0,
+            'merge-divs': 0,       # do not merge nested div elements - preserve semantic block structrues
             'output-xml': 1,       # create xml output
             'indent': 0,           # Don't use indent, add's extra linespace or linefeeds which are big problems
             'tidy-mark': 0,        # No tidy meta tag in output
