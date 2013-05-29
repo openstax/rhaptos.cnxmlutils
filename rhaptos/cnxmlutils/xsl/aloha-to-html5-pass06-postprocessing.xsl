@@ -45,5 +45,15 @@ Postprocessing
 <!-- remove first div title which is doubled -->
 <xsl:template match="//x:div[@class='title'][not(preceding::x:div[@class='title'])]"/>
 
+<!-- <img> should have empty alt attributes -->
+<xsl:template match="x:img[@alt]">
+  <img>
+    <xsl:if test="string-length(@alt)>0">
+      <xsl:apply-templates select="@alt" />
+    </xsl:if>
+    <xsl:apply-templates select="@*[not(local-name()='alt')]"/>
+    <xsl:apply-templates select="node()"/>
+  </img>
+</xsl:template>
 
 </xsl:stylesheet>
