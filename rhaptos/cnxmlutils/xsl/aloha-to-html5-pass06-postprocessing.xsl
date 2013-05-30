@@ -45,5 +45,24 @@ Postprocessing
 <!-- remove first div title which is doubled -->
 <xsl:template match="//x:div[@class='title'][not(preceding::x:div[@class='title'])]"/>
 
+<!-- <img> should not have empty string alt attribute (do not expect "decorative" images) 
+     if the image alt is not empty, use it
+     if the image alt is empty or does not exist, use the media/@alt if possible -->
+<xsl:template match="x:img">
+  <img>
+    <xsl:choose>
+      <xsl:when test="string-length(@alt)>0">
+        <xsl:apply-templates select="@alt" />
+      </xsl:when>
+      <xsl:when test="parent::*/@class='media' and string-length(parent::*/@data-alt)>0">
+        <xsl:attribute name="alt">
+          <xsl:value-of select="parent::*/@data-alt" />
+        </xsl:attribute>
+      </xsl:when>
+    </xsl:choose>
+    <xsl:apply-templates select="@*[not(local-name()='alt')]"/>
+    <xsl:apply-templates select="node()"/>
+  </img>
+</xsl:template>
 
 </xsl:stylesheet>
