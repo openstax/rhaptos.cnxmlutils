@@ -6,5 +6,4 @@ language for marking up educational content in use by Connexions
 (http://cnx.org)
 
 Code is hosted at:
-- http://github.com/rochecompaan/rhaptos.cnxmlutils/
-- https://software.cnx.rice.edu/svn/rhaptos/packages/rhaptos.cnxmlutils/trunk
+- https://github.com/Connexions/rhaptos.cnxmlutils
