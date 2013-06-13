@@ -3,6 +3,8 @@
 # Processes CNXML Plus to HTML to show which elements/attributes are preserved
 #
 
+cd ..
+
 # Switches dir to the correct rhaptos
 current_dir=pwd
 testbed_output_dir='cnxml2htmlpreview/testbed_cnx_output'
