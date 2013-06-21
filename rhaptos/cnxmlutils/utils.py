@@ -16,6 +16,7 @@ except ImportError:
     from StringIO import StringIO
 import pkg_resources
 from lxml import etree
+from lxml.html import tostring as tohtml
 from functools import partial
 from tidylib import tidy_document # requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
 from xml.sax.saxutils import unescape # for unescaping math from Mathjax script tag
@@ -33,15 +34,46 @@ XHTML_INCLUDE_XPATH = etree.XPath('//xhtml:a[@class="include"]',
                                   namespaces=NAMESPACES)
 XHTML_MODULE_BODY_XPATH = etree.XPath('//xhtml:body', namespaces=NAMESPACES)
 
+def _pre_tidy(html):
+    """ This method transforms a few things before tidy runs. When we get rid
+        of tidy, this can go away. """
+    tree = etree.fromstring(html, etree.HTMLParser())
+    for el in tree.xpath('//u'):
+        el.tag = 'em'
+        c = el.attrib.get('class', '').split()
+        if 'underline' not in c:
+            c.append('underline')
+            el.attrib['class'] = ' '.join(c)
+
+    return tohtml(tree)
+
+def _post_tidy(html):
+    """ This method transforms post tidy. Will go away when tidy goes away. """
+    tree = etree.fromstring(html)
+    ems = tree.xpath(
+        "//xh:em[@class='underline']|//xh:em[contains(@class, ' underline ')]",
+        namespaces={'xh': 'http://www.w3.org/1999/xhtml'})
+    for el in ems:
+        c = el.attrib.get('class', '').split()
+        c.remove('underline')
+        el.tag = '{http://www.w3.org/1999/xhtml}u'
+        if c:
+            el.attrib['class'] = ' '.join(c)
+        elif 'class' in el.attrib:
+            del(el.attrib['class'])
+                
+    return tree
+
 # Tidy up the Google Docs HTML Soup
 def _tidy2xhtml5(html):
     """Tidy up a html4/5 soup to a parsable valid XHTML5.
     Requires tidy-html5 from https://github.com/w3c/tidy-html5 Installation: http://goo.gl/FG27n
     """
-    #import pdb;pdb.set_trace()
     html = _io2string(html)
+    html = _pre_tidy(html) # Pre-process
     xhtml5, errors = tidy_document(html,
         options={
+            'merge-divs': 0,       # do not merge nested div elements - preserve semantic block structrues
             'output-xml': 1,       # create xml output
             'indent': 0,           # Don't use indent, add's extra linespace or linefeeds which are big problems
             'tidy-mark': 0,        # No tidy meta tag in output
@@ -60,9 +92,11 @@ def _tidy2xhtml5(html):
             'new-inline-tags': 'abs, and, annotation, annotation-xml, apply, approx, arccos, arccosh, arccot, arccoth, arccsc, arccsch, arcsec, arcsech, arcsin, arcsinh, arctan, arctanh, arg, bind, bvar, card, cartesianproduct, cbytes, ceiling, cerror, ci, cn, codomain, complexes, compose, condition, conjugate, cos, cosh, cot, coth, cs, csc, csch, csymbol, curl, declare, degree, determinant, diff, divergence, divide, domain, domainofapplication, el, emptyset, eq, equivalent, eulergamma, exists, exp, exponentiale, factorial, factorof, false, floor, fn, forall, gcd, geq, grad, gt, ident, image, imaginary, imaginaryi, implies, in, infinity, int, integers, intersect, interval, inverse, lambda, laplacian, lcm, leq, limit, list, ln, log, logbase, lowlimit, lt, maction, malign, maligngroup, malignmark, malignscope, math, matrix, matrixrow, max, mean, median, menclose, merror, mfenced, mfrac, mfraction, mglyph, mi, min, minus, mlabeledtr, mlongdiv, mmultiscripts, mn, mo, mode, moment, momentabout, mover, mpadded, mphantom, mprescripts, mroot, mrow, ms, mscarries, mscarry, msgroup, msline, mspace, msqrt, msrow, mstack, mstyle, msub, msubsup, msup, mtable, mtd, mtext, mtr, munder, munderover, naturalnumbers, neq, none, not, notanumber, note, notin, notprsubset, notsubset, or, otherwise, outerproduct, partialdiff, pi, piece, piecewise, plus, power, primes, product, prsubset, quotient, rationals, real, reals, reln, rem, root, scalarproduct, sdev, sec, sech, selector, semantics, sep, set, setdiff, share, sin, sinh, subset, sum, tan, tanh, tendsto, times, transpose, true, union, uplimit, variance, vector, vectorproduct, xor',
             'doctype': 'html5',
             })
-    # print xhtml5
-    # quit()
-    return xhtml5
+
+    #return xhtml5
+    # return the tree itself, there is another modification below to avoid
+    # another parse
+    return _post_tidy(xhtml5)
 
 def _io2string(s):
     """If necessary it will convert the io object to an string
@@ -81,14 +115,9 @@ def _string2io(s):
 
 def _make_xsl(filename):
     """Helper that creates a XSLT stylesheet """
-    package = 'rhaptos.cnxmlutils'
-    sub_package = 'xsl'
-
-    if package != '':
-        pkg = package + '.' + sub_package
-        path = pkg_resources.resource_filename(pkg, filename)
-        xml = etree.parse(path)
-        return etree.XSLT(xml)
+    path = pkg_resources.resource_filename('rhaptos.cnxmlutils.xsl', filename)
+    xml = etree.parse(path)
+    return etree.XSLT(xml)
 
 def _transform(xsl_filename, xml):
     """Transforms the xml using the specifiec xsl file."""
@@ -129,13 +158,18 @@ ALOHA2HTML_TRANSFORM_PIPELINE = [
     partial(_transform, 'aloha-to-html5-pass06-postprocessing.xsl'),
 ]
 
-def aloha_to_html(html_source):
-    """Converts HTML5 from Aloha to a more structured HTML5"""
-    tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
-    source = _string2io(tidy_xhtml5)
-    xml = etree.parse(source)
+def aloha_to_etree(html_source):
+    """ Converts HTML5 from Aloha editor output to a lxml etree. """
+    #tidy_xhtml5 = _tidy2xhtml5(html_source) # make from a html4/5 soup a XHTML5 string
+    #xml = etree.fromstring(tidy_xhtml5)
+    xml = _tidy2xhtml5(html_source)
     for i, transform in enumerate(ALOHA2HTML_TRANSFORM_PIPELINE):
         xml = transform(xml)
+    return xml
+
+def aloha_to_html(html_source):
+    """Converts HTML5 from Aloha to a more structured HTML5"""
+    xml = aloha_to_etree(html_source)
     return etree.tostring(xml, pretty_print=True)
 
 def html_to_cnxml(html_source, cnxml_source):
@@ -165,12 +199,15 @@ HTML2VALID_CNXML_TRANSFORM_PIPELINE = [
     partial(_transform, 'html5-to-cnxml-pass06-cnxml-postprocessing.xsl'),
 ]
 
+def etree_to_valid_cnxml(tree, **kwargs):
+    for i, transform in enumerate(HTML2VALID_CNXML_TRANSFORM_PIPELINE):
+        tree = transform(tree)
+    return etree.tostring(tree, **kwargs)
+
 def html_to_valid_cnxml(html_source):
     """Transform the HTML to valid CNXML (used for OERPUB). No original CNXML is needed.
     If HTML is from Aloha please use aloha_to_html before using this method
     """
     source = _string2io(html_source)
     xml = etree.parse(source)
-    for i, transform in enumerate(HTML2VALID_CNXML_TRANSFORM_PIPELINE):
-        xml = transform(xml)
-    return etree.tostring(xml, pretty_print=True)
+    return etree_to_valid_cnxml(xml, pretty_print=True)

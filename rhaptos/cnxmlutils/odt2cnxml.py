@@ -136,7 +136,9 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
             strPath = IMAGE_HREF_XPATH(obj)[0]
             strName = IMAGE_NAME_XPATH(obj)[0]
 
-            strName = strName + strPath[strPath.index('.'):]
+            fileNeedEnding = ( strName.find('.') == -1 )
+            if fileNeedEnding:
+                strName = strName + strPath[strPath.index('.'):]
 
             if strPath[0] == '#':
                 strPath = strPath[1:]

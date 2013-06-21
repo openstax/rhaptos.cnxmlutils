@@ -18,7 +18,7 @@
 <!--
 - Merges DIVs
 - Remove not needed header content
-- Remove scripts, comments, iframes
+- Remove scripts, comments
 
 Example input:
 <body><div>Hello<div> this <div> is </div>some </div>text</div></body>
@@ -34,11 +34,6 @@ Output
   </xsl:copy>
 </xsl:template>
 
-<!-- remove all divs (but preserve content of divs -->
-<xsl:template match="xh:div">
-  <xsl:apply-templates/>
-</xsl:template>
-
 <!-- remove everything from header except title and metadata -->
 <xsl:template match="xh:head/xh:*[not(self::xh:title or self::xh:meta)]"/>
 
@@ -47,8 +42,5 @@ Output
 
 <!-- remove scripts -->
 <xsl:template match="xh:script"/>
-
-<!-- remove iframes -->
-<xsl:template match="xh:iframe"/>
 
 </xsl:stylesheet>

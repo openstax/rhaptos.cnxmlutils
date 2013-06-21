@@ -63,6 +63,7 @@
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
+
 <!-- MathJax doesn't like MathML with a prefix -->
 <xsl:template match="m:*">
   <xsl:element name="{local-name()}" namespaceURI="http://www.w3.org/1998/Math/MathML">
@@ -70,15 +71,20 @@
   </xsl:element>
 </xsl:template>
 
-
 <xsl:template match="node()[not(self::*)]" priority="-100">
   <xsl:copy>
     <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="@id|@class">
+<xsl:template match="@id">
   <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type">
+  <xsl:attribute name="data-{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
 </xsl:template>
 
 <xsl:template match="c:content">
@@ -89,10 +95,6 @@
 <xsl:template mode="class" match="*">
   <xsl:param name="newClasses"/>
   <xsl:attribute name="class">
-    <xsl:if test="@class">
-      <xsl:value-of select="@class"/>
-      <xsl:text> </xsl:text>
-    </xsl:if>
     <xsl:if test="$newClasses">
       <xsl:value-of select="$newClasses"/>
       <xsl:text> </xsl:text>
@@ -103,8 +105,21 @@
 
 <!-- ========================= -->
 
+<xsl:template match="c:label" />
+
+<xsl:template mode="label" match="c:label">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
+
+<!-- ========================= -->
+
 <xsl:template match="c:title">
-  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates mode="label" select="../c:label"/>
+    <xsl:apply-templates select="node()"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title">
@@ -157,22 +172,70 @@
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:rule[not(@type)]">
+<xsl:template match="c:rule">
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:quote">
-  <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
+<xsl:template match="c:statement">
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:code[not(@type)]">
+<xsl:template match="c:proof">
+  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
+<xsl:template match="c:code">
   <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="c:note[not(@type)]">
-  <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
+<xsl:template match="c:quote/@url">
+  <xsl:attribute name="cite">
+    <xsl:value-of select="."/>
+  </xsl:attribute>  
+</xsl:template>
+
+<xsl:template match="c:quote[@display='inline']">
+  <q><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></q>
+</xsl:template>
+
+<xsl:template match="c:quote">
+  <blockquote>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
+    <!-- take care of label, if quote has a label but not a title; 
+         title template handles the case when both title and label are present -->
+    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
+      <xsl:apply-templates mode="label" select="c:label"/>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </blockquote>
+</xsl:template>
+
+<!-- ========================= -->
+
+<xsl:template match="c:note">
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*"/>
+    <!-- take care of label, if note has a label but not a title; 
+         title template handles the case when both title and label are present -->
+    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
+      <xsl:apply-templates mode="label" select="c:label"/>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </div>
+</xsl:template>
+
+<!-- ========================= -->
+
+<xsl:template match="c:cite-title">
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
+
+<xsl:template match="c:cite">
+  <cite><xsl:apply-templates select="@*|node()"/></cite>
 </xsl:template>
 
 <!-- ========================= -->
@@ -302,10 +365,9 @@
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
-<xsl:template match="c:figure[not(@orient or @type)]|c:subfigure[not(@type)]">
+<xsl:template match="c:figure[not(@orient)]|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
     <xsl:if test="c:caption or c:title">
       <figcaption>
         <xsl:apply-templates select="c:title"/>
@@ -313,6 +375,7 @@
         <xsl:apply-templates select="c:caption/node()"/>
       </figcaption>
     </xsl:if>
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
   </figure>
 </xsl:template>
 
@@ -369,6 +432,12 @@
   </span>
 </xsl:template>
 
+<xsl:template match="c:media[child::c:iframe]">
+  <div class="media">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
   <img src="{@src}" data-mime-type="{@mime-type}">
@@ -380,6 +449,11 @@
         </xsl:with-param>
       </xsl:apply-templates>
     </xsl:if>
+    <xsl:if test="parent::c:media[@alt]">
+      <xsl:attribute name="alt">
+        <xsl:value-of select="parent::c:media/@alt"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </img>
 </xsl:template>
@@ -387,11 +461,15 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="c:iframe">
+  <iframe><xsl:apply-templates select="@*|node()"/></iframe>
+</xsl:template>
+
 <!-- ========================= -->
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
 
-<xsl:template match="c:definition[not(@type)]">
+<xsl:template match="c:definition">
   <div class="definition">
     <xsl:apply-templates select="@*|node()"/>
   </div>  
@@ -403,7 +481,7 @@
   </div>  
 </xsl:template>
 
-<xsl:template match="c:seealso[not(@type)]">
+<xsl:template match="c:seealso">
   <span class="seealso">
     <xsl:apply-templates select="@*|node()"/>
   </span>  

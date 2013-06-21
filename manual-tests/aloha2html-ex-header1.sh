@@ -5,4 +5,5 @@
 #This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
 #See LICENSE.txt for details.
 
-python -m rhaptos.cnxmlutils.html2validcnxml ./rhaptos/cnxmlutils/tests/data/html2validcnxml-table-example3.html
+cd ..
+python -m rhaptos.cnxmlutils.aloha2html ./rhaptos/cnxmlutils/tests/data/aloha2html-header1-example.html
