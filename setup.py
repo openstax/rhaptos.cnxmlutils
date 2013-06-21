@@ -2,6 +2,17 @@ from setuptools import setup, find_packages
 import os
 
 version = '1.2'
+"""
+Copyright (C) 2013 Rice University
+
+This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
+See LICENSE.txt for details.
+"""
+
+from setuptools import setup, find_packages
+import os
+
+version = '1.0'
 
 setup(name='rhaptos.cnxmlutils',
       version=version,

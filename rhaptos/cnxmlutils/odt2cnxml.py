@@ -1,3 +1,10 @@
+"""
+Copyright (C) 2013 Rice University
+
+This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
+See LICENSE.txt for details.
+"""
+
 import os
 import sys
 import tempfile
@@ -246,7 +253,10 @@ def transform(odtfile, debug=False, parsable=False, outputdir=None):
       mathIncluder,
       makeXsl('pass7_odt2cnxml.xsl'),
       makeXsl('pass8_cnxml-cleanup.xsl'),
+<<<<<<< HEAD
       makeXsl('pass8.5_cnxml-cleanup.xsl'),
+=======
+>>>>>>> cnx_master
       makeXsl('pass9_id-generation.xsl'),
       makeXsl('pass10_processing-instruction-logger.xsl'),
       ]

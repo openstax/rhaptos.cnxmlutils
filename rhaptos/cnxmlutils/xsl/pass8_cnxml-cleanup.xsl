@@ -46,7 +46,19 @@
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="c:title"/>
     <!-- Images are also converted to figures -->
-    <xsl:apply-templates select="c:para/c:media|c:media"/>
+    <xsl:choose>
+      <!-- odt2cnxml converts every draw:frame to a <figure><media/></figure> -->
+      <xsl:when test="count(c:para/c:media|c:media) &gt; 1">
+        <xsl:for-each select="c:para/c:media|c:media">
+          <c:subfigure>
+            <xsl:apply-templates select="."/>
+          </c:subfigure>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="c:para/c:media|c:media"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <!-- Captions and such -->
     <xsl:apply-templates select="c:*[not(self::c:para or self::c:title or self::c:media)]"/>
     <xsl:if test="c:para[not(c:media)]">
@@ -65,12 +77,14 @@
 
 <!-- SHORTCUT: allow <figure alt='blah'>. "@alt actually belongs on the "media" element -->
 <xsl:template match="c:figure/@alt"/>
+<xsl:template match="c:figure[ancestor-or-self::c:figure[@alt]]/c:media">
+  <c:figure alt="{ancestor::c:figure/@alt}">
+    <xsl:apply-templates select="@*|node()"/>
+  </c:figure>
+</xsl:template>
 
-<xsl:template match="c:media" name="cnx.media">
-  <xsl:variable name="alt">
-    <xsl:value-of select="ancestor::c:figure[@alt]/@alt"/>
-  </xsl:variable>
-  <c:media alt="{$alt}">
+<xsl:template match="c:media[not(@alt) and not(ancestor::c:figure/@alt)]">
+  <c:media alt="">
     <xsl:apply-templates select="@*|node()"/>
   </c:media>
 </xsl:template>
@@ -83,7 +97,9 @@
 <!-- SHORTCUT: Any time there are multiple images in a c:figure wrap them in a c:subfigure -->
 <xsl:template match="c:media[not(parent::c:subfigure) and count(ancestor::c:figure//c:media) &gt; 1]">
   <c:subfigure>
-    <xsl:call-template name="cnx.media"/>
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
   </c:subfigure>
 </xsl:template>
 
@@ -187,6 +203,13 @@ When <term/> and <meaning/> are on the same line they end up wrapped in a <para/
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </c:para>
+</xsl:template>
+
+<xsl:template match="c:media[not(ancestor-or-self::c:figure[@alt])]">
+  <xsl:copy>
+    <xsl:attribute name="alt"></xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 <!-- SHORTCUT: "figures" in a title are converted into images -->

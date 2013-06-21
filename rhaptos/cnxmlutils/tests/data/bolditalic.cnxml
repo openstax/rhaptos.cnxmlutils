@@ -1,0 +1,23 @@
+<document xmlns="http://cnx.rice.edu/cnxml" module-id="imported-from-openoffice" id="imported-from-openoffice" cnxml-version="0.7">
+  <title>Untitled Document</title>
+  <content>
+    <para id="import-auto-idm959192">
+      <emphasis effect="bold">Bold paragraph</emphasis>
+    </para>
+    <para id="import-auto-idm906008">
+      <emphasis effect="italics">Italic paragraph</emphasis>
+    </para>
+    <para id="import-auto-idm397192">
+      <emphasis effect="bold">
+        <emphasis effect="italics">Bold italic paragraph</emphasis>
+      </emphasis>
+    </para>
+    <para id="import-auto-idm863440">Normal paragraph with <emphasis effect="bold">bold</emphasis> text and <emphasis effect="italics">italic</emphasis> text and <emphasis effect="bold"><emphasis effect="italics">bold italic</emphasis></emphasis> text</para>
+    <list id="import-auto-idm2096768" list-type="bulleted">
+      <item>item with <emphasis effect="bold">bold</emphasis> text</item>
+      <item>item with <emphasis effect="italics">italic</emphasis> text</item>
+      <item>item with <emphasis effect="bold"><emphasis effect="italics">bold italic</emphasis></emphasis> text</item>
+      <item>item with normal text</item>
+    </list>
+  </content>
+</document>

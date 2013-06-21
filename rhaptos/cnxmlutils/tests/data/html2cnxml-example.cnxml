@@ -1,0 +1,48 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" id="new" cnxml-version="0.7" module-id="new">
+
+<title>Module 1.2</title>
+<metadata mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://192.168.51.149:8080/plone/content</md:repository>
+  <md:content-id>new</md:content-id>
+  <md:title>Module 1.2</md:title>
+  <md:version>**new**</md:version>
+  <md:created>2012/08/01 03:46:42.313 GMT-7</md:created>
+  <md:revised>2012/08/01 03:46:42.470 GMT-7</md:revised>
+  <md:actors>
+    <md:person userid="pumazi">
+      <md:firstname>Michael</md:firstname>
+      <md:surname>Mulich</md:surname>
+      <md:fullname>Michael Mulich</md:fullname>
+      <md:email>michael.mulich@gmail.com</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">pumazi</md:role>
+    <md:role type="maintainer">pumazi</md:role>
+    <md:role type="licensor">pumazi</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/3.0/"/>
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract/>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+<content>
+  <para id="delete_me"><title>Module 1.2 title</title>Module text text text
+
+And more text :)</para></content>
+
+</document>
+
