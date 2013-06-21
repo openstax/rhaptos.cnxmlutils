@@ -813,7 +813,7 @@
   <define name="media-object-class">
     <choice>
       <ref name="object"/>
-      <ref name="ximage"/>
+      <ref name="image"/>
       <ref name="audio"/>
       <ref name="video"/>
       <ref name="java-applet"/>
@@ -1641,7 +1641,7 @@
     </element>
   </define>
 
-  <define name="ximage">
+  <define name="image">
     <element name="image">
       <ref name="media-object-common-content"/>
       <ref name="src-attribute"/>

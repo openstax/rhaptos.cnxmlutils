@@ -1,0 +1,1881 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>CNXML 0.5 Stress Test</title>
+    <link rel="stylesheet" title="Sky" type="text/css" href="/preview_css/cnx-styles/newlook/document.css"/>
+    <script type="text/javascript" src="/preview_css/js/exercise.js"> </script>
+    <script type="text/javascript" src="/preview_css/js/qml_1-0.js"> </script>
+    <!--****QML**** sets the feedback and hints to non-visible.-->
+    <script type="text/javascript" src="/preview_css/mathjax/MathJax.js">
+          MathJax.Hub.Config({
+            	extensions: ["mml2jax-bugfix.js"],
+            	menuSettings: {zoom:"Click"},
+            	"HTML-CSS": {scale:110},
+            	jax: ["input/MathML","output/HTML-CSS"]
+        	});
+        	if(location.href.split("#").length != 1) {
+          	MathJax.Hub.Register.StartupHook("End", function() {location.href = location.href; });
+        	}
+        </script>
+    <style type="text/css">
+	      .feedback {display:none}
+	      .hint {display:none}
+        body {margin: 0px; padding: 15px;}
+	    </style>
+  </head>
+  <body>
+    <!--Editing In Place javascript-->
+    <div id="cnx_module_header">
+      <h1 id="cnx_content_title">CNXML 0.5 Stress Test</h1>
+      <p id="cnx_authorship"><span class="cnx_before">Module by: </span><span class="span">Christine Donica</span>, <span class="span">Max Starkenburg</span>, <span class="span">Brent Hendricks</span>, <span class="span">Chuck Bearden</span>. <a class="cnx_email_author" href="mailto:mizar@alumni.rice.edu,maxwell@rice.edu,brentmh@rice.edu,cbearden@rice.edu?cc=cnx@cnx.org&amp;subject=Feedback on Connexions module: CNXML 0.5 Stress Test&amp;body=Feedback on Connexions module: CNXML 0.5 Stress Test (HTML previewer)" title="E-mail the authors of the module">E-mail the authors</a></p>
+      <p id="cnx_abstract">
+        <span class="cnx_before">Summary:</span>
+        <span class="span">This module attempts to use all of the CNXML 0.5 tags.  It supplies examples of all the tags.  People interested in this module would be those who are learning CNXML and those who need an example for testing, such as stylesheets.</span>
+      </p>
+    </div>
+    <div xmlns:cnx="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" id="cnx_main">
+		<p class="para" id="opening_paragraph">This brief paragraph was put in before a section tag 
+to ensure that it was styled correctly.</p><div class="equation" id="content_equation"><h2 class="equation-header"><strong class="title">This equation has been thrown in as a child of content for styling purposes.</strong></h2>
+			
+			<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+				<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+			</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+					<m:eq/>
+					<m:apply>
+						<m:cos/>
+
+						<m:apply>
+							<m:times/>
+							<m:cn>2</m:cn>
+							<m:pi/>
+							<m:ci>f</m:ci>
+							<m:ci>t</m:ci>
+						</m:apply>
+
+					</m:apply>
+					<m:apply>
+						<m:divide/>
+						<m:apply>
+							<m:plus/>
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:times/>
+
+									<m:imaginaryi/>
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:minus/>
+									<m:apply>
+										<m:times/>
+										<m:imaginaryi/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+						</m:apply>
+						<m:apply>
+
+							<m:times/>
+							<m:cn>2</m:cn>
+						</m:apply>
+					</m:apply>
+				</m:apply></m:annotation-xml></m:semantics></m:math>
+		<span class="equation-number">(1)</span></div>
+		<div class="section" id="sec01"><h2 class="section-header"><strong class="title">General Example with Equation</strong></h2><p class="para" id="p01">
+	The complex exponential defines the notion of frequency: It is
+	the <em class="emphasis">only</em> signal that contains only one
+	frequency component.  The sinusoid consists of two frequency
+	components: one at the frequency
+	
+	<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+					<m:mrow><m:mi>
+						</m:mi><m:mo>+</m:mo><m:mi>
+						</m:mi><m:msub>
+
+							<m:mi>f</m:mi>
+							<m:mn>0</m:mn>
+						</m:msub><m:mi>
+					</m:mi></m:mrow>
+				</m:mrow><m:annotation-xml encoding="MathML-Content"><m:ci xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+						<m:mo>+</m:mo>
+						<m:msub>
+
+							<m:mi>f</m:mi>
+							<m:mn>0</m:mn>
+						</m:msub>
+					</m:ci></m:annotation-xml></m:semantics></m:math>
+				 
+	
+	and the other at 
+	
+	<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+					<m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mi>
+							</m:mi><m:msub>
+								<m:mi>f</m:mi>
+								<m:mn>0</m:mn>
+							</m:msub><m:mi>
+						</m:mi></m:mrow></m:mrow>
+
+				</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+
+						<m:minus/>
+						<m:ci>
+							<m:msub>
+								<m:mi>f</m:mi>
+								<m:mn>0</m:mn>
+							</m:msub>
+						</m:ci>
+					</m:apply></m:annotation-xml></m:semantics></m:math>
+				.  
+	
+	<div class="equation" id="eqn3"><h3 class="equation-header"><strong class="title">This is Euler's relation relating things like e's and cosines</strong></h3>
+					
+					<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+						<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+					</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+							<m:eq/>
+							<m:apply>
+								<m:cos/>
+
+								<m:apply>
+									<m:times/>
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+
+							</m:apply>
+							<m:apply>
+								<m:divide/>
+								<m:apply>
+									<m:plus/>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:times/>
+
+											<m:imaginaryi/>
+											<m:cn>2</m:cn>
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:minus/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+
+									<m:times/>
+									<m:cn>2</m:cn>
+								</m:apply>
+							</m:apply>
+						</m:apply></m:annotation-xml></m:semantics></m:math>
+				<span class="equation-number">(2)</span></div>
+				<div class="equation" id="eqn4"><h3 class="equation-header"><strong class="title">Euler's relation</strong></h3>
+
+					
+					<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+						<m:mrow><m:mrow><m:mi>sin</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>&#8722;</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>i</m:mi></m:mrow></m:mfrac></m:mrow>
+					</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+							<m:eq/>
+							<m:apply>
+								<m:sin/>
+								<m:apply>
+									<m:times/>
+
+									<m:cn>2</m:cn>
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+							<m:apply>
+
+								<m:divide/>
+								<m:apply>
+									<m:minus/>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+											<m:times/>
+											<m:imaginaryi/>
+											<m:cn>2</m:cn>
+
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:exp/>
+										<m:apply>
+
+											<m:minus/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:times/>
+									<m:cn>2</m:cn>
+									<m:imaginaryi/>
+
+								</m:apply>
+							</m:apply>
+						</m:apply></m:annotation-xml></m:semantics></m:math>
+				<span class="equation-number">(3)</span></div>
+				<div class="equation" id="eqn5"><h3 class="equation-header"><strong class="title">Another Euler's relation</strong></h3>
+					
+					<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+
+						<m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow><m:mo>+</m:mo><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>sin</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow></m:mrow></m:mrow>
+					</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+							<m:eq/>
+							<m:apply>
+								<m:exp/>
+								<m:apply>
+									<m:times/>
+									<m:imaginaryi/>
+									<m:cn>2</m:cn>
+
+									<m:pi/>
+									<m:ci>f</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+							</m:apply>
+							<m:apply>
+								<m:plus/>
+								<m:apply>
+
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:times/>
+									<m:imaginaryi/>
+									<m:apply>
+										<m:sin/>
+										<m:apply>
+											<m:times/>
+
+											<m:cn>2</m:cn>
+											<m:pi/>
+											<m:ci>f</m:ci>
+											<m:ci>t</m:ci>
+										</m:apply>
+									</m:apply>
+								</m:apply>
+
+							</m:apply>
+						</m:apply></m:annotation-xml></m:semantics></m:math>
+				<span class="equation-number">(4)</span></div>
+	
+	
+	The complex exponential signal can thus be written in terms of
+	its real and imaginary parts using Euler's relation.  Thus,
+	sinusoidal signals can be expressed as either the real or the
+	imaginary part of a complex exponential signal (the choice
+	depends on whether cosine or sine phase is needed) or as the
+	sum of two complex exponentials.  These two decompositions are
+	mathematically equivalent to each other.
+	
+      </p></div>
+		<div class="section" id="sec1"><h2 class="section-header"><strong class="title">Section:  ICSA</strong></h2><p class="para" id="secp1">
+	The Rice Sailing Team is part of a sailing coalition called ICSA which
+	stands for  Inter-Collegiate Sailing Association.  The ICSA is the
+	governing body for collegete sailing programs in the US.  Volunteers of
+	ICSA develop the racing rules.  They also organize the national
+	regattas.  To be a member of ICSA, a college must pay money to a
+	sub-district. 
+      </p><div class="section" id="sec2"><h3 class="section-header"><strong class="title">SEISA</strong></h3><p class="para" id="secp2">
+	  Rice is a member of the SEISA district of ICSA.  SEISA stands for
+	  South-Eastern Inter-Collegiate Sailing Association.  SEISA is the
+	  organization that the South-East colleges compete in.  The schools gather
+	  to compete for all normal regattas.  One or two schools from SEISA will
+	  qualify for the National competitions hosted by ICSA.
+	</p><div class="section" id="sec3"><h4 class="section-header"><strong class="title">RUST: Rice University Sailing Team</strong></h4><p class="para" id="secp3">
+	    RUST is Rice's competitive sailing team.  Rice is a member of
+	    SEISA. This
+	    district is made up of several schools, including UT, A&amp;M,
+	    A&amp;M
+	    Galveston, UNO, Tulane, Kansas, and UWF. The Rice Sailing Club is
+	    open to all
+	    members of the student community, including graduate
+	    students. Beginner and expert sailors alike are encouraged to
+	    practice with the team.  RUST is a small and easy-going club. There
+	    are
+	    no attendance requirements, and everyone who wants to sail can
+	    sail. Members pay yearly dues to help cover expenses, but every
+	    member not only gets to sail, but gets a sailing club T-shirt too!
+	    
+	  </p><p class="para" id="secp3_beatles1">For the benefit of Mr. Kite, there
+	    will be a show tonight on trampoline.  The Hendersons will
+	    all be there, late Pablo Fanques Fair - what a scene.  Over
+	    men and horses, hoops and garters, lastly through a hogshead
+	    of real fire!  In this way Mr. K. will challenge the world!
+	    The celebrated Mr. K. performs his feat on Saturday at
+	    Bishopsgate.  The Hendersons will dance and sing as Mr. Kite
+	    flys through the ring - don't be late.  Messrs. K and
+	    H. assure the public their production will be second to
+	    none.  And course Henry The Horse dances the waltz!</p><div class="equation" id="section_equation"><h5 class="equation-header"><strong class="title">This equation has been thrown in as a child of section for styling purposes</strong></h5>
+						
+
+						<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+
+								</m:apply>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+					<span class="equation-number">(5)</span></div></div><div class="section" id="sec3_2"><h4 class="section-header"><strong class="title">Section Three Point Two</strong></h4><p class="para" id="sec3_2_p">Section 3.2</p></div><div class="section" id="sec3_3"><h4 class="section-header"><strong class="title">Section Three Point Three</strong></h4><p class="para" id="sec3_3_p">Section 3.3</p><div class="section" id="sec4"><h5 class="section-header"><strong class="title">four levels down</strong></h5><div class="section" id="sec5"><h6 class="section-header"><strong class="title">five levels down</strong></h6><div class="section" id="sec6"><h6 class="section-header"><strong class="title">six levels down</strong></h6><div class="section" id="sec7"><h6 class="section-header"><strong class="title">seven levels down</strong></h6><div class="section" id="sec8"><h6 class="section-header"><strong class="title">eight levels down</strong></h6><div class="section" id="sec9"><h6 class="section-header"><strong class="title">nine levels down</strong></h6><div class="section" id="sec12"><h6 class="section-header"><strong class="title">how low can you go?</strong></h6><div class="section" id="sec13"><h6 class="section-header"><strong class="title">as low as you want</strong></h6><div class="section" id="sec14"><h6 class="section-header"><strong class="title">CNXML is limitless in it's powers</strong></h6><p class="para" id="bottom_section">You get the picture!</p></div></div></div></div></div></div></div></div></div></div></div></div>
+		<div class="section" id="list"><h2 class="section-header"><strong class="title">List</strong></h2><p class="para" id="apara">
+	Hello and welcome to my list of things to do.  The following list
+	is <em class="emphasis">within</em> a paragraph, whereas the subsequent
+	ordered list is <em class="emphasis">preceded</em> by a paragraph.
+	<div class="list" id="list1"><ul class="bullet"><li class="item">This is an item.  The length of this item has been
+	    extended for quality assurance of its style upon wrapping, assuming it
+	    extends for more than the width of the screen, which is
+	    why it may appear that I am dragging this sentence out for a
+	    long time.. </li><li class="item">
+	    This is another item with a list nested inside of it.
+	    <div class="list" id="list2"><ul class="bullet"><li class="item">The next subitem contains a named equation. </li><li class="item">
+								<div class="equation" id="eqn4_list"><h3 class="equation-header"><strong class="title">Euler's relation</strong></h3>
+									
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>sin</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>&#8722;</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>i</m:mi></m:mrow></m:mfrac></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:eq/>
+											<m:apply>
+
+												<m:sin/>
+												<m:apply>
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+											<m:apply>
+												<m:divide/>
+												<m:apply>
+													<m:minus/>
+													<m:apply>
+														<m:exp/>
+														<m:apply>
+
+															<m:times/>
+															<m:imaginaryi/>
+															<m:cn>2</m:cn>
+															<m:pi/>
+															<m:ci>f</m:ci>
+															<m:ci>t</m:ci>
+														</m:apply>
+
+													</m:apply>
+													<m:apply>
+														<m:exp/>
+														<m:apply>
+															<m:minus/>
+															<m:apply>
+																<m:times/>
+																<m:imaginaryi/>
+																<m:cn>2</m:cn>
+
+																<m:pi/>
+																<m:ci>f</m:ci>
+																<m:ci>t</m:ci>
+															</m:apply>
+														</m:apply>
+													</m:apply>
+												</m:apply>
+												<m:apply>
+
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:imaginaryi/>
+												</m:apply>
+											</m:apply>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								<span class="equation-number">(6)</span></div>
+
+							</li></ul></div>
+					</li></ul></div>
+                                This is not a new paragraph.
+
+                                This is also not a new paragraph.
+ 			</p><p class="para" id="new">
+	This is a new paragraph.
+      </p><div class="list" id="list1b"><h3 class="list-header"><strong class="title"> Example Enumerated List </strong></h3><ol class="arabic"><li class="item">This is an enumerated list item not located within
+	  paragraph tags. </li><li class="item">
+	  This is another item with a list nested inside of it.
+	  <div class="list" id="list2b"><ul class="bullet"><li class="item">This is a subitem.  But the subitem is not enumerated. </li><li class="item">This is another subitem.</li></ul></div>
+				 </li><li class="item"> Yet another item</li></ol></div><div class="list" id="note_rule_def_list"><h3 class="list-header"><strong class="title">A list of notes, definitions, and rules</strong></h3><ul class="bullet"><li class="item">
+					<div class="note" id="id3640101"><h4 class="note-header"><span class="cnx_label">Warning: </span></h4> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	      dangerous</em>. Please handle with caution. </div>
+
+				 </li><li class="item">
+					<div class="note" id="id3640125"><h4 class="note-header"><span class="cnx_label">Note: </span></h4> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	      dangerous</em>. Please handle with caution. </div>
+				 </li><li class="item">
+					<dl class="definition" id="note_list"><dt><span class="cnx_label">Definition 1: </span><dfn class="term">note</dfn></dt><dd><div class="meaning" id="id3640164"><span class="cnx_label">1.
+        </span>A short letter.</div><div class="example" id="noteex1_list"><h4 class="example-header"><span class="cnx_label">Example</span></h4><p class="para" id="pn1_list">Bob, Your son called. -Mary</p></div></dd><dd><div class="meaning" id="id3640190"><span class="cnx_label">2.
+        </span>A different meaning for the term.</div><div class="example" id="noteex2_list"><h4 class="example-header"><span class="cnx_label">Example</span></h4><p class="para" id="pn2_list">A first example.</p></div><div class="example" id="noteex3_list"><h4 class="example-header"><span class="cnx_label">Example</span></h4><p class="para" id="pn3_list">A second example.</p></div></dd><dd><div class="meaning" id="id3640234"><span class="cnx_label">3.
+        </span>
+
+							<div class="equation" id="list_defintion_equation">
+								<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+									<m:mrow><m:msqrt><m:mrow><m:mi>t</m:mi></m:mrow></m:msqrt></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mrow><m:munderover><m:mo>&#8721;</m:mo><m:mrow><m:mi><m:mrow><m:mi>n</m:mi></m:mrow></m:mi><m:mi>=</m:mi><m:mrow><m:mo>&#8722;</m:mo><m:mi>&#8734;</m:mi></m:mrow></m:mrow><m:mrow><m:mi>&#8734;</m:mi></m:mrow></m:munderover><m:mrow><m:msup><m:mfenced separators=" "><m:mrow><m:mo>&#8722;</m:mo><m:mn>1</m:mn></m:mrow></m:mfenced><m:mrow><m:mi>n</m:mi></m:mrow></m:msup><m:mo>&#8290;</m:mo><m:mrow><m:mi>A</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mrow><m:mi>
+														</m:mi><m:msub>
+															<m:mo>p</m:mo>
+															<m:mrow>
+																<m:mi>T</m:mi>
+																<m:mo>/</m:mo>
+																<m:mn>2</m:mn>
+
+															</m:mrow>
+														</m:msub><m:mi>
+													</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mrow><m:mi>n</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfrac><m:mrow><m:mi>T</m:mi></m:mrow><m:mn>2</m:mn></m:mfrac></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow></m:mrow></m:mrow>
+								</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+										<m:eq/>
+										<m:apply>
+											<m:root/>
+											<m:ci>t</m:ci>
+										</m:apply>
+
+										<m:apply>
+											<m:sum/>
+											<m:bvar><m:ci>n</m:ci></m:bvar>
+											<m:lowlimit>
+												<m:apply>
+													<m:minus/>
+													<m:infinity/>
+												</m:apply>
+
+											</m:lowlimit>
+											<m:uplimit>
+												<m:infinity/>
+											</m:uplimit>
+											<m:apply>
+												<m:times/>
+												<m:apply>
+													<m:power/>
+													<m:apply>
+
+														<m:minus/>
+														<m:cn>1</m:cn>
+													</m:apply>
+													<m:ci>n</m:ci>
+												</m:apply>
+												<m:ci>A</m:ci>
+												<m:apply>
+
+													<m:ci type="fn">
+														<m:msub>
+															<m:mo>p</m:mo>
+															<m:mrow>
+																<m:mi>T</m:mi>
+																<m:mo>/</m:mo>
+																<m:mn>2</m:mn>
+
+															</m:mrow>
+														</m:msub>
+													</m:ci>
+													<m:apply>
+														<m:minus/>
+														<m:ci>t</m:ci>
+														<m:apply>
+															<m:times/>
+
+															<m:ci>n</m:ci>
+															<m:apply>
+																<m:divide/>
+																<m:ci>T</m:ci>
+																<m:cn>2</m:cn>
+															</m:apply>
+														</m:apply>
+
+													</m:apply>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply></m:annotation-xml></m:semantics></m:math>
+							<span class="equation-number">(7)</span></div>
+						</div></dd></dl>
+
+				 </li><li class="item">
+					<div class="rule" id="rulephth_list"><h4 class="rule-header"><span class="cnx_label">Theorem 1: </span><strong class="title">Pythagorean Theorem</strong></h4><div class="statement" id="id3640403"><p class="para" id="st1_list">On a right triangle, the sum of the
+		squares of the sides equals the square of the hypotenus.
+	      </p></div><div class="proof" id="id3640422"><h5 class="proof-header"><span class="cnx_label">Proof: </span><strong class="title">proof name</strong></h5><p class="para" id="pr1_list">
+		Your favorite proof goes here.
+	      </p><div class="example" id="ajsidofjaioef"><h6 class="example-header"><span class="cnx_label">Example</span></h6><p class="para" id="ajsdfiajsfdiojasdof">
+  This example is a child of the proof.  The next one is not.
+</p></div></div><div class="example" id="phthex1_list"><h5 class="example-header"><span class="cnx_label">Example</span></h5><p class="para" id="phthexp1_list">
+		Take a right triangle whose sides are of length 3, 4, and 5.
+		In this case the sum of the square of the two shorter sides is
+		9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	      </p></div></div>
+				</li></ul></div><p class="para" id="element-822">This paragraph contains an inline list, i.e. a list with <code class="codeline">type="inline</code>:  <span class="list inline" id="ajsklfj"><span class="item"><strong class="item-decoration"><!--empty label element--></strong>This item has no name; </span><span class="item"><strong class="item-decoration">Name:</strong> This is item has a name</span></span>.  Next is an inline list with a name <span class="list inline" id="asdjfajkls3344df"><strong class="title">List name: </strong><span class="item"><strong class="item-decoration">First item name:</strong> First item text; </span><span class="item"><strong class="item-decoration"><!--empty label element--></strong>2nd item text</span></span> blah blah blah.  This paragraph also contains a named-item list, i.e. a list with <code class="codeline">type="named-item"</code>: <div class="list" id="ajfiow"><h3 class="list-header"><strong class="title">name of list</strong></h3><ul class="labeled-item"><li class="item"><strong class="item-decoration"><!--empty label element--></strong>This item has no name, even though it's part of a named-item list fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff </li><li class="item"><strong class="item-decoration">namenamename:</strong> This item as a longish name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff </li><li class="item"><strong class="item-decoration">n:</strong> This item has a short name fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff fluff</li></ul></div></p></div>
+		<div class="section" id="cnxnlink"><h2 class="section-header"><strong class="title">CNXN and Link</strong></h2><p class="para" id="cnxn_p">If you want to learn more about things in general, you can look
+	at other pages in CNX world.  To learn more about CNXML, go to
+	the <a class="link" href="http://cnx.org/aboutus/technology/cnxml/0.5/spec/">CNXML 0.5
+	  spec</a>.  Then you can write things like
+	<code class="codeline">&lt;cnxn&gt;</code> and <code class="codeline">&lt;link&gt;</code> in CNXML.
+	You will also be able to make 
+	<a title="Strength 3" class="cnxn" href="/content/m9000/latest/#cnln">CNXN's</a>
+
+	between things you wrote and things other people have written.
+	For example, to learn more about Rice sailing, you can look right here at the 
+	<a title="Strength 1" class="cnxn" href="#sec1">sailing section</a> in this module.  Or you
+	could link to something even less relevant, say 
+	<a title="Strength 1" class="cnxn" href="/content/m0520/latest/">digital communication
+	  receivers</a>.  To go to a topic which is a bit more relavant to
+	writing <code class="codeline"> &lt;cnxn&gt; </code> tags, you could visit the
+	module about <a title="Strength 2" class="cnxn" href="/content/m9004/latest/">using emacs</a>. If you
+	have more questions about Connexions basics,
+	you could look at the <a title="Strength 2" class="cnxn" href="/content/m9001/latest/"> FAQ </a>.
+	So if you want to learn more about the world in which you live,
+	Connexions is the
+	place to be. 
+      </p><div class="list" id="element-980"><h3 class="list-header"><strong class="title">empty cnxn testing</strong></h3><ul class="bullet"><li class="item">
+
+To another module: <a title="Strength 1" class="cnxn" href="/content/m0003/latest/">(Reference)</a>
+ </li><li class="item">
+To a subfigure: <a class="cnxn" href="#lena_as_signal_vertical"><span class="cnxn-target">Figure 4(b)</span></a>
+ </li><li class="item">
+To a figure: <a class="cnxn" href="#ascii"><span class="cnxn-target">Figure 2</span></a>
+ </li><li class="item">
+To a paragraph: <a class="cnxn" href="#opening_paragraph"><span class="cnxn-target">Paragraph 1</span></a>
+ </li><li class="item">
+To an equation: <a class="cnxn" href="#content_equation"><span class="cnxn-target">Equation 1</span></a>
+
+ </li><li class="item">
+To a note with no type attribute: <a class="cnxn" href="#cnxn_to_null_note"><span class="cnxn-target">Note 3</span></a>
+ </li><li class="item">
+To a note with type attribute equal to null string: <a class="cnxn" href="#cnxn_to_null_string_note"><span class="cnxn-target">Note 1</span></a>
+ </li><li class="item">
+To a note with a type attribute other than "note": <a class="cnxn" href="#cnxn_to_not_note"><span class="cnxn-target">Warning 3</span></a>
+ </li><li class="item">
+To a footnote: <a class="cnxn" href="#cnxn_to_footnote"><span class="cnxn-target"> 2</span></a>
+ </li><li class="item">
+To a rule: <a class="cnxn" href="#parseval"><span class="cnxn-target">Theorem 4</span></a>
+ </li><li class="item">
+To an emphasis: <a class="cnxn" href="#cnxn_to_emphasis"><span class="cnxn-target">Emphasis 9</span></a>
+ </li><li class="item">
+To a definition: <a class="cnxn" href="#asjf903"><span class="cnxn-target">Definition 3</span></a>
+ </li><li class="item">
+To an exercise outside of an example: <a class="cnxn" href="#exercise_equation"><span class="cnxn-target">Exercise 2</span></a>
+ </li><li class="item">
+
+To a problem outside an example: <a class="cnxn" href="#cnxn_to_problem"><span class="cnxn-target">Exercise 2</span></a>
+ </li><li class="item">
+To a solution outside an example: <a class="cnxn" href="#cnxn_to_single_solution"><span class="cnxn-target">Solution 1</span></a>
+ </li><li class="item">
+To a solution (one of many) outside an example: <a class="cnxn" href="#cnxn_to_2nd_solution"><span class="cnxn-target">Solution 2.B</span></a>
+ </li><li class="item">
+To an exercise inside an example: <a class="cnxn" href="#exercise_in_example_2"><span class="cnxn-target">Problem 3</span></a>
+ </li><li class="item">
+To a problem inside an example: <a class="cnxn" href="#cnxn_to_problem_in_example"><span class="cnxn-target">Problem 3</span></a>
+
+ </li><li class="item">
+To a solution inside an example: <a class="cnxn" href="#cnxn_to_single_solution_in_example"><span class="cnxn-target">Solution 1</span></a>
+ </li><li class="item">
+To a solution (one of many) inside an example: <a class="cnxn" href="#cnxn_to_2nd_solution_in_example"><span class="cnxn-target">Solution 3.B</span></a>
+ </li><li class="item">
+To a glossary: <a id="cnxncnxn" class="cnxn" href="#gloss"><span class="cnxn-target">Glossary 1</span></a>
+ </li><li class="item">
+To a cnxn: <a class="cnxn" href="#cnxncnxn"><span class="cnxn-target">Link 27</span></a>
+ </li><li class="item">
+To a table caption: <a class="cnxn" href="#tablecaption"><span class="cnxn-target">Caption 2</span></a>
+ </li><li class="item">
+To a figure caption: <a class="cnxn" href="#figurecaption"><span class="cnxn-target">Caption 1</span></a>
+ </li><li class="item">
+To an example with no numbering <a class="cnxn" href="#phthex1_example"><span class="cnxn-target">Example</span></a>
+ </li><li class="item">
+To an example after an example with no numbering <a class="cnxn" href="#element-2839"><span class="cnxn-target">Example 9</span></a>
+</li></ul></div></div>
+		<div class="section" id="example"><h2 class="section-header"><strong class="title">Example</strong></h2><div class="example" id="exp01"><h3 class="example-header"><span class="cnx_label">Example 1</span></h3><p class="para" id="p02">
+	  As an example of signal complexity, we can express the pulse  
+	  
+	  <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+						<m:mrow><m:mrow><m:mi>
+								</m:mi><m:msub>
+									<m:mo>p</m:mo>
+
+									<m:mrow>
+										<m:mi>&#916;</m:mi>
+									</m:mrow>
+								</m:msub><m:mi>
+							</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>t</m:mi></m:mrow></m:mfenced></m:mrow>
+					</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+							<m:ci type="fn">
+								<m:msub>
+									<m:mo>p</m:mo>
+
+									<m:mrow>
+										<m:mi>&#916;</m:mi>
+									</m:mrow>
+								</m:msub>
+							</m:ci>
+							<m:ci>t</m:ci>
+						</m:apply></m:annotation-xml></m:semantics></m:math> 
+	  as a sum of delayed unit steps.  
+	</p><div class="equation" id="eqn01">
+					<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+						<m:mrow><m:mrow><m:mrow><m:mi>
+									</m:mi><m:msub>
+										<m:mo>p</m:mo>
+
+										<m:mrow>
+											<m:mi>&#916;</m:mi>
+										</m:mrow>
+									</m:msub><m:mi>
+								</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>t</m:mi></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mrow><m:mrow><m:mrow><m:mi>u</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>t</m:mi></m:mrow></m:mfenced></m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mrow><m:mi>u</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mi>&#916;</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow></m:mrow>
+
+					</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+							<m:eq/>
+							<m:apply>
+								<m:ci type="fn">
+									<m:msub>
+										<m:mo>p</m:mo>
+
+										<m:mrow>
+											<m:mi>&#916;</m:mi>
+										</m:mrow>
+									</m:msub>
+								</m:ci>
+								<m:ci>t</m:ci>
+							</m:apply>
+							<m:apply>
+
+								<m:minus/>
+								<m:apply>
+									<m:ci type="fn">u</m:ci>
+									<m:ci>t</m:ci>
+								</m:apply>
+								<m:apply>
+									<m:ci type="fn">u</m:ci>
+
+									<m:apply>
+										<m:minus/>
+										<m:ci>t</m:ci>
+										<m:ci>&#916;</m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply>
+						</m:apply></m:annotation-xml></m:semantics></m:math>
+				<span class="equation-number">(8)</span></div><p class="para" id="p03">
+	  Thus, the pulse is a more complex signal than the step. Be that
+	  as it may, the pulse is very useful to us.
+	</p></div><div class="example" id="example_pain"><h3 class="example-header"><span class="cnx_label">Example 2: </span><strong class="title">CNXML can be a pain</strong></h3><p class="para" id="example_pain_p">This sentence, although it is very
+	  <em class="emphasis">unimportant</em> and
+	  <em class="emphasis">irrelevant</em>, contains emphasis within the
+	  <code class="codeline">&lt;example&gt;</code> tag.  For an example of
+	  <code class="codeline">&lt;cite&gt;</code> within
+	  <code class="codeline">&lt;example&gt;</code>, see <cite class="cite"><span class="cite-title"><i>Things That
+	    Are a Pain to Style in CNXML</i></span></cite> by Max Starkenburg.  For an
+	  example of <code class="codeline">&lt;emphasis&gt;</code> within
+	  <code class="codeline">&lt;cite&gt;</code> within
+	  <code class="codeline">&lt;example&gt;</code>, please see <cite class="cite"><span class="cite-title"><i>Things
+	    That Are a <em class="emphasis">Pain in the Butt</em> to Style in
+	    CNXML</i></span></cite>, also by Max Starkenburg.  This sentence contains
+	  <code class="codeline"><em id="cnxn_to_emphasis" class="emphasis">emphasized codeline</em></code>
+
+	  within an example.  This sentence contains a 
+	  <a title="Strength 2" class="cnxn" href="#cnxnlink">cnxn</a> within an example.  This
+	  sentence contains a <a class="link" href="http://www.link.com">link</a>.  This
+	  sentence contains a <dfn class="term">term</dfn>.  This sentence contains a
+	  <dfn class="term"><code class="codeline">codeline term</code></dfn>.
+	</p><p class="para" id="example_pain_p2">This paragraph has just been thrown in to
+	  ensure that it is styled correctly.  It has nothing to say, but is long
+	  anwyay, just to make sure that it continues to the next line.
+	</p></div><div class="example" id="example_codeblock"><h3 class="example-header"><span class="cnx_label">Example 3</span></h3><div class="code" id="html_beginning"><pre class="codeblock"><code>
+	  &lt;html&gt;               
+	  &lt;head&gt;
+	  &lt;title&gt;Codeblock within the example tag&lt;/title&gt;
+	  &lt;/head&gt;
+
+	  &lt;body bgcolor="#ffffff" link="#990000"&gt;
+	</code></pre></div></div><div class="example" id="example_list"><h3 class="example-header"><span class="cnx_label">Example 4</span></h3><div class="list" id="list_in_example"><h4 class="list-header"><strong class="title">Example List in Example</strong></h4><ol class="arabic"><li class="item">This is an enumerated list item. </li><li class="item">This is another item with a list inside of it.
+	    <div class="list" id="example_sublist"><ul class="bullet"><li class="item">This is a bulleted list item </li><li class="item">This is another bulleted list item</li></ul></div>
+					</li></ol></div></div><div class="example" id="example_figure"><h3 class="example-header"><span class="cnx_label">Example 5</span></h3><div class="figure" id="figure_in_example"><table border="0" cellpadding="0" cellspacing="0" align="center" width="50%"><caption id="figurecaption" class="figure-caption" align="bottom"><strong class="cnx_label">Figure 1: </strong>This figure is inside of the <code class="codeline">&lt;example&gt;</code> tag.</caption><tbody><tr><td class="inner-figure"><span class="media" id="id3664247"><img src="lena.png" alt="Figure 1 (lena.png)"/></span></td></tr></tbody></table></div></div><div class="example" id="example_table"><h3 class="example-header"><span class="cnx_label">Example 6</span></h3><div class="table" id="table1_example"><table cellspacing="0" cellpadding="0" align="center" summary="" style="border: 1px solid; "><caption align="bottom" class="table-text"><span class="cnx_label">Table 1: </span><span class="table-caption" id="tablecaption">Table of Fourier Representations</span></caption><thead valign="bottom">
+							<tr>
+								<th style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Transform</th>
+								<th style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Time Domain</th>
+								<th style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Frequency Domain</th>
+
+								<th style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">Convolution</th>
+							</tr>
+						</thead><tbody valign="top">
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Continuous-Time Fourier Series</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mfenced open="[" close=")">
+
+												<m:mn>0</m:mn>
+												<m:mrow><m:mi>T</m:mi></m:mrow>
+											</m:mfenced></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-open">
+
+												<m:cn>0</m:cn>
+												<m:ci>T</m:ci>
+											</m:interval>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mi mathvariant="double-struck">Z</m:mi></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:integers/>
+
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">Continuous-Time Circular</td>
+							</tr>
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Continuous-Time Fourier Transform</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mi mathvariant="double-struck">R</m:mi></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+
+											<m:reals/>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mi mathvariant="double-struck">R</m:mi></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:reals/>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">Continuous-Time Linear</td>
+							</tr>
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Discrete-Time Fourier Transform</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+
+												</m:mi><m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mi mathvariant="double-struck">Z</m:mi></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup>
+											</m:ci>
+											<m:integers/>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mfenced open="[" close=")">
+												<m:mn>0</m:mn>
+												<m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi></m:mrow>
+											</m:mfenced></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+													<m:mi>L</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-open">
+												<m:cn>0</m:cn>
+												<m:apply>
+													<m:times/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+
+												</m:apply>
+											</m:interval>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">Discrete-Time Linear</td>
+							</tr>
+							<tr>
+
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">Discrete Fourier Transform</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+												</m:mi><m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup><m:mi>
+											</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mfenced open="[" close="]">
+												<m:mn>0</m:mn>
+												<m:mrow><m:mrow><m:mi>N</m:mi></m:mrow><m:mo>&#8722;</m:mo><m:mn>1</m:mn></m:mrow>
+											</m:mfenced></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+
+												</m:msup>
+											</m:ci>
+											<m:interval closure="closed-closed">
+												<m:cn>0</m:cn>
+												<m:apply>
+													<m:minus/>
+													<m:ci>N</m:ci>
+													<m:cn>1</m:cn>
+
+												</m:apply>
+											</m:interval>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: center !important; ">
+									<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+										<m:mrow><m:mrow><m:mi>
+
+												</m:mi><m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mfenced open="[" close="]">
+												<m:mn>0</m:mn>
+												<m:mrow><m:mrow><m:mi>N</m:mi></m:mrow><m:mo>&#8722;</m:mo><m:mn>1</m:mn></m:mrow>
+											</m:mfenced></m:mfenced></m:mrow>
+									</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+											<m:ci>
+
+												<m:msup>
+													<m:mi>l</m:mi>
+													<m:mn>2</m:mn>
+												</m:msup></m:ci>
+											<m:interval closure="closed-closed">
+												<m:cn>0</m:cn>
+												<m:apply>
+
+													<m:minus/>
+													<m:ci>N</m:ci>
+													<m:cn>1</m:cn>
+												</m:apply>
+											</m:interval>
+										</m:apply></m:annotation-xml></m:semantics></m:math>
+								</td>
+
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important; text-align: left !important; ">Discrete-Time Circular</td>
+							</tr>
+						</tbody></table></div></div><div class="example" id="example_definition"><h3 class="example-header"><span class="cnx_label">Example 7</span></h3><p class="para" id="example_definition_para">
+					<dl class="definition" id="note_example"><dt><span class="cnx_label">Definition 2: </span><dfn class="term">note</dfn></dt><dd><div class="meaning" id="id3664792">A short letter.</div><div class="example" id="noteex1_example"><h4 class="example-header"><span class="cnx_label">Example</span></h4><p class="para" id="pn1_example">Bob, Your son called. -Mary</p></div></dd></dl>
+				</p><p class="para" id="example_rule_para">
+					<div class="rule" id="rulephth_example"><h4 class="rule-header"><span class="cnx_label">Theorem 2: </span><strong class="title">Pythagorean Theorem</strong></h4><div class="statement" id="id3664850"><p class="para" id="st1_example">On a right triangle, the sum of the
+		squares of the sides equals the square of the hypotenus.
+	      </p></div><div class="proof" id="id3664868"><h5 class="proof-header"><span class="cnx_label">Proof: </span><strong class="title">proof name</strong></h5><p class="para" id="pr1_example">
+		Your favorite proof goes here.
+	      </p></div><div class="example" id="phthex1_example"><h5 class="example-header"><span class="cnx_label">Example</span></h5><p class="para" id="phthexp1_example">
+		Take a right triangle whose sides are of length 3, 4, and 5.
+		In this case the sum of the square of the two shorter sides is
+		9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	      </p></div></div>
+				</p><p class="para" id="example_notes">
+					<div class="note" id="id3664927"><h4 class="note-header"><span class="cnx_label">Warning: </span></h4> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	      dangerous</em>. Please hande with caution. </div>
+					<div class="note" id="id3664945"><h4 class="note-header"><span class="cnx_label">Note: </span></h4> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	      dangerous</em>. Please hande with caution. </div>
+
+				</p></div></div>
+
+
+<dl class="definition" id="asjf903"><dt><span class="cnx_label">Definition 3: </span><dfn class="term">23h8902</dfn></dt><dd><div class="meaning" id="id3664980">aj2390tj</div></dd></dl>
+<div class="rule" id="fj920qg3"><h2 class="rule-header"><span class="cnx_label">Of thumb 1</span></h2><div class="statement" id="id3664997"><p class="para" id="j2930fj29g">jaf3j9w0gea ja jdlfasdnfl</p></div></div>
+
+
+<div class="section" id="exercise"><h2 class="section-header"><strong class="title">Exercise</strong></h2><div class="exercise" id="swsuper"><h3 class="exercise-header"><span class="cnx_label">Exercise 1</span></h3><div class="problem" id="id3665038">
+					<p class="para" id="p04">
+	    Express a square wave having period 
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mi>T</m:mi></m:mrow>
+
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:ci xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">T</m:ci></m:annotation-xml></m:semantics></m:math> 	  
+	    and amplitude 
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mi>A</m:mi></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:ci xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">A</m:ci></m:annotation-xml></m:semantics></m:math> 
+	    
+	    as a superposition of delayed and amplitude-scaled pulses.
+	  </p>
+					<p class="para" id="problem_extra">
+	    This is an extra paragraph thrown in for styling purposes.
+	  </p>
+				</div><div class="solution" id="cnxn_to_single_solution" style="display: block;"><h4 class="solution-header"><span class="cnx_label">Solution</span></h4><p class="para" id="solution_p">This is a paragraph that begins a 
+	    solution.  The equation is nested in the paragraph.
+	    <div class="equation" id="solution">
+							<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+								<m:mrow><m:msqrt><m:mrow><m:mi>t</m:mi></m:mrow></m:msqrt></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mrow><m:munderover><m:mo>&#8721;</m:mo><m:mrow><m:mi><m:mrow><m:mi>n</m:mi></m:mrow></m:mi><m:mi>=</m:mi><m:mrow><m:mo>&#8722;</m:mo><m:mi>&#8734;</m:mi></m:mrow></m:mrow><m:mrow><m:mi>&#8734;</m:mi></m:mrow></m:munderover><m:mrow><m:msup><m:mfenced separators=" "><m:mrow><m:mo>&#8722;</m:mo><m:mn>1</m:mn></m:mrow></m:mfenced><m:mrow><m:mi>n</m:mi></m:mrow></m:msup><m:mo>&#8290;</m:mo><m:mrow><m:mi>A</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mrow><m:mi>
+													</m:mi><m:msub>
+														<m:mo>p</m:mo>
+														<m:mrow>
+															<m:mi>T</m:mi>
+															<m:mo>/</m:mo>
+
+															<m:mn>2</m:mn>
+														</m:mrow>
+													</m:msub><m:mi>
+												</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mrow><m:mi>n</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfrac><m:mrow><m:mi>T</m:mi></m:mrow><m:mn>2</m:mn></m:mfrac></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow></m:mrow></m:mrow>
+							</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+									<m:eq/>
+									<m:apply>
+										<m:root/>
+										<m:ci>t</m:ci>
+
+									</m:apply>
+									<m:apply>
+										<m:sum/>
+										<m:bvar><m:ci>n</m:ci></m:bvar>
+										<m:lowlimit>
+											<m:apply>
+												<m:minus/>
+												<m:infinity/>
+
+											</m:apply>
+										</m:lowlimit>
+										<m:uplimit>
+											<m:infinity/>
+										</m:uplimit>
+										<m:apply>
+											<m:times/>
+											<m:apply>
+												<m:power/>
+
+												<m:apply>
+													<m:minus/>
+													<m:cn>1</m:cn>
+												</m:apply>
+												<m:ci>n</m:ci>
+											</m:apply>
+											<m:ci>A</m:ci>
+
+											<m:apply>
+												<m:ci type="fn">
+													<m:msub>
+														<m:mo>p</m:mo>
+														<m:mrow>
+															<m:mi>T</m:mi>
+															<m:mo>/</m:mo>
+
+															<m:mn>2</m:mn>
+														</m:mrow>
+													</m:msub>
+												</m:ci>
+												<m:apply>
+													<m:minus/>
+													<m:ci>t</m:ci>
+													<m:apply>
+
+														<m:times/>
+														<m:ci>n</m:ci>
+														<m:apply>
+															<m:divide/>
+															<m:ci>T</m:ci>
+															<m:cn>2</m:cn>
+														</m:apply>
+
+													</m:apply>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+								</m:apply></m:annotation-xml></m:semantics></m:math>
+						<span class="equation-number">(9)</span></div>
+					</p><p class="para" id="solution_extra">
+	    This is an extra paragraph thrown in for styling purposes.
+	  </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('swsuper',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div><div class="example" id="element-729"><h3 class="example-header"><span class="cnx_label">Example 8</span></h3><div class="exercise" id="exercise_in_example_1"><h4 class="exercise-header"><span class="cnx_label">Problem 1</span></h4><div class="problem" id="id3665275">
+  <p class="para" id="element-183">
+    Problem Text Here
+  </p>
+
+</div><div class="solution" id="cnxn_to_single_solution_in_example" style="display: block;"><h5 class="solution-header"><span class="cnx_label">Solution</span></h5><p class="para" id="element-172">
+    Solution Text Here
+  </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('exercise_in_example_1',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div><div class="example" id="element-2839"><h4 class="example-header"><span class="cnx_label">Example 9</span></h4><div class="exercise" id="element-2934"><h5 class="exercise-header"><span class="cnx_label">Problem 1</span></h5><div class="problem" id="id3665333">
+      <p class="para" id="element-5782">
+        Exercise/problem nested inside example nested inside example.
+      </p>
+    </div><div class="solution" id="id3665352" style="display: block;"><h6 class="solution-header"><span class="cnx_label">Solution</span></h6><p class="para" id="element-3828">
+        Solution nested inside example nested inside example.
+      </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('element-2934',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div></div><div class="section" id="element-349"><h4 class="section-header"><strong class="title">section for testing purposes only</strong></h4><div class="exercise" id="element-426"><h5 class="exercise-header"><span class="cnx_label">Problem 2</span></h5><div class="problem" id="id3665396">
+  <p class="para" id="element-185">
+    Problem Text Here
+  </p>
+</div><div class="solution" id="id3665413" style="display: block;"><h6 class="solution-header"><span class="cnx_label">Solution</span></h6><p class="para" id="element-230">
+    Solution Text Here
+  </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('element-426',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div></div><div class="exercise" id="exercise_in_example_2"><h4 class="exercise-header"><span class="cnx_label">Problem 3</span></h4><div class="problem" id="cnxn_to_problem_in_example">
+  <p class="para" id="element-184">
+    Problem Text Here
+  </p>
+</div><div class="solution" id="id3665462" style="display: block;"><h5 class="solution-header"><span class="cnx_label">Solution A</span></h5><p class="para" id="element-173">
+    Solution 1 Text Here
+  </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('exercise_in_example_2',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div><div class="solution" id="cnxn_to_2nd_solution_in_example" style="display: block;"><h5 class="solution-header"><span class="cnx_label">Solution B</span></h5><p class="para" id="element-174">
+    Solution 2 Text Here
+  </p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('exercise_in_example_2',2); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div></div><div class="exercise" id="exercise_equation"><h3 class="exercise-header"><span class="cnx_label">Exercise 2</span></h3><div class="problem" id="cnxn_to_problem">
+					<div class="equation" id="problem_equation"><h4 class="equation-header"><strong class="title">This equation has been thrown in as a child of problem for styling purposes</strong></h4>
+						
+						<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+
+							<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+										<m:plus/>
+
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+												<m:apply>
+
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+								</m:apply>
+
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+					<span class="equation-number">(10)</span></div>
+				</div><div class="solution" id="id3665646" style="display: block;"><h4 class="solution-header"><span class="cnx_label">Solution A</span></h4><p class="para" id="exercise_solution_para">The solution is to use Mozilla, and not IE, nor Netscape.  The latter two browsers have serious CSS bugs.  For an equation inside a solution, see the above exercise.</p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('exercise_equation',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div><div class="solution" id="cnxn_to_2nd_solution" style="display: block;"><h4 class="solution-header"><span class="cnx_label">Solution B</span></h4><p class="para" id="exercise_solution_para_2">Note the ability to have more than one solution per exercise.</p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('exercise_equation',2); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div><div class="exercise" id="element-316"><h3 class="exercise-header"><span class="cnx_label">Exercise 3</span></h3><div class="problem" id="id3665697">
+  <p class="para" id="element-792">
+    This exercise contains a problem but no solution
+  </p>
+</div></div><div class="example" id="following_example"><h3 class="example-header"><span class="cnx_label">Example 10</span></h3><div class="exercise" id="following_example_exercise"><h4 class="exercise-header"><span class="cnx_label">Problem 1</span></h4><div class="problem" id="id3665736">
+      <p class="para" id="asdf123">Another exercise in an an example following the other ones</p>
+
+    </div><div class="solution" id="id3665753" style="display: block;"><h5 class="solution-header"><span class="cnx_label">Solution</span></h5><p class="para" id="asdjfaie0">Solution text</p></div><div class="solution-toggles" style="display: none;"><a href="#" onclick="toggleSolution('following_example_exercise',1); return false;"><span class="solution-toggle">
+          [
+          Show Solution
+          ]
+        </span><span class="solution-toggle" style="display: none;">
+          [
+          Hide Solution
+          ]
+        </span></a></div></div></div></div>
+		<div class="section" id="code"><h2 class="section-header"><strong class="title">Codeline and Codeblock</strong></h2><p class="para" id="p05">Try running this in MATLAB.</p><div class="code" id="id3665798"><pre class="codeblock"><code>
+				<em class="emphasis">for</em> n=1:1000
+	y(n) = sum(a.*y(n-1:-1:n-p)) + sum(b.*x(n:-1:n-q));
+	end
+      </code></pre></div><p class="para" id="p06">
+	The <code class="codeline">for</code> command repeats its contents while
+	incrementing a counter.
+      </p><p class="para" id="code01">
+				<code class="codeline">&lt;!-- some codeline and codeblock are
+	  <em class="emphasis">emphasized</em> more than others --&gt;</code>
+			</p><p class="para" id="code02">
+				<code class="codeline">&lt;!-- 
+	  codeline can be <a class="link" href="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</a> and <a title="Strength 3" class="cnxn" href="/content/m9000/latest/#cnln">cnxn'ed</a> too --&gt;</code>
+
+			</p><div class="code" id="id3665905"><pre class="codeblock"><code>
+	codeblock
+	can be 
+	<a class="link" href="http://dir.yahoo.com/Computers_and_Internet/Internet/World_Wide_Web/Searching_the_Web/Indices_to_Web_Documents/Random_Links/">linked</a> and
+	<a title="Strength 3" class="cnxn" href="/content/m9000/latest/#cnln">cnxn'ed</a>
+	as well
+      </code></pre></div></div>
+		<div class="section" id="definition"><h2 class="section-header"><strong class="title">Definition, Term, Meaning, and Example</strong></h2><dl class="definition" id="note"><dt><span class="cnx_label">Definition 4: </span><dfn class="term">note</dfn></dt><dd><div class="meaning" id="id3665970"><span class="cnx_label">1.
+        </span>A short letter.</div><div class="example" id="noteex1"><h3 class="example-header"><span class="cnx_label">Example</span></h3><p class="para" id="pn1">Bob, Your son called. -Mary</p></div></dd><dd><div class="meaning" id="id3665994"><span class="cnx_label">2.
+        </span>A different meaning for the term.</div><div class="example" id="noteex2"><h3 class="example-header"><span class="cnx_label">Example</span></h3><p class="para" id="pn2">A first example.</p></div><div class="example" id="noteex3"><h3 class="example-header"><span class="cnx_label">Example</span></h3><p class="para" id="pn3">A second example.</p></div></dd></dl><p class="para" id="pardef1">
+	I can also define a new <dfn class="term">term</dfn> in the middle of a
+	sentence.  A term is a new word that is being defined for the
+	first time.
+      </p><p class="para" id="para_definition">The following definition will be the
+	child of a <code class="codeline">&lt;para&gt;</code> tag to ensure that it
+	is styled well.</p><dl class="definition" id="perl_definition"><dt><span class="cnx_label">Definition 5: </span><dfn class="term">
+					<code class="codeline">#!/usr/local/bin/perl/</code>
+				</dfn></dt><dd><div class="meaning" id="id3666104">The first line of every Perl program</div><div class="example" id="perl_example"><h3 class="example-header"><span class="cnx_label">Example</span></h3><p class="para" id="perl_para">This program will produce a 2-column
+	    listing of a file.
+	  </p><div class="code" id="perl_codeblock"><pre class="codeblock"><code>
+	    #!/usr/local/bin/perl/
+	    while( $1 = &gt;STDIN&gt; ) {
+	    chop( $1 );
+	    if( $1 =~ s/^Desig:\s+// ) {
+	    $desig = $1;
+	    next;
+	    }
+	    if( $1 =~ s/^Area:\s+// ) {
+	    $area = $1;
+	    printf( "%-12s %\n", $desig, $area );
+	    }
+	    }
+	  </code></pre></div><p class="para" id="half_half_term">
+	    This sentence contains a term which is <dfn class="term">half regular
+	      <code class="codeline">half codeline</code></dfn>.
+	  </p></div></dd></dl><p class="para" id="perl_inline_p">Feast your eyes on this:
+	<dfn class="term"><code class="codeline">#!/usr/local/bin/perl/</code></dfn> is a term
+	smack dab in the middle of a sentence!  Amazing!  This example,
+	<dfn class="term"><code class="codeline">#!/usr<em class="emphasis">/local/</em>bin/perl/</code></dfn>
+	, is a codeline term with emphasis on
+	<code class="codeline"><em class="emphasis">/local/</em></code>.  The next example is a
+	<dfn class="term"><code class="codeline">codeline term with a <a class="link" href="http://www.link.com">link</a>
+
+	    and <a title="Strength 1" class="cnxn" href="/content/#/latest/">cnxn</a></code></dfn>.	
+      </p><dl class="definition" id="definition_equation"><dt><span class="cnx_label">Definition 6: </span><dfn class="term">equation</dfn></dt><dd><div class="meaning" id="id3666293">
+					<div class="equation" id="meaning_equation"><h3 class="equation-header"><strong class="title">This equation has been thrown in as a child of meaning for styling purposes</strong></h3>
+						
+
+						<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+
+								</m:apply>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+					<span class="equation-number">(11)</span></div>
+				</div></dd></dl></div>
+		<div class="section" id="notes"><h2 class="section-header"><strong class="title"> Note </strong></h2><p class="para" id="note1">Chemistry lab was always a lot of fun.  We played
+	with a lot of chemicals such as Sulfuric and Hydrochloric acid.
+	<div class="note" id="cnxn_to_not_note"><h3 class="note-header"><span class="cnx_label">Warning: </span></h3> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	    dangerous</em>. Please handle with caution. </div>
+			</p><p class="para" id="note2">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuri and Hydrochloric acid.
+<div class="note" id="cnxn_to_null_string_note"> This note does <em class="emphasis">not</em> have a string in its type attribute. 
+	  Please handle with caution. </div>
+
+<div class="note" id="cnxn_to_null_note"><h3 class="note-header"><span class="cnx_label">Note: </span></h3> This note does <em class="emphasis">not</em> have a type attribute. 
+	  Please handle with caution. </div>
+			</p><p class="para" id="note3">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuric and Hydrocholic acid.
+	<a class="footnote-reference" href="#footnote1">1</a>   Adding another footnote here. <a class="footnote-reference" href="#footnote2">2</a>
+
+			</p><p class="para" id="note4">Chemistry lab was always a lot of fun. We played
+	with a lot of chemicals such as Sulfuric and Hydrocholic acid.
+	<a class="footnote-reference" href="#footnote3">3</a>
+			</p></div>
+
+		<div class="section" id="rule"><h2 class="section-header"><strong class="title">Rule</strong></h2><div class="rule" id="rulephth"><h3 class="rule-header"><span class="cnx_label">Theorem 3: </span><strong class="title">Pythagorean Theorem</strong></h3><div class="statement" id="id3666653"><p class="para" id="st1">On a right triangle, the sum of the
+	    squares of the sides equals the square of the hypotenus.
+	  </p></div><div class="proof" id="id3666672"><h4 class="proof-header"><span class="cnx_label">Proof: </span><strong class="title">This proof was thrown into to have a child of equation for styling purposes</strong></h4><div class="equation" id="proof_equation">
+						<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mi>cos</m:mi><m:mfenced open="(" close=")"><m:mrow><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mfenced></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mfrac><m:mrow><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow></m:mrow></m:mrow></m:msup><m:mo>+</m:mo><m:msup><m:mi>e</m:mi><m:mrow><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mo>(</m:mo><m:mi>i</m:mi><m:mo>&#8290;</m:mo><m:mn>2</m:mn><m:mo>&#8290;</m:mo><m:mi>&#960;</m:mi><m:mo>&#8290;</m:mo><m:mrow><m:mi>f</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mrow><m:mi>t</m:mi></m:mrow><m:mo>)</m:mo></m:mrow></m:mrow></m:mrow></m:msup></m:mrow><m:mrow><m:mn>2</m:mn></m:mrow></m:mfrac></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:eq/>
+								<m:apply>
+									<m:cos/>
+
+									<m:apply>
+										<m:times/>
+										<m:cn>2</m:cn>
+										<m:pi/>
+										<m:ci>f</m:ci>
+										<m:ci>t</m:ci>
+									</m:apply>
+
+								</m:apply>
+								<m:apply>
+									<m:divide/>
+									<m:apply>
+										<m:plus/>
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:times/>
+
+												<m:imaginaryi/>
+												<m:cn>2</m:cn>
+												<m:pi/>
+												<m:ci>f</m:ci>
+												<m:ci>t</m:ci>
+											</m:apply>
+										</m:apply>
+
+										<m:apply>
+											<m:exp/>
+											<m:apply>
+												<m:minus/>
+												<m:apply>
+													<m:times/>
+													<m:imaginaryi/>
+													<m:cn>2</m:cn>
+
+													<m:pi/>
+													<m:ci>f</m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+									</m:apply>
+									<m:apply>
+
+										<m:times/>
+										<m:cn>2</m:cn>
+									</m:apply>
+								</m:apply>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+					<span class="equation-number">(12)</span></div></div><div class="example" id="phthex1"><h4 class="example-header"><span class="cnx_label">Example</span></h4><p class="para" id="phthexp1">
+	    Take a right triangle whose sides are of length 3, 4, and 5.
+	    In this case the sum of the square of the two shorter sides is
+	    9+16=25.  The square of the hypotenus is 25.  So the theorem holds.
+	  </p></div></div><div class="rule" id="rule1"><h3 class="rule-header"><span class="cnx_label">Property 1</span></h3><div class="statement" id="id3666839"><p class="para" id="rule1para1">
+
+	    If 
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mi>s</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>t</m:mi></m:mrow></m:mfenced></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:ci type="fn">s</m:ci>
+								<m:ci>t</m:ci>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+	    
+	    is real,
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+
+							<m:mrow><m:mrow><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>&#8722;</m:mo>
+											<m:mi>k</m:mi>
+										</m:mrow>
+
+									</m:msub></m:mrow><m:mo>=</m:mo><m:mrow><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+									</m:msubsup></m:mrow></m:mrow>
+
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0"><m:eq/>
+								<m:ci><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>&#8722;</m:mo>
+											<m:mi>k</m:mi>
+										</m:mrow>
+
+									</m:msub></m:ci>
+								<m:ci><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+									</m:msubsup></m:ci>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+					</p><p class="para" id="rule1para2">
+	    This result follows from the integral that calculates the
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mi>
+								</m:mi><m:msub>
+									<m:mi>c</m:mi>
+									<m:mi>k</m:mi>
+
+								</m:msub><m:mi>
+							</m:mi></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:ci xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+								<m:msub>
+									<m:mi>c</m:mi>
+									<m:mi>k</m:mi>
+
+								</m:msub>
+							</m:ci></m:annotation-xml></m:semantics></m:math>
+	    
+	    from the signal. Furthermore, this result means that
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mrow><m:mi>Re</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>
+
+										</m:mi><m:msub>
+											<m:mi>c</m:mi>
+											<m:mi>k</m:mi>
+										</m:msub><m:mi>
+									</m:mi></m:mrow></m:mfenced></m:mrow><m:mo>=</m:mo><m:mrow><m:mrow><m:mi>Re</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:msub>
+											<m:mi>c</m:mi>
+											<m:mrow>
+												<m:mo>&#8722;</m:mo>
+												<m:mi>k</m:mi>
+											</m:mrow>
+										</m:msub></m:mrow></m:mfenced></m:mrow></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0"><m:eq/>
+								<m:apply>
+									<m:ci type="fn">Re</m:ci>
+									<m:ci>
+
+										<m:msub>
+											<m:mi>c</m:mi>
+											<m:mi>k</m:mi>
+										</m:msub>
+									</m:ci>
+								</m:apply>
+								<m:apply><m:ci type="fn">Re</m:ci>
+
+									<m:ci><m:msub>
+											<m:mi>c</m:mi>
+											<m:mrow>
+												<m:mo>&#8722;</m:mo>
+												<m:mi>k</m:mi>
+											</m:mrow>
+										</m:msub></m:ci>
+
+								</m:apply>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+	    
+	    : The real part of the Fourier coefficients for real-valued signals is even. Similarly,
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:mrow><m:mi>Im</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:msub>
+											<m:mi>c</m:mi>
+
+											<m:mi>k</m:mi>
+										</m:msub></m:mrow></m:mfenced></m:mrow><m:mo>=</m:mo><m:mrow><m:mo>&#8722;</m:mo><m:mrow><m:mrow><m:mi>Im</m:mi></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:msub>
+												<m:mi>c</m:mi>
+
+												<m:mrow>
+													<m:mo>&#8722;</m:mo>
+													<m:mi>k</m:mi>
+												</m:mrow>
+											</m:msub></m:mrow></m:mfenced></m:mrow></m:mrow></m:mrow>
+
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0"><m:eq/>
+								<m:apply><m:ci type="fn">Im</m:ci>
+									<m:ci><m:msub>
+											<m:mi>c</m:mi>
+
+											<m:mi>k</m:mi>
+										</m:msub></m:ci>
+								</m:apply>
+								<m:apply><m:minus/>
+									<m:apply><m:ci type="fn">Im</m:ci>
+										<m:ci><m:msub>
+												<m:mi>c</m:mi>
+
+												<m:mrow>
+													<m:mo>&#8722;</m:mo>
+													<m:mi>k</m:mi>
+												</m:mrow>
+											</m:msub></m:ci>
+									</m:apply>
+								</m:apply>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+	    
+	    : The imaginary parts of the Fourier coefficients have odd symmetry. Consequently,
+	    if you are given the Fourier coefficients for positive indices and zero and are
+	    told the signal is real-valued, you can find the negative-indexed coefficients,
+	    hence the entire spectrum. This kind of symmetry, 
+	    
+	    <m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="inline"><m:semantics><m:mrow>
+							<m:mrow><m:mrow><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>&#8722;</m:mo>
+
+											<m:mi>k</m:mi>
+										</m:mrow>
+									</m:msub></m:mrow><m:mo>=</m:mo><m:mrow><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+
+									</m:msubsup></m:mrow></m:mrow>
+						</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0"><m:eq/>
+								<m:ci><m:msub>
+										<m:mi>c</m:mi>
+										<m:mrow>
+											<m:mo>&#8722;</m:mo>
+
+											<m:mi>k</m:mi>
+										</m:mrow>
+									</m:msub></m:ci>
+								<m:ci><m:msubsup>
+										<m:mi>c</m:mi>
+										<m:mi>k</m:mi>
+										<m:mo>*</m:mo>
+
+									</m:msubsup></m:ci>
+							</m:apply></m:annotation-xml></m:semantics></m:math>
+	    
+	    , is known as <em class="emphasis">conjugate symmetry</em>. We can phrase the property concisely by
+	    saying:
+	    
+	    <div class="rule" id="conjugate"><h4 class="rule-header"><span class="cnx_label">Property 2</span></h4><div class="statement" id="id3667121"><p class="para" id="crulepara1">
+		  Real-valued periodic signals have a conjugate-symmetric spectrum.
+		</p></div></div>
+					</p></div></div><p class="para" id="para3">
+	The Fourier series obeys:
+	<div class="rule" id="parseval"><h3 class="rule-header"><span class="cnx_label">Theorem 4: </span><strong class="title">Parseval's Theorem</strong></h3><div class="statement" id="id3667170"><p class="para" id="parsevalpara1">
+	      Power calculated in the time domain
+	      equals the power calculated in the frequency domain.
+	    </p><p class="para" id="parsevalpara2">
+							<div class="equation" id="parsevaleqn">
+								<m:math xmlns:m="http://www.w3.org/1998/Math/MathML" display="block"><m:semantics><m:mrow>
+									<m:mrow><m:mrow><m:mfrac><m:mn>1</m:mn><m:mrow><m:mi>T</m:mi></m:mrow></m:mfrac><m:mo>&#8290;</m:mo><m:mrow><m:msubsup><m:mo>&#8747;</m:mo><m:mrow><m:mn>0</m:mn></m:mrow><m:mrow><m:mrow><m:mi>T</m:mi></m:mrow></m:mrow></m:msubsup><m:mrow><m:mrow><m:mi>
+														</m:mi><m:msup>
+															<m:mi>s</m:mi>
+
+															<m:mn>2</m:mn>
+														</m:msup></m:mrow><m:mo>&#8290;</m:mo><m:mfenced open="(" close=")" separators=","><m:mrow><m:mi>t</m:mi></m:mrow></m:mfenced></m:mrow><m:mo>d</m:mo><m:mi><m:mrow><m:mi>t</m:mi></m:mrow></m:mi></m:mrow></m:mrow></m:mrow><m:mrow><m:mo>=</m:mo></m:mrow><m:mrow><m:mrow><m:munderover><m:mo>&#8721;</m:mo><m:mrow><m:mi><m:mrow><m:mi>k</m:mi></m:mrow></m:mi><m:mi>=</m:mi><m:mrow><m:mo>&#8722;</m:mo><m:mi>&#8734;</m:mi></m:mrow></m:mrow><m:mrow><m:mi>&#8734;</m:mi></m:mrow></m:munderover><m:msup><m:mfenced separators=" "><m:mrow><m:mo>|</m:mo><m:mrow><m:msub>
+
+															<m:mi>c</m:mi>
+															<m:mi>k</m:mi>
+														</m:msub></m:mrow><m:mo>|</m:mo></m:mrow></m:mfenced><m:mn>2</m:mn></m:msup></m:mrow></m:mrow>
+								</m:mrow><m:annotation-xml encoding="MathML-Content"><m:apply xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0">
+										<m:eq/>
+
+										<m:apply>
+											<m:times/>
+											<m:apply>
+												<m:divide/>
+												<m:cn>1</m:cn>
+												<m:ci>T</m:ci>
+											</m:apply>
+											<m:apply>
+
+												<m:int/>
+												<m:bvar><m:ci>t</m:ci></m:bvar>
+												<m:lowlimit><m:cn>0</m:cn></m:lowlimit>
+												<m:uplimit><m:ci>T</m:ci></m:uplimit>
+												<m:apply><m:ci type="fn">
+														<m:msup>
+															<m:mi>s</m:mi>
+
+															<m:mn>2</m:mn>
+														</m:msup></m:ci>
+													<m:ci>t</m:ci>
+												</m:apply>
+											</m:apply>
+										</m:apply>
+										<m:apply><m:sum/>
+											<m:bvar><m:ci>k</m:ci></m:bvar>
+
+											<m:lowlimit><m:apply><m:minus/>
+													<m:infinity/>
+												</m:apply></m:lowlimit>
+											<m:uplimit><m:infinity/></m:uplimit>
+											<m:apply>
+												<m:power/>
+												<m:apply>
+													<m:abs/>
+													<m:ci><m:msub>
+
+															<m:mi>c</m:mi>
+															<m:mi>k</m:mi>
+														</m:msub></m:ci>
+												</m:apply>
+												<m:degree><m:cn>2</m:cn></m:degree>
+											</m:apply>
+										</m:apply>
+
+									</m:apply></m:annotation-xml></m:semantics></m:math>
+							<span class="equation-number">(13)</span></div>
+	      
+	      This result is a (simpler) re-expression of how to calculate a signal's power than with the 
+	      <a title="Strength 2" class="cnxn" href="/content/m0062/latest/#power">
+		real-valued Fourier series expression for power
+	      </a>.
+	    </p></div></div>
+
+			</p></div>
+		<div class="section" id="cite"><h2 class="section-header"><strong class="title">Cite</strong></h2><p class="para" id="parcite1">
+	Useful information about the color blue can be found in
+	<cite class="cite"><span class="cite-title"><i>The Big Book of the Color Blue</i></span></cite>.
+      </p><p class="para" id="parcite2">
+
+	Emphatic information about emphasizing can be found in <cite class="cite"><span class="cite-title"><i>The
+	  <em class="emphasis">Gigantic</em> Book of Emphasis</i></span></cite>.
+      </p></div>
+		<div class="section" id="figure"><h2 class="section-header"><strong class="title"> Figures </strong></h2><p class="para" id="parafigure">
+
+        Here is an example of a figure with a large table inside
+        it.  For exhaustive examples of figures, subfigures, and captions in many shapes, sizes, and combinations, see <a title="Strength 3" class="cnxn" href="/content/m10221/latest/">(Reference)</a>.  Currently, figures cannot be placed in paragraph tags.
+      </p><div class="figure" id="ascii"><table border="0" cellpadding="0" cellspacing="0" align="center" width="50%"><caption class="figure-caption" align="bottom"><strong class="cnx_label">Figure 2: </strong>
+	  And here we can add more information about the table in a
+	  caption!
+	</caption><thead><tr><th class="figure-name"><strong class="title">Ascii table</strong></th></tr></thead><tbody><tr><td class="inner-figure"><div class="table" id="table_ascii"><table cellspacing="0" cellpadding="0" align="center" summary="" style="border: 1px solid; "><caption align="bottom" class="table-text"><strong class="title">Budget - Comparison by year</strong></caption><tbody valign="top">
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Income</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">12,293</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">12,398</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">14,298</td>
+
+							</tr>
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Expenditure</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">293</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">398</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">298</td>
+							</tr>
+
+							<tr>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">Surplus</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">12000</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">12000</td>
+								<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important; text-align: left !important; ">14000</td>
+							</tr>
+						</tbody></table></div></td></tr></tbody></table></div><div class="section" id="subfigure"><h3 class="section-header"><strong class="title">Subfigures</strong></h3><div class="figure" id="lena"><table border="0" cellpadding="0" cellspacing="0" align="center" width="50%"><caption class="figure-caption" align="bottom"><strong class="cnx_label">Figure 3: </strong>
+	    On the left and right is the <a class="link" href="http://www.cs.cmu.edu/~chuck/lennapg/editor.html">classic "Lena" image</a>,
+	    which is used ubiquitously as a test image.  It contains
+	    straight and curved lines, complicated texture, and a face. In
+	    the middle is a perspective display of the Lena image as a
+	    signal: a function of two <a title="Strength 1" class="cnxn" href="#rulephth">spatial variables</a>. The colors merely
+	    help show what signal values are about the same size. In this
+	    image, signal values range between 0 and 255; why is that?
+	  </caption><thead><tr><th class="figure-name"><strong class="title">The Subsequent Figure Does Not Have a Name</strong></th></tr></thead><tbody><tr><td class="inner-figure"><table border="0" cellpadding="0" cellspacing="0" class="horizontal-subfigure"><tfoot><tr><th class="horizontal-subfigure-caption"><strong class="cnx_label">(a) </strong>Lena</th><th class="horizontal-subfigure-caption"><strong class="cnx_label">(b) </strong>Lena as a signal</th><th class="horizontal-subfigure-caption"><strong class="cnx_label">(c) </strong>Lena again</th></tr></tfoot><tbody><tr><td class="inner-horizontal-subfigure" id="sublena"><span class="media" id="id3667666"><img src="lena.png" alt="Figure 3(a) (lena.png)"/></span></td><td class="inner-horizontal-subfigure" id="id3667684"><span class="media" id="id3667689"><img src="lenamesh.png" alt="Figure 3(b) (lenamesh.png)"/></span></td><td class="inner-horizontal-subfigure" id="id3667707"><span class="media" id="id3667713"><img src="lena.png" alt="Figure 3(c) (lena.png)"/></span></td></tr></tbody></table></td></tr></tbody></table></div><div class="figure" id="lena2"><table border="0" cellpadding="0" cellspacing="0" align="center" width="50%"><caption class="figure-caption" align="bottom"><strong class="cnx_label">Figure 4: </strong>
+	    This example is the same as the last, except that
+	    <code class="codeline">orient='vertical'</code>.  So, the subfigures
+	    should be on top of each other.
+	  </caption><tbody><tr><td class="inner-figure"><table border="0" cellpadding="0" cellspacing="0" align="center" class="vertical-subfigure" id="id3667777"><tfoot><tr><th class="vertical-subfigure-caption"><strong class="cnx_label">(a) </strong>Lena</th></tr></tfoot><tbody><tr><td class="inner-vertical-subfigure"><span class="media" id="id3667783"><img src="lena.png" alt="Figure 4(a) (lena.png)"/></span></td></tr></tbody></table><table border="0" cellpadding="0" cellspacing="0" align="center" class="vertical-subfigure" id="lena_as_signal_vertical"><tfoot><tr><th class="vertical-subfigure-caption"><strong class="cnx_label">(b) </strong>Lena as a signal</th></tr></tfoot><tbody><tr><td class="inner-vertical-subfigure"><span class="media" id="id3667811"><img src="lenamesh.png" height="145" width="180" alt="Figure 4(b) (lenamesh.png)"/></span></td></tr></tbody></table></td></tr></tbody></table></div></div></div>
+		<div class="section" id="table"><h2 class="section-header"><strong class="title">Tables</strong></h2><p class="para" id="tab">
+	Here's is a very simple example of a table, similiar to ones
+	seen previously in this module.
+      </p><div class="table" id="budgettable1"><table cellspacing="0" cellpadding="0" align="center" summary="" style="border: 1px solid; "><caption align="bottom" class="table-text"><span class="cnx_label">Table 2: </span><strong class="title">Budget - Comparison by year</strong><div class="table-caption">This caption put in to test styling.</div></caption><thead valign="top">
+						<tr>
+							<th rowspan="2" style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">Item</th>
+							<th colspan="3" style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: center !important; ">Year</th>
+
+						</tr>
+						<tr>
+							<th style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">1998</th>
+							<th style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: center !important; ">1999</th>
+							<th style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: center !important; ">2000</th>
+						</tr>
+					</thead><tbody valign="top">
+						<tr>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Income</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">12,293</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">12,398</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">14,298</td>
+						</tr>
+
+						<tr>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">Expenditure</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">293</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 1px solid; text-align: left !important; ">398</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 1px solid; text-align: left !important; ">298</td>
+						</tr>
+						<tr>
+
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">Surplus</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">12000</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 1px solid; border-bottom: 0 !important; text-align: left !important; ">12000</td>
+							<td style="border-left: 0 !important; border-top: 0 !important; border-right: 0 !important; border-bottom: 0 !important; text-align: left !important; ">14000</td>
+						</tr>
+					</tbody></table></div></div>
+		<div class="section" id="quote_foreign"><h2 class="section-header"><strong class="title">Quotes and Foreign Terms</strong></h2><p class="para" id="quotfor1">Two new elements added in CNXML 0.5 are <dfn class="term">quote</dfn> and <dfn class="term">foreign</dfn>.  A <dfn class="term">quote</dfn> of type "block" might look like this: 
+				<blockquote id="id3668180" class="quote">I define the <em class="emphasis">real</em> as that which holds its characters on such a tenure that it makes not the slightest difference what any man or men may have <em class="emphasis">thought</em> them to be, or ever will have <em class="emphasis">thought</em> them to be, here using thought to include, imagining, opining, and willing (as long as forcible <em class="emphasis">means</em> are not used); but the real thing's characters will remain absolutely untouched. --C.S. Peirce, <cite class="cite"><span class="cite-title"><i>Collected Papers</i></span></cite> 6.495.</blockquote>
+
+				Anyone involved in interface design and usability should consider Einstein's axiom (shown here in a <dfn class="term">quote</dfn> of type 'inline'): <span class="quote inline">Everything should be made as simple as possible, but not one bit simpler</span>.</p><p class="para" id="quotfor2">In order to appear urbane and literate, we should liberally sprinkle our discourse with foreign terms and phrases, such as <span class="foreign">Fahrvergn&#252;gen</span> and <span class="foreign" id="cnxn_to_foreign">sang-froid</span>.</p><div class="note" id="id3668279"><h3 class="note-header"><span class="cnx_label">Irrelevant: </span></h3>It is possible to include a block quote inside a note, with <dfn class="term">foreign</dfn> elements interspersed:
+			<blockquote id="id3668295" class="quote"><span class="foreign">"Freundschaftsbezeigungen"</span> seems to be "Friendship demonstrations," which is only a foolish and clumsy way of saying "demonstrations of friendship." <span class="foreign">"Unabh&#228;ngigkeitserkl&#228;rungen"</span> seems to be "Independencedeclarations," which is no improvement upon "Declarations of Independence," so far as I can see. <span class="foreign">"Generalstaatsverordnetenversammlungen"</span> seems to be "General-statesrepresentativesmeetings," as nearly as I can get at it -- a mere rhythmical, gushy euphuism for "meetings of the legislature," I judge.  --Mark Twain, <cite class="cite"><span class="cite-title"><i>"The Awful German Language"</i></span></cite></blockquote>
+
+			</div></div>
+		<div class="section" id="concl"><h2 class="section-header"><strong class="title">Conclusion</strong></h2><p class="para" id="cc">
+	For more information on all of the CNXML used in this
+	module, please refer to the <a class="link" href="http://cnx.rice.edu/cnxml/0.5/spec/">CNXML Spec</a>.
+      </p></div>
+
+
+<div class="figure" id="printscreendiffs"><table border="0" cellpadding="0" cellspacing="0" align="center" width="50%"><caption class="figure-caption" align="bottom"><strong class="cnx_label">Figure 5: </strong>An example of how media that appear to be the same size on screen can be a different size in print due to resolution.</caption><tbody><tr><td class="inner-figure"><table border="0" cellpadding="0" cellspacing="0" class="horizontal-subfigure"><tfoot><tr><th class="horizontal-subfigure-caption"><strong class="cnx_label">(a) </strong>72 dpi</th><th class="horizontal-subfigure-caption"><strong class="cnx_label">(b) </strong>150 dpi</th><th class="horizontal-subfigure-caption"><strong class="cnx_label">(c) </strong>300 dpi</th></tr></tfoot><tbody><tr><td class="inner-horizontal-subfigure" id="id3668390"><span class="media" id="id3668395"><img src="tall-72.png" alt="Figure 5(a) (tall-72.png)"/></span></td><td class="inner-horizontal-subfigure" id="id3668413"><span class="media" id="id3668418"><img src="tall-150.png" alt="Figure 5(b) (tall-150.png)"/></span></td><td class="inner-horizontal-subfigure" id="id3668436"><span class="media" id="id3668441"><img src="tall-300.png" alt="Figure 5(c) (tall-300.png)"/></span></td></tr></tbody></table></td></tr></tbody></table></div>
+
+	<div class="footnotes"><h2 class="footnotes-header">Footnotes</h2><ol id="footnotes"><li id="id3666538"><a name="footnote1"> </a> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	    dangerous</em>. Please handle with caution. </li><li id="cnxn_to_footnote"><a name="footnote2"> </a>This note was added to test styling.</li><li id="id3666581"><a name="footnote3"> </a> Sulfuric and Hydrochloric Acid are <em class="emphasis">very
+	    dangerous</em>. Please handle with caution. Also handle this note with caution, because it contains the attribute <code class="codeline">type="FOOTNOTE"</code>, not <code class="codeline">type="footnote"</code>, and will thus be styled differently.</li></ol></div><div class="glossary-container" id="gloss"><h2 class="glossary-header">Glossary</h2>
+		<dl class="definition glossary" id="gloss_def1"><dt><dfn class="term">glossary:</dfn></dt><dd><div class="meaning" id="id3668494">A listing of terms together with their meanings.</div><div class="example" id="id3668502"><h3 class="example-header"><span class="cnx_label">Example: </span></h3><p class="para" id="gloss_def1_p1"><a class="cnxn" href="#gloss_def1">This very glossary.</a></p></div></dd><dd class="seealso"><span class="cnx_label">See Also: </span><dfn class="term"><a class="cnxn" href="/content/m11171/latest/#missesdef">Misses</a></dfn></dd></dl>
+	</div></div>
+  </body>
+</html>
