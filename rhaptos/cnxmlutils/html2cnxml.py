@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""
+Copyright (C) 2013 Rice University
+
+This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
+See LICENSE.txt for details.
+"""
+
 """Converts a piece of HTML5 (just the body tag element) and an existing
 CNXML document into a CNXML document. The existing CNXML Document is necessary
 to preserve the previously document's metadata.
