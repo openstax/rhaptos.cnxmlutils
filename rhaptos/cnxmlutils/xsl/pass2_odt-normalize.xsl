@@ -247,7 +247,7 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<!--  space64__Chuong_02-NgonNguJava.doc -->
+<!-- See space64__Chuong_02-NgonNguJava.doc -->
 <xsl:template match="text:section">
   <c:section>
     <xsl:if test="*[1][self::text:h]">

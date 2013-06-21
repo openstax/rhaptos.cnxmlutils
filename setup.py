@@ -1,3 +1,7 @@
+from setuptools import setup, find_packages
+import os
+
+version = '1.2'
 """
 Copyright (C) 2013 Rice University
 
@@ -21,9 +25,9 @@ setup(name='rhaptos.cnxmlutils',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='oerpub',
-      author_email='http://groups.google.com/group/oer-roadmap-discuss',
-      url='https://github.com/oerpub/rhaptos.cnxmlutils',
+      author='Rhaptos Developers',
+      author_email='rhaptos@rhaptos.org',
+      url='http://rhaptos.org',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['rhaptos'],
@@ -31,11 +35,10 @@ setup(name='rhaptos.cnxmlutils',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'lxml',
+      #    'lxml',
+          #'argparse',
+          # -*- Extra requirements: -*-
       ],
-      extras_require={
-          'cmdline_support': ['argparse'],
-          },
       entry_points="""
       # -*- Entry points: -*-
       """,

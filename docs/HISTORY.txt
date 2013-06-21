@@ -6,7 +6,8 @@ Changelog
 
 - Handle bold and italic paragraph styles
   [rochecompaan]
-
+- alt tags on figures propogate to media
+- fixed subfigure cases
 
 1.0
 ---
