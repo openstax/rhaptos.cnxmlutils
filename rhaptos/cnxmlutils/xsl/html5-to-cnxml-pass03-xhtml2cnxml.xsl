@@ -415,6 +415,9 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	        <xsl:attribute name="bookmark">
 	          <xsl:value-of select="@href"/>
 	        </xsl:attribute>
+          <xsl:attribute name="target-id">
+            <xsl:value-of select="substring-after(@href, '#')"/>
+          </xsl:attribute>
 	        <xsl:call-template name="apply-all"/>
 	      </link>
       </xsl:when>
