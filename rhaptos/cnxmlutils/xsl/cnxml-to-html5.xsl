@@ -88,10 +88,10 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type">
+<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
-  </xsl:attribute>  
+  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:content">
