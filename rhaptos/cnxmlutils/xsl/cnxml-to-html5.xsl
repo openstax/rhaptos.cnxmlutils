@@ -7,7 +7,7 @@
   xmlns:qml="http://cnx.rice.edu/qml/1.0"
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
-  
+
   xmlns:data="http://dev.w3.org/html5/spec/#custom"
   exclude-result-prefixes="m mml"
   >
@@ -50,7 +50,7 @@
 </xsl:template>
 
 <!-- Only consider c:titles in c:content (ignore c:document/c:title) -->
-<xsl:template match="c:title[ancestor::c:content]|c:label" priority="0">
+<xsl:template match="c:title[ancestor::c:content]" priority="0">
   <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></xsl:message>
   <xsl:copy>
     <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
@@ -112,10 +112,21 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:label" />
+<!-- c:label elements are converted to a data-label attribute in HTML -->
 
-<xsl:template mode="label" match="c:label">
-  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+<!-- Ignore spaces before the label and title elements
+     (so we can match rules that convert them to attributes) -->
+<xsl:template match="text()[following-sibling::*[1][self::c:label or self::c:title]]">
+</xsl:template>
+
+
+<xsl:template match="c:label[node()]|c:label[not(node())]">
+  <!--xsl:message>Applying label to <xsl:value-of select="../@id"/></xsl:message-->
+  <xsl:attribute name="data-label"><xsl:value-of select="node()"/></xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:label[*]">
+  <xsl:message>TODO: Support label with element children</xsl:message>
 </xsl:template>
 
 <!-- ========================= -->
@@ -123,9 +134,7 @@
 <xsl:template match="c:title">
   <div>
     <xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates mode="label" select="../c:label"/>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
@@ -139,12 +148,21 @@
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
   <div class="section"><xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*[local-name() != 'id' and local-name() != 'class']"/>
+    <xsl:apply-templates select="@*[local-name() != 'id']|c:label"/>
     <xsl:element name="h{$depth}">
       <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="@id|c:title/@*|c:title/node()"/>
     </xsl:element>
-    <xsl:apply-templates select="node()[not(self::c:title)]">
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
+      <xsl:with-param name="depth" select="$depth + 1"/>
+    </xsl:apply-templates>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:section[not(c:title)]">
+  <xsl:param name="depth" select="1"/>
+  <div class="section"><xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
   </div>
@@ -200,7 +218,7 @@
 <xsl:template match="c:quote/@url">
   <xsl:attribute name="cite">
     <xsl:value-of select="."/>
-  </xsl:attribute>  
+  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:quote[@display='inline']">
@@ -210,13 +228,7 @@
 <xsl:template match="c:quote">
   <blockquote>
     <xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*"/>
-    <!-- take care of label, if quote has a label but not a title; 
-         title template handles the case when both title and label are present -->
-    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
-      <xsl:apply-templates mode="label" select="c:label"/>
-    </xsl:if>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </blockquote>
 </xsl:template>
 
@@ -225,13 +237,7 @@
 <xsl:template match="c:note">
   <div>
     <xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*"/>
-    <!-- take care of label, if note has a label but not a title; 
-         title template handles the case when both title and label are present -->
-    <xsl:if test="*[1][self::c:label] and not(*[2][self::c:title])">
-      <xsl:apply-templates mode="label" select="c:label"/>
-    </xsl:if>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
@@ -372,9 +378,9 @@
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
-<xsl:template match="c:figure[not(@orient)]|c:subfigure">
+<xsl:template match="c:figure|c:subfigure">
   <figure>
-    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="@*|c:label"/>
     <xsl:if test="c:caption or c:title">
       <figcaption>
         <xsl:apply-templates select="c:title"/>
@@ -382,7 +388,7 @@
         <xsl:apply-templates select="c:caption/node()"/>
       </figcaption>
     </xsl:if>
-    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption)]"/>
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
   </figure>
 </xsl:template>
 
@@ -394,9 +400,9 @@
 <xsl:template match="c:table/@summary">
   <xsl:copy/>
 </xsl:template>
-<xsl:template match="c:table[not(c:label) and count(c:tgroup) = 1]">
+<xsl:template match="c:table[count(c:tgroup) = 1]">
   <table>
-    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="@*|c:label"/>
     <xsl:if test="c:caption or c:title">
       <caption>
         <xsl:apply-templates select="c:title"/>
@@ -404,7 +410,7 @@
         <xsl:apply-templates select="c:caption/node()"/>
       </caption>
     </xsl:if>
-    
+
     <xsl:apply-templates select="c:tgroup"/>
   </table>
 </xsl:template>
@@ -479,19 +485,19 @@
 <xsl:template match="c:definition">
   <div class="definition">
     <xsl:apply-templates select="@*|node()"/>
-  </div>  
+  </div>
 </xsl:template>
 
 <xsl:template match="c:meaning[not(c:title)]">
   <div class="meaning">
     <xsl:apply-templates select="@*|node()"/>
-  </div>  
+  </div>
 </xsl:template>
 
 <xsl:template match="c:seealso">
   <span class="seealso">
     <xsl:apply-templates select="@*|node()"/>
-  </span>  
+  </span>
 </xsl:template>
 
 <!-- not covered elements (Marvin) -->
