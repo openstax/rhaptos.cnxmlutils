@@ -86,13 +86,16 @@ Output (CNXML with a correct id linking, bookmark removed):
 		        <xsl:attribute name="target-id">
 		          <xsl:choose>
 		            <xsl:when test="starts-with($bookmark, 'id')">
-		              <!-- first try with followingID, when not available use precedingID -->
+		              <!-- first try with followingID, when not available use precedingID or default to using the original target-id -->
 		              <xsl:choose>
 		                <xsl:when test="$followingID">
 		                  <xsl:value-of select="$followingID"/>
 		                </xsl:when>
+                    <xsl:when test="$precedingID">
+                      <xsl:value-of select="$precedingID"/>
+                    </xsl:when>
 		                <xsl:otherwise>
-		                  <xsl:value-of select="$precedingID"/>
+		                  <xsl:value-of select="@target-id"/>
 		                </xsl:otherwise>
 		              </xsl:choose>
 	              </xsl:when>
@@ -102,9 +105,12 @@ Output (CNXML with a correct id linking, bookmark removed):
 		                <xsl:when test="$precedingID">
 		                  <xsl:value-of select="$precedingID"/>
 		                </xsl:when>
-		                <xsl:otherwise>
-		                  <xsl:value-of select="$followingID"/>
-		                </xsl:otherwise>
+                    <xsl:when test="$followingID">
+                      <xsl:value-of select="$followingID"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="@target-id"/>
+                    </xsl:otherwise>
 		              </xsl:choose>
 		            </xsl:otherwise>
 		          </xsl:choose>
@@ -139,7 +145,7 @@ Output (CNXML with a correct id linking, bookmark removed):
   <xsl:element name="m:{local-name()}" namespace="http://www.w3.org/1998/Math/MathML">
      <xsl:apply-templates select="@*"/>
      <xsl:apply-templates select="node()" mode="math"/>
-   </xsl:element>  
+   </xsl:element>
 </xsl:template>
 
 <!-- math namespace fix -->
