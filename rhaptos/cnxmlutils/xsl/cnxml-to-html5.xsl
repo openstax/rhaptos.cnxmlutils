@@ -65,6 +65,13 @@
 </xsl:template>
 
 <!-- MathJax doesn't like MathML with a prefix -->
+<xsl:template match="m:math">
+  <xsl:element name="{local-name()}">
+    <xsl:attribute name="xmlns">http://www.w3.org/1998/Math/MathML</xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
 <xsl:template match="m:*">
   <xsl:element name="{local-name()}" namespaceURI="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>
