@@ -33,6 +33,26 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </document>
 </xsl:template>
 
+<!--
+  IMPORTANT!!!!
+  Instead of applying templates on "@*|node()" call this template.
+
+  It will make sure the data-label attribute is converted to an element
+-->
+<xsl:template name="apply-all">
+  <xsl:call-template name="apply-attributes"/>
+  <xsl:call-template name="apply-nodes"/>
+</xsl:template>
+
+<xsl:template name="apply-attributes">
+  <xsl:apply-templates select="@*[local-name()!='data-label']"/>
+  <xsl:apply-templates select="@data-label"/>
+</xsl:template>
+
+<xsl:template name="apply-nodes">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 <!-- HTML -->
 <xsl:template match="xh:html">
   <xsl:apply-templates select="xh:head"/>
@@ -74,7 +94,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <!-- HTML body -->
 <xsl:template match="xh:body">
-  <xsl:apply-templates select="@*|node()"/>
+  <xsl:call-template name="apply-all"/>
 </xsl:template>
 
 <!-- div -->
@@ -82,11 +102,11 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   <xsl:choose>
     <xsl:when test="./text()">
       <para>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
       </para>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:call-template name="apply-all"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -101,47 +121,47 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </xsl:element>
 </xsl:template>
 
 <!-- paragraphs -->
 <xsl:template match="xh:p">
   <para>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </para>
 </xsl:template>
 
 <!-- em (italics) -->
 <xsl:template match="xh:em">
   <emphasis effect="italics">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </emphasis>
 </xsl:template>
 
 <!-- strong (bold) -->
 <xsl:template match="xh:strong">
   <emphasis effect="bold">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </emphasis>
 </xsl:template>
 
 <!-- underline (first part is a tidy workaround) -->
 <xsl:template match="@class[contains(., 'c1')]|xh:u">
   <emphasis effect="underline">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </emphasis>
 </xsl:template>
 
 <xsl:template match="xh:sub">
   <sub>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </sub>
 </xsl:template>
 
 <xsl:template match="xh:sup">
   <sup>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </sup>
 </xsl:template>
 
@@ -155,27 +175,27 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   <xsl:choose>
     <!-- Do we have a header? Then do not apply any emphasis to the <title> -->
      <xsl:when test="parent::cnhtml:h">
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:call-template name="apply-all"/>
     </xsl:when>
     <!-- First super- and supformat text -->
     <xsl:when test="contains(@style, 'vertical-align:super')">
       <sup>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
       </sup>
     </xsl:when>
     <xsl:when test="contains(@style, 'vertical-align:sub')">
       <sub>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
       </sub>
     </xsl:when>
     <xsl:when test="contains(@style, 'font-style:italic')">
       <emphasis effect='italics'>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
       </emphasis>
     </xsl:when>
     <xsl:when test="contains(@style, 'font-weight:bold')">
       <emphasis effect='bold'>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
       </emphasis>
     </xsl:when>
     <xsl:when test="contains(@style, 'text-decoration:underline')">
@@ -183,16 +203,16 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       <xsl:choose>
         <xsl:when test="text()">
           <emphasis effect='underline'>
-            <xsl:apply-templates select="@*|node()"/>
+            <xsl:call-template name="apply-all"/>
           </emphasis>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="@*|node()"/>
+          <xsl:call-template name="apply-all"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:call-template name="apply-all"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -207,7 +227,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </xsl:element>
 </xsl:template>
 
@@ -215,7 +235,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <xsl:template match="xh:q[@class]/@cite|xh:blockquote[@class]/@cite">
   <xsl:attribute name="url">
     <xsl:value-of select="."/>
-  </xsl:attribute>  
+  </xsl:attribute>
 </xsl:template>
 
 <!-- cites -->
@@ -228,7 +248,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </cite>
 </xsl:template>
 
@@ -241,7 +261,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
       </xsl:if>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </xsl:element>
 </xsl:template>
 
@@ -268,7 +288,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       </para>
     </xsl:if>
     -->
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </section>
 </xsl:template>
 
@@ -278,21 +298,21 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- unordered listings -->
 <xsl:template match="xh:ul">
     <list>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
     </list>
 </xsl:template>
 
 <!-- ordered listings -->
 <xsl:template match="xh:ol">
     <list list-type="enumerated">
-        <xsl:apply-templates select="@*|node()"/>
-    </list>    
+        <xsl:call-template name="apply-all"/>
+    </list>
 </xsl:template>
 
 <!-- listings content -->
 <xsl:template match="xh:li">
     <item>
-        <xsl:apply-templates select="@*|node()"/>
+        <xsl:call-template name="apply-all"/>
     </item>
 </xsl:template>
 
@@ -309,7 +329,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <xsl:template match="xh:tbody">
   <tgroup>
     <xsl:choose>
-      
+
       <!-- Do we have table headers in first row? -->
       <xsl:when test="xh:tr[1]/xh:th and xh:tr[2]">
         <xsl:attribute name="cols">
@@ -395,7 +415,10 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	        <xsl:attribute name="bookmark">
 	          <xsl:value-of select="@href"/>
 	        </xsl:attribute>
-	        <xsl:apply-templates select="@*|node()"/>
+          <xsl:attribute name="target-id">
+            <xsl:value-of select="substring-after(@href, '#')"/>
+          </xsl:attribute>
+	        <xsl:call-template name="apply-all"/>
 	      </link>
       </xsl:when>
       <!-- external link -->
@@ -408,7 +431,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 		      <xsl:if test="not(starts-with(@href, 'mailto'))">
 		        <xsl:attribute name="window">new</xsl:attribute>
 		      </xsl:if>
-		      <xsl:apply-templates select="@*|node()"/>
+		      <xsl:call-template name="apply-all"/>
 		    </link>
 	    </xsl:otherwise>
     </xsl:choose>
@@ -419,7 +442,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   		<xsl:attribute name="name">
   			<xsl:value-of select="@name"/>
   		</xsl:attribute>
-  		<xsl:apply-templates select="@*|node()"/>
+  		<xsl:call-template name="apply-all"/>
   	</cnxtra:bookmark>
 	</xsl:if>
 </xsl:template>
@@ -460,7 +483,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
         </xsl:attribute>
         <xsl:attribute name="src">
           <xsl:value-of select="@src"/>
-        </xsl:attribute>        
+        </xsl:attribute>
       </iframe>
     </media>
   </figure>
@@ -476,18 +499,20 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
     </xsl:attribute>
     <xsl:attribute name="src">
       <xsl:value-of select="@src"/>
-    </xsl:attribute>        
+    </xsl:attribute>
   </iframe>
 </xsl:template>
 
 <xsl:template match="xh:figure">
   <figure>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-all"/>
   </figure>
 </xsl:template>
 
 <xsl:template match="xh:figcaption">
-  <xsl:apply-templates select="@*|node()"/>
+  <caption>
+    <xsl:call-template name="apply-all"/>
+  </caption>
 </xsl:template>
 
 <!-- TODO! ignore tags -->
@@ -540,7 +565,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:tt
 	|xh:var
   "/>
-  
+
 <!-- TODO: ignore tags, but keep content -->
 <xsl:template match="
 	xh:dl
@@ -554,9 +579,9 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 	|xh:font
 	|xh:big
   ">
-<!--  <xsl:apply-templates select="@*|node()"/> -->
+<!--  <xsl:call-template name="apply-all"/> -->
 </xsl:template>
-  
+
 <!-- handle attributes -->
 <xsl:template match="@id">
   <xsl:if test="string(number(substring(.,1,1))) = 'NaN'">
@@ -565,10 +590,15 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 </xsl:template>
 
 <!-- convert data-attribute names to normal attributes -->
-<xsl:template match="@*[starts-with(name(), 'data-')]">
+<xsl:template match="@*[starts-with(name(), 'data-') and 'data-label' != name()]">
   <xsl:attribute name="{substring(name(), 6)}">
     <xsl:value-of select="."/>
-  </xsl:attribute>  
+  </xsl:attribute>
+</xsl:template>
+
+<!-- convert data-label to a c:label. See template name="apply-all" -->
+<xsl:template match="@data-label">
+  <label><xsl:value-of select="."/></label>
 </xsl:template>
 
 <xsl:template match="@*">
