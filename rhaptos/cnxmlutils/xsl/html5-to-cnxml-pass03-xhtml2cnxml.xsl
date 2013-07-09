@@ -505,13 +505,26 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 
 <xsl:template match="xh:figure">
   <figure>
-    <xsl:call-template name="apply-all"/>
+    <xsl:call-template name="apply-attributes"/>
+    
+    <!-- title -->
+    <xsl:if test="xh:figcaption/xh:div[@class='title']">
+      <xsl:apply-templates select="xh:figcaption/xh:div[@class='title']"/>
+    </xsl:if>
+
+    <xsl:apply-templates select="node()[not(self::xh:figcaption)]"/>
+    
+    <!-- caption -->
+    <xsl:if test="xh:figcaption[string-length(normalize-space(text())) > 0]">
+      <xsl:apply-templates select="xh:figcaption"/>
+    </xsl:if>
   </figure>
 </xsl:template>
 
 <xsl:template match="xh:figcaption">
   <caption>
-    <xsl:call-template name="apply-all"/>
+    <xsl:call-template name="apply-attributes"/>
+    <xsl:apply-templates select="node()[not(self::xh:div[@class='title'])]"/>
   </caption>
 </xsl:template>
 
