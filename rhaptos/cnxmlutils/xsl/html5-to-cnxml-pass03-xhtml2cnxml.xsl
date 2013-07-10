@@ -508,9 +508,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
     <xsl:call-template name="apply-attributes"/>
     
     <!-- title -->
-    <xsl:if test="xh:figcaption/xh:div[@class='title']">
-      <xsl:apply-templates select="xh:figcaption/xh:div[@class='title']"/>
-    </xsl:if>
+    <xsl:apply-templates select="xh:figcaption/xh:div[@class='title']"/>
 
     <xsl:apply-templates select="node()[not(self::xh:figcaption)]"/>
     
