@@ -42,7 +42,7 @@ Log:
 </xsl:template>
 
 <!-- Convert headers into sections -->
-<xsl:template match="x:section">
+<xsl:template match="section">
   <xsl:apply-templates/>
 </xsl:template>
 
