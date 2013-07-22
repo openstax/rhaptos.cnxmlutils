@@ -17,6 +17,9 @@
 <!--
 Converts HTML5 (from CNXML to HTML5) to Aloha simplified HTML5.
 This simplified Aloha HTML5 fits more the Aloha structure and editing.
+
+Log:
+2013-07-19: Remove sections
 -->
 
 <!-- default copy all -->
@@ -36,6 +39,11 @@ This simplified Aloha HTML5 fits more the Aloha structure and editing.
   <xsl:element name="{local-name()}">
     <xsl:apply-templates/>
   </xsl:element>
+</xsl:template>
+
+<!-- Convert headers into sections -->
+<xsl:template match="x:section">
+  <xsl:apply-templates/>
 </xsl:template>
 
 </xsl:stylesheet>
