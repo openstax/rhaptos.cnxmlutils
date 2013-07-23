@@ -29,11 +29,6 @@ Log:
   </xsl:copy>
 </xsl:template>
 
-<!-- remove div sections -->
-<xsl:template match="div[@class='section']">
-  <xsl:apply-templates/>
-</xsl:template>
-
 <!-- remove classes from strong and emphasis -->
 <xsl:template match="strong|em|table|body">
   <xsl:element name="{local-name()}">
@@ -41,9 +36,47 @@ Log:
   </xsl:element>
 </xsl:template>
 
-<!-- Convert headers into sections -->
+<!-- turn sections into headers -->
+<xsl:template match="section[h1|h2|h3|h4|h5|h6]">
+  <!-- children will take care of section/@* -->
+  <xsl:apply-templates mode="headers" select="h1|h2|h3|h4|h5|h6" />
+  <xsl:apply-templates select="node()[not(self::h1|self::h2|self::h3|
+                                          self::h4|self::h5|self::h6)]"/>
+</xsl:template>
+
 <xsl:template match="section">
-  <xsl:apply-templates/>
+  <!-- section with no title -->
+  <section class="complex-section">
+    <xsl:apply-templates select="@*|node()"/>
+  </section>
+</xsl:template>
+
+<xsl:template match="h1|h2|h3|h4|h5|h6" />
+
+<xsl:template mode="headers" match="section/h1|section/h2|section/h3|
+                                    section/h4|section/h5|section/h6">
+  <xsl:variable name="h" select="name(.)"/>  
+  <xsl:element name="{$h}">
+    <!-- place section attributes onto the h* node -->
+    <xsl:apply-templates select="../@*" />
+    <!-- handle h* attributes -->
+    <xsl:if test="@id">
+      <xsl:attribute name="data-header-id">
+        <xsl:value-of select="@id"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@class">
+      <!-- here is hoping section/@class does not exist -->
+      <xsl:apply-templates select="@class" />
+    </xsl:if>
+    <xsl:if test="@data-class">
+      <xsl:attribute name="data-header-class">
+        <xsl:value-of select="@data-class"/>
+      </xsl:attribute>
+    </xsl:if>
+    <!--handle h* children nodes -->
+    <xsl:apply-templates select="node()"/>
+  </xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>
