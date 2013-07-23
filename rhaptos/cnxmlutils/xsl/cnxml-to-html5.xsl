@@ -147,27 +147,26 @@
 
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
-  <div class="section"><xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*[local-name() != 'id']|c:label"/>
+  <section>
+    <xsl:apply-templates select="@*|c:label"/>
     <xsl:element name="h{$depth}">
       <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="@id|c:title/@*|c:title/node()"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
     </xsl:element>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
-  </div>
+  </section>
 </xsl:template>
 
 <xsl:template match="c:section[not(c:title)]">
   <xsl:param name="depth" select="1"/>
-  <div class="section"><xsl:apply-templates mode="class" select="."/>
+  <section>
     <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
-  </div>
+  </section>
 </xsl:template>
-
 
 <xsl:template match="c:para">
   <p><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></p>
