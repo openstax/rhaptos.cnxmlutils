@@ -37,19 +37,46 @@ Log:
 </xsl:template>
 
 <!-- turn sections into headers -->
-<xsl:template match="section[h1|h2|h3|h4|h5|h6]">
+
+<!-- section with no header is complex -->
+<xsl:template match="section[not(h1|h2|h3|h4|h5|h6)]">
+  <xsl:apply-templates mode="complex" select="." />
+</xsl:template>
+
+<!-- section with a following nonsection sibling is complex -->
+<xsl:template match="section[following-sibling::*][not(following-sibling::section)]">
+  <xsl:apply-templates mode="complex" select="." />
+</xsl:template>
+
+<xsl:template mode="complex" match="section">
+  <section class="complex-section">
+    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates mode="complex" select="h1|h2|h3|h4|h5|h6" />
+    <xsl:apply-templates select="node()[not(self::h1|self::h2|self::h3|
+                                            self::h4|self::h5|self::h6)]"/>
+  </section>
+</xsl:template>
+
+<xsl:template mode="complex" match="h1|h2|h3|h4|h5|h6">
+  <xsl:variable name="h" select="name(.)"/>  
+  <xsl:element name="{$h}">
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="section">
   <!-- children will take care of section/@* -->
   <xsl:apply-templates mode="headers" select="h1|h2|h3|h4|h5|h6" />
   <xsl:apply-templates select="node()[not(self::h1|self::h2|self::h3|
                                           self::h4|self::h5|self::h6)]"/>
 </xsl:template>
 
-<xsl:template match="section">
-  <!-- section with no title -->
-  <section class="complex-section">
-    <xsl:apply-templates select="@*|node()"/>
-  </section>
+<!--
+<xsl:template match="section[section[following-sibling::*][not(following-sibling::section)]]">
+  <xsl:comment>found a non-section child node that has a section preceding sibling</xsl:comment>
+  <xsl:apply-templates mode="complex" select="." />
 </xsl:template>
+-->
 
 <xsl:template match="h1|h2|h3|h4|h5|h6" />
 
