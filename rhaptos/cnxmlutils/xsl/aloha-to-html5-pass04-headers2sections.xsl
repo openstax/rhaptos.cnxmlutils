@@ -58,7 +58,13 @@ Output:
 <!-- Convert headers into sections -->
 <xsl:template match="cnhtml:h">
   <section>
+    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+    <xsl:attribute name="data-class"><xsl:value-of select="@data-class"/></xsl:attribute>
+    <xsl:attribute name="data-type"><xsl:value-of select="@data-type"/></xsl:attribute>
     <xsl:element name="h{@level}">
+      <xsl:attribute name="id"><xsl:value-of select="@data-header-id"/></xsl:attribute>
+      <xsl:attribute name="data-class"><xsl:value-of select="@data-header-class"/></xsl:attribute>
+      <xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute>
       <xsl:value-of select="@title"/>
     </xsl:element>
     <xsl:apply-templates/>
