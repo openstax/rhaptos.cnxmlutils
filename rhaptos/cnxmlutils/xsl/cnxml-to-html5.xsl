@@ -3,7 +3,7 @@
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
-  xmlns:md="http://cnx.rice.edu/mdml/0.4"
+  xmlns:md="http://cnx.rice.edu/mdml"
   xmlns:qml="http://cnx.rice.edu/qml/1.0"
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
@@ -30,8 +30,18 @@
 <xsl:template match="c:document">
   <body>
     <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
   </body>
+</xsl:template>
+
+<xsl:template match="md:abstract">
+  <!-- Only render the abstract if it contains text/elements -->
+  <xsl:if test="node()">
+    <div class="abstract">
+      <xsl:apply-templates select="@*|node()"/>
+    </div>
+  </xsl:if>
 </xsl:template>
 
 
