@@ -277,6 +277,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- sections -->
 <xsl:template match="xh:section">
   <section>
+    <xsl:call-template name="apply-attributes"/>
     <title>
       <xsl:value-of select="(xh:h1|xh:h2|xh:h3|xh:h4|xh:h5|xh:h6)[1]"/>
     </title>
@@ -288,7 +289,7 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
       </para>
     </xsl:if>
     -->
-    <xsl:call-template name="apply-all"/>
+     <xsl:call-template name="apply-nodes"/>
   </section>
 </xsl:template>
 
