@@ -104,15 +104,17 @@ Output:
   </xsl:if>
    -->
 
-  <xsl:if test="following-sibling::cnhtml:h[@level = $userlevel][1]">           <!-- Is there a following header in the same level? -->
+  <!-- Is there a following header in the same level? -->
+  <xsl:if test="following-sibling::*[self::cnhtml:h or self::x:section][@level = $userlevel][1]">  
     <!-- This part is very hard to understand:
-       It compares if the first preceding header with a lower level is the same as the first preceding header (with a lower level) for the following header with the same level.
+       It compares if the first preceding header with a lower level is the same as the first preceding header 
+       (with a lower level) for the following header with the same level.
        So it keeps sure that there is no lower level header in between the next header with the same level.
        In other words: It keeps sure that the tree is correct and no double tags are created ;)
     -->
-     <xsl:if test="generate-id(preceding-sibling::cnhtml:h[@level &lt; $userlevel][1])
-             = generate-id(following-sibling::cnhtml:h[@level = $userlevel][1]/preceding-sibling::cnhtml:h[@level &lt; $userlevel][1])">
-       <xsl:apply-templates select="following-sibling::cnhtml:h[@level = $userlevel][1]" mode="walker_pass2">
+    <xsl:if                                                                              test="generate-id(preceding-sibling::*[self::cnhtml:h or self::x:section][@level &lt; $userlevel][1])
+             = generate-id(following-sibling::*[self::cnhtml:h or self::x:section][@level = $userlevel][1]/preceding-sibling::*[self::cnhtml:h or self::x:section][@level &lt; $userlevel][1])">
+      <xsl:apply-templates select="following-sibling::*[self::cnhtml:h or self::x:section][@level = $userlevel][1]" mode="walker_pass2">
         <xsl:with-param name="level" select="$level"/>
       </xsl:apply-templates>
     </xsl:if>
@@ -123,7 +125,9 @@ Output:
 <xsl:template match="node()" mode="walker_pass2">
   <xsl:param name="level" select="1"/>
   <xsl:apply-templates select="."/>
-  <xsl:if test="not(following-sibling::node()[1]/self::cnhtml:h[@level &lt; $level])">  <!-- Do not process headers with lower level. -->
+  <!-- Do not process headers with lower level. -->
+  <xsl:if test="not(following-sibling::node()[1]/self::cnhtml:h[@level &lt; $level]|
+                    following-sibling::node()[1]/self::x:section[@level &lt; $level])">  
     <xsl:apply-templates select="following-sibling::node()[1]" mode="walker_pass2">
       <xsl:with-param name="level" select="$level"/>
     </xsl:apply-templates>
