@@ -43,4 +43,7 @@ Output
 <!-- remove scripts -->
 <xsl:template match="xh:script"/>
 
+<!-- remove section/@data-depth which was needed for section reconstruction -->
+<xsl:template match="xh:section/@data-depth"/>
+
 </xsl:stylesheet>

@@ -49,6 +49,16 @@ e.g. <h1></h1> to <cnhtml:h level="1"></cnhtml:h>
   <xsl:variable name="title_content">
     <xsl:value-of select="normalize-space(exsl:node-set($title_nodeset))"/>
   </xsl:variable>
+  <xsl:variable name="level" >
+    <xsl:choose>
+    <xsl:when test="self::x:h1">1</xsl:when>
+    <xsl:when test="self::x:h2">2</xsl:when>
+    <xsl:when test="self::x:h3">3</xsl:when>
+    <xsl:when test="self::x:h4">4</xsl:when>
+    <xsl:when test="self::x:h5">5</xsl:when>
+    <xsl:when test="self::x:h6">6</xsl:when>
+    </xsl:choose>
+  </xsl:variable>
   
   <xsl:choose>
       <!-- convert empty headers to empty paragraphs -->
@@ -66,29 +76,38 @@ e.g. <h1></h1> to <cnhtml:h level="1"></cnhtml:h>
       <xsl:otherwise>
         <cnhtml:h>
             <xsl:message>INFO: Renaming HTML header to leveled header</xsl:message>
-            <xsl:attribute name="level" >                          <!-- insert level attribute -->
-              <xsl:choose>
-                <xsl:when test="self::x:h1">1</xsl:when>
-                <xsl:when test="self::x:h2">2</xsl:when>
-                <xsl:when test="self::x:h3">3</xsl:when>
-                <xsl:when test="self::x:h4">4</xsl:when>
-                <xsl:when test="self::x:h5">5</xsl:when>
-                <xsl:when test="self::x:h6">6</xsl:when>
-              </xsl:choose>
+            <!-- insert level attribute -->
+            <xsl:attribute name="level"><xsl:value-of select="$level"/></xsl:attribute>
+
+            <!-- copy header text and also remove all stylings of a header -->
+            <xsl:attribute name="title">
+              <xsl:value-of select="$title_content"/>
             </xsl:attribute>
 
-              <!-- copy header text and also remove all stylings of a header -->
-              <xsl:attribute name="title">
-                <xsl:value-of select="$title_content"/>
-              </xsl:attribute>
-
-            <xsl:apply-templates select="@*"/> <!-- copy all remaining attributes -->
+            <!-- copy all remaining attributes -->
+            <xsl:apply-templates select="@*[not(local-name() = 'data-depth')]"/>
 
             <!-- copy all children which do not have any content -->
             <xsl:apply-templates/>
         </cnhtml:h>
       </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template match="x:section[@class='complex-section']">
+  <xsl:element name="section">
+    <xsl:attribute name="level"><xsl:value-of select="@data-depth"/></xsl:attribute>
+    <xsl:apply-templates select="@*[not(local-name() = 'data-depth')]"/>
+    
+    <xsl:apply-templates mode="complex" select="x:h1|x:h2|x:h3|x:h4|x:h5|x:h6"/>
+    <xsl:apply-templates select="node()[not(self::x:h1|self::x:h2|self::x:h3|self::x:h4|self::x:h5|self::x:h6)]"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template mode="complex" match="x:h1|x:h2|x:h3|x:h4|x:h5|x:h6">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 </xsl:stylesheet>
