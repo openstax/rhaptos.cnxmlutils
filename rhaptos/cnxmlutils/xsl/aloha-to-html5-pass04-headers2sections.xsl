@@ -27,6 +27,8 @@
 <xsl:strip-space elements="*"/>
 <xsl:preserve-space elements="xh:p xh:span xh:li xh:td xh:a"/>
 
+<xsl:param name="id.prefix">a2h-</xsl:param>
+
 <!--
 Transforms headers to HTML5 sections.
 
@@ -58,7 +60,15 @@ Output:
 <!-- Convert headers into sections -->
 <xsl:template match="cnhtml:h">
   <xsl:element name="section">
-    <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+    <xsl:if test="@id">
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+    </xsl:if>
+    <xsl:if test="not(@id)">
+      <xsl:attribute name="id">
+        <xsl:value-of select="$id.prefix"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:attribute name="data-depth"><xsl:value-of select="@level"/></xsl:attribute>
     <xsl:if test="@data-class">
       <xsl:attribute name="data-class"><xsl:value-of select="@data-class"/></xsl:attribute>
