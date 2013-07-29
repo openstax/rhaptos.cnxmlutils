@@ -148,6 +148,7 @@
 <xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
   <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
     <xsl:apply-templates select="@*|c:label"/>
     <xsl:element name="h{$depth}">
       <xsl:apply-templates mode="class" select="c:title"/>
@@ -162,6 +163,7 @@
 <xsl:template match="c:section[not(c:title)]">
   <xsl:param name="depth" select="1"/>
   <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
     <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
