@@ -30,8 +30,14 @@
 <!--
 This XSLT transforms headers and lists of XHTML.
 
-It transforms all tags: <h1>,<h2>,<h3>,<h4>,<h5>,<h6> to <cnhtml:h level="x">
+It transforms all tags: <h1>,<h2>,<h3>,<h4>,<h5>,<h6> to <cnhtml:h level="n">
 e.g. <h1></h1> to <cnhtml:h level="1"></cnhtml:h>
+
+It also transforms <section data-depth="n' class="complex-section"> to <section level="n' class="complex-section">
+section.complex-section noeds are needed for sections which can not be represented as headers and then reconstructed 
+back into section containers.
+
+The level attribute is the driver in the section reconstruction transform.
 -->
 
 <!-- default copy all -->
