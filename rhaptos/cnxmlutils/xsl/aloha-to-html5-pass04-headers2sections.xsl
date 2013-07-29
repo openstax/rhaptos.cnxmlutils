@@ -57,18 +57,37 @@ Output:
 
 <!-- Convert headers into sections -->
 <xsl:template match="cnhtml:h">
-  <section>
+  <xsl:element name="section">
     <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-    <xsl:attribute name="data-class"><xsl:value-of select="@data-class"/></xsl:attribute>
-    <xsl:attribute name="data-type"><xsl:value-of select="@data-type"/></xsl:attribute>
+    <xsl:attribute name="data-depth"><xsl:value-of select="@level"/></xsl:attribute>
+    <xsl:if test="@data-class">
+      <xsl:attribute name="data-class"><xsl:value-of select="@data-class"/></xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@data-type">
+      <xsl:attribute name="data-type"><xsl:value-of select="@data-type"/></xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@data-label">
+      <xsl:attribute name="data-label"><xsl:value-of select="@data-label"/></xsl:attribute>
+    </xsl:if>
     <xsl:element name="h{@level}">
-      <xsl:attribute name="id"><xsl:value-of select="@data-header-id"/></xsl:attribute>
-      <xsl:attribute name="data-class"><xsl:value-of select="@data-header-class"/></xsl:attribute>
-      <xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute>
+      <xsl:if test="@data-header-id">
+        <xsl:attribute name="id"><xsl:value-of select="@data-header-id"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@data-header-class">
+        <xsl:attribute name="data-class"><xsl:value-of select="@data-header-class"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@class">
+        <xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute>
+      </xsl:if>
       <xsl:value-of select="@title"/>
     </xsl:element>
     <xsl:apply-templates/>
-  </section>
+  </xsl:element>
+</xsl:template>
+
+<!-- remove @level which was only needed for section reconstruction -->
+<xsl:template match="x:section/@level">
+  <xsl:attribute name="data-depth"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
 </xsl:stylesheet>
