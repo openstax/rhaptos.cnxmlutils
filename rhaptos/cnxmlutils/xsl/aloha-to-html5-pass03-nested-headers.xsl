@@ -82,6 +82,18 @@ Output:
   </xsl:copy>
 </xsl:template>
 
+<!-- At the beginning of example XSLT should walk step by step through the HTML -->
+<xsl:template match="x:div[@class='example']">
+  <xsl:message>start walking example</xsl:message>
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <!-- start walking with first tag in body -->
+    <xsl:apply-templates select="node()[1]" mode="walker_pass2">
+      <xsl:with-param name="level" select="1"/>
+    </xsl:apply-templates>
+  </xsl:copy>
+</xsl:template>
+
 <!-- Convert headers into nested headers -->
 <xsl:template match="cnhtml:h" mode="walker_pass2">
   <xsl:param name="level" select="1"/>
