@@ -82,6 +82,30 @@ Output:
   </xsl:copy>
 </xsl:template>
 
+<!-- At the beginning of exercise/problem XSLT should walk step by step through the HTML -->
+<xsl:template match="x:div[@class='rule']/x:div[@class='statement']">
+  <xsl:message>start walking rule/statemenmt</xsl:message>
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <!-- start walking with first tag in body -->
+    <xsl:apply-templates select="node()[1]" mode="walker_pass2">
+      <xsl:with-param name="level" select="1"/>
+    </xsl:apply-templates>
+  </xsl:copy>
+</xsl:template>
+
+<!-- At the beginning of exercise/problem XSLT should walk step by step through the HTML -->
+<xsl:template match="x:div[@class='rule']/x:div[@class='proof']">
+  <xsl:message>start walking rule/proof</xsl:message>
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <!-- start walking with first tag in body -->
+    <xsl:apply-templates select="node()[1]" mode="walker_pass2">
+      <xsl:with-param name="level" select="1"/>
+    </xsl:apply-templates>
+  </xsl:copy>
+</xsl:template>
+
 <!-- At the beginning of example XSLT should walk step by step through the HTML -->
 <xsl:template match="x:div[@class='example']">
   <xsl:message>start walking example</xsl:message>
