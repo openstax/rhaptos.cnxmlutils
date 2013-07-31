@@ -80,14 +80,12 @@ Output:
       <xsl:attribute name="data-label"><xsl:value-of select="@data-label"/></xsl:attribute>
     </xsl:if>
     <xsl:element name="h{@level}">
+      <xsl:attribute name="class">title</xsl:attribute>
       <xsl:if test="@data-header-id">
         <xsl:attribute name="id"><xsl:value-of select="@data-header-id"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="@data-header-class">
         <xsl:attribute name="data-class"><xsl:value-of select="@data-header-class"/></xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@class">
-        <xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute>
       </xsl:if>
       <xsl:value-of select="@title"/>
     </xsl:element>
