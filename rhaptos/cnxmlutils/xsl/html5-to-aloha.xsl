@@ -92,10 +92,6 @@ Log:
         <xsl:value-of select="@id"/>
       </xsl:attribute>
     </xsl:if>
-    <xsl:if test="@class">
-      <!-- here is hoping section/@class does not exist -->
-      <xsl:apply-templates select="@class" />
-    </xsl:if>
     <xsl:if test="@data-class">
       <xsl:attribute name="data-header-class">
         <xsl:value-of select="@data-class"/>
