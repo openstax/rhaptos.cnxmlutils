@@ -16,6 +16,8 @@
 
 <xsl:strip-space elements="*"/>
 
+<xsl:param name="id.prefix">h2c-</xsl:param>
+
 <!--
 Main XHTML to CNXML transformation.
 
@@ -622,6 +624,23 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <!-- handle math -->
 <xsl:template match="m:math">
   <xsl:copy-of select="."/>
+</xsl:template>
+
+<!-- handle generic block -->
+<xsl:template match="xh:div[@data-unknown]">
+  <div>
+    <xsl:if test="not(@id)">
+      <xsl:attribute name="id">
+        <xsl:value-of select="$id.prefix"/>
+        <xsl:value-of select="generate-id()"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@class">
+       <xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*[not(local-name() = 'data-unknown')]"/>
+    <xsl:apply-templates select="node()"/>
+  </div>
 </xsl:template>
 
 </xsl:stylesheet>
