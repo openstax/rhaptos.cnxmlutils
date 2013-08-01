@@ -84,7 +84,7 @@ Output:
 
 <!-- At the beginning of exercise/problem XSLT should walk step by step through the HTML -->
 <xsl:template match="x:div[@class='rule']/x:div[@class='statement' or @class='proof']">
-  <xsl:message>start walking rule/statemenmt or rule/proof</xsl:message>
+  <xsl:message>start walking rule/statement or rule/proof</xsl:message>
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
     <!-- start walking with first tag in body -->
