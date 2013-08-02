@@ -280,11 +280,6 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
 <xsl:template match="xh:section">
   <section>
     <xsl:call-template name="apply-attributes"/>
-    <xsl:if test="xh:h1|xh:h2|xh:h3|xh:h4|xh:h5|xh:h6">
-      <title>
-        <xsl:value-of select="(xh:h1|xh:h2|xh:h3|xh:h4|xh:h5|xh:h6)[1]"/>
-      </title>
-    </xsl:if>
     <!-- TODO! -->
     <!--
     <xsl:if test="not(child::xh:p)">
@@ -297,8 +292,13 @@ to a <cnxtra:bookmark> placeholder which is not a valid CNML tag!
   </section>
 </xsl:template>
 
-<!-- Ignore titles, they should be in sections above -->
-<xsl:template match="xh:h1|xh:h2|xh:h3|xh:h4|xh:h5|xh:h6"/>
+<xsl:template match="xh:h1|xh:h2|xh:h3|xh:h4|xh:h5|xh:h6">
+  <title>
+    <xsl:call-template name="apply-attributes"/>
+     <xsl:call-template name="apply-nodes"/>
+  </title>
+</xsl:template>
+
 
 <!-- unordered listings -->
 <xsl:template match="xh:ul">
