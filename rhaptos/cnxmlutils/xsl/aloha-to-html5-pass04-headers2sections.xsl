@@ -70,27 +70,27 @@ Output:
       </xsl:attribute>
     </xsl:if>
     <xsl:attribute name="data-depth"><xsl:value-of select="@level"/></xsl:attribute>
-    <xsl:if test="@data-class">
-      <xsl:attribute name="data-class"><xsl:value-of select="@data-class"/></xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@data-type">
-      <xsl:attribute name="data-type"><xsl:value-of select="@data-type"/></xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@data-label">
-      <xsl:attribute name="data-label"><xsl:value-of select="@data-label"/></xsl:attribute>
-    </xsl:if>
+    <xsl:apply-templates mode="section-data-attr" select="@*[starts-with(local-name(), 'data-')]
+                                                            [not(starts-with(local-name(), 'data-header'))]"/>
     <xsl:element name="h{@level}">
       <xsl:attribute name="class">title</xsl:attribute>
       <xsl:if test="@data-header-id">
         <xsl:attribute name="id"><xsl:value-of select="@data-header-id"/></xsl:attribute>
       </xsl:if>
-      <xsl:if test="@data-header-class">
-        <xsl:attribute name="data-class"><xsl:value-of select="@data-header-class"/></xsl:attribute>
-      </xsl:if>
+      <xsl:apply-templates mode="header-data-attr" select="@*[starts-with(local-name(), 'data-header')]
+                                                             [not(local-name()='data-header-id')]"/>
       <xsl:value-of select="@title"/>
     </xsl:element>
     <xsl:apply-templates/>
   </xsl:element>
+</xsl:template>
+
+<xsl:template mode="section-data-attr" match="@*">
+  <xsl:attribute name="{local-name()}"><xsl:value-of select="."/></xsl:attribute>
+</xsl:template>
+
+<xsl:template mode="header-data-attr" match="@*">
+  <xsl:attribute name="data-{substring-after(local-name(), 'data-header-')}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
 <!-- remove @level which was only needed for section reconstruction -->
