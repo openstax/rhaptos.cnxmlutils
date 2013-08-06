@@ -54,7 +54,7 @@ Deprecated:
 </xsl:template>
 
 <!-- convert images to CNXML -->
-<xsl:template match="cnx:media/cnxtra:image">
+<xsl:template match="cnx:media/cnxtra:image|cnx:figure/cnxtra:image">
   <!-- there still needs to be a cnx:media template that reaches down 
        into this mathc and pulls out the image's @alt -->
         <image>
@@ -80,6 +80,9 @@ Deprecated:
             <xsl:attribute name="width">
               <xsl:value-of select="@width"/>
             </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@alt and parent::cnx:figure">
+            <xsl:attribute name="alt"><xsl:value-of select="@alt"/></xsl:attribute>
           </xsl:if>
         </image>
 </xsl:template>
