@@ -23,6 +23,8 @@
 <xsl:strip-space elements="*"/>
 <xsl:preserve-space elements="xh:p xh:span xh:li xh:td xh:a"/>
 
+<xsl:param name="id.prefix">a2h-</xsl:param>
+
 <!--
 Postprocessing
 - Remove title div and move it into title in head
@@ -63,6 +65,14 @@ Postprocessing
     <xsl:apply-templates select="@*[not(local-name()='alt')]"/>
     <xsl:apply-templates select="node()"/>
   </img>
+</xsl:template>
+
+<xsl:template match="@id[string-length(.) = 0]">
+<xsl:message>zero length @id</xsl:message>
+  <xsl:attribute name="id">
+    <xsl:value-of select="$id.prefix"/>
+    <xsl:value-of select="generate-id()"/>
+  </xsl:attribute>
 </xsl:template>
 
 </xsl:stylesheet>
