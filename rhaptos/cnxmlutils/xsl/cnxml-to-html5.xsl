@@ -378,17 +378,17 @@
 <xsl:template match="c:figure|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*|c:label"/>
-    <xsl:if test="c:caption or c:title">
-      <figcaption>
-        <xsl:apply-templates select="c:title"/>
-        <!-- NOTE: caption loses the optional id -->
-        <xsl:apply-templates select="c:caption/node()"/>
-      </figcaption>
-    </xsl:if>
+    <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
+    <xsl:apply-templates select="c:caption"/>
   </figure>
 </xsl:template>
 
+<xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
+  <figcaption>
+    <xsl:apply-templates select="@*|node()"/>
+  </figcaption>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Tables: partial support   -->
