@@ -71,12 +71,12 @@ Deprecated:
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
-          <xsl:if test="@height &gt; 0">
+          <xsl:if test="string-length(@height) &gt; 0">
             <xsl:attribute name="height">
               <xsl:value-of select="@height"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:if test="@width &gt; 0">
+          <xsl:if test="string-length(@width) &gt; 0">
             <xsl:attribute name="width">
               <xsl:value-of select="@width"/>
             </xsl:attribute>
@@ -110,12 +110,12 @@ Deprecated:
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
-          <xsl:if test="@height &gt; 0">
+          <xsl:if test="string-length(@height) &gt; 0">
             <xsl:attribute name="height">
               <xsl:value-of select="@height"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:if test="@width &gt; 0">
+          <xsl:if test="string-length(@width) &gt; 0">
             <xsl:attribute name="width">
               <xsl:value-of select="@width"/>
             </xsl:attribute>

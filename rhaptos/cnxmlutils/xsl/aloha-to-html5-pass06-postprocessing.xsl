@@ -68,7 +68,6 @@ Postprocessing
 </xsl:template>
 
 <xsl:template match="@id[string-length(.) = 0]">
-<xsl:message>zero length @id</xsl:message>
   <xsl:attribute name="id">
     <xsl:value-of select="$id.prefix"/>
     <xsl:value-of select="generate-id()"/>

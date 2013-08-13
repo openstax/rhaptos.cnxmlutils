@@ -102,4 +102,11 @@ Log:
   </xsl:element>
 </xsl:template>
 
+<!-- figure needs a class in Aloha so semantic block plugin can deal -->
+<xsl:template match="figure">
+  <figure class="figure">
+    <xsl:apply-templates select="@*|node()"/>
+  </figure>
+</xsl:template>
+
 </xsl:stylesheet>
