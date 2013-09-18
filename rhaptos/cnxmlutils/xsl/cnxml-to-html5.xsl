@@ -10,6 +10,7 @@
 
   xmlns:data="http://dev.w3.org/html5/spec/#custom"
   exclude-result-prefixes="m mml"
+
   >
 
 <xsl:output omit-xml-declaration="yes" encoding="ASCII"/>
@@ -76,14 +77,13 @@
 
 <!-- MathJax doesn't like MathML with a prefix -->
 <xsl:template match="m:math">
-  <xsl:element name="{local-name()}">
-    <xsl:attribute name="xmlns">http://www.w3.org/1998/Math/MathML</xsl:attribute>
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>
-  </xsl:element>
+  </math>
 </xsl:template>
 
 <xsl:template match="m:*">
-  <xsl:element name="{local-name()}" namespaceURI="http://www.w3.org/1998/Math/MathML">
+  <xsl:element name="{local-name()}" namespace="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
