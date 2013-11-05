@@ -472,6 +472,7 @@
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc) and @for='pdf']">
   <span data-mime-type="{@mime-type}" data-print="true" data-src="{@src}">
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
