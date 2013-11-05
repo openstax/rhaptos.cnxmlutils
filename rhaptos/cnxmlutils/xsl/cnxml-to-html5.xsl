@@ -460,7 +460,7 @@
 
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc or @for='pdf')]">
-  <img src="{@src}" data-mime-type="{@mime-type}">
+  <img src="{@src}" data-media-type="{@mime-type}">
     <xsl:if test="parent::c:media[@alt]">
       <xsl:attribute name="alt">
         <xsl:value-of select="parent::c:media/@alt"/>
@@ -470,7 +470,7 @@
   </img>
 </xsl:template>
 <xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc) and @for='pdf']">
-  <span data-mime-type="{@mime-type}" data-print="true" data-src="{@src}">
+  <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
