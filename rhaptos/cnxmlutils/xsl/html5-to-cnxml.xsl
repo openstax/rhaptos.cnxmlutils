@@ -281,7 +281,7 @@
 </xsl:template>
 
 <xsl:template match="x:img">
-  <c:image src="{@src}" mime-type="{@data-mime-type}">
+  <c:image src="{@src}" mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
         <xsl:value-of select="substring-before(substring-after(@class, 'for-'), ' ')"/>

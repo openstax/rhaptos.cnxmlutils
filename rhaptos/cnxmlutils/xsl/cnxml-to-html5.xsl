@@ -459,16 +459,8 @@
 </xsl:template>
 
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
-<xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc)]">
-  <img src="{@src}" data-mime-type="{@mime-type}">
-    <xsl:if test="@for">
-      <xsl:apply-templates mode="class" select=".">
-        <xsl:with-param name="newClasses">
-          <xsl:text>for-</xsl:text>
-          <xsl:value-of select="@for"/>
-        </xsl:with-param>
-      </xsl:apply-templates>
-    </xsl:if>
+<xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc or @for='pdf')]">
+  <img src="{@src}" data-media-type="{@mime-type}">
     <xsl:if test="parent::c:media[@alt]">
       <xsl:attribute name="alt">
         <xsl:value-of select="parent::c:media/@alt"/>
@@ -476,6 +468,12 @@
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </img>
+</xsl:template>
+<xsl:template match="c:image[not(@print-width or @thumbnail or @longdesc) and @for='pdf']">
+  <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}">
+    <xsl:apply-templates select="@*|node()"/>
+    <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
+  </span>
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
