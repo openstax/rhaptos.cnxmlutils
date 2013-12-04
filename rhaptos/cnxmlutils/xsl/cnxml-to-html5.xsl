@@ -63,6 +63,7 @@
 <!-- Only consider c:titles in c:content (ignore c:document/c:title) -->
 <xsl:template match="c:title[ancestor::c:content]" priority="0">
   <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></xsl:message>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></div>
   <xsl:copy>
     <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
@@ -70,6 +71,7 @@
 
 <xsl:template match="c:*" priority="-1">
   <xsl:message>TODO: <xsl:value-of select="local-name(.)"/></xsl:message>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(.)"/></div>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
@@ -137,6 +139,7 @@
 
 <xsl:template match="c:label[*]">
   <xsl:message>TODO: Support label with element children</xsl:message>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: Support label with element children</div>
 </xsl:template>
 
 <!-- ========================= -->
