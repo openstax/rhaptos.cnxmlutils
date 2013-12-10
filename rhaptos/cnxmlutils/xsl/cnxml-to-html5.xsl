@@ -554,4 +554,18 @@
 </xsl:template>
 
 
+
+<xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <span class="space">
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count"/>
+      <xsl:with-param name="string" select="' '"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
+
+
+
 </xsl:stylesheet>
