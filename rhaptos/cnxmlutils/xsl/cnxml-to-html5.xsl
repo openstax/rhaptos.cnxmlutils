@@ -521,35 +521,43 @@
   </xsl:attribute>
 </xsl:template>
 
+<xsl:template name="count-helper">
+  <xsl:param name="count"/>
+  <xsl:param name="string"/>
+
+  <xsl:value-of select="$string" disable-output-escaping="yes"/>
+
+  <xsl:if test="$count &gt; 1">
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="$count - 1"/>
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
 
 
 <xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
   <div class="newline">
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates select="@*[local-name() != 'id']" mode="data"/>
-    <xsl:call-template name="newline">
+
+    <xsl:variable name="string">
+      <xsl:choose>
+        <xsl:when test="@effect = 'underline'">
+          <xsl:text>&lt;hr/&gt;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&lt;br/&gt;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="@count" />
+      <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
   </div>
-</xsl:template>
-
-<xsl:template name="newline">
-  <xsl:param name="count" />
-
-  <xsl:choose>
-    <xsl:when test="@effect = 'underline'">
-      <hr/>
-    </xsl:when>
-    <xsl:otherwise>
-      <br/>
-    </xsl:otherwise>
-  </xsl:choose>
-
-  <xsl:if test="$count &gt; 1">
-    <xsl:call-template name="newline">
-      <xsl:with-param name="count" select="$count - 1"/>
-    </xsl:call-template>
-  </xsl:if>
 </xsl:template>
 
 
