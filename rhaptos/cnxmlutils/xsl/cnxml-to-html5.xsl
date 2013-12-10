@@ -633,7 +633,7 @@
     <xsl:attribute name="id">
       <xsl:value-of select="@id"/>
     </xsl:attribute>
-    <xsl:attribute name="data-alt">
+    <xsl:attribute name="alt">
       <xsl:value-of select="@alt"/>
     </xsl:attribute>
     <!-- Apply c:media optional attributes -->
@@ -687,22 +687,34 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
-<xsl:template match="c:image[not(@thumbnail or @longdesc or @for='pdf')]">
+<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>  
+<xsl:template match="c:image[not(@for='pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}">
-    <xsl:if test="parent::c:media[@alt]">
+    <xsl:if test="not(@alt)">
       <xsl:attribute name="alt">
         <xsl:value-of select="parent::c:media/@alt"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@alt">
+      <xsl:attribute name="alt">
+	<xsl:value-of select="@alt"/>
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </img>
 </xsl:template>
-<xsl:template match="c:image[not(@thumbnail or @longdesc) and @for='pdf']">
+<xsl:template match="c:image[@for='pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
+</xsl:template>
+<xsl:template match="c:image/@for">
+  <xsl:if test="c:image[@for='online' or @for='default']">
+    <xsl:attribute name="data-print">
+      <xsl:text>false</xsl:text>
+    </xsl:attribute>
+  </xsl:if>
 </xsl:template>
 <xsl:template match="c:image/@print-width">
   <xsl:attribute name="data-print-width">
@@ -711,6 +723,11 @@
 </xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
+</xsl:template>
+<xsl:template match="c:image/@longdesc">
+  <xsl:attribute name="data-longdesc">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:iframe">
