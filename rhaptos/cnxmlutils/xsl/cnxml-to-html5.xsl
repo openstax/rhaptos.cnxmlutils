@@ -552,4 +552,27 @@
   </xsl:if>
 </xsl:template>
 
+<xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <pre>
+    <xsl:attribute name="class">
+      <xsl:value-of select="normalize-space(concat('space ', @effect))"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="@id"/>
+    <xsl:call-template name="space">
+      <xsl:with-param name="count" select="@count"/>
+    </xsl:call-template>
+  </pre>
+</xsl:template>
+
+<xsl:template name="space">
+  <xsl:param name="count" />
+
+  <xsl:text> </xsl:text>
+  <xsl:if test="$count &gt; 1">
+    <xsl:call-template name="space">
+      <xsl:with-param name="count" select="$count - 1"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
 </xsl:stylesheet>
