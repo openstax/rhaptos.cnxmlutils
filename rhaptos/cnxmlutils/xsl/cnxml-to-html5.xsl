@@ -627,10 +627,58 @@
 <!-- Media: Partial Support    -->
 <!-- ========================= -->
 
-<xsl:template match="c:media[not(@display or @longdesc)]">
+<xsl:template match="c:media">
   <span class="media">
-    <xsl:apply-templates select="@*|node()"/>
+    <!-- Apply c:media required attributes -->
+    <xsl:attribute name="id">
+      <xsl:value-of select="@id"/>
+    </xsl:attribute>
+    <xsl:attribute name="data-alt">
+      <xsl:value-of select="@alt"/>
+    </xsl:attribute>
+    <!-- Apply c:media optional attributes -->
+    <xsl:if test="@display">
+      <xsl:attribute name="class">
+	<xsl:value-of select="concat('media ', @display)"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@longdesc">
+      <xsl:attribute name="data-longdesc">
+	<xsl:value-of select="@longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
   </span>
+</xsl:template>
+
+<xsl:template match="c:media/c:download">
+  <a>
+    <!-- Apply c:download required attributes -->
+    <xsl:attribute name="href">
+      <xsl:value-of select="@src"/>
+    </xsl:attribute>
+    <xsl:attribute name="data-mime-type">
+      <xsl:value-of select="@mime-type"/>
+    </xsl:attribute>
+    <!-- Apply c:download optional attributes -->
+    <xsl:if test="@id">
+      <xsl:attribute name="name">
+	<xsl:value-of select="@id"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@longdesc">
+      <xsl:attribute name="alt">
+	<xsl:value-of select="@longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@for">
+      <xsl:attribute name="data-for">
+	<xsl:value-of select="@for"/>
+      </xsl:attribute>
+    </xsl:if>
+    <!-- Link text -->
+    <xsl:value-of select="@src"/>
+  </a>
 </xsl:template>
 
 <xsl:template match="c:media[child::c:iframe]">

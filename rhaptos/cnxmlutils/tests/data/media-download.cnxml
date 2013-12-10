@@ -1,0 +1,25 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="new" module-id="" cnxml-version="0.7">
+  <title>Preparing and Delivering Oral Presentations</title>
+  <metadata mdml-version="0.5"><!--These elements are placeholers needed to create a valid document.--><md:content-id>undefined</md:content-id><md:repository>http://cnx.org/content</md:repository><md:content-url>http://cnx.org/content/undefined//</md:content-url><md:title/><md:version/><md:created/><md:revised/><md:actors><md:person userid="author"><md:firstname/><md:surname/><md:fullname/></md:person><md:person userid="maintainer"><md:firstname/><md:surname/><md:fullname/></md:person><md:person userid="licensor"><md:firstname/><md:surname/><md:fullname/></md:person></md:actors><md:roles><md:role type="author">author</md:role><md:role type="maintainer">maintainer</md:role><md:role type="licensor">licensor</md:role></md:roles><md:license url=""/><md:language/></metadata>
+  <content>
+  <para id="element-613">This series of 28 slides provides instruction on preparing and delivering oral presentations. The first portion of the lesson focuses on classic principles of accessibility, understandability, and design. Later in the PowerPoint, significant attention is given to issues of delivery and audience response. Photographic examples of stance, gesture, and expression emphasize how excellence in oral presentation depends upon numerous, interlocking parts: visual, verbal, emotional, and physical. </para><figure id="oralPresentation"><title>Preparing and Delivering Oral Presentations</title><media id="idm1802560" alt=""><download src="oralPresentGuide.ppt" mime-type="application/vnd.ms-powerpoint"/></media><caption>Please click on the above link to download the PPT file
+</caption></figure>
+
+  <!-- Adds a test for media@display, media@longdesc, download@longdesc and download@for -->
+  <para id="element-614">Added text</para>
+  <figure id="oralPresentation">
+    <title>Preparing and Delivering Oral Presentations</title>
+    <media id="other-media" display="block" alt=""
+	   longdesc="Long media description">
+      <download src="oralPresentGuide.ppt"
+		mime-type="application/vnd.ms-powerpoint"
+		longdesc="Long download description"
+		for="pdf"
+		/>
+    </media>
+    <caption>Please click on the above link to download the PPT file</caption>
+  </figure>
+
+  </content>
+
+</document>
