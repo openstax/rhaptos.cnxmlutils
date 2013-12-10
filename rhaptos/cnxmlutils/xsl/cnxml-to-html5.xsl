@@ -567,21 +567,11 @@
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates select="@*[local-name() != 'id']" mode="data"/>
 
-    <xsl:call-template name="space">
+    <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="@count"/>
+      <xsl:with-param name="string" select="' '"/>
     </xsl:call-template>
   </span>
-</xsl:template>
-
-<xsl:template name="space">
-  <xsl:param name="count" />
-
-  <xsl:text> </xsl:text>
-  <xsl:if test="$count &gt; 1">
-    <xsl:call-template name="space">
-      <xsl:with-param name="count" select="$count - 1"/>
-    </xsl:call-template>
-  </xsl:if>
 </xsl:template>
 
 
