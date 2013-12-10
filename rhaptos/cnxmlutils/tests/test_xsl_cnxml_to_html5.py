@@ -22,17 +22,22 @@ CNXML_SHELL = """\
 class CxnmlToHtmlTestCase(unittest.TestCase):
     # c:media/c:download cases also test general c:media transformation.
 
+    def call_target(self, *args, **kwargs):
+        target = getattr(self, '_target', None)
+        if target is None:
+            import rhaptos.cnxmlutils
+            xsl_dir = os.path.join(os.path.dirname(rhaptos.cnxmlutils.__file__),
+                                   'xsl')
+            xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
+            target = etree.XSLT(xsl)
+            setattr(self, '_target', target)
+        return target(*args, **kwargs)
+
     def test_media(self):
         # Case to test the conversion of c:media transformation.
-        import rhaptos.cnxmlutils
-        xsl_dir = os.path.join(os.path.dirname(rhaptos.cnxmlutils.__file__),
-                               'xsl')
-        xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
-        target = etree.XSLT(xsl)
-
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
                                          'media-download.cnxml'))
-        html = target(cnxml).getroot()
+        html = self.call_target(cnxml).getroot()
 
         # Test the required attributes have been transformed: id and alt
         try:
@@ -45,15 +50,9 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
 
     def test_media_w_optional_attrs(self):
         # Case to test the conversion of c:media transformation.
-        import rhaptos.cnxmlutils
-        xsl_dir = os.path.join(os.path.dirname(rhaptos.cnxmlutils.__file__),
-                               'xsl')
-        xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
-        target = etree.XSLT(xsl)
-
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
                                          'media-download.cnxml'))
-        html = target(cnxml).getroot()
+        html = self.call_target(cnxml).getroot()
 
         # Test the required attributes have been transformed: id and alt
         try:
@@ -69,15 +68,9 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
 
     def test_media_download(self):
         # Case to test the conversion of c:media/c:download transformation.
-        import rhaptos.cnxmlutils
-        xsl_dir = os.path.join(os.path.dirname(rhaptos.cnxmlutils.__file__),
-                               'xsl')
-        xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
-        target = etree.XSLT(xsl)
-
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
                                          'media-download.cnxml'))
-        html = target(cnxml).getroot()
+        html = self.call_target(cnxml).getroot()
 
         # Test the required attributes have been transformed: id and alt
         try:
@@ -94,15 +87,9 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
 
     def test_media_download_w_optional_attrs(self):
         # Case to test the conversion of c:media/c:download transformation.
-        import rhaptos.cnxmlutils
-        xsl_dir = os.path.join(os.path.dirname(rhaptos.cnxmlutils.__file__),
-                               'xsl')
-        xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
-        target = etree.XSLT(xsl)
-
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
                                          'media-download.cnxml'))
-        html = target(cnxml).getroot()
+        html = self.call_target(cnxml).getroot()
 
         # Test the required attributes have been transformed: id and alt
         try:
