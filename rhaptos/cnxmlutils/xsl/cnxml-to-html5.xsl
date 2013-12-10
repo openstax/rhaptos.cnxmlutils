@@ -515,15 +515,27 @@
 
 <!-- not covered elements (Marvin) -->
 
-<xsl:template name="newline" match="c:newline">
-  <xsl:param name="count" select="@count" />
+<xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <div class="newline">
+    <xsl:call-template name="newline">
+      <xsl:with-param name="count" select="@count" />
+    </xsl:call-template>
+  </div>
+</xsl:template>
+
+<xsl:template name="newline">
+  <xsl:param name="count" />
 
   <xsl:choose>
-      <xsl:when test="@effect = 'underline'">
-      <hr/>
+    <xsl:when test="@effect = 'underline'">
+      <hr>
+        <xsl:apply-templates select="@id" />
+      </hr>
     </xsl:when>
     <xsl:otherwise>
-      <br/>
+      <br>
+        <xsl:apply-templates select="@id" />
+      </br>
     </xsl:otherwise>
   </xsl:choose>
 
