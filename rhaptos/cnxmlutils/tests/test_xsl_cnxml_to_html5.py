@@ -125,7 +125,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='id2204878_media']/img")[0]
+            elm = html.xpath("//*[@id='test_media_image_w_optional_attrs']/img")[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -140,6 +140,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['id'], 'id2204878__onlineimage')
         self.assertEqual(elm.attrib['data-longdesc'], 'image long description')
         self.assertEqual(elm.attrib['data-print-width'], '700')
+        self.assertEqual(elm.attrib['data-thumbnail'], 'Picture 2 tumbnail.jpg')
 
     def test_media_image_for_attribute(self):
         # Case to test the conversion of c:media/c:image transformation.
