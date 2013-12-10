@@ -515,8 +515,23 @@
 
 <!-- not covered elements (Marvin) -->
 
-<xsl:template match="c:newline">
-  <br/>
+<xsl:template name="newline" match="c:newline">
+  <xsl:param name="count" select="@count" />
+
+  <xsl:choose>
+      <xsl:when test="@effect = 'underline'">
+      <hr/>
+    </xsl:when>
+    <xsl:otherwise>
+      <br/>
+    </xsl:otherwise>
+  </xsl:choose>
+
+  <xsl:if test="$count &gt; 1">
+    <xsl:call-template name="newline">
+      <xsl:with-param name="count" select="$count - 1"/>
+    </xsl:call-template>
+  </xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
