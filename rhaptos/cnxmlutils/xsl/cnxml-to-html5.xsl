@@ -552,16 +552,17 @@
   </xsl:if>
 </xsl:template>
 
+
+
 <xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <pre>
-    <xsl:attribute name="class">
-      <xsl:value-of select="normalize-space(concat('space ', @effect))"/>
-    </xsl:attribute>
+  <span class="space">
     <xsl:apply-templates select="@id"/>
+    <xsl:apply-templates select="@*[local-name() != 'id']" mode="data"/>
+
     <xsl:call-template name="space">
       <xsl:with-param name="count" select="@count"/>
     </xsl:call-template>
-  </pre>
+  </span>
 </xsl:template>
 
 <xsl:template name="space">
@@ -574,5 +575,7 @@
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
+
+
 
 </xsl:stylesheet>
