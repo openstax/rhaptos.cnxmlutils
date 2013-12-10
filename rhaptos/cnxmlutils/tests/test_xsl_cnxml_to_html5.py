@@ -46,7 +46,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id: " + transformed_html)
         self.assertEqual(elm.attrib['class'], 'media')
-        self.assertEqual(elm.attrib['data-alt'], '')
+        self.assertEqual(elm.attrib['alt'], '')
 
     def test_media_w_optional_attrs(self):
         # Case to test the conversion of c:media transformation.
@@ -91,7 +91,6 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                                          'media-download.cnxml'))
         html = self.call_target(cnxml).getroot()
 
-        # Test the required attributes have been transformed: id and alt
         try:
             elm = html.xpath("//*[@id='other-media']/a")[0]
         except IndexError:
@@ -102,3 +101,78 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['alt'], 'Long download description')
         # Check download@for -> @data-for
         self.assertEqual(elm.attrib['data-for'], 'pdf')
+
+    def test_media_image(self):
+        # Case to test the conversion of c:media/c:image transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
+                                         'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='id1169537615277_media']/img")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the image->img tag transform: " + transformed_html)
+        
+        self.assertEqual(elm.attrib['src'], 'graphics1.jpg')
+        self.assertEqual(elm.attrib['data-media-type'], 'image/jpg')
+        
+    def test_media_image_w_optional_attrs(self):
+        # Case to test the conversion of c:media/c:image transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
+                                         'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='id2204878_media']/img")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the image->img tag transform: " + transformed_html)
+        
+        # Optional attributes...
+        self.assertEqual(elm.attrib['height'], '302')
+        self.assertEqual(elm.attrib['width'], '502')
+        # This comes from the parent c:media@alt
+        self.assertEqual(elm.attrib['alt'],
+                         'alternative text')
+        self.assertEqual(elm.attrib['id'], 'id2204878__onlineimage')
+        self.assertEqual(elm.attrib['data-longdesc'], 'image long description')
+        self.assertEqual(elm.attrib['data-print-width'], '700')
+
+    def test_media_image_for_attribute(self):
+        # Case to test the conversion of c:media/c:image transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
+                                         'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        # @for (default, pdf and online)
+        default_elm, online_elm, pdf_elm = html.xpath("//*[@id='test_media_image_for_attribute']/*")
+
+        # - 'default' translates to 'online'
+        self.assertNotIn('data-print', default_elm.attrib)
+        # - 'online'
+        self.assertNotIn('data-print', online_elm.attrib)
+        # - 'pdf' (aka print)
+        self.assertEqual(pdf_elm.attrib['data-print'], 'true')
+
+        # @for should not be found an any of the results.
+        for elm in (default_elm, pdf_elm, online_elm,):
+            self.assertNotIn('for', elm.attrib)
+
+    def test_media_image_alt(self):
+        # Ensure @alt pass through.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        elm = html.xpath("//img[@id='test_media_image_alt']")[0]
+        self.assertEqual(elm.attrib['alt'], "from the image tag")
+
+    def test_media_image_parent_alt(self):
+        # Use the parent @alt when @alt do not exist.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        elm = html.xpath("//img[@id='test_media_image_parent_alt']")[0]
+        self.assertEqual(elm.attrib['alt'], "media alt")

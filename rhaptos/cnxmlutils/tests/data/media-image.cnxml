@@ -1,0 +1,111 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" id="id1169550397878" module-id="m12345" cnxml-version="0.7">
+  <title>Case Study: Greenhouse Gases and Climate Change</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+  <!-- WARNING! The 'metadata' section is read only. Do not edit below.
+       Changes to the metadata section in the source will not be saved. -->
+  <md:repository>http://cnx.org/content</md:repository>
+  <md:content-url>http://cnx.org/content/m41726/latest/</md:content-url>
+  <md:content-id>m41726</md:content-id>
+  <md:title>Case Study: Greenhouse Gases and Climate Change</md:title>
+  <md:version>1.3</md:version>
+  <md:created>2011/11/30 13:33:56 US/Central</md:created>
+  <md:revised>2012/07/18 19:18:59.639 GMT-5</md:revised>
+  <md:actors>
+    <md:person userid="UofIOST">
+      <md:firstname>U of I Open Source Textbook</md:firstname>
+      <md:surname>Initiative</md:surname>
+      <md:fullname>U of I Open Source Textbook Initiative</md:fullname>
+      <md:email>tgilles@uillinois.edu</md:email>
+    </md:person>
+    <md:person userid="cindykb">
+      <md:firstname>Cindy</md:firstname>
+      <md:surname>Klein-Banai</md:surname>
+      <md:fullname>Cindy Klein-Banai</md:fullname>
+      <md:email>tgilles@uillinois.edu</md:email>
+    </md:person>
+  </md:actors>
+  <md:roles>
+    <md:role type="author">cindykb</md:role>
+    <md:role type="maintainer">UofIOST</md:role>
+    <md:role type="licensor">UofIOST</md:role>
+  </md:roles>
+  <md:license url="http://creativecommons.org/licenses/by/3.0/"/>
+  <!-- For information on license requirements for use or modification, see license url in the
+       above <md:license> element.
+       For information on formatting required attribution, see the URL:
+         CONTENT_URL/content_info#cnx_cite_header
+       where CONTENT_URL is the value provided above in the <md:content-url> element.
+  -->
+  <md:keywordlist>
+    <md:keyword>Chicago Climate Action Plan</md:keyword>
+    <md:keyword>Climate Action Plans</md:keyword>
+    <md:keyword>Greenhouse Gas Emissions</md:keyword>
+    <md:keyword>University Climate Action Plan</md:keyword>
+  </md:keywordlist>
+  <md:subjectlist>
+    <md:subject>Science and Technology</md:subject>
+  </md:subjectlist>
+  <md:abstract>In this module, two case studies provide examples of climate action plans &#8211; one for a city (Chicago) and one for an institution (the University of Illinois at Chicago).</md:abstract>
+  <md:language>en</md:language>
+  <!-- WARNING! The 'metadata' section is read only. Do not edit above.
+       Changes to the metadata section in the source will not be saved. -->
+</metadata>
+
+<content>
+  <section id="id1169530418515">
+    <title>Designing a Climate Action Plan</title>
+    <para id="id5008640">
+      <figure id="id1169537615277">
+	<!-- Required attributes test case -->
+	<media id="id1169537615277_media" alt="Chicago Greenhouse Gas Emissions and Reduction Goals" longdesc="Figure illustrates the emissions calculated for Chicago through 2005.">
+          <image mime-type="image/jpg" src="graphics1.jpg" id="id1169537615277__onlineimage" height="271" width="650"/>
+        </media>
+        <caption></caption>
+      </figure>
+      <figure id="id1169537615277">
+	<!-- Required attributes test case -->
+	<media id="test_media_image_for_attribute" alt="required attribute">
+          <image mime-type="image/jpg" src="graphics1.jpg" for="default"/>
+          <image mime-type="image/jpg" src="graphics1.jpg" for="online"/>
+          <image mime-type="image/jpg" src="graphics1.jpg" for="pdf"
+		 print-width="700"
+		 />
+        </media>
+        <caption></caption>
+      </figure>
+    </para>
+    <para id="id1169517367733">
+      <figure id="id2204878">
+	<!-- Optional attributes test case, except @for and @thumbnail -->
+	<media id="id2204878_media" alt="Sources of the CCAP Emission Reductions by Strategy" longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
+          <image mime-type="image/jpg" src="Picture 2.jpg" id="id2204878__onlineimage" height="302" width="502" print-width="700" tumbnail="Picture 2 tumbnail.jpg" longdesc="image long description" alt="alternative text"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id11695173677">
+      <figure id="id2204878">
+	<!-- @alt attributes test case -->
+	<media id="id220"
+	       alt="Sources of the CCAP Emission Reductions by Strategy"
+	       longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
+          <image mime-type="image/jpg" src="Picture 2.jpg"
+		 id="test_media_image_alt"
+		 alt="from the image tag"
+		 longdesc="image long description"
+		 />
+        </media>
+      </figure>
+      <figure id="id2204878">
+	<!-- @alt attributes test case -->
+	<media id="id220" alt="media alt">
+          <image mime-type="image/jpg" src="Picture 2.jpg"
+		 id="test_media_image_parent_alt"
+		 longdesc="image long description"
+		 />
+        </media>
+      </figure>
+    </para>
+  </section>
+
+</content>
+</document>
