@@ -515,9 +515,18 @@
 
 <!-- not covered elements (Marvin) -->
 
+<xsl:template match="@*" mode="data">
+  <xsl:attribute name="data-{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+
+
 <xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
   <div class="newline">
     <xsl:apply-templates select="@id"/>
+    <xsl:apply-templates select="@*[local-name() != 'id']" mode="data"/>
     <xsl:call-template name="newline">
       <xsl:with-param name="count" select="@count" />
     </xsl:call-template>
