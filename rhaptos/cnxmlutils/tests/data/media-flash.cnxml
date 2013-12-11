@@ -1,0 +1,27 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="new" module-id="" cnxml-version="0.7">
+  <title>Solving Linear Inequalities</title>
+  <metadata mdml-version="0.5"></metadata>
+  <content>
+    <para id="id123">
+      <media id="test_media_flash" alt="">
+	<flash src="Subtopic2-Sc_3_static.swf"
+	       mime-type="application/x-shockwave-flash"
+	       height="380" width="580"
+	       />
+	<image for="pdf" src="Subtopic2-Sc_3_static-PRINT.jpg"
+	       mime-type="image/jpeg"
+	       />
+      </media>
+      <media id="test_media_flash_generic_attrs" alt="">
+	<flash src="Subtopic2-Sc_3_static.swf"
+	       mime-type="application/x-shockwave-flash"
+	       height="380" width="580"
+	       id="123abc" longdesc="flash long description"
+	       />
+	<image for="pdf" src="Subtopic2-Sc_3_static-PRINT.jpg"
+	       mime-type="image/jpeg"
+	       />
+      </media>
+    </para>
+  </content>  
+</document>

@@ -97,8 +97,9 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the download->a tag transform: " + transformed_html)
-        # Check download@longdesc -> @alt
-        self.assertEqual(elm.attrib['alt'], 'Long download description')
+        # Check download@longdesc -> @data-longdesc
+        self.assertEqual(elm.attrib['data-longdesc'],
+                         'Long download description')
         # Check download@for -> @data-for
         self.assertEqual(elm.attrib['data-for'], 'pdf')
 
@@ -177,3 +178,39 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
 
         elm = html.xpath("//img[@id='test_media_image_parent_alt']")[0]
         self.assertEqual(elm.attrib['alt'], "media alt")
+
+    def test_media_flash(self):
+        # Case to test the conversion of c:media/c:flash transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-flash.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_flash']/object")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the flash->object tag transform: " + transformed_html)
+        self.assertEqual(elm.attrib['data'], 'Subtopic2-Sc_3_static.swf')
+        self.assertEqual(elm.attrib['type'], 'application/x-shockwave-flash')
+        self.assertEqual(elm.attrib['height'], '380')
+        self.assertEqual(elm.attrib['width'], '580')
+
+        try:
+            elm = elm.xpath("embed")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform flash->object/embed tag: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['src'], 'Subtopic2-Sc_3_static.swf')
+        self.assertEqual(elm.attrib['type'], 'application/x-shockwave-flash')
+        self.assertEqual(elm.attrib['height'], '380')
+        self.assertEqual(elm.attrib['width'], '580')
+
+    def test_media_flash_generic_attrs(self):
+        # Generic attributes tests.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-flash.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        elm = html.xpath("//*[@id='test_media_flash_generic_attrs']/object")[0]
+        self.assertEqual(elm.attrib['id'], '123abc')
+        self.assertEqual(elm.attrib['data-longdesc'], 'flash long description')

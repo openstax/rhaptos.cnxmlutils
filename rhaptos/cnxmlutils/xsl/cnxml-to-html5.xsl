@@ -667,7 +667,7 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:if test="@longdesc">
-      <xsl:attribute name="alt">
+      <xsl:attribute name="data-longdesc">
 	<xsl:value-of select="@longdesc"/>
       </xsl:attribute>
     </xsl:if>
@@ -679,6 +679,23 @@
     <!-- Link text -->
     <xsl:value-of select="@src"/>
   </a>
+</xsl:template>
+
+<xsl:template match="c:media/c:flash">
+  <object type="{@mime-type}" data="{@src}"
+	  height="{@height}" width="{@width}"
+	  id="{@id}">
+    <xsl:if test="@longdesc">
+      <xsl:attribute name="data-longdesc">
+	<xsl:value-of select="@longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
+    <embed src="{@src}" type="{@mime-type}"
+	   height="{@height}" width="{@width}"
+	   wmode="{@wmode}" flashvars="{@flash-vars}"
+	   />
+    <!-- FIXME Ignoring attributes: quality, loop, scale, bgcolor -->
+  </object>
 </xsl:template>
 
 <xsl:template match="c:media[child::c:iframe]">
@@ -724,13 +741,13 @@
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
 </xsl:template>
-<xsl:template match="c:image/@longdesc">
-  <xsl:attribute name="data-longdesc">
+<xsl:template match="c:image/@thumbnail">
+  <xsl:attribute name="data-thumbnail">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
-<xsl:template match="c:image/@thumbnail">
-  <xsl:attribute name="data-thumbnail">
+<xsl:template match="c:media/c:image/@longdesc">
+  <xsl:attribute name="data-longdesc">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
