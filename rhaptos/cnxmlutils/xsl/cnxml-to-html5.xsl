@@ -651,31 +651,41 @@
   </span>
 </xsl:template>
 
+<!-- General attribute reassignment -->
+<xsl:template match="c:media/*/@longdesc">
+  <xsl:attribute name="data-longdesc">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+<xsl:template match="c:media/*[@for='pdf']/@for">
+  <xsl:attribute name="data-print">
+    <xsl:text>true</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+<xsl:template match="c:media/*[@for='default' or @for='online']/@for">
+  <xsl:attribute name="data-print">
+    <xsl:text>false</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- Reassign all c:param as @name=@value -->
+<xsl:template match="c:audio/c:param|c:flash/c:param|c:video/c:param|c:java-applet/c:param|c:image/c:param|c:labview/c:param|c:download/c:param">
+  <xsl:attribute name="{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- Ensure when applying templates within c:media/* that you use the
+     following sequence for audio, flash, video, java-applet, image,
+     labview, and download:
+     <xsl:apply-templates select="@*|c:param"/>
+     <xsl:apply-templates select="node()[not(self::c:param)]"/>
+ -->
+
 <xsl:template match="c:media/c:download">
-  <a>
-    <!-- Apply c:download required attributes -->
-    <xsl:attribute name="href">
-      <xsl:value-of select="@src"/>
-    </xsl:attribute>
-    <xsl:attribute name="data-media-type">
-      <xsl:value-of select="@mime-type"/>
-    </xsl:attribute>
-    <!-- Apply c:download optional attributes -->
-    <xsl:if test="@id">
-      <xsl:attribute name="name">
-	<xsl:value-of select="@id"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@longdesc">
-      <xsl:attribute name="data-longdesc">
-	<xsl:value-of select="@longdesc"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@for">
-      <xsl:attribute name="data-for">
-	<xsl:value-of select="@for"/>
-      </xsl:attribute>
-    </xsl:if>
+  <a href="{@src}" data-media-type="{@mime-type}">
+    <xsl:apply-templates select="@*|c:param"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
     <xsl:value-of select="@src"/>
   </a>
@@ -695,6 +705,7 @@
 	   wmode="{@wmode}" flashvars="{@flash-vars}"
 	   />
     <!-- FIXME Ignoring attributes: quality, loop, scale, bgcolor -->
+    <!-- FIXME The c:param tag does not get passed through correctly. -->
   </object>
 </xsl:template>
 
@@ -717,7 +728,9 @@
 	<xsl:value-of select="@alt"/>
       </xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="@*|c:param"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+    <!-- <xsl:apply-templates select="@*|node()"/> -->
   </img>
 </xsl:template>
 <xsl:template match="c:image[@for='pdf']">
@@ -725,13 +738,6 @@
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
-</xsl:template>
-<xsl:template match="c:image/@for">
-  <xsl:if test="c:image[@for='online' or @for='default']">
-    <xsl:attribute name="data-print">
-      <xsl:text>false</xsl:text>
-    </xsl:attribute>
-  </xsl:if>
 </xsl:template>
 <xsl:template match="c:image/@print-width">
   <xsl:attribute name="data-print-width">
@@ -743,11 +749,6 @@
 </xsl:template>
 <xsl:template match="c:image/@thumbnail">
   <xsl:attribute name="data-thumbnail">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
-<xsl:template match="c:image/@longdesc">
-  <xsl:attribute name="data-longdesc">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>

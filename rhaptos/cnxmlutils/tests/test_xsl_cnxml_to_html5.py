@@ -100,8 +100,8 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         # Check download@longdesc -> @data-longdesc
         self.assertEqual(elm.attrib['data-longdesc'],
                          'Long download description')
-        # Check download@for -> @data-for
-        self.assertEqual(elm.attrib['data-for'], 'pdf')
+        # Check download@for -> @data-print
+        self.assertEqual(elm.attrib['data-print'], 'true')
 
     def test_media_image(self):
         # Case to test the conversion of c:media/c:image transformation.
@@ -214,3 +214,24 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         elm = html.xpath("//*[@id='test_media_flash_generic_attrs']/object")[0]
         self.assertEqual(elm.attrib['id'], '123abc')
         self.assertEqual(elm.attrib['data-longdesc'], 'flash long description')
+
+    def test_media_param(self):
+        # Case to test the conversion of c:media/*/c:param transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-param.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_param']/img")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the param-> parent attributes transform: " \
+                      + transformed_html)
+
+        # c:param/@name to img@*
+        self.assertEqual(elm.attrib['onclick'],
+                         "window.open('http://rup.rice.edu/flowering-light.html','','');")
+        self.assertEqual(elm.attrib['onmouseover'],
+                         "document.body.style.cursor = 'hand';")
+        self.assertEqual(elm.attrib['onmouseout'],
+                         "document.body.style.cursor = 'default';")
