@@ -100,7 +100,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep">
+<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep|c:image/@thumbnail|c:image/@print-width">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
@@ -561,18 +561,8 @@
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
 </xsl:template>
-<xsl:template match="c:image/@print-width">
-  <xsl:attribute name="data-print-width">
-    <xsl:value-of select="." />
-  </xsl:attribute>
-</xsl:template>
 <xsl:template match="c:image/@width|c:image/@height">
   <xsl:copy/>
-</xsl:template>
-<xsl:template match="c:image/@thumbnail">
-  <xsl:attribute name="data-thumbnail">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:iframe">
