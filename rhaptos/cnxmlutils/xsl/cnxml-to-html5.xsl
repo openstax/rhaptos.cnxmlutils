@@ -110,9 +110,7 @@
 
 <xsl:template match="@type|@class|@alt|@url|@display
     |@document|@target-id|@window|@version|@resource
-    |@effect|@pub-type
-    |c:figure/@orient
-    |c:table/@frame|c:table/@colsep|c:table/@rowsep">
+    |@effect|@pub-type">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
@@ -449,6 +447,11 @@
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
+<!-- Attributes that get a "data-" prefix when converted -->
+<xsl:template match="c:figure/@orient">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <xsl:template match="c:figure|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*|c:label"/>
@@ -468,9 +471,19 @@
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
+<!-- Attributes that get a "data-" prefix when converted -->
+<xsl:template match="
+     c:table/@frame
+    |c:table/@colsep
+    |c:table/@rowsep">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<!-- Copy the summary attribute over unchanged -->
 <xsl:template match="c:table/@summary">
   <xsl:copy/>
 </xsl:template>
+
 <xsl:template match="c:table[count(c:tgroup) = 1]">
   <table>
     <xsl:apply-templates select="@*|c:label"/>
