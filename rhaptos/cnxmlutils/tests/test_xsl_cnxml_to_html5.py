@@ -81,7 +81,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                       "the download->a tag transform: " + transformed_html)
         self.assertEqual(elm.attrib['href'], 'oralPresentGuide.ppt')
         # Check download@mime-type attribute name change.
-        self.assertEqual(elm.attrib['data-mime-type'],
+        self.assertEqual(elm.attrib['data-media-type'],
                          'application/vnd.ms-powerpoint')
         self.assertEqual(elm.text, 'oralPresentGuide.ppt')
 
