@@ -100,7 +100,14 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep|c:newline/@effect|c:newline/@count|c:space/@effect|c:space/@count">
+<xsl:template match="@type|@class|@alt|@url|@display
+    |@document|@target-id|@window|@version|@resource
+    |@effect|@pub-type
+    |c:figure/@orient
+    |c:table/@frame|c:table/@colsep|c:table/@rowsep
+    |c:newline/@effect|c:newline/@count
+    |c:space/@effect|c:space/@count
+    |c:list/@list-type">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
@@ -151,7 +158,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:para/c:title|c:table/c:title">
+<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:list/c:title">
   <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
@@ -267,15 +274,53 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:list[@list-type='enumerated']">
+<xsl:template match="c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <div><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:para//c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <span><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </span>
+</xsl:template>
+
+<xsl:template match="c:list[not(c:title)][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <xsl:apply-templates mode="list-mode" select=".">
+    <xsl:with-param name="convert-id-and-class" select="1"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template name="list-id-and-class">
+  <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@id"/>
+</xsl:template>
+
+<xsl:template mode="list-mode" match="c:list[@list-type='enumerated']">
+  <xsl:param name="convert-id-and-class"/>
   <ol>
-    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
+    <xsl:if test="$convert-id-and-class">
+      <xsl:call-template name="list-id-and-class"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ol>
 </xsl:template>
 
-<xsl:template match="c:list[not(@list-type) or @list-type='bulleted']">
+<xsl:template mode="list-mode" match="c:list[not(@list-type) or @list-type='bulleted']">
+  <xsl:param name="convert-id-and-class"/>
   <ul>
-    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
+    <xsl:if test="$convert-id-and-class">
+      <xsl:call-template name="list-id-and-class"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ul>
 </xsl:template>
 
@@ -287,7 +332,7 @@
   <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="c:list/@*[not(local-name()='id' and local-name()='list-type')]">
+<xsl:template match="c:list/@*[not(local-name()='id' or local-name()='list-type')]">
   <xsl:attribute name="data-{local-name()}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
