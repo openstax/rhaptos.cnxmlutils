@@ -100,11 +100,9 @@
 
     <section><title>Labeled-Item list:</title>
 
-      <para>This should not be implemented yet</para>
-
-      <list list-type="labeled-item">
-        <item>and item</item>
-      </list>
+    <list list-type="labeled-item" id="id1">
+      <item><label>with a label</label> and item</item>
+    </list>
 
     </section>
 
@@ -209,10 +207,8 @@
 
   <section><title>Labeled-Item list:</title>
 
-    <para>This should not be implemented yet</para>
-
     <para>...<list list-type="labeled-item" id="id1">
-      <item>and item</item>
+      <item><label>with a label</label> and item</item>
     </list>...</para>
 
   </section>
