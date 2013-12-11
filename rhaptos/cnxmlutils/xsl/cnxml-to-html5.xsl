@@ -100,10 +100,18 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep|c:image/@thumbnail|c:image/@print-width">
-  <xsl:attribute name="data-{local-name()}">
-    <xsl:value-of select="."/>
+<xsl:template name="data-prefix">
+  <xsl:param name="name" select="local-name()"/>
+  <xsl:param name="value" select="."/>
+  <xsl:attribute name="data-{$name}">
+    <xsl:value-of select="$value"/>
   </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="@type|@class|@alt|@url|@display
+    |@document|@target-id|@window|@version|@resource
+    |@effect|@pub-type">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <xsl:template match="c:content">
@@ -151,7 +159,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:para/c:title|c:table/c:title">
+<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:list/c:title">
   <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
@@ -266,29 +274,80 @@
 </xsl:template>
 
 <!-- ========================= -->
+<!-- Lists -->
+<!-- ========================= -->
 
-<xsl:template match="c:list[@list-type='enumerated']">
-  <ol>
-    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
-  </ol>
-</xsl:template>
-
-<xsl:template match="c:list[not(@list-type) or @list-type='bulleted']">
-  <ul>
-    <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/>
-  </ul>
-</xsl:template>
-
-<xsl:template match="c:item">
-  <li><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></li>
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+     c:list/@bullet-style
+    |c:list/@number-style
+    |c:list/@mark-prefix
+    |c:list/@mark-suffix
+    |c:list/@item-sep
+    |c:list/@display
+    |c:list/@type">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <xsl:template match="c:list/@start-value">
   <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="c:list/@*[not(local-name()='id' and local-name()='list-type')]">
-  <xsl:attribute name="data-{local-name()}"><xsl:value-of select="."/></xsl:attribute>
+<!-- Discard these attributes because they are converted in some other way or deprecated -->
+<xsl:template match="c:list/@list-type"/>
+
+<xsl:template match="c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <div><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:para//c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <span><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </span>
+</xsl:template>
+
+<xsl:template match="c:list[not(c:title)][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <xsl:apply-templates mode="list-mode" select=".">
+    <xsl:with-param name="convert-id-and-class" select="1"/>
+  </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template name="list-id-and-class">
+  <xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@id"/>
+</xsl:template>
+
+<xsl:template mode="list-mode" match="c:list[@list-type='enumerated']">
+  <xsl:param name="convert-id-and-class"/>
+  <ol>
+    <xsl:if test="$convert-id-and-class">
+      <xsl:call-template name="list-id-and-class"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+  </ol>
+</xsl:template>
+
+<xsl:template mode="list-mode" match="c:list[not(@list-type) or @list-type='bulleted']">
+  <xsl:param name="convert-id-and-class"/>
+  <ul>
+    <xsl:if test="$convert-id-and-class">
+      <xsl:call-template name="list-id-and-class"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+  </ul>
+</xsl:template>
+
+<xsl:template match="c:item">
+  <li><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></li>
 </xsl:template>
 
 
@@ -388,6 +447,11 @@
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
+<!-- Attributes that get a "data-" prefix when converted -->
+<xsl:template match="c:figure/@orient">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <xsl:template match="c:figure|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*|c:label"/>
@@ -407,9 +471,19 @@
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
+<!-- Attributes that get a "data-" prefix when converted -->
+<xsl:template match="
+     c:table/@frame
+    |c:table/@colsep
+    |c:table/@rowsep">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<!-- Copy the summary attribute over unchanged -->
 <xsl:template match="c:table/@summary">
   <xsl:copy/>
 </xsl:template>
+
 <xsl:template match="c:table[count(c:tgroup) = 1]">
   <table>
     <xsl:apply-templates select="@*|c:label"/>
@@ -537,19 +611,18 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>  
+
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+     c:image/@thumbnail
+    |c:image/@print-width">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+<!-- Discard these attributes because they are safely converted in some other way -->
+<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
+
 <xsl:template match="c:image[not(@for='pdf')]">
-  <img src="{@src}" data-media-type="{@mime-type}">
-    <xsl:if test="not(@alt)">
-      <xsl:attribute name="alt">
-        <xsl:value-of select="parent::c:media/@alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@alt">
-      <xsl:attribute name="alt">
-	<xsl:value-of select="@alt"/>
-      </xsl:attribute>
-    </xsl:if>
+  <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- <xsl:apply-templates select="@*|node()"/> -->
@@ -593,8 +666,69 @@
 
 <!-- not covered elements (Marvin) -->
 
-<xsl:template match="c:newline">
-  <br/>
+<!-- ========================= -->
+<!-- Newline and Space -->
+<!-- ========================= -->
+
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+     c:newline/@effect
+    |c:newline/@count
+    |c:space/@effect
+    |c:space/@count">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
+
+<xsl:template name="count-helper">
+  <xsl:param name="count"/>
+  <xsl:param name="string"/>
+
+  <xsl:value-of select="$string" disable-output-escaping="yes"/>
+
+  <xsl:if test="$count &gt; 1">
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="$count - 1"/>
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+
+<xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <div class="newline">
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:variable name="string">
+      <xsl:choose>
+        <xsl:when test="@effect = 'underline'">
+          <xsl:text>&lt;hr/&gt;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&lt;br/&gt;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count" />
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </div>
+</xsl:template>
+
+
+
+<xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <span class="space">
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count"/>
+      <xsl:with-param name="string" select="' '"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
+
+
 
 </xsl:stylesheet>

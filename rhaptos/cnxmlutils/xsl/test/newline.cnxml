@@ -1,0 +1,33 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+  <title>Test Module</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+
+  <newline/>
+  <newline effect="normal"/>
+  <newline effect="underline"/>
+  <newline id="id123"/>
+  <newline count="3"/>
+  <newline id="id456" effect="underline"/>
+  <newline effect="underline" count="3"/>
+  <newline id="id789" effect="underline" count="3"/>
+
+
+  <para>
+    <space/>
+    <space effect="normal"/>
+    <space effect="underline"/>
+    <space id="id123"/>
+    <space count="3"/>
+    <space id="id456" effect="underline"/>
+    <space effect="underline" count="3"/>
+    <space id="id789" effect="underline" count="3"/>
+  </para>
+
+  <para>The following is not implemented yet</para>
+  <para><newline/></para>
+
+</content>
+</document>
