@@ -657,7 +657,7 @@
     <xsl:attribute name="href">
       <xsl:value-of select="@src"/>
     </xsl:attribute>
-    <xsl:attribute name="data-mime-type">
+    <xsl:attribute name="data-media-type">
       <xsl:value-of select="@mime-type"/>
     </xsl:attribute>
     <!-- Apply c:download optional attributes -->
@@ -746,7 +746,7 @@
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
-<xsl:template match="c:media/c:image/@longdesc">
+<xsl:template match="c:image/@longdesc">
   <xsl:attribute name="data-longdesc">
     <xsl:value-of select="."/>
   </xsl:attribute>
