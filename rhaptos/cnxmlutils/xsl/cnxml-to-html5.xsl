@@ -277,6 +277,16 @@
   </div>
 </xsl:template>
 
+<xsl:template match="c:para//c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+  <span><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </span>
+</xsl:template>
+
 <xsl:template match="c:list[not(c:title)][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
   <xsl:apply-templates mode="list-mode" select=".">
     <xsl:with-param name="convert-id-and-class" select="1"/>
