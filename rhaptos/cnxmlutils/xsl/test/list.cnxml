@@ -100,25 +100,9 @@
 
     <section><title>Labeled-Item list:</title>
 
-      <para>with just an id attribute</para>
+      <para>This should not be implemented yet</para>
 
-      <list list-type="labeled-item" id="id1">
-        <item>and item</item>
-      </list>
-
-      <list list-type="labeled-item" id="id2">
-        <title>and title</title>
-        <item>and item</item>
-      </list>
-
-      <para>... with all attributes</para>
-
-      <list list-type="labeled-item" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <item>list with all attributes</item>
-      </list>
-
-      <list list-type="labeled-item" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <title>list with all attributes and title</title>
+      <list list-type="labeled-item">
         <item>and item</item>
       </list>
 
@@ -225,25 +209,9 @@
 
   <section><title>Labeled-Item list:</title>
 
-    <para>with just an id attribute</para>
+    <para>This should not be implemented yet</para>
 
     <para>...<list list-type="labeled-item" id="id1">
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="labeled-item" id="id2">
-      <title>and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>... with all attributes</para>
-
-    <para>...<list list-type="labeled-item" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-      <item>list with all attributes</item>
-    </list>...</para>
-
-    <para>...<list list-type="labeled-item" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
       <item>and item</item>
     </list>...</para>
 

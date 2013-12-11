@@ -100,17 +100,20 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template name="data-prefix">
+  <xsl:param name="name" select="local-name()"/>
+  <xsl:param name="value" select="."/>
+  <xsl:attribute name="data-{$name}">
+    <xsl:value-of select="$value"/>
+  </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="@type|@class|@alt|@url|@display
     |@document|@target-id|@window|@version|@resource
     |@effect|@pub-type
     |c:figure/@orient
-    |c:table/@frame|c:table/@colsep|c:table/@rowsep
-    |c:newline/@effect|c:newline/@count
-    |c:space/@effect|c:space/@count
-    |c:list/@list-type">
-  <xsl:attribute name="data-{local-name()}">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
+    |c:table/@frame|c:table/@colsep|c:table/@rowsep">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <xsl:template match="c:content">
@@ -273,6 +276,27 @@
 </xsl:template>
 
 <!-- ========================= -->
+<!-- Lists -->
+<!-- ========================= -->
+
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+     c:list/@bullet-style
+    |c:list/@number-style
+    |c:list/@mark-prefix
+    |c:list/@mark-suffix
+    |c:list/@item-sep
+    |c:list/@display
+    |c:list/@type">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<xsl:template match="c:list/@start-value">
+  <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
+</xsl:template>
+
+<!-- Discard these attributes because they are converted in some other way or deprecated -->
+<xsl:template match="c:list/@list-type"/>
 
 <xsl:template match="c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
   <div><!-- list-id-and-class will give it the class "list" at least -->
@@ -326,14 +350,6 @@
 
 <xsl:template match="c:item">
   <li><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></li>
-</xsl:template>
-
-<xsl:template match="c:list/@start-value">
-  <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
-</xsl:template>
-
-<xsl:template match="c:list/@*[not(local-name()='id' or local-name()='list-type')]">
-  <xsl:attribute name="data-{local-name()}"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
 
@@ -560,6 +576,19 @@
 
 <!-- not covered elements (Marvin) -->
 
+<!-- ========================= -->
+<!-- Newline and Space -->
+<!-- ========================= -->
+
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+     c:newline/@effect
+    |c:newline/@count
+    |c:space/@effect
+    |c:space/@count">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <xsl:template name="count-helper">
   <xsl:param name="count"/>
   <xsl:param name="string"/>
@@ -573,7 +602,6 @@
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
-
 
 
 <xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
