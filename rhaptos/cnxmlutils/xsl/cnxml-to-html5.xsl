@@ -296,7 +296,7 @@
 <!-- Discard these attributes because they are converted in some other way or deprecated -->
 <xsl:template match="c:list/@list-type"/>
 
-<xsl:template match="c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+<xsl:template match="c:list[c:title]">
   <div><!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
     <xsl:apply-templates select="c:title"/>
@@ -306,7 +306,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:para//c:list[c:title][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+<xsl:template match="c:para//c:list[c:title]">
   <span><!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
     <xsl:apply-templates select="c:title"/>
@@ -316,7 +316,7 @@
   </span>
 </xsl:template>
 
-<xsl:template match="c:list[not(c:title)][not(@list-type) or @list-type='bulleted' or @list-type='enumerated']">
+<xsl:template match="c:list[not(c:title)]">
   <xsl:apply-templates mode="list-mode" select=".">
     <xsl:with-param name="convert-id-and-class" select="1"/>
   </xsl:apply-templates>
@@ -334,6 +334,17 @@
     </xsl:if>
     <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ol>
+</xsl:template>
+
+<!-- lists marked as having labeled items have a boolean attribute so the CSS can have `list-style-type:none` -->
+<xsl:template mode="list-mode" match="c:list[@list-type='labeled-item']">
+  <xsl:param name="convert-id-and-class"/>
+  <ul data-labeled-item="true">
+    <xsl:if test="$convert-id-and-class">
+      <xsl:call-template name="list-id-and-class"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+  </ul>
 </xsl:template>
 
 <xsl:template mode="list-mode" match="c:list[not(@list-type) or @list-type='bulleted']">
