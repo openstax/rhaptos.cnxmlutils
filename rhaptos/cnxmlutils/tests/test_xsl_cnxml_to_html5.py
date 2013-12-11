@@ -237,3 +237,37 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                          "document.body.style.cursor = 'hand';")
         self.assertEqual(elm.attrib['onmouseout'],
                          "document.body.style.cursor = 'default';")
+
+    def test_media_audio(self):
+        # Case to test the conversion of c:media/*/c:audio transformation.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-audio.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_audio']/a")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the audio->a tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['src'],
+                         "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
+        self.assertEqual(elm.attrib['id'], "mus_shost")
+        self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
+
+    def test_media_audio_embedded(self):
+        # Case for audio that needs to be embedded as a player.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-audio.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_audio_embedded']/audio")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the audio->audio tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['data-standby'], 'standby message')
+        self.assertEqual(elm.attrib['controller'], 'true')
+        self.assertEqual(elm.attrib['loop'], 'false')
+        self.assertEqual(elm.attrib['autoplay'], 'true')
