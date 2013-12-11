@@ -364,7 +364,7 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:emphasis[not(@effect) or @effect='bold']">
+<xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
   <strong><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></strong>
 </xsl:template>
 
