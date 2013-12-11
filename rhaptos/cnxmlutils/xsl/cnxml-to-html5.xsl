@@ -557,8 +557,7 @@
 
 <xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
   <span class="space">
-    <xsl:apply-templates select="@id"/>
-    <xsl:apply-templates select="@*[local-name() != 'id']" mode="data"/>
+    <xsl:apply-templates select="@*"/>
 
     <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="@count"/>
