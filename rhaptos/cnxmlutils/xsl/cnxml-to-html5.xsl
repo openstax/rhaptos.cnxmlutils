@@ -683,7 +683,7 @@
  -->
 
 <xsl:template match="c:media/c:download">
-  <a href="{@src}" data-media-type="{@mime-type}">
+  <a href="{@src}" data-media-type="{@mime-type}" class="download">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
