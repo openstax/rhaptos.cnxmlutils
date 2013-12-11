@@ -80,6 +80,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the download->a tag transform: " + transformed_html)
+        self.assertEqual(elm.attrib['class'], 'download')
         self.assertEqual(elm.attrib['href'], 'oralPresentGuide.ppt')
         # Check download@mime-type attribute name change.
         self.assertEqual(elm.attrib['data-media-type'],
