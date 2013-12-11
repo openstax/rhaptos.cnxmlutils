@@ -683,7 +683,7 @@
      <xsl:apply-templates select="node()[not(self::c:param)]"/>
  -->
 
-<xsl:template match="c:media/c:download|c:media/c:audio[not(@standby or @autoplay or @loop or @controller or @volume)]">
+<xsl:template match="c:media/c:download">
   <a href="{@src}" data-media-type="{@mime-type}" class="{local-name()}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
@@ -691,7 +691,8 @@
     <xsl:value-of select="@src"/>
   </a>
 </xsl:template>
-<xsl:template match="c:media/c:audio[@standby or @autoplay or @loop or @controller or @volume]">
+
+<xsl:template match="c:media/c:audio">
   <audio src="{@src}" data-media-type="{@mime-type}">
     <xsl:if test="@volume='0'">
       <xsl:attribute name="muted">
@@ -724,8 +725,8 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|c:param"/>
-    <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <source src="{@src}" type="{@mime-type}"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </audio>
 </xsl:template>
 

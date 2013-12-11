@@ -244,16 +244,20 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_audio']/a")[0]
+            elm = html.xpath("//*[@id='test_media_audio']/audio")[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
-                      "the audio->a tag transform: " \
+                      "the audio->audio tag transform: " \
                       + transformed_html)
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
         self.assertEqual(elm.attrib['id'], "mus_shost")
         self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
+        elm = elm.xpath('source')[0]
+        self.assertEqual(elm.attrib['src'],
+                         "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
+        self.assertEqual(elm.attrib['type'], 'audio/mpeg')
 
     def test_media_audio_embedded(self):
         # Case for audio that needs to be embedded as a player.
@@ -271,3 +275,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'false')
         self.assertEqual(elm.attrib['autoplay'], 'true')
+        elm = elm.xpath('source')[0]
+        self.assertEqual(elm.attrib['src'],
+                         "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
+        self.assertEqual(elm.attrib['type'], 'audio/mpeg')
