@@ -100,7 +100,14 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display|@document|@target-id|@window|@version|@resource|@effect|@pub-type|c:figure/@orient|c:table/@frame|c:table/@colsep|c:table/@rowsep|c:list/@list-type">
+<xsl:template match="@type|@class|@alt|@url|@display
+    |@document|@target-id|@window|@version|@resource
+    |@effect|@pub-type
+    |c:figure/@orient
+    |c:table/@frame|c:table/@colsep|c:table/@rowsep
+    |c:newline/@effect|c:newline/@count
+    |c:space/@effect|c:space/@count
+    |c:list/@list-type">
   <xsl:attribute name="data-{local-name()}">
     <xsl:value-of select="."/>
   </xsl:attribute>
@@ -553,8 +560,57 @@
 
 <!-- not covered elements (Marvin) -->
 
-<xsl:template match="c:newline">
-  <br/>
+<xsl:template name="count-helper">
+  <xsl:param name="count"/>
+  <xsl:param name="string"/>
+
+  <xsl:value-of select="$string" disable-output-escaping="yes"/>
+
+  <xsl:if test="$count &gt; 1">
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="$count - 1"/>
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </xsl:if>
 </xsl:template>
+
+
+
+<xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <div class="newline">
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:variable name="string">
+      <xsl:choose>
+        <xsl:when test="@effect = 'underline'">
+          <xsl:text>&lt;hr/&gt;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&lt;br/&gt;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count" />
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </div>
+</xsl:template>
+
+
+
+<xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <span class="space">
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count"/>
+      <xsl:with-param name="string" select="' '"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
+
+
 
 </xsl:stylesheet>
