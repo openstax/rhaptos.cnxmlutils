@@ -61,7 +61,8 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id: " + transformed_html)
         # Check concatenation of media@display.
-        self.assertEqual(elm.attrib['class'], 'media block')
+        self.assertEqual(elm.attrib['data-display'], 'block')
+        self.assertEqual(elm.attrib['class'], 'media')
         # Check media@longdesc attribute name change.
         self.assertEqual(elm.attrib['data-longdesc'],
                          'Long media description')
