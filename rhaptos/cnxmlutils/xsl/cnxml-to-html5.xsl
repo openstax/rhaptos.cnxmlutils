@@ -730,6 +730,45 @@
   </audio>
 </xsl:template>
 
+<xsl:template match="c:media/c:video">
+  <video src="{@src}" data-media-type="{@mime-type}"
+	 height="{@height}" width="{@width}">
+    <xsl:if test="@volume='0'">
+      <xsl:attribute name="muted">
+	<xsl:text>true</xsl:text>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="not(@volume='0')">
+      <xsl:attribute name="data-volume">
+	<xsl:value-of select="@volume"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@standby">
+      <xsl:attribute name="data-standby">
+	<xsl:value-of select="@standby"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@autoplay">
+      <xsl:attribute name="autoplay">
+	<xsl:value-of select="@autoplay"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@loop">
+      <xsl:attribute name="loop">
+	<xsl:value-of select="@loop"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@controller">
+      <xsl:attribute name="controller">
+	<xsl:value-of select="@controller"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|c:param"/>
+    <source src="{@src}" type="{@mime-type}"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </video>
+</xsl:template>
+
 <xsl:template match="c:media/c:flash">
   <object type="{@mime-type}" data="{@src}"
 	  height="{@height}" width="{@width}"

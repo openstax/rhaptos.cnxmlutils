@@ -279,3 +279,37 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
         self.assertEqual(elm.attrib['type'], 'audio/mpeg')
+
+    def test_media_video(self):
+        # Case for video that needs to be embedded as a player.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-video.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_video']/video")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the video->video tag transform: " \
+                      + transformed_html)
+        elm = elm.xpath('source')[0]
+        self.assertEqual(elm.attrib['src'],
+                         "http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4")
+        self.assertEqual(elm.attrib['type'], 'video/mp4')
+
+    def test_media_video_w_optional_attrs(self):
+        # Case for video that needs to be embedded as a player.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-video.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_video_w_optional_attrs']/video")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the video->video tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['data-standby'], 'message')
+        self.assertEqual(elm.attrib['controller'], 'true')
+        self.assertEqual(elm.attrib['loop'], 'true')
+        self.assertEqual(elm.attrib['autoplay'], 'false')
