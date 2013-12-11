@@ -313,3 +313,31 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')
         self.assertEqual(elm.attrib['autoplay'], 'false')
+
+    def test_media_java_applet(self):
+        # Case for java-applet that needs to be object embedded.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-java-applet.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_java_applet']/object")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the java-applet->object tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['type'], 'application/x-java-applet')
+        self.assertEqual(elm.attrib['height'], '200')
+        self.assertEqual(elm.attrib['width'], '600')
+        elms = elm.xpath('param')
+        elm_code, elm_codebase, elm_archive, elm_name, elm_src = elms
+        self.assertEqual(elm_code.attrib,
+                         {'name': 'code', 'value': 'AliasingDemo.class'})
+        self.assertEqual(elm_codebase.attrib,
+                         {'name': 'codebase', 'value': 'codebase.class'})
+        self.assertEqual(elm_archive.attrib,
+                         {'name': 'archive', 'value': 'Aliasing.jar'})
+        self.assertEqual(elm_name.attrib,
+                         {'name': 'name', 'value': 'Aliasing demo'})
+        self.assertEqual(elm_src.attrib,
+                         {'name': 'src', 'value': 'AliasingDemo.class'})

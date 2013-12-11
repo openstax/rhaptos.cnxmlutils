@@ -1,0 +1,18 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="new0" module-id="" cnxml-version="0.7">
+  <title>Aliasing Applet</title>
+  <metadata mdml-version="0.5"></metadata>
+  <content>
+    <para id="para-1">
+      <media id="test_media_java_applet" alt="alt text">
+        <java-applet mime-type="application/x-java-applet"
+		     code="AliasingDemo.class"
+		     src="AliasingDemo.class"
+		     height="200" width="600"
+		     archive="Aliasing.jar"
+		     codebase="codebase.class"
+		     name="Aliasing demo"
+		     />
+      </media>
+    </para>
+  </content>
+</document>

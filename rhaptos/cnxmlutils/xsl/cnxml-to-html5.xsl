@@ -769,6 +769,18 @@
   </video>
 </xsl:template>
 
+<xsl:template match="c:media/c:java-applet">
+  <object type="application/x-java-applet"
+	  height="{@height}" width="{@width}">
+    <param name="code" value="{@code}"/>
+    <xsl:if test="@codebase"><param name="codebase" value="{@codebase}"/></xsl:if>
+    <xsl:if test="@archive"><param name="archive" value="{@archive}"/></xsl:if>
+    <xsl:if test="@name"><param name="name" value="{@name}"/></xsl:if>
+    <xsl:if test="@src"><param name="src" value="{@src}"/></xsl:if>
+    <span>Applet failed to run. No Java plug-in was found.</span>
+  </object>
+</xsl:template>
+
 <xsl:template match="c:media/c:flash">
   <object type="{@mime-type}" data="{@src}"
 	  height="{@height}" width="{@width}"
