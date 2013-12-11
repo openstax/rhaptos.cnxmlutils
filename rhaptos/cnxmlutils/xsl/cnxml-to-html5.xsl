@@ -638,8 +638,8 @@
     </xsl:attribute>
     <!-- Apply c:media optional attributes -->
     <xsl:if test="@display">
-      <xsl:attribute name="class">
-	<xsl:value-of select="concat('media ', @display)"/>
+      <xsl:attribute name="data-display">
+	<xsl:value-of select="@display"/>
       </xsl:attribute>
     </xsl:if>
     <xsl:if test="@longdesc">
