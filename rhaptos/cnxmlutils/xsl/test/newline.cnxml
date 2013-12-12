@@ -13,6 +13,10 @@
   <newline id="id456" effect="underline"/>
   <newline effect="underline" count="3"/>
   <newline id="id789" effect="underline" count="3"/>
+  <para><newline/></para>
+  <list>
+    <item><newline/><newline effect="underline"/></item>
+  </list>
 
 
   <para>
@@ -27,7 +31,8 @@
   </para>
 
   <para>The following is not implemented yet</para>
-  <para><newline/></para>
+  <para><newline effect="underline"/></para>
+  <list><newline/></list>
 
 </content>
 </document>
