@@ -144,9 +144,12 @@
   <xsl:attribute name="data-label"><xsl:value-of select="node()"/></xsl:attribute>
 </xsl:template>
 
+<!-- TODO: revisit whether labels should contain markup or if the markup can be "pushed" out; some contain emphasis and math -->
 <xsl:template match="c:label[*]">
   <xsl:message>TODO: Support label with element children</xsl:message>
-  <div class="not-converted-yet">NOT_CONVERTED_YET: Support label with element children</div>
+  <xsl:attribute name="data-label">
+    <xsl:apply-templates select="text()|.//c:*/text()"/> <!-- do not include MathML text nodes -->
+  </xsl:attribute>
 </xsl:template>
 
 <!-- ========================= -->
