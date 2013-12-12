@@ -1,0 +1,17 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+  <title>Test Module</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+
+  <note id="id123">Body</note>
+  <note id="id456" class="custom">Body</note>
+
+  <note type="Point of Interest">Body</note>
+  <note type="Tip">Body</note>
+
+  <note><label>Custom Label</label>Body</note>
+
+</content>
+</document>
