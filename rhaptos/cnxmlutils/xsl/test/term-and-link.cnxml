@@ -1,0 +1,57 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+  <title>Test Module</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+
+  <link url="http://cnx.org"/>
+  <link url="http://cnx.org">Custom <emphasis>content</emphasis></link>
+  <link url="http://cnx.org" id="id012">with an id</link>
+
+
+  <link document="m123">to a module</link>
+  <link document="m123" target-id="id456">to an id in a module</link>
+  <link document="m123" resource="resource.txt">to a resource in a module</link>
+
+  <link version="1.1" document="m123">to a module version</link>
+  <link version="1.1" document="m123" target-id="id456">to an id in a module version</link>
+  <link version="1.1" document="m123" resource="resource.txt">to a resource in a module version</link>
+
+
+  <link url="http://cnx.org" window="replace">in the same window</link>
+  <link url="http://cnx.org" window="new">in a new window</link>
+
+  <link url="http://cnx.org" strength="2">with a strength</link>
+
+
+
+
+  <para>---------------------------------------------------------------</para>
+
+  <para>FIXME: the data-to-term attribute is fungible and may disappear</para>
+
+
+  <term id="id012">with an id</term>
+
+  <term url="http://cnx.org">Custom <emphasis>content</emphasis></term>
+  <term url="http://cnx.org" id="id012">with an id</term>
+
+
+  <term document="m123">to a module</term>
+  <term document="m123" target-id="id456">to an id in a module</term>
+  <term document="m123" resource="resource.txt">to a resource in a module</term>
+
+  <term version="1.1" document="m123">to a module version</term>
+  <term version="1.1" document="m123" target-id="id456">to an id in a module version</term>
+  <term version="1.1" document="m123" resource="resource.txt">to a resource in a module version</term>
+
+
+  <term url="http://cnx.org" window="replace">in the same window</term>
+  <term url="http://cnx.org" window="new">in a new window</term>
+
+  <term url="http://cnx.org" strength="2">with a strength</term>
+
+
+</content>
+</document>
