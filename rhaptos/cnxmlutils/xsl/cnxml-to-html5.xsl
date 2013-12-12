@@ -828,7 +828,8 @@
 
 <!-- Discard because these attributes are converted elsewhere -->
 <xsl:template match="
-   c:labview/@mime-type
+   c:labview/@src
+  |c:labview/@mime-type
   |c:labview/@version
   |c:labview/@viname
   "/>
@@ -854,7 +855,8 @@
 <!-- Copied over without changes -->
 <xsl:template match="
    c:flash/@height
-  |c:flash/@width">
+  |c:flash/@width
+  |c:flash/@wmode">
   <xsl:copy/>
 </xsl:template>
 
