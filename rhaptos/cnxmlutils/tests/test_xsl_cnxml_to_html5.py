@@ -171,7 +171,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         elm = html.xpath("//img[@id='test_media_image_alt']")[0]
-        self.assertEqual(elm.attrib['alt'], "from the image tag")
+        self.assertEqual(elm.attrib['alt'], "alternative text")
 
     def test_media_image_parent_alt(self):
         # Use the parent @alt when @alt do not exist.

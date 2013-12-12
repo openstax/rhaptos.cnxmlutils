@@ -29,8 +29,8 @@
     <para id="id1169517367733">
       <figure id="id2204878">
 	<!-- Optional attributes test case, except @for and @thumbnail -->
-	<media id="test_media_image_w_optional_attrs" alt="Sources of the CCAP Emission Reductions by Strategy" longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
-          <image mime-type="image/jpg" src="Picture 2.jpg" id="id2204878__onlineimage" height="302" width="502" print-width="700" thumbnail="Picture 2 tumbnail.jpg" longdesc="image long description" alt="alternative text"/>
+	<media id="test_media_image_w_optional_attrs" alt="alternative text" longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
+          <image mime-type="image/jpg" src="Picture 2.jpg" id="id2204878__onlineimage" height="302" width="502" print-width="700" thumbnail="Picture 2 tumbnail.jpg" longdesc="image long description"/>
         </media>
       </figure>
     </para>
@@ -38,11 +38,10 @@
       <figure id="id2204878">
 	<!-- @alt attributes test case -->
 	<media id="id220"
-	       alt="Sources of the CCAP Emission Reductions by Strategy"
+	       alt="alternative text"
 	       longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
           <image mime-type="image/jpg" src="Picture 2.jpg"
 		 id="test_media_image_alt"
-		 alt="from the image tag"
 		 longdesc="image long description"
 		 />
         </media>
