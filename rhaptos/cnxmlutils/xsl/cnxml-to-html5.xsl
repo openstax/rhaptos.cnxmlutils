@@ -710,7 +710,9 @@
 </xsl:template>
 
 
-<xsl:template match="c:newline[not(ancestor::c:para or ancestor::c:list)][not(@effect) or @effect = 'underline' or @effect = 'normal']">
+<xsl:template match="c:newline[not(parent::c:list)]
+                              [not(ancestor::c:para and @effect = 'underline')]
+                              [not(@effect) or @effect = 'underline' or @effect = 'normal']">
   <div class="newline">
     <xsl:apply-templates select="@*"/>
 
