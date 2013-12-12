@@ -238,7 +238,8 @@
 <!-- Prefix these attributes with a "data-" -->
 <xsl:template match="
    c:code/@lang
-  |c:code/@display">
+  |c:code/@display
+  |c:preformat">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
@@ -247,11 +248,11 @@
 </xsl:template>
 
 <!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
-<xsl:template match="c:code[not(c:title)]">
+<xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></pre>
 </xsl:template>
 
-<xsl:template match="c:code[c:title]">
+<xsl:template match="c:code[c:title]|c:preformat[c:title and not(display='inline')]">
   <div>
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates mode="class" select="."/>
@@ -259,6 +260,7 @@
     <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
   </div>
 </xsl:template>
+
 
 <!-- ========================= -->
 
