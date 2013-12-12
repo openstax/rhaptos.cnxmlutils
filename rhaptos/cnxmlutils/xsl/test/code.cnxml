@@ -1,0 +1,45 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+  <title>Test Module</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+
+
+  <code>[line 1]
+[line 2]          [after 10 spaces]
+[line 3]</code>
+
+
+  <para>...<code>[some text]          [after 10 spaces]</code>...</para>
+
+
+
+  <code display="inline">Inline code where it would normally be a block</code>
+
+  <code lang="JavaScript">with a language attribute</code>
+
+  <code id="id123">with an id</code>
+
+  <code id="id456"><title>the title</title>with a title</code>
+
+  <code id="id789"><label>the label</label><title>the title</title>with a title and label</code>
+
+  <code id="id789" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label
+[line 2]
+[line 3]</code>
+
+  <para>Preformat elemnt (much like a block of code but styled differently)</para>
+
+  <preformat>[line 1]
+[line 2]          [after 10 spaces]
+[line 3]</preformat>
+
+  <preformat id="id123">with an id</preformat>
+
+  <preformat id="id456"><title>the title</title>with a title
+[line 2]
+[line 3]</preformat>
+
+</content>
+</document>
