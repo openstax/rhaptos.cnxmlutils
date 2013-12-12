@@ -86,5 +86,31 @@
     />
   </media>
 
+  <para>Java Examples</para>
+
+  <media id="id-java-applet" alt="alternate">
+    <java-applet
+      code="org.cnx.Applet.class"
+      mime-type="application/x-java-applet"
+    />
+
+    <java-applet
+      id="id-java-applet-1"
+      code="org.cnx.Applet.class"
+      mime-type="application/x-java-applet"
+      for="online"
+      codebase="src/path"
+      archive="src.jar,more.jar"
+      name="Applet"
+      src="Applet.java"
+      height="100"
+      width="200"
+      longdesc="url.txt"
+    >
+      <param name="param-name" value="param-value"/>
+    </java-applet>
+
+  </media>
+
 </content>
 </document>

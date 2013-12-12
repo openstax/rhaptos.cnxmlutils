@@ -774,9 +774,29 @@
 <!-- c:java-applet         -->
 <!-- ===================== -->
 
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:java-applet/@height
+  |c:java-applet/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discard because these attributes are converted elsewhere -->
+<xsl:template match="
+   c:java-applet/@mime-type
+  |c:java-applet/@code
+  |c:java-applet/@codebase
+  |c:java-applet/@archive
+  |c:java-applet/@name
+  |c:java-applet/@src
+  "/>
+
 <xsl:template match="c:java-applet">
-  <object type="application/x-java-applet"
-	  height="{@height}" width="{@width}">
+  <object type="application/x-java-applet">
+    <xsl:apply-templates select="@*"/>
+    <xsl:call-template name="param-pass-through"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+
     <param name="code" value="{@code}"/>
     <xsl:if test="@codebase"><param name="codebase" value="{@codebase}"/></xsl:if>
     <xsl:if test="@archive"><param name="archive" value="{@archive}"/></xsl:if>
