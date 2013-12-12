@@ -282,6 +282,13 @@
 
 <!-- ========================= -->
 
+<!-- Convert c:note/@type to @data-label so things like "Point of Interest" and "Tip" are visually labeled as such -->
+<xsl:template match="c:note/@type">
+  <xsl:attribute name="data-label">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:note">
   <div>
     <xsl:apply-templates mode="class" select="."/>
