@@ -809,16 +809,35 @@
   </object>
 </xsl:template>
 
+<!-- ============= -->
+<!-- Flash object  -->
+<!-- ============= -->
+
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:flash/@height
+  |c:flash/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discarded because they are handled elsewhere -->
+<xsl:template match="
+   c:flash/@mime-type
+  |c:flash/@src"/>
+
+<xsl:template match="c:flash/@flash-vars">
+  <xsl:attribute name="flashvars">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:flash">
-  <object type="{@mime-type}" data="{@src}"
-	  height="{@height}" width="{@width}"
-	  id="{@id}">
-    <xsl:apply-templates select="@longdesc"/>
+  <object type="{@mime-type}" data="{@src}">
+    <xsl:apply-templates select="@id|@longdesc"/>
     <xsl:call-template name="param-pass-through"/>
-    <embed src="{@src}" type="{@mime-type}"
-	   height="{@height}" width="{@width}"
-	   wmode="{@wmode}" flashvars="{@flash-vars}"
-	   />
+    <embed src="{@src}" type="{@mime-type}">
+      <xsl:apply-templates select="@height|@width|@wmode|@flash-vars"/>
+    </embed>
   </object>
 </xsl:template>
 

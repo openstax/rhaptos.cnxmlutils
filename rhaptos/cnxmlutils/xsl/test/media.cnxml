@@ -1,0 +1,62 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+  <title>Test Module</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+
+  <media id="id123" alt="alternate">
+    <audio
+      src="file.mp3"
+      mime-type="audio/mp3"
+      autoplay="true"
+      loop="true"
+      controller="true"
+      volume="0"
+      standby="true"
+      >
+      <param name="author" value="John Doe"/>
+    </audio>
+
+    <video
+      src="file.mp4"
+      mime-type="video/mp4"
+      autoplay="true"
+      loop="true"
+      controller="true"
+      volume="11"
+      >
+
+      <param name="author" value="John Doe"/>
+    </video>
+
+    <audio src="file.mp3" mime-type="audio/mp3" for="pdf"/>
+    <audio src="file.mp4" mime-type="video/mp4" for="pdf"/>
+  </media>
+
+  <media id="id123" alt="alternate" longdesc="url.txt">
+    <flash
+      src="file.swf"
+      mime-type="application/x-shockwave-flash"
+    />
+    <flash
+      id="id-flash"
+      src="file.swf"
+      mime-type="application/x-shockwave-flash"
+      for="online"
+      wmode="opaque"
+      quality="autolow"
+      loop="false"
+      scale="noorder"
+      bgcolor="ffff00"
+      flash-vars="var1"
+      height="100"
+      width="100"
+      longdesc="url.txt"
+      >
+      <param name="flash-name" value="flash-value"/>
+    </flash>
+  </media>
+
+</content>
+</document>
