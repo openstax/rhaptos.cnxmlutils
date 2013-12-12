@@ -873,7 +873,7 @@
 
 <xsl:template match="c:flash">
   <object type="{@mime-type}" data="{@src}">
-    <xsl:apply-templates select="@id|@longdesc"/>
+    <xsl:apply-templates select="@id|@longdesc|@height|@width"/>
     <xsl:call-template name="param-pass-through"/>
     <embed src="{@src}" type="{@mime-type}">
       <xsl:apply-templates select="@height|@width|@wmode|@flash-vars"/>
