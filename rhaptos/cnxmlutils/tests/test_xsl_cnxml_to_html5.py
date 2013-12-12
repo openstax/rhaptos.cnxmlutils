@@ -371,3 +371,22 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         elm = elm.xpath('param')[1]
         self.assertEqual(elm.attrib['name'], 'faux2')
         self.assertEqual(elm.attrib['value'], 'faux-value')
+
+    def test_media_labview(self):
+        # Case for labview to object transform.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-labview.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_labview']/object")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the labview->object tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['type'], 'application/x-labviewrpvi80')
+        self.assertEqual(elm.attrib['data'], 'DFD_Utility.llb')
+        self.assertEqual(elm.attrib['width'], '840')
+        self.assertEqual(elm.attrib['height'], '540')
+        # And ensure param pass through.
+        pass

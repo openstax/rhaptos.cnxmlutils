@@ -796,6 +796,21 @@
   </object>
 </xsl:template>
 
+<xsl:template match="c:media/c:labview">
+  <object id="{@id}" class="labview" type="{@mime-type}"
+	  height="{@height}" width="{@width}"
+	  data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq"
+	  data="{@src}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:call-template name="param-pass-through"/>
+    <param name="lvfppviname" value="{@viname}"/>
+    <param name="version" value="{@version}"/>
+    <param name="reqctrl" value="true"/>
+    <param name="runlocally" value="true"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </object>
+</xsl:template>
+
 <xsl:template match="c:media/c:flash">
   <object type="{@mime-type}" data="{@src}"
 	  height="{@height}" width="{@width}"
