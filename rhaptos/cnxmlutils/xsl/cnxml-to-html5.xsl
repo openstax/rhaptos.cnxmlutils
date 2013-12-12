@@ -747,6 +747,13 @@
 </xsl:template>
 
 
+<!-- Prefix c:param for c:audio and c:video with "data-" -->
+<xsl:template match="c:audio/c:param|c:video/c:param">
+  <xsl:attribute name="data-{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:audio">
   <audio>
     <xsl:apply-templates select="@*|c:param"/>
