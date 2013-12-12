@@ -158,7 +158,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:list/c:title">
+<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title">
   <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
@@ -545,16 +545,17 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<xsl:template match="c:figure/c:caption">
+  <figcaption>
+    <xsl:apply-templates select="@*|node()"/>
+  </figcaption>
+</xsl:template>
+
 <xsl:template match="c:figure|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*|c:label"/>
-    <xsl:if test="c:caption or c:title">
-      <figcaption>
-        <xsl:apply-templates select="c:title"/>
-        <!-- NOTE: caption loses the optional id -->
-        <xsl:apply-templates select="c:caption/node()"/>
-      </figcaption>
-    </xsl:if>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates select="c:caption"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
   </figure>
 </xsl:template>
