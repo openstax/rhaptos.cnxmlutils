@@ -625,39 +625,26 @@
 <xsl:template match="c:colspec/@*|c:spanspec/@*|c:entry/@*"/>
 
 <!-- ========================= -->
-<!-- Media: Partial Support    -->
+<!-- Media:                    -->
 <!-- ========================= -->
+
+<!-- Prefix the following attributes with "data-" -->
+<xsl:template match="
+   c:media/@alt
+  |c:media/@display
+  |c:media/@longdesc
+  |c:media/c:*/@longdesc">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
 
 <xsl:template match="c:media">
   <span class="media">
-    <!-- Apply c:media required attributes -->
-    <xsl:attribute name="id">
-      <xsl:value-of select="@id"/>
-    </xsl:attribute>
-    <xsl:attribute name="alt">
-      <xsl:value-of select="@alt"/>
-    </xsl:attribute>
     <!-- Apply c:media optional attributes -->
-    <xsl:if test="@display">
-      <xsl:attribute name="data-display">
-	<xsl:value-of select="@display"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@longdesc">
-      <xsl:attribute name="data-longdesc">
-	<xsl:value-of select="@longdesc"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>
 
 <!-- General attribute reassignment -->
-<xsl:template match="c:media/*/@longdesc">
-  <xsl:attribute name="data-longdesc">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
 <xsl:template match="c:media/*[@for='pdf']/@for">
   <xsl:attribute name="data-print">
     <xsl:text>true</xsl:text>
@@ -836,7 +823,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>  
+<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 <xsl:template match="c:image[not(@for='pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}">
     <xsl:if test="not(@alt)">

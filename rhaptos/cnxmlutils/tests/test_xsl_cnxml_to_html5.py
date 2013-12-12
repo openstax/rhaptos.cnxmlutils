@@ -46,7 +46,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id: " + transformed_html)
         self.assertEqual(elm.attrib['class'], 'media')
-        self.assertEqual(elm.attrib['alt'], '')
+        self.assertEqual(elm.attrib['data-alt'], '')
 
     def test_media_w_optional_attrs(self):
         # Case to test the conversion of c:media transformation.
@@ -117,10 +117,10 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the image->img tag transform: " + transformed_html)
-        
+
         self.assertEqual(elm.attrib['src'], 'graphics1.jpg')
         self.assertEqual(elm.attrib['data-media-type'], 'image/jpg')
-        
+
     def test_media_image_w_optional_attrs(self):
         # Case to test the conversion of c:media/c:image transformation.
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR,
@@ -133,7 +133,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the image->img tag transform: " + transformed_html)
-        
+
         # Optional attributes...
         self.assertEqual(elm.attrib['height'], '302')
         self.assertEqual(elm.attrib['width'], '502')
