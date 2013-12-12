@@ -781,6 +781,16 @@
   </object>
 </xsl:template>
 
+<xsl:template match="c:media/c:object">
+  <object type="{@mime-type}" data="{@src}"
+	  width="{@width}" height="{@height}">
+    <xsl:for-each select="c:param">
+      <param name="{@name}" value="{@value}"/>
+    </xsl:for-each>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </object>
+</xsl:template>
+
 <xsl:template match="c:media/c:flash">
   <object type="{@mime-type}" data="{@src}"
 	  height="{@height}" width="{@width}"

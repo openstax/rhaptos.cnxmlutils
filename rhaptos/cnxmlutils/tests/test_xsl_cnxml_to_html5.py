@@ -341,3 +341,24 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                          {'name': 'name', 'value': 'Aliasing demo'})
         self.assertEqual(elm_src.attrib,
                          {'name': 'src', 'value': 'AliasingDemo.class'})
+
+    def test_media_object(self):
+        # Case for object pass-through.
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-object.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_object']/object")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the object->object tag transform: " \
+                      + transformed_html)
+        self.assertEqual(elm.attrib['type'], 'application/vnd.wolfram.cdf')
+        self.assertEqual(elm.attrib['data'], 'TimeshifterDrill_display.cdf')
+        self.assertEqual(elm.attrib['width'], '400')
+        self.assertEqual(elm.attrib['height'], '400')
+        # And ensure param pass through.
+        elm = elm.xpath('param')[1]
+        self.assertEqual(elm.attrib['name'], 'faux2')
+        self.assertEqual(elm.attrib['value'], 'faux-value')
