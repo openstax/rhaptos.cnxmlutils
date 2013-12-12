@@ -5,6 +5,8 @@
 
 <content>
 
+  <para>Audio and Video</para>
+
   <media id="id123" alt="alternate">
     <audio
       src="file.mp3"
@@ -34,6 +36,8 @@
     <audio src="file.mp4" mime-type="video/mp4" for="pdf"/>
   </media>
 
+  <para>Flash examples</para>
+
   <media id="id123" alt="alternate" longdesc="url.txt">
     <flash
       src="file.swf"
@@ -56,6 +60,30 @@
       >
       <param name="flash-name" value="flash-value"/>
     </flash>
+  </media>
+
+  <para>Labview Examples</para>
+
+
+  <media id="id-labview" alt="alternate">
+    <labview
+      src="file.vi"
+      mime-type="application/x-labview-vi"
+      viname="the-path"
+      version="7.0"
+    />
+
+    <labview
+      src="file.vi"
+      mime-type="application/x-labview-vi"
+      viname="the-path"
+      version="7.0"
+      for="online"
+      height="100"
+      width="200"
+      longdesc="url.txt"
+      id="id-labview-1"
+    />
   </media>
 
 </content>

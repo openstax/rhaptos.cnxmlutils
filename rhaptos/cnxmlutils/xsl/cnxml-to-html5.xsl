@@ -794,9 +794,27 @@
   </object>
 </xsl:template>
 
+
+<!-- =============== -->
+<!-- Labview Object  -->
+<!-- =============== -->
+
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:labview/@height
+  |c:labview/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discard because these attributes are converted elsewhere -->
+<xsl:template match="
+   c:labview/@mime-type
+  |c:labview/@version
+  |c:labview/@viname
+  "/>
+
 <xsl:template match="c:labview">
-  <object class="labview" id="{@id}" type="{@mime-type}"
-	  height="{@height}" width="{@width}"
+  <object class="labview" type="{@mime-type}"
 	  data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq"
 	  data="{@src}">
     <xsl:apply-templates select="@*"/>
