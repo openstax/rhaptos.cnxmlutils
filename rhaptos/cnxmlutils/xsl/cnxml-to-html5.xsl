@@ -675,6 +675,11 @@
     <xsl:value-of select="@value"/>
   </xsl:attribute>
 </xsl:template>
+<xsl:template name="param-pass-through">
+  <xsl:for-each select="c:param">
+    <param name="{@name}" value="{@value}"/>
+  </xsl:for-each>
+</xsl:template>
 
 <!-- Ensure when applying templates within c:media/* that you use the
      following sequence for audio, flash, video, java-applet, image,
@@ -763,7 +768,7 @@
 	<xsl:value-of select="@controller"/>
       </xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*|c:param"/>
+    <xsl:call-template name="param-pass-through"/>
     <source src="{@src}" type="{@mime-type}"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </video>
@@ -800,12 +805,13 @@
 	<xsl:value-of select="@longdesc"/>
       </xsl:attribute>
     </xsl:if>
+    <xsl:call-template name="param-pass-through"/>
     <embed src="{@src}" type="{@mime-type}"
 	   height="{@height}" width="{@width}"
 	   wmode="{@wmode}" flashvars="{@flash-vars}"
 	   />
     <!-- FIXME Ignoring attributes: quality, loop, scale, bgcolor -->
-    <!-- FIXME The c:param tag does not get passed through correctly. -->
+    <xsl:apply-templates select="@quality|@loop|@scale|@bgcolor"/>
   </object>
 </xsl:template>
 

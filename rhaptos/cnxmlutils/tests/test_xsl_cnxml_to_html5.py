@@ -198,15 +198,24 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['width'], '580')
 
         try:
-            elm = elm.xpath("embed")[0]
+            embed_elm = elm.xpath("embed")[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to transform flash->object/embed tag: " \
                       + transformed_html)
-        self.assertEqual(elm.attrib['src'], 'Subtopic2-Sc_3_static.swf')
-        self.assertEqual(elm.attrib['type'], 'application/x-shockwave-flash')
-        self.assertEqual(elm.attrib['height'], '380')
-        self.assertEqual(elm.attrib['width'], '580')
+        self.assertEqual(embed_elm.attrib['src'], 'Subtopic2-Sc_3_static.swf')
+        self.assertEqual(embed_elm.attrib['type'],
+                         'application/x-shockwave-flash')
+        self.assertEqual(embed_elm.attrib['height'], '380')
+        self.assertEqual(embed_elm.attrib['width'], '580')
+        try:
+            param_elm = elm.xpath('param')[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform flash/param->object/param tag: " \
+                      + transformed_html)
+        self.assertEqual(param_elm.attrib['name'], 'faux')
+        self.assertEqual(param_elm.attrib['value'], 'faux-value')
 
     def test_media_flash_generic_attrs(self):
         # Generic attributes tests.

@@ -6,8 +6,9 @@
       <media id="test_media_flash" alt="">
 	<flash src="Subtopic2-Sc_3_static.swf"
 	       mime-type="application/x-shockwave-flash"
-	       height="380" width="580"
-	       />
+	       height="380" width="580">
+	  <param name="faux" value="faux-value"/>
+	</flash>
 	<image for="pdf" src="Subtopic2-Sc_3_static-PRINT.jpg"
 	       mime-type="image/jpeg"
 	       />
