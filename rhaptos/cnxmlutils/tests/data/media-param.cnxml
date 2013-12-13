@@ -1,0 +1,34 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="id47809737" module-id="" cnxml-version="0.7">
+  <title>The Eros of Flowering Light: Reading The Rose</title>
+  <metadata mdml-version="0.5"></metadata>
+  <content>
+    <section id="section-id-1">
+      <para id="para-id-1">
+	<!-- General case for c:media/*/c:param -->
+	<media id="test_media_param"
+	       alt="Flowering Light -- buy from Rice University Press.">
+	  <image mime-type="image/jpeg"
+		 src="http://rup.rice.edu/flowering-buybutton.jpg">
+	    <param name="onclick"
+		   value="window.open('http://rup.rice.edu/flowering-light.html','','');"
+		   />
+	    <param name="onmouseover"
+		   value="document.body.style.cursor = 'hand';"
+		   /> 
+	    <param name="onmouseout"
+		   value="document.body.style.cursor = 'default';"
+		   />
+	  </image>
+	</media>
+      </para>
+      <para id="para-id-2">
+	<!-- General case for c:media/*/c:param -->
+	<media id="test_junk"
+	       alt="Flowering Light -- buy from Rice University Press.">
+	  <image mime-type="image/jpeg"
+		 src="http://rup.rice.edu/flowering-buybutton.jpg"/>
+	</media>
+      </para>
+    </section>
+  </content>
+</document>

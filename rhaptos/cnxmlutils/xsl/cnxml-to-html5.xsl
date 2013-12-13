@@ -108,7 +108,7 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt
+<xsl:template match="@type|@class
     |@effect|@pub-type">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
@@ -653,45 +653,300 @@
 <xsl:template match="c:colspec/@*|c:spanspec/@*|c:entry/@*"/>
 
 <!-- ========================= -->
-<!-- Media: Partial Support    -->
+<!-- Media:                    -->
 <!-- ========================= -->
 
-<xsl:template match="c:media[not(@display or @longdesc)]">
+<!-- Prefix the following attributes with "data-" -->
+<xsl:template match="
+   c:media/@alt
+  |c:media/@display
+  |c:media/@longdesc
+  |c:media/c:*/@longdesc">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<xsl:template match="c:media">
   <span class="media">
+    <!-- Apply c:media optional attributes -->
     <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>
 
-<xsl:template match="c:media[child::c:iframe]">
+<!-- General attribute reassignment -->
+<xsl:template match="c:media/*[@for='pdf']/@for">
+  <xsl:attribute name="data-print">
+    <xsl:text>true</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+<xsl:template match="c:media/*[@for='default' or @for='online']/@for">
+  <xsl:attribute name="data-print">
+    <xsl:text>false</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- Reassign all c:param as @name=@value -->
+<xsl:template match="
+   c:audio/c:param
+  |c:flash/c:param
+  |c:java-applet/c:param
+  |c:image/c:param
+  |c:labview/c:param
+  |c:download/c:param">
+  <xsl:attribute name="{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="param-pass-through">
+  <xsl:for-each select="c:param">
+    <param name="{@name}" value="{@value}"/>
+  </xsl:for-each>
+</xsl:template>
+
+<!-- Ensure when applying templates within c:media/* that you use the
+     following sequence for audio, flash, video, java-applet, image,
+     labview, and download:
+     <xsl:apply-templates select="@*|c:param"/>
+     <xsl:apply-templates select="node()[not(self::c:param)]"/>
+ -->
+
+<!-- ===================== -->
+<!-- c:download            -->
+<!-- ===================== -->
+
+<!-- These attributes are handled elsewhere -->
+<xsl:template match="c:download/@src|c:download/@mime-type"/>
+
+<xsl:template match="c:download">
+  <a class="download" href="{@src}" data-media-type="{@mime-type}">
+    <xsl:apply-templates select="@*|c:param"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+    <!-- Link text -->
+    <xsl:value-of select="@src"/>
+  </a>
+</xsl:template>
+
+
+<!-- ===================== -->
+<!-- c:audio and c:video   -->
+<!-- ===================== -->
+
+<!-- Copy these attributes without any changes -->
+<xsl:template match="
+   c:audio/@src
+  |c:audio/@autoplay
+  |c:audio/@loop
+  |c:audio/@controller
+  |c:video/@src
+  |c:video/@autoplay
+  |c:video/@loop
+  |c:video/@controller
+
+  |c:video/@height
+  |c:video/@width
+  ">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- change @mime-type to @data-media-type -->
+<xsl:template match="c:audio/@mime-type|c:video/@mime-type">
+  <xsl:attribute name="data-media-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- add either a @volume or @muted -->
+<xsl:template match="c:audio/@volume|c:video/@volume">
+  <xsl:choose>
+    <xsl:when test=". = '0'">
+      <xsl:attribute name="muted">true</xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="data-prefix"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- Prefix the following attributes with "data-" -->
+<xsl:template match="
+   c:audio/@standby
+  |c:video/@standby">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+
+<!-- Prefix c:param for c:audio and c:video with "data-" -->
+<xsl:template match="c:audio/c:param|c:video/c:param">
+  <xsl:attribute name="data-{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:audio">
+  <audio>
+    <xsl:apply-templates select="@*|c:param"/>
+    <source src="{@src}" type="{@mime-type}"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </audio>
+</xsl:template>
+
+<xsl:template match="c:video">
+  <video>
+    <xsl:apply-templates select="@*|c:param"/>
+    <source src="{@src}" type="{@mime-type}"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </video>
+</xsl:template>
+
+<!-- ===================== -->
+<!-- c:java-applet         -->
+<!-- ===================== -->
+
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:java-applet/@height
+  |c:java-applet/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discard because these attributes are converted elsewhere -->
+<xsl:template match="
+   c:java-applet/@mime-type
+  |c:java-applet/@code
+  |c:java-applet/@codebase
+  |c:java-applet/@archive
+  |c:java-applet/@name
+  |c:java-applet/@src
+  "/>
+
+<xsl:template match="c:java-applet">
+  <object type="application/x-java-applet">
+    <xsl:apply-templates select="@*"/>
+    <xsl:call-template name="param-pass-through"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+
+    <param name="code" value="{@code}"/>
+    <xsl:if test="@codebase"><param name="codebase" value="{@codebase}"/></xsl:if>
+    <xsl:if test="@archive"><param name="archive" value="{@archive}"/></xsl:if>
+    <xsl:if test="@name"><param name="name" value="{@name}"/></xsl:if>
+    <xsl:if test="@src"><param name="src" value="{@src}"/></xsl:if>
+    <span>Applet failed to run. No Java plug-in was found.</span>
+  </object>
+</xsl:template>
+
+<xsl:template match="c:object">
+  <object type="{@mime-type}" data="{@src}"
+	  width="{@width}" height="{@height}">
+    <xsl:call-template name="param-pass-through"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </object>
+</xsl:template>
+
+
+<!-- =============== -->
+<!-- Labview Object  -->
+<!-- =============== -->
+
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:labview/@height
+  |c:labview/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discard because these attributes are converted elsewhere -->
+<xsl:template match="
+   c:labview/@src
+  |c:labview/@mime-type
+  |c:labview/@version
+  |c:labview/@viname
+  "/>
+
+<xsl:template match="c:labview">
+  <object class="labview" type="{@mime-type}"
+	  data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq"
+	  data="{@src}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:call-template name="param-pass-through"/>
+    <param name="lvfppviname" value="{@viname}"/>
+    <param name="version" value="{@version}"/>
+    <param name="reqctrl" value="true"/>
+    <param name="runlocally" value="true"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+  </object>
+</xsl:template>
+
+<!-- ============= -->
+<!-- Flash object  -->
+<!-- ============= -->
+
+<!-- Copied over without changes -->
+<xsl:template match="
+   c:flash/@height
+  |c:flash/@width
+  |c:flash/@wmode">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- Discarded because they are handled elsewhere -->
+<xsl:template match="
+   c:flash/@mime-type
+  |c:flash/@src"/>
+
+<xsl:template match="c:flash/@flash-vars">
+  <xsl:attribute name="flashvars">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:flash">
+  <object type="{@mime-type}" data="{@src}">
+    <xsl:apply-templates select="@id|@longdesc|@height|@width"/>
+    <xsl:call-template name="param-pass-through"/>
+    <embed src="{@src}" type="{@mime-type}">
+      <xsl:apply-templates select="@height|@width|@wmode|@flash-vars"/>
+    </embed>
+  </object>
+</xsl:template>
+
+<xsl:template match="c:media[c:iframe]">
   <div class="media">
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
+
+<!-- ===================== -->
+<!-- Images                -->
+<!-- ===================== -->
+
+<!-- Prefix these attributes with "data-" -->
+<xsl:template match="
+   c:image/@longdesc
+  |c:image/@thumbnail
+  |c:image/@print-width">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<!-- discard these attributes because they are being handled elsewhere -->
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
-<xsl:template match="c:image[not(@thumbnail or @longdesc or @for='pdf')]">
-  <img src="{@src}" data-media-type="{@mime-type}">
-    <xsl:if test="parent::c:media[@alt]">
-      <xsl:attribute name="alt">
-        <xsl:value-of select="parent::c:media/@alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+
+<xsl:template match="c:image/@width|c:image/@height">
+  <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="c:image[not(@for='pdf')]">
+  <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
+    <xsl:apply-templates select="@*|c:param"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
 </xsl:template>
-<xsl:template match="c:image[not(@thumbnail or @longdesc) and @for='pdf']">
+
+<xsl:template match="c:image[@for='pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
-</xsl:template>
-<xsl:template match="c:image/@print-width">
-  <xsl:attribute name="data-print-width">
-    <xsl:value-of select="." />
-  </xsl:attribute>
-</xsl:template>
-<xsl:template match="c:image/@width|c:image/@height">
-  <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="c:iframe">

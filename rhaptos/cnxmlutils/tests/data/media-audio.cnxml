@@ -1,0 +1,57 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m11625" module-id="" cnxml-version="0.7">
+  <title>Listening Gallery: Time's Effect</title>
+  <metadata mdml-version="0.5"></metadata>
+  <content>
+    <exercise id="ex_shost">
+      <q:item id="i_shost" type="single-response">
+	<q:question>
+	  <section id="s_shost">
+	    <para id="p_shost">
+	      Listen to the following ...?
+	    </para>
+	    
+	    <media id="test_media_audio" alt=""
+		   display="block">
+	      <audio src="http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3"
+		     id="mus_shost" mime-type="audio/mpeg">
+	      </audio>
+	    </media>	
+	  </section>
+	</q:question>
+
+	<q:answer id="shost_yes"><q:response>Yes.</q:response></q:answer>
+	<q:answer id="shost_no"><q:response>No.</q:response></q:answer>
+
+	<q:feedback>Yes, time has an effect.</q:feedback>
+	<q:key answer="shost_yes"/>
+      </q:item>
+    </exercise>
+    <para id="para-id-1">
+      <media id="test_media_audio_w_optional_attrs" alt="">
+	<audio src="http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3"
+	       
+	       id="mus_shost" mime-type="audio/mpeg">
+	  <param name="composer" value="Dmitri Shostakovich"/>
+	  <param name="title" value="String Quartet No. 7, I"/>
+	  <param name="comments" value=""/>
+	  <param name="total-time" value=""/>
+	  <param name="label-number" value="Decca B0000042HV"/>
+	  <param name="performer" value="Fitzwilliam String Quartet"/>
+	</audio>
+      </media>	
+    </para>
+    <para id="para-id-2">
+      <media id="test_media_audio_embedded" alt="">
+	<audio src="http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3"
+	       
+	       id="mus_shost" mime-type="audio/mpeg"
+	       standby="standby message"
+	       autoplay="true" loop="false"
+	       controller="true"
+	       volume="20"
+	       >
+	</audio>
+      </media>	
+    </para>
+  </content>
+</document>

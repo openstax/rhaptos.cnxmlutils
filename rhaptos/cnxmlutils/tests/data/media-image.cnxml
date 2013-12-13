@@ -1,0 +1,62 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" id="id1169550397878" module-id="m12345" cnxml-version="0.7">
+  <title>Case Study: Greenhouse Gases and Climate Change</title>
+<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+</metadata>
+
+<content>
+  <section id="id1169530418515">
+    <title>Designing a Climate Action Plan</title>
+    <para id="id5008640">
+      <figure id="id1169537615277">
+	<!-- Required attributes test case -->
+	<media id="id1169537615277_media" alt="Chicago Greenhouse Gas Emissions and Reduction Goals" longdesc="Figure illustrates the emissions calculated for Chicago through 2005.">
+          <image mime-type="image/jpg" src="graphics1.jpg" id="id1169537615277__onlineimage" height="271" width="650"/>
+        </media>
+        <caption></caption>
+      </figure>
+      <figure id="id1169537615277">
+	<!-- Required attributes test case -->
+	<media id="test_media_image_for_attribute" alt="required attribute">
+          <image mime-type="image/jpg" src="graphics1.jpg" for="default"/>
+          <image mime-type="image/jpg" src="graphics1.jpg" for="online"/>
+          <image mime-type="image/jpg" src="graphics1.jpg" for="pdf"
+		 print-width="700"
+		 />
+        </media>
+        <caption></caption>
+      </figure>
+    </para>
+    <para id="id1169517367733">
+      <figure id="id2204878">
+	<!-- Optional attributes test case, except @for and @thumbnail -->
+	<media id="test_media_image_w_optional_attrs" alt="alternative text" longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
+          <image mime-type="image/jpg" src="Picture 2.jpg" id="id2204878__onlineimage" height="302" width="502" print-width="700" thumbnail="Picture 2 tumbnail.jpg" longdesc="image long description"/>
+        </media>
+      </figure>
+    </para>
+    <para id="id11695173677">
+      <figure id="id2204878">
+	<!-- @alt attributes test case -->
+	<media id="id220"
+	       alt="alternative text"
+	       longdesc="Graph shows the sources of the Chicago CAP emission reductions by strategy.">
+          <image mime-type="image/jpg" src="Picture 2.jpg"
+		 id="test_media_image_alt"
+		 longdesc="image long description"
+		 />
+        </media>
+      </figure>
+      <figure id="id2204878">
+	<!-- @alt attributes test case -->
+	<media id="id220" alt="media alt">
+          <image mime-type="image/jpg" src="Picture 2.jpg"
+		 id="test_media_image_parent_alt"
+		 longdesc="image long description"
+		 />
+        </media>
+      </figure>
+    </para>
+  </section>
+
+</content>
+</document>

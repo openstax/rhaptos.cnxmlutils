@@ -1,0 +1,28 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="new" module-id="" cnxml-version="0.7">
+  <title>Elementary Statistics: Video Lecture - Hypothesis Testing with a Single Mean</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5"></metadata>
+  <content>
+    <para id="para-1">
+      <figure id="fig-1">
+        <media id="test_media_video" alt="alt text">
+          <video src="http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4"
+		 mime-type="video/mp4"
+		 />
+        </media>
+      </figure> 
+    </para>
+    <para id="para-2">
+      <figure id="fig-2">
+        <media id="test_media_video_w_optional_attrs" alt="alt text">
+          <video src="http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4"
+		 mime-type="video/mp4"
+		 height="500" width="500"
+		 autoplay="false" controller="true"
+		 volume="0" loop="true" standby="message"
+		 />
+        </media>
+      </figure> 
+    </para>
+
+  </content>
+</document>

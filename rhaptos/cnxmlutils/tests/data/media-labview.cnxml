@@ -1,0 +1,23 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m10548" module-id="" cnxml-version="0.7">
+  <title>Discrete Time Filter Design</title>
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5"></metadata>
+
+  <content>
+    <section id="section-1">
+      <title>Interactive Filter Design Illustration</title>
+      <figure id="figure-1">
+	<media id="test_media_labview" alt="blank alt">
+	  <labview src="DFD_Utility.llb"
+		   viname="DEP Tree Main.vi"
+		   version="8.0"
+		   mime-type="application/x-labviewrpvi80"
+		   height="540" width="840">
+	    <param name="lvfppviname" value="DEP Tree Main.vi"/>
+	  </labview>
+	</media>
+
+	<caption>Digital filter design LabVIEW virtual instrument by NI from <link url="http://cnx.org/content/m13115/latest/">http://cnx.org/content/m13115/latest/</link>.</caption>
+      </figure>
+    </section>
+  </content>
+</document>
