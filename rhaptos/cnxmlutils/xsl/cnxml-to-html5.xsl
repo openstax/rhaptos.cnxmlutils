@@ -108,8 +108,7 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@type|@class|@alt|@url|@display
-    |@document|@target-id|@window|@version|@resource
+<xsl:template match="@type|@class
     |@effect|@pub-type">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
