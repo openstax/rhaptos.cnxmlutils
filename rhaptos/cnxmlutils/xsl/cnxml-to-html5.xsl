@@ -734,7 +734,7 @@
       <xsl:attribute name="muted">true</xsl:attribute>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:copy/>
+      <xsl:call-template name="data-prefix"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
