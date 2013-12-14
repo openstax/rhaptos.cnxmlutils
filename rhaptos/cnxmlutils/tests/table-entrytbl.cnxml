@@ -1,0 +1,92 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:cnxorg="http://cnx.rice.edu/system-info" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" id="m10548" module-id="" cnxml-version="0.7">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5"></metadata>
+
+  <content>
+    <section id="section-1">
+      <table id="test_table_entrytbl">
+	<tgroup cols="1">
+	  <tbody>
+	    <row>
+              <entrytbl cols="2">
+		<colspec colnum="1" colname="hyd1"/>
+		<colspec colnum="2" colname="hyd2"/>
+		<thead>
+		  <row>
+		    <entry namest="hyd1" nameend="hyd2">
+                      Hydrogen
+		    </entry>
+		  </row>
+		</thead>
+		<tbody>
+		  <row>
+		    <entry>Atomic Number:</entry>
+		    <entry>1</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Symbol:</entry>
+		    <entry>H</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Weight:</entry>
+		    <entry>1.0079</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Radius:</entry>
+		    <entry>78 pm</entry>
+		  </row>
+		  <row>
+		    <entry>Melting Point:</entry>
+		    <entry>-259.34 C</entry>
+		  </row>
+		  <row>
+		    <entry>Boiling Point:</entry>
+		    <entry>-252.87 C</entry>
+		  </row>
+		</tbody>
+              </entrytbl>
+	    </row>
+	    <row>
+              <entrytbl cols="2">
+		<colspec colnum="1" colname="lit1"/>
+		<colspec colnum="2" colname="lit2"/>
+		<thead>
+		  <row>
+		    <entry namest="lit1" nameend="lit2">
+                      Lithium
+		    </entry>
+		  </row>
+		</thead>
+		<tbody>
+		  <row>
+		    <entry>Atomic Number:</entry>
+		    <entry>3</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Symbol:</entry>
+		    <entry>Li</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Weight:</entry>
+		    <entry>6.941</entry>
+		  </row>
+		  <row>
+		    <entry>Atomic Radius:</entry>
+		    <entry>152 pm</entry>
+		  </row>
+		  <row>
+		    <entry>Melting Point:</entry>
+		    <entry>108.5 C</entry>
+		  </row>
+		  <row>
+		    <entry>Boiling Point:</entry>
+		    <entry>1342 C</entry>
+		  </row>
+		</tbody>
+              </entrytbl>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </table>
+    </section>
+  </content>
+</document>

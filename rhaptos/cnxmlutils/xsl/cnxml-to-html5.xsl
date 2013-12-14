@@ -1101,6 +1101,27 @@
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
 
+<xsl:template match="c:entrytbl">
+  <td class="entrytbl" colspan="{@cols}">
+    <!-- FIXME @cols is required, but may be incorrect? -->
+    <!-- <xsl:if test="(@namest and @nameend) or @spanname"> -->
+    <!--   <xsl:attribute name="colspan"> -->
+    <!--     <xsl:call-template name="calculate-colspan"/> -->
+    <!--   </xsl:attribute> -->
+    <!-- </xsl:if> -->
+    <table class="entrytbl">
+      <xsl:if test="c:colspec/@colwidth or child::*/c:colspec/@colwidth">
+        <colgroup>
+          <xsl:call-template name="column-maker"/>
+        </colgroup>
+      </xsl:if>
+      <xsl:apply-templates select="@*|node()"/>
+    </table>
+  </td>
+</xsl:template>
+<!-- Discard c:entrytbl attributes -->
+<xsl:template match="c:entrytbl/@*"/>
+
 <!-- Discard colspec and spanspec nodes -->
 <xsl:template match="c:colspec|c:spanspec"/>
 
