@@ -896,6 +896,28 @@
   </span>
 </xsl:template>
 
+
+<!-- HACK: PHeT simulations in Physics were marked up to make a clickable link as
+     <image mime-type="image/png"
+            for="online"
+            src="equation-grapher_en.jar"
+            thumbnail="PhET_Icon.png"
+            width="450"/>
+
+    This creates a link with the thumbnail image.
+    NOTE: This needs to occur **after** the other templates for some reason.
+-->
+<!-- Discard the thumbnail attribute because it is handled elsewhere -->
+<xsl:template match="c:image[@thumbnail and not(@for='pdf')]/@thumbnail"/>
+<xsl:template match="c:image[@thumbnail and not(@for='pdf')]">
+  <a href="{@src}">
+    <img src="{@thumbnail}" alt="{parent::c:media/@alt}">
+      <xsl:apply-templates select="@*|node()"/>
+    </img>
+  </a>
+</xsl:template>
+
+
 <xsl:template match="c:iframe">
   <iframe><xsl:apply-templates select="@*|node()"/></iframe>
 </xsl:template>

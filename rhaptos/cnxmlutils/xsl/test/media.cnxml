@@ -112,5 +112,27 @@
 
   </media>
 
+  <para>Hacky way of using Images to make a link to a jar file</para>
+
+  <media alt="alternate">
+    <image
+      mime-type="image/png"
+      for="online"
+      src="equation-grapher_en.jar"
+      thumbnail="PhET_Icon.png"
+      width="450"/>
+  </media>
+
+  <para>But for PDF do not do anything special</para>
+
+  <media alt="alternate">
+    <image
+      mime-type="image/png"
+      for="pdf"
+      src="equation-grapher_en.jar"
+      thumbnail="PhET_Icon.png"
+      width="450"/>
+  </media>
+
 </content>
 </document>
