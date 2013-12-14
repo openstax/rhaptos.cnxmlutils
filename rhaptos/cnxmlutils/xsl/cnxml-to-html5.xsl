@@ -1066,9 +1066,7 @@
 </xsl:template>
 
 <!-- c:entry handling -->
-<xsl:template match="c:entry[ancestor::c:thead
-                             or ancestor::c:tfoot
-                             or ancestor::c:tbody]">
+<xsl:template match="c:entry[ancestor::c:thead]">
   <th>
     <xsl:if test="@morerows">
       <xsl:attribute name="rowspan">
@@ -1091,11 +1089,17 @@
         <xsl:value-of select="@morerows + 1"/>
       </xsl:attribute>
     </xsl:if>
+    <xsl:if test="(@namest and @nameend) or @spanname">
+      <!-- Reference to colspec or spanspec for @colspan calculation. -->
+      <xsl:attribute name="colspan">
+        <xsl:call-template name="calculate-colspan"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </td>
 </xsl:template>
 <!-- Discarded c:entry attributes -->
-<xsl:template match="c:entry/@morerows"/>
+<xsl:template match="c:entry/@*"/>
 
 <!-- Discard colspec and spanspec nodes -->
 <xsl:template match="c:colspec|c:spanspec"/>
