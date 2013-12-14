@@ -1066,11 +1066,13 @@
 </xsl:template>
 
 <!-- c:entry handling -->
-<xsl:template match="c:entry[ancestor::c:thead]">
+<xsl:template match="c:entry[ancestor::c:thead
+                             or ancestor::c:tfoot
+                             or ancestor::c:tbody]">
   <th>
     <xsl:if test="@morerows">
       <xsl:attribute name="rowspan">
-	<xsl:value-of select="@morerows + 1"/>
+        <xsl:value-of select="@morerows + 1"/>
       </xsl:attribute>
     </xsl:if>
     <xsl:if test="(@namest and @nameend) or @spanname">
@@ -1086,7 +1088,7 @@
   <td>
     <xsl:if test="@morerows">
       <xsl:attribute name="rowspan">
-	<xsl:value-of select="@morerows + 1"/>
+        <xsl:value-of select="@morerows + 1"/>
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
@@ -1098,5 +1100,128 @@
 <!-- Discard colspec and spanspec nodes -->
 <xsl:template match="c:colspec|c:spanspec"/>
 
+
+<!-- ======================== -->
+<!-- Table template callables -->
+<!-- ======================== -->
+
+<!-- Get colspec column number -->
+<xsl:template name="get-colspec-colnum">
+  <!-- Returns a column number for the colspec. Used in variable definition. -->
+  <xsl:param name="colspec" select="."/>
+  <xsl:choose>
+    <xsl:when test="$colspec/@colnum">
+      <xsl:value-of select="$colspec/@colnum"/>
+    </xsl:when>
+    <xsl:when test="$colspec/preceding-sibling::c:colspec">
+      <xsl:variable name="preceding-colspec-colnum">
+        <xsl:call-template name="get-colspec-colnum">
+          <xsl:with-param name="colspec" select="$colspec/preceding-sibling::c:colspec[1]"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:value-of select="$preceding-colspec-colnum + 1"/>
+    </xsl:when>
+    <xsl:otherwise>1</xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="calculate-colspan">
+  <!-- Returns the value for a @colspan. Used in variable or value assignement. -->
+  <xsl:param name="entry" select="."/>
+  <xsl:variable name="spanname" select="$entry/@spanname"/>
+  <xsl:variable name="namest">
+    <xsl:choose>
+      <xsl:when test="$entry/@spanname and not($entry/ancestor::*[2]/c:colspec)">
+        <xsl:value-of select="$entry/ancestor::*[3]/c:spanspec[@spanname=$spanname]/@namest"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$entry/@namest"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="nameend">
+    <xsl:choose>
+      <xsl:when test="$entry/@spanname and not($entry/ancestor::*[2]/c:colspec)">
+        <xsl:value-of select="$entry/ancestor::*[3]/cnx:spanspec[@spanname=$spanname]/@nameend"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$entry/@nameend"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="startcolnum">
+    <xsl:choose>
+      <xsl:when test="$entry/ancestor::*[2]/c:colspec">
+        <xsl:call-template name="get-colspec-colnum">
+          <xsl:with-param name="colspec" select="$entry/ancestor::*[2]/c:colspec[@colname=$namest]"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="get-colspec-colnum">
+          <xsl:with-param name="colspec" select="$entry/ancestor::*[3]/c:colspec[@colname=$namest]"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="endcolnum">
+    <xsl:choose>
+      <xsl:when test="$entry/ancestor::*[2]/c:colspec">
+        <xsl:call-template name="get-colspec-colnum">
+          <xsl:with-param name="colspec" select="$entry/ancestor::*[2]/c:colspec[@colname=$nameend]"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="get-colspec-colnum">
+          <xsl:with-param name="colspec" select="$entry/ancestor::*[3]/c:colspec[@colname=$nameend]"/>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:value-of select="$endcolnum - $startcolnum + 1"/>
+</xsl:template>
+
+<!-- Table column maker -->
+<xsl:template name="column-maker">
+  <!-- Param prefixe is cm.{variable-name} for column-maker (cm). -->
+  <xsl:param name="cm.iteration" select="'1'"/>
+  <xsl:param name="colwidth">
+    <!-- If thead or tfoot has a colspec with a @colwidth, it takes
+         precedence over a @colwidth directly under a tgroup or entrytbl.
+         Set this @colwidth as a param.
+    -->
+    <xsl:choose>
+      <xsl:when test="child::*/c:colspec[(@colnum=$cm.iteration)
+                      or (position()=$cm.iteration and not(@colnum))]/@colwidth">
+        <xsl:value-of select="child::*/c:colspec[(@colnum=$cm.iteration)
+                              or (position()=$cm.iteration and not(@colnum))]/@colwidth"/>
+      </xsl:when>
+      <xsl:when test="c:colspec[(@colnum=$cm.iteration)
+                      or (position()=$cm.iteration and not(@colnum))]/@colwidth">
+        <xsl:value-of select="c:colspec[(@colnum=$cm.iteration)
+                              or (position()=$cm.iteration and not(@colnum))]/@colwidth"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:param>
+
+  <xsl:choose>
+    <xsl:when test="$cm.iteration &gt; @cols"/>
+    <xsl:otherwise>
+      <col data-width="{$colwidth}">
+        <xsl:choose>
+          <xsl:when test="c:colspec[(@colnum=$cm.iteration)
+                          or (position()=$cm.iteration and not(@colnum))][@colwidth!='']
+                          or child::*/c:colspec[(@colnum=$cm.iteration)
+                          or (position()=$cm.iteration and not(@colnum))][@colwidth!='']">
+            <b>grumble</b>
+          </xsl:when>
+        </xsl:choose>
+      </col>
+      <!-- Go to the next column and make a col element for it, if it exists. -->
+      <xsl:call-template name="column-maker">
+        <xsl:with-param name="cm.iteration" select="$cm.iteration + 1"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>
