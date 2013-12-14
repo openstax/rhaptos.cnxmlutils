@@ -584,7 +584,7 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<xsl:template match="c:figure/c:caption">
+<xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
   <figcaption>
     <xsl:apply-templates select="@*|node()"/>
   </figcaption>
