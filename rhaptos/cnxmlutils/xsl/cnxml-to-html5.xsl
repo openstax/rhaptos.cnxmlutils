@@ -245,13 +245,13 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<xsl:template match="c:para//c:code[not(c:title)]|c:code[not(c:title)][@display='inline']">
-  <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
-</xsl:template>
-
 <!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></pre>
+</xsl:template>
+
+<xsl:template match="c:para//c:code[not(c:title)]|c:list//c:code[not(c:title)]|c:code[not(c:title)][@display='inline']">
+  <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <xsl:template match="c:code[c:title]|c:preformat[c:title and not(display='inline')]">

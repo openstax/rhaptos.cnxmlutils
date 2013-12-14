@@ -41,5 +41,10 @@
 [line 2]
 [line 3]</preformat>
 
+
+  <list>
+    <item><code>inline code; should not be a blockish pre</code></item>
+  </list>
+
 </content>
 </document>
