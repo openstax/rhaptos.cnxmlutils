@@ -88,5 +88,122 @@
 	</tgroup>
       </table>
     </section>
-  </content>
+    <section id="know">
+      <title>What you need to know...</title>
+      <table id="element-983" summary="">
+	<title>Duty for Duty's Sake</title>
+	<tgroup cols="3"><tbody>
+	  <row>
+	    <entry/>
+	    <entry>Motive = Inclination (desire for reward or fear)</entry>
+	    <entry>Motive = Duty</entry>
+	  </row>
+	  <row>
+	    <entry>Act Conforms to Duty</entry>
+	    <entry>You save the drowning boy for the reward.  Act conforms to duty but is motivated by inclination.  Has no moral worth.</entry>
+	    <entry>You save the drowning boy because it is your duty.  Act conforms to duty and is for the sake of duty.  Your act has moral worth.</entry>
+	  </row>
+	  <row>
+	    <entry>Act violates a duty.</entry>
+	    <entry>You don't save the drowning boy because you are too lazy to jump in.  Act violates duty motivated by inclination.</entry>
+	    <entry>You drown trying to save the drowning boy.  He also dies.  Act fails to carry out duty but is motivated by duty anyway.  The act miscarries but since the motive is duty it still has moral worth.</entry>
+	  </row>
+	</tbody>
+
+	</tgroup>
+	</table>
+
+
+	<table id="element-906" summary="">
+      <title>Applying the Categorical Imperative</title>
+      <tgroup cols="2"><tbody>
+	<row>
+	  <entry>1. Formulate your maxim (=personal rule)</entry>
+	  <entry>Whenever I am in a difficult situation, I should tell a lie.</entry>
+	</row>
+	<row>
+	  <entry>2. Universalize your maxim.</entry>
+	  <entry>Whenever anybody is in a difficult situation, he or she should tell a lie.</entry>
+	</row>
+	<row>
+	  <entry>3. Check for a contradiction (logical or practical)</entry>
+	  <entry>When I lie, I will the opposite for the universal law.  Put differently, I will that everybody (but me) be a truth-teller and that everybody believe me a truth-teller.  I then make myself the exception to this universal law.  Thus my maxim (I am a liar) contradicts the law (everybody else is a truth-teller)</entry>
+	</row>
+      </tbody>
+
+      </tgroup>
+      </table>
+
+      <table id="id6086201" summary=""><title>Example Rights Table: Due Process</title>
+      <tgroup cols="5">
+	<colspec colnum="1" colname="c1"/>
+	<colspec colnum="2" colname="c2"/>
+	<colspec colnum="3" colname="c3"/>
+	<colspec colnum="4" colname="c4"/>
+	<colspec colnum="5" colname="c5"/>
+	<tbody>
+	  <row>
+	    <entry>Right: Due Process</entry>
+	    <entry>Justification</entry>
+	    <entry>Right-Holder:Engineer as employee and member of professional
+	    society.</entry>
+	    <entry>Correlative Duty-Holder: Engineer's Supervisor, officials in
+	    professional society.</entry>
+	    <entry>Duty Level</entry>
+	  </row>
+	  <row>
+	    <entry>Definition: The right to respond to organizational decisions
+	    that may harm one in terms of a serious organizational grievance
+	    procedure.Necessary Conditions:1. Several levels of appeal.2. Time
+	    limits to each level of appeal.3. Written notice of grievance.4.
+	    Peer representation.5. Outside arbitration.</entry>
+	    <entrytbl cols="1">
+	      <colspec colnum="1" colname="c1"/>
+	      <tbody>
+		<row>
+		  <entry>Essential: Due Process is essential in organizations to
+		  prevent the deprivation of other rights or to provide aid in the
+		  case of their deprivation.</entry>
+		</row>
+		<row>
+		  <entry>Vulnerable: Rights in general are not recognized in the
+		  economic sphere, especially in organizations.</entry>
+		</row>
+		<row>
+		  <entry>Feasible: Organizations, have successfully implemented due
+		  process procedures.</entry>
+		</row>
+	      </tbody>
+	    </entrytbl>
+	    <entry>Professionals who are subject to professional codes of
+	    ethics. Supports professionals who are ordered to violate
+	    professional standards.</entry>
+	    <entry>Human Resources, Management, Personnel
+	    Department.(Individuals with duty to design, implement, and enforce
+	    a due process policy)Corporate directors have the duty to make sure
+	    this is being done.</entry>
+	    <entrytbl cols="1">
+	      <colspec colnum="1" colname="c1"/>
+	      <tbody>
+		<row>
+		  <entry>Not to Deprive:Individuals cannot be fired, transferred, or
+		  demoted without due process</entry>
+		</row>
+		<row>
+		  <entry>Prevent Deprivation: Organizations can prevent deprivation
+		  by designing and implementing a comprehensive due process
+		  policy.</entry>
+		</row>
+		<row>
+		  <entry>Aid the DeprivedBinding arbitration and legal measures must
+		  exist to aid those deprived of due process rights</entry>
+		</row>
+	      </tbody>
+	    </entrytbl>
+	  </row>
+	</tbody>
+      </tgroup>
+    </table>
+  </section>
+</content>
 </document>
