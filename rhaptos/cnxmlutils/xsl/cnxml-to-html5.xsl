@@ -292,6 +292,9 @@
   </xsl:attribute>
 </xsl:template>
 
+<xsl:template match="c:note/c:label">
+</xsl:template>
+
 <xsl:template match="c:note">
   <div>
     <xsl:apply-templates mode="class" select="."/>
