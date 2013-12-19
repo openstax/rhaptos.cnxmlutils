@@ -135,7 +135,7 @@
 
 <!-- Ignore spaces before the label and title elements
      (so we can match rules that convert them to attributes) -->
-<xsl:template match="text()[following-sibling::*[1][self::c:label or self::c:title]]">
+<xsl:template match="text()[following-sibling::*[1][self::c:label or self::c:title]]|comment()[following-sibling::*[1][self::c:label or self::c:title]]">
 </xsl:template>
 
 
