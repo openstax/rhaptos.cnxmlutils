@@ -39,7 +39,8 @@
 <xsl:template match="md:abstract">
   <!-- Only render the abstract if it contains text/elements -->
   <xsl:if test="node()">
-    <div class="abstract">
+    <div>
+      <xsl:apply-templates mode="class" select="."/>
       <xsl:apply-templates select="@*|node()"/>
     </div>
   </xsl:if>
@@ -120,13 +121,14 @@
 <xsl:template mode="class" match="node()"/>
 <xsl:template mode="class" match="*">
   <xsl:param name="newClasses"/>
-  <xsl:attribute name="class">
-    <xsl:if test="$newClasses">
-      <xsl:value-of select="$newClasses"/>
-      <xsl:text> </xsl:text>
-    </xsl:if>
+  <xsl:attribute name="data-type">
     <xsl:value-of select="local-name()"/>
   </xsl:attribute>
+  <xsl:if test="$newClasses">
+    <xsl:attribute name="class">
+      <xsl:value-of select="$newClasses"/>
+    </xsl:attribute>
+  </xsl:if>
 </xsl:template>
 
 <!-- ========================= -->
@@ -423,7 +425,7 @@
 </xsl:template>
 
 <xsl:template match="c:para//c:list/c:item|c:list[@display='inline']/c:item">
-  <span class="item"><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 
@@ -446,6 +448,7 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
+  <!-- TODO: Sould "normal" be a class or data-type="emphasis" data-effect="normal" -->
   <span class="normal"><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
@@ -613,7 +616,8 @@
 </xsl:template>
 
 <xsl:template match="c:media">
-  <span class="media">
+  <span>
+    <xsl:apply-templates mode="class" select="."/>
     <!-- Apply c:media optional attributes -->
     <xsl:apply-templates select="@*|node()"/>
   </span>
@@ -665,7 +669,8 @@
 <xsl:template match="c:download/@src|c:download/@mime-type"/>
 
 <xsl:template match="c:download">
-  <a class="download" href="{@src}" data-media-type="{@mime-type}">
+  <a href="{@src}" data-media-type="{@mime-type}">
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
@@ -823,9 +828,10 @@
   "/>
 
 <xsl:template match="c:labview">
-  <object class="labview" type="{@mime-type}"
+  <object type="{@mime-type}"
 	  data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq"
 	  data="{@src}">
+    <!-- the type is already defined in the @type attribute: <xsl:apply-templates mode="class" select="."/> -->
     <xsl:apply-templates select="@*"/>
     <xsl:call-template name="param-pass-through"/>
     <param name="lvfppviname" value="{@viname}"/>
@@ -870,7 +876,8 @@
 </xsl:template>
 
 <xsl:template match="c:media[c:iframe]">
-  <div class="media">
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -940,19 +947,22 @@
 <!-- ========================= -->
 
 <xsl:template match="c:definition">
-  <div class="definition">
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:meaning[not(c:title)]">
-  <div class="meaning">
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:seealso">
-  <span class="seealso">
+  <span>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>
@@ -990,7 +1000,8 @@
 <xsl:template match="c:newline[not(parent::c:list)]
                               [not(ancestor::c:para and @effect = 'underline')]
                               [not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <div class="newline">
+  <div>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*"/>
 
     <xsl:variable name="string">
@@ -1014,7 +1025,8 @@
 
 
 <xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <span class="space">
+  <span>
+    <xsl:apply-templates mode="class" select="."/>
     <xsl:apply-templates select="@*"/>
 
     <xsl:call-template name="count-helper">
@@ -1114,14 +1126,15 @@
 <xsl:template match="c:entry/@*"/>
 
 <xsl:template match="c:entrytbl">
-  <td class="entrytbl" colspan="{@cols}">
+  <td colspan="{@cols}">
+    <xsl:apply-templates mode="class" select="."/>
     <!-- FIXME @cols is required, but may be incorrect? -->
     <!-- <xsl:if test="(@namest and @nameend) or @spanname"> -->
     <!--   <xsl:attribute name="colspan"> -->
     <!--     <xsl:call-template name="calculate-colspan"/> -->
     <!--   </xsl:attribute> -->
     <!-- </xsl:if> -->
-    <table class="entrytbl">
+    <table>
       <xsl:if test="c:colspec/@colwidth or child::*/c:colspec/@colwidth">
         <colgroup>
           <xsl:call-template name="column-maker"/>
