@@ -27,7 +27,7 @@
 <xsl:template match="@class"/>
 
 <!-- Ignore title, it is handled explicitly below. -->
-<xsl:template match="/x:body/x:div[@class='title']" />
+<xsl:template match="/body/div[@data-type='title']" />
 
 <xsl:template match="m:*/@class">
   <xsl:copy>
@@ -35,7 +35,7 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="x:body">
+<xsl:template match="body">
   <c:document xmlns="http://cnx.rice.edu/cnxml"
               xmlns:md="http://cnx.rice.edu/mdml"
               xmlns:bib="http://bibtexml.sf.net/"
@@ -43,94 +43,118 @@
               xmlns:q="http://cnx.rice.edu/qml/1.0"
               cnxml-version="0.7" module-id="new" id="_root">
       <c:title>
-        <xsl:apply-templates select="x:div[@class='title']/text()" />
+        <xsl:apply-templates select="div[@data-type='title']/text()" />
       </c:title>
       <c:content><xsl:apply-templates select="@*|node()"/></c:content>
   </c:document>
 </xsl:template>
 
+
+<!-- ========================= -->
+<!-- Generic elements and attribs -->
+
+<xsl:template match="@data-type"/>
+
+<xsl:template match="*[@data-type='title']">
+  <c:title><xsl:apply-templates select="@*|node()"/></c:title>
+</xsl:template>
+
 <!-- ========================= -->
 
-<xsl:template match="x:div[@class='section']">
+<xsl:template match="section">
   <c:section>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="*[self::x:h1 or self::x:h2 or self::x:h3 or self::x:h4 or self::x:h5 or self::x:h6]/@id"/>
+    <xsl:apply-templates select="*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]/@id"/>
     <xsl:apply-templates select="node()"/>
   </c:section>
 </xsl:template>
 
-<xsl:template match="x:div[@class='section']/*[self::x:h1 or self::x:h2 or self::x:h3 or self::x:h4 or self::x:h5 or self::x:h6]">
+<xsl:template match="section/*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]">
   <c:title><xsl:apply-templates select="@*[not(local-name()='id')]|node()"/></c:title>
 </xsl:template>
 
 
-<xsl:template match="x:p">
+<xsl:template match="p">
   <c:para><xsl:apply-templates select="@*|node()"/></c:para>
 </xsl:template>
 
-<xsl:template match="x:div[@class='example']">
+<xsl:template match="div[@data-type='example']">
   <c:example><xsl:apply-templates select="@*|node()"/></c:example>
 </xsl:template>
 
-<xsl:template match="x:div[@class='exercise']">
+<xsl:template match="div[@data-type='exercise']">
   <c:exercise><xsl:apply-templates select="@*|node()"/></c:exercise>
 </xsl:template>
 
-<xsl:template match="x:div[@class='problem']">
+<xsl:template match="div[@data-type='problem']">
   <c:problem><xsl:apply-templates select="@*|node()"/></c:problem>
 </xsl:template>
 
-<xsl:template match="x:div[@class='solution']">
+<xsl:template match="div[@data-type='solution']">
   <c:solution><xsl:apply-templates select="@*|node()"/></c:solution>
 </xsl:template>
 
-<xsl:template match="x:div[@class='commentary']">
+<xsl:template match="div[@data-type='commentary']">
   <c:commentary><xsl:apply-templates select="@*|node()"/></c:commentary>
 </xsl:template>
 
-<xsl:template match="x:div[@class='equation']">
+<xsl:template match="div[@data-type='equation']">
   <c:equation><xsl:apply-templates select="@*|node()"/></c:equation>
 </xsl:template>
 
-<xsl:template match="x:div[@class='rule']">
+<xsl:template match="div[@data-type='rule']">
   <c:rule><xsl:apply-templates select="@*|node()"/></c:rule>
 </xsl:template>
 
-<xsl:template match="x:q">
+<xsl:template match="q">
   <c:quote><xsl:apply-templates select="@*|node()"/></c:quote>
 </xsl:template>
 
-<xsl:template match="x:code">
+<xsl:template match="code">
   <c:code><xsl:apply-templates select="@*|node()"/></c:code>
 </xsl:template>
 
+<xsl:template match="pre">
+  <c:code><xsl:apply-templates select="@*|node()"/></c:code>
+</xsl:template>
+
+<xsl:template match="*[@data-type='code']">
+  <c:code><xsl:apply-templates select="@*|node()"/></c:code>
+</xsl:template>
+
+<xsl:template match="*[@data-type='code']/pre">
+  <!-- unwrap the pre tag in the div -->
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+
 <!-- ========================= -->
 
-<xsl:template match="x:div[@class='note']">
+<xsl:template match="div[@data-type='note']">
   <c:note><xsl:apply-templates select="@*|node()"/></c:note>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="x:ol">
+<xsl:template match="ol">
   <c:list list-type="enumerated">
     <xsl:apply-templates select="@*|node()"/>
   </c:list>
 </xsl:template>
 
-<xsl:template match="x:ul">
+<xsl:template match="ul">
   <c:list><xsl:apply-templates select="@*|node()"/></c:list>
 </xsl:template>
 
-<xsl:template match="x:li">
+<xsl:template match="li">
   <c:item><xsl:apply-templates select="@*|node()"/></c:item>
 </xsl:template>
 
-<xsl:template match="x:ol/@start">
+<xsl:template match="ol/@start">
   <xsl:attribute name="start-value"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="x:ul/@*[local-name()!='id']|x:ol/@*[local-name()!='id']"/>
+<xsl:template match="ul/@*[local-name()!='id']|ol/@*[local-name()!='id']"/>
 <xsl:template match="@*[starts-with(local-name(), 'data-')]">
   <xsl:attribute name="{substring-after(local-name(), 'data-')}">
     <xsl:value-of select="."/>
@@ -140,45 +164,45 @@
 
 <!-- ========================= -->
 
-<xsl:template match="x:strong|x:b">
+<xsl:template match="strong|b">
   <c:emphasis><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="x:em|x:i">
+<xsl:template match="em|i">
   <c:emphasis effect="italics"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="x:u">
+<xsl:template match="u">
   <c:emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="x:span[@class='smallcaps']">
+<xsl:template match="span[@data-type='smallcaps']">
   <c:emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="x:span[@class='normal']">
+<xsl:template match="span[@data-type='normal']">
   <c:emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="x:span[@class='term']">
+<xsl:template match="span[@data-type='term']">
   <c:term><xsl:apply-templates select="@*|node()"/></c:term>
 </xsl:template>
 
-<xsl:template match="x:span[@class='foreign']">
+<xsl:template match="span[@data-type='foreign']">
   <c:foreign><xsl:apply-templates select="@*|node()"/></c:foreign>
 </xsl:template>
 
-<xsl:template match="x:span[@class='footnote']">
+<xsl:template match="span[@data-type='footnote']">
   <c:footnote><xsl:apply-templates select="@*|node()"/></c:footnote>
 </xsl:template>
 
-<xsl:template match="x:sub">
+<xsl:template match="sub">
   <c:sub><xsl:apply-templates select="@*|node()"/></c:sub>
 </xsl:template>
 
-<xsl:template match="x:sup">
+<xsl:template match="sup">
   <c:sup><xsl:apply-templates select="@*|node()"/></c:sup>
 </xsl:template>
 
@@ -186,22 +210,24 @@
 <!-- Links: encode in @data-*  -->
 <!-- ========================= -->
 
-<xsl:template match="x:a[@href and starts-with(@href, 'http')]">
+<xsl:template match="a[@href and starts-with(@href, 'http')]">
   <c:link url="{@href}"><xsl:apply-templates select="@id|node()"/></c:link>
 </xsl:template>
 
-<xsl:template match="x:a[@href]">
+<xsl:template match="a[@href]">
   <c:link>
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="@id|node()"/>
   </c:link>
 </xsl:template>
 
-<xsl:template match="x:a/@*[local-name()!='id']"/>
+<xsl:template match="a/@*[local-name()!='id']"/>
 <xsl:template match="@*[starts-with(local-name(), 'data-')]">
-  <xsl:attribute name="{substring-after(local-name(), 'data-')}">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
+  <xsl:if test="local-name() != 'data-type'">
+    <xsl:attribute name="{substring-after(local-name(), 'data-')}">
+      <xsl:value-of select="."/>
+    </xsl:attribute>
+  </xsl:if>
 </xsl:template>
 
 <!-- ========================= -->
@@ -209,12 +235,12 @@
 <!-- ========================= -->
 
 <!-- A subfigure -->
-<xsl:template match="x:figure//x:figure">
+<xsl:template match="figure//figure">
   <c:subfigure>
     <xsl:call-template name="figure-body"/>
   </c:subfigure>
 </xsl:template>
-<xsl:template match="x:figure">
+<xsl:template match="figure">
   <c:figure>
     <xsl:call-template name="figure-body"/>
   </c:figure>
@@ -223,15 +249,16 @@
 <xsl:template name="figure-body">
   <xsl:apply-templates select="@*"/>
   <!-- pull the title out of the caption -->
-  <xsl:apply-templates select="x:figcaption/x:*[@class='title']"/>
-  <xsl:apply-templates select="node()[not(self::x:figcaption)]"/>
+  <xsl:apply-templates select="node()[not(self::figcaption)]"/>
   <!-- only generate the caption tag if there is something other than the title in it -->
   <!-- According to the spec, the caption must come at the end of a figure -->
-  <xsl:if test="x:figcaption/node()[not(self::x:*[@class='title'])]">
-    <c:caption>
-      <xsl:apply-templates select="x:figcaption/node()[not(self::x:*[@class='title'])]"/>
-    </c:caption>
-  </xsl:if>
+  <xsl:apply-templates select="figcaption"/>
+</xsl:template>
+
+<xsl:template match="figcaption">
+  <c:caption>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:caption>
 </xsl:template>
 
 
@@ -239,33 +266,33 @@
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
-<xsl:template match="x:table">
+<xsl:template match="table">
   <c:table summary="{@summary}">
     <!-- Akin to figure captions -->
-    <xsl:apply-templates select="x:caption/x:*[@class='title']"/>
-    <xsl:if test="x:caption/node()[not(self::x:*[@class='title'])]">
+    <xsl:apply-templates select="caption/*[@data-type='title']"/>
+    <xsl:if test="caption/node()[not(self::*[@data-type='title'])]">
       <c:caption>
-        <xsl:apply-templates select="x:caption/node()[not(self::x:*[@class='title'])]"/>
+        <xsl:apply-templates select="caption/node()[not(self::*[@data-type='title'])]"/>
       </c:caption>
     </xsl:if>
-    
+
     <c:tgroup>
-      <xsl:apply-templates select="node()[not(self::x:caption)]"/>
+      <xsl:apply-templates select="node()[not(self::caption)]"/>
     </c:tgroup>
   </c:table>
 </xsl:template>
 
-<xsl:template match="x:thead|x:tbody|x:tfoot">
+<xsl:template match="thead|tbody|tfoot">
   <xsl:element name="c:{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="x:tr">
+<xsl:template match="tr">
   <c:row><xsl:apply-templates select="@*|node()"/></c:row>
 </xsl:template>
 
-<xsl:template match="x:td">
+<xsl:template match="td">
   <c:entry><xsl:apply-templates select="@*|node()"/></c:entry>
 </xsl:template>
 
@@ -274,13 +301,13 @@
 <!-- Media: Partial Support    -->
 <!-- ========================= -->
 
-<xsl:template match="x:span[@class='media']">
+<xsl:template match="span[@data-type='media']">
   <c:media>
     <xsl:apply-templates select="@*|node()"/>
   </c:media>
 </xsl:template>
 
-<xsl:template match="x:img">
+<xsl:template match="img">
   <c:image src="{@src}" mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
@@ -290,7 +317,7 @@
     <xsl:apply-templates select="@*|node()"/>
   </c:image>
 </xsl:template>
-<xsl:template match="x:img/@width|x:img/@height">
+<xsl:template match="img/@width|img/@height">
   <xsl:copy/>
 </xsl:template>
 
@@ -298,19 +325,19 @@
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
 
-<xsl:template match="x:div[@class='definition']">
+<xsl:template match="div[@data-type='definition']">
   <c:definition>
     <xsl:apply-templates select="@*|node()"/>
   </c:definition>
 </xsl:template>
 
-<xsl:template match="x:div[@class='meaning']">
+<xsl:template match="div[@data-type='meaning']">
   <c:meaning>
     <xsl:apply-templates select="@*|node()"/>
   </c:meaning>
 </xsl:template>
 
-<xsl:template match="x:span[@class='seealso']">
+<xsl:template match="span[@data-type='seealso']">
   <c:seealso>
     <xsl:apply-templates select="@*|node()"/>
   </c:seealso>
