@@ -2,10 +2,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:m="http://www.w3.org/1998/Math/MathML"
-  xmlns:md="http://cnx.rice.edu/mdml/0.4"
   xmlns:qml="http://cnx.rice.edu/qml/1.0"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:x="http://www.w3.org/1999/xhtml"
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
   exclude-result-prefixes="c"
@@ -27,7 +24,7 @@
 <xsl:template match="@class"/>
 
 <!-- Ignore title, it is handled explicitly below. -->
-<xsl:template match="/body/div[@data-type='title']" />
+<xsl:template match="/body/*[@data-type='title']" />
 
 <xsl:template match="m:*/@class">
   <xsl:copy>
@@ -43,7 +40,7 @@
               xmlns:q="http://cnx.rice.edu/qml/1.0"
               cnxml-version="0.7" module-id="new" id="_root">
       <c:title>
-        <xsl:apply-templates select="div[@data-type='title']/text()" />
+        <xsl:apply-templates select="*[@data-type='title']/text()" />
       </c:title>
       <c:content><xsl:apply-templates select="@*|node()"/></c:content>
   </c:document>
@@ -60,6 +57,9 @@
 </xsl:template>
 
 <!-- ========================= -->
+
+<xsl:template match="section/@data-depth"/>
+
 
 <xsl:template match="section">
   <c:section>
@@ -78,31 +78,31 @@
   <c:para><xsl:apply-templates select="@*|node()"/></c:para>
 </xsl:template>
 
-<xsl:template match="div[@data-type='example']">
+<xsl:template match="*[@data-type='example']">
   <c:example><xsl:apply-templates select="@*|node()"/></c:example>
 </xsl:template>
 
-<xsl:template match="div[@data-type='exercise']">
+<xsl:template match="*[@data-type='exercise']">
   <c:exercise><xsl:apply-templates select="@*|node()"/></c:exercise>
 </xsl:template>
 
-<xsl:template match="div[@data-type='problem']">
+<xsl:template match="*[@data-type='problem']">
   <c:problem><xsl:apply-templates select="@*|node()"/></c:problem>
 </xsl:template>
 
-<xsl:template match="div[@data-type='solution']">
+<xsl:template match="*[@data-type='solution']">
   <c:solution><xsl:apply-templates select="@*|node()"/></c:solution>
 </xsl:template>
 
-<xsl:template match="div[@data-type='commentary']">
+<xsl:template match="*[@data-type='commentary']">
   <c:commentary><xsl:apply-templates select="@*|node()"/></c:commentary>
 </xsl:template>
 
-<xsl:template match="div[@data-type='equation']">
+<xsl:template match="*[@data-type='equation']">
   <c:equation><xsl:apply-templates select="@*|node()"/></c:equation>
 </xsl:template>
 
-<xsl:template match="div[@data-type='rule']">
+<xsl:template match="*[@data-type='rule']">
   <c:rule><xsl:apply-templates select="@*|node()"/></c:rule>
 </xsl:template>
 
@@ -130,7 +130,7 @@
 
 <!-- ========================= -->
 
-<xsl:template match="div[@data-type='note']">
+<xsl:template match="*[@data-type='note']">
   <c:note><xsl:apply-templates select="@*|node()"/></c:note>
 </xsl:template>
 
@@ -161,6 +161,19 @@
   </xsl:attribute>
 </xsl:template>
 
+
+<xsl:template match="*[@data-type='list']">
+  <c:list>
+    <xsl:if test="ol">
+      <xsl:attribute name="list-type">enumerated</xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:list>
+</xsl:template>
+
+<xsl:template match="*[@data-type='list']/ul|*[@data-type='list']/ol">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
 
 <!-- ========================= -->
 
@@ -325,13 +338,13 @@
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
 
-<xsl:template match="div[@data-type='definition']">
+<xsl:template match="*[@data-type='definition']">
   <c:definition>
     <xsl:apply-templates select="@*|node()"/>
   </c:definition>
 </xsl:template>
 
-<xsl:template match="div[@data-type='meaning']">
+<xsl:template match="*[@data-type='meaning']">
   <c:meaning>
     <xsl:apply-templates select="@*|node()"/>
   </c:meaning>

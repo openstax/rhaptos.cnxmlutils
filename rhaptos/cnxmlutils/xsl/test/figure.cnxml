@@ -6,18 +6,18 @@
 <content>
 
   <figure>
-    <span>Text</span>
+    <para>Text</para>
   </figure>
 
   <figure>
     <label>Label</label>
     <title>Title</title>
-    <span>Text</span>
+    <para>Text</para>
     <caption>Caption</caption>
   </figure>
 
   <figure id="id123" orient="vertical" type="foo">
-    <span>Text</span>
+    <para>Text</para>
   </figure>
 
 
@@ -25,7 +25,7 @@
     <figure>
       <label>Label</label>
       <title>Title</title>
-      <span>Text</span>
+      <para>Text</para>
       <caption>Caption</caption>
     </figure>
   </para>
@@ -34,7 +34,7 @@
     <caption>Figure Caption</caption>
 
     <subfigure>
-      <span>Text</span>
+      <para>Text</para>
       <caption>Subfigure Caption</caption>
     </subfigure>
 

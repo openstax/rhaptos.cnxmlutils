@@ -167,7 +167,7 @@
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="title"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 
@@ -203,39 +203,39 @@
 </xsl:template>
 
 <xsl:template match="c:example">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:exercise">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:problem">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:solution">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:equation">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:rule">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:statement">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <xsl:template match="c:proof">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 <!-- ========================= -->
@@ -283,7 +283,6 @@
 
 <xsl:template match="c:quote">
   <blockquote>
-
     <xsl:apply-templates select="@*|node()"/>
   </blockquote>
 </xsl:template>
@@ -291,15 +290,14 @@
 <!-- ========================= -->
 
 <!-- Convert c:note/@type to @data-label so things like "Point of Interest" and "Tip" are visually labeled as such -->
-<xsl:template match="c:note/@type">
+<xsl:template match="@type">
   <xsl:attribute name="data-label">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:note">
-  <div>
-
+  <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -307,7 +305,7 @@
 <!-- ========================= -->
 
 <xsl:template match="c:cite-title">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:cite">
@@ -338,7 +336,7 @@
 <xsl:template match="c:list/@list-type"/>
 
 <xsl:template match="c:list[c:title]">
-  <div><!-- list-id-and-class will give it the class "list" at least -->
+  <div data-type="{local-name()}"><!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates mode="list-mode" select=".">
@@ -348,7 +346,7 @@
 </xsl:template>
 
 <xsl:template match="c:para//c:list[c:title]">
-  <span><!-- list-id-and-class will give it the class "list" at least -->
+  <span data-type="{local-name()}"><!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates mode="list-mode" select=".">
@@ -419,7 +417,7 @@
       <xsl:otherwise><xsl:value-of select="@list-type"/></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <span class="list" data-list-type="{$list-type}">
+  <span data-type="list" data-list-type="{$list-type}">
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
@@ -428,7 +426,7 @@
 </xsl:template>
 
 <xsl:template match="c:para//c:list/c:item|c:list[@display='inline']/c:item">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="item"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 
@@ -474,7 +472,7 @@
   |c:term/@window"/>
 
 <xsl:template match="c:term[not(@url or @document or @target-id or @resource or @version)]" name="build-term">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="term"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:term[@url or @document or @target-id or @resource or @version]">
@@ -494,11 +492,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:foreign[not(@url or @document or @target-id or @resource or @version)]">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:footnote">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 
@@ -619,8 +617,7 @@
 </xsl:template>
 
 <xsl:template match="c:media">
-  <span>
-
+  <span data-type="{local-name()}">
     <!-- Apply c:media optional attributes -->
     <xsl:apply-templates select="@*|node()"/>
   </span>
@@ -672,7 +669,7 @@
 <xsl:template match="c:download/@src|c:download/@mime-type"/>
 
 <xsl:template match="c:download">
-  <a href="{@src}" data-media-type="{@mime-type}">
+  <a href="{@src}" data-media-type="{@mime-type}" data-type="{local-name()}">
 
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
@@ -879,8 +876,7 @@
 </xsl:template>
 
 <xsl:template match="c:media[c:iframe]">
-  <div>
-
+  <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -913,7 +909,7 @@
 </xsl:template>
 
 <xsl:template match="c:image[@for='pdf']">
-  <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}">
+  <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
   </span>
@@ -933,7 +929,7 @@
 <!-- Discard the thumbnail attribute because it is handled elsewhere -->
 <xsl:template match="c:image[@thumbnail and not(@for='pdf')]/@thumbnail"/>
 <xsl:template match="c:image[@thumbnail and not(@for='pdf')]">
-  <a href="{@src}">
+  <a href="{@src}" data-type="{local-name()}">
     <img src="{@thumbnail}" alt="{parent::c:media/@alt}">
       <xsl:apply-templates select="@*|node()"/>
     </img>
@@ -950,21 +946,21 @@
 <!-- ========================= -->
 
 <xsl:template match="c:definition">
-  <div>
+  <dfn>
 
     <xsl:apply-templates select="@*|node()"/>
-  </div>
+  </dfn>
 </xsl:template>
 
 <xsl:template match="c:meaning[not(c:title)]">
-  <div>
+  <div data-type="{local-name()}">
 
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:seealso">
-  <span>
+  <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*|node()"/>
   </span>
@@ -1003,7 +999,7 @@
 <xsl:template match="c:newline[not(parent::c:list)]
                               [not(ancestor::c:para and @effect = 'underline')]
                               [not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <div>
+  <div data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
 
@@ -1028,7 +1024,7 @@
 
 
 <xsl:template match="c:space[not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <span>
+  <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
 
