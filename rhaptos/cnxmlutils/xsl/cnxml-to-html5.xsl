@@ -39,8 +39,7 @@
 <xsl:template match="md:abstract">
   <!-- Only render the abstract if it contains text/elements -->
   <xsl:if test="node()">
-    <div>
-
+    <div data-type="abstract">
       <xsl:apply-templates select="@*|node()"/>
     </div>
   </xsl:if>
