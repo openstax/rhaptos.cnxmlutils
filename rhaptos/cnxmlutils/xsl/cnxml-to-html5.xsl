@@ -301,6 +301,27 @@
   </div>
 </xsl:template>
 
+<!-- Brittle HACK to get notes with headings to create valid CNXML -->
+<!-- Special cases for notes that get converted to sections for the editor -->
+<xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]">
+  <xsl:param name="depth" select="1"/>
+  <div data-type="{local-name()}">
+    <xsl:apply-templates select="@*|c:title|c:label"/>
+    <section>
+      <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+      <xsl:element name="h{$depth}">
+        <xsl:apply-templates mode="class" select="c:para/c:title"/>
+        <xsl:apply-templates select="c:para/c:title/@*|c:para/c:title/node()"/>
+      </xsl:element>
+      <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
+        <xsl:with-param name="depth" select="$depth + 1"/>
+      </xsl:apply-templates>
+    </section>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]/c:para/c:title"/>
+
 <!-- ========================= -->
 
 <xsl:template match="c:cite-title">

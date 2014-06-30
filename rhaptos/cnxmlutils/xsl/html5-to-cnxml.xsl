@@ -134,6 +134,20 @@
   <c:note><xsl:apply-templates select="@*|node()"/></c:note>
 </xsl:template>
 
+<!-- Brittle HACK to get notes with headings to create valid CNXML -->
+<!-- Use "2" because the 1st child is a title -->
+<xsl:template match="*[@data-type='note']//section[*[2][self::p]]">
+  <xsl:apply-templates select="node()[not(self::*[@data-type='title'])]"/>
+</xsl:template>
+
+<xsl:template match="*[@data-type='note']//section/*[2][self::p]">
+  <c:para>
+    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="../@*|../*[@data-type='title']"/>
+    <xsl:apply-templates select="node()"/>
+  </c:para>
+</xsl:template>
+
 <!-- ========================= -->
 
 <xsl:template match="ol">
