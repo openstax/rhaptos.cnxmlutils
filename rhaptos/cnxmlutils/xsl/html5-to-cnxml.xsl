@@ -189,25 +189,25 @@
   <c:emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="span[@data-type='smallcaps']">
+<xsl:template match="*[@data-type='smallcaps']">
   <c:emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
-<xsl:template match="span[@data-type='normal']">
+<xsl:template match="*[@data-type='normal']">
   <c:emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></c:emphasis>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="span[@data-type='term']">
+<xsl:template match="*[@data-type='term']">
   <c:term><xsl:apply-templates select="@*|node()"/></c:term>
 </xsl:template>
 
-<xsl:template match="span[@data-type='foreign']">
+<xsl:template match="*[@data-type='foreign']">
   <c:foreign><xsl:apply-templates select="@*|node()"/></c:foreign>
 </xsl:template>
 
-<xsl:template match="span[@data-type='footnote']">
+<xsl:template match="*[@data-type='footnote']">
   <c:footnote><xsl:apply-templates select="@*|node()"/></c:footnote>
 </xsl:template>
 
@@ -314,7 +314,7 @@
 <!-- Media: Partial Support    -->
 <!-- ========================= -->
 
-<xsl:template match="span[@data-type='media']">
+<xsl:template match="*[@data-type='media']">
   <c:media>
     <xsl:apply-templates select="@*|node()"/>
   </c:media>
@@ -350,7 +350,7 @@
   </c:meaning>
 </xsl:template>
 
-<xsl:template match="span[@data-type='seealso']">
+<xsl:template match="*[@data-type='seealso']">
   <c:seealso>
     <xsl:apply-templates select="@*|node()"/>
   </c:seealso>
