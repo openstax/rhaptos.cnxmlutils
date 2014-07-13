@@ -8,7 +8,6 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
-
   xmlns:data="http://dev.w3.org/html5/spec/#custom"
   >
 
@@ -25,6 +24,18 @@
   </xsl:attribute>
 </xsl:template>
 
+
+<!-- Add the Book title and abstract -->
+<xsl:template match="/col:collection/col:metadata/md:title">
+  <h1><xsl:apply-templates select="@*|node()"/></h1>
+</xsl:template>
+
+<xsl:template match="/col:collection/col:metadata/md:abstract">
+  <div data-type="abstract">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="col:collection">
 	<xsl:variable name="url">
 		<xsl:value-of select="col:metadata/md:content-url/text()"/>
@@ -32,9 +43,12 @@
 	<xsl:variable name="id">
 		<xsl:value-of select="col:metadata/md:content-id/text()"/>
 	</xsl:variable>
-	<nav class="book" data-url="{col:metadata/md:content-url/text()}" data-id="{col:metadata/md:content-id/text()}" data-repository="{col:metadata/md:repository/text()}">
-		<xsl:apply-templates select="@*|node()"/>
-	</nav>
+  <body>
+    <xsl:apply-templates select="col:metadata/md:title|col:metadata/md:abstract"/>
+  	<nav class="book" data-url="{col:metadata/md:content-url/text()}" data-id="{col:metadata/md:content-id/text()}" data-repository="{col:metadata/md:repository/text()}">
+  		<xsl:apply-templates select="@*|node()"/>
+  	</nav>
+  </body>
 </xsl:template>
 
 
