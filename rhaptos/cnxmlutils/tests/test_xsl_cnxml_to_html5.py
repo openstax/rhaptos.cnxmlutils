@@ -266,6 +266,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
         self.assertEqual(elm.attrib['id'], "mus_shost")
         self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
+        self.assertEqual(elm.attrib['controls'], 'controls')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")

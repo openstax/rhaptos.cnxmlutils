@@ -730,7 +730,7 @@
 </xsl:template>
 
 <xsl:template match="c:audio">
-  <audio>
+  <audio controls="controls">
     <xsl:apply-templates select="@*|c:param"/>
     <source src="{@src}" type="{@mime-type}"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
