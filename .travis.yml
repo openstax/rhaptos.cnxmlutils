@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+before_install:
+  - pip install lxml
+install:
+  - python setup.py develop
+script:
+  - python setup.py test
+notifications:
+  email: false

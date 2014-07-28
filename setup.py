@@ -33,6 +33,7 @@ setup(name='rhaptos.cnxmlutils',
       namespace_packages=['rhaptos'],
       include_package_data=True,
       zip_safe=False,
+      test_suite='rhaptos.cnxmlutils.tests',
       install_requires=[
           'setuptools',
       #    'lxml',
