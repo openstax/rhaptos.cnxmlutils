@@ -681,11 +681,9 @@
 <!-- Copy these attributes without any changes -->
 <xsl:template match="
    c:audio/@src
-  |c:audio/@autoplay
   |c:audio/@loop
   |c:audio/@controller
   |c:video/@src
-  |c:video/@autoplay
   |c:video/@loop
   |c:video/@controller
 
@@ -693,6 +691,17 @@
   |c:video/@width
   ">
   <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="c:audio/@autoplay|c:video/@autoplay">
+  <xsl:choose>
+    <xsl:when test=". = 'true'">
+      <xsl:attribute name="autoplay">autoplay</xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- discard autoplay attribute -->
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- Discard src attribute in audio and video, use source tag instead -->

@@ -287,7 +287,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['data-standby'], 'standby message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'false')
-        self.assertEqual(elm.attrib['autoplay'], 'true')
+        self.assertEqual(elm.attrib['autoplay'], 'autoplay')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
@@ -329,7 +329,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['data-standby'], 'message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')
-        self.assertEqual(elm.attrib['autoplay'], 'false')
+        self.assertTrue('autoplay' not in elm.attrib)
 
     def test_media_java_applet(self):
         # Case for java-applet that needs to be object embedded.
