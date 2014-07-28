@@ -306,6 +306,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                       "the video->video tag transform: " \
                       + transformed_html)
         self.assertTrue('src' not in elm.attrib)
+        self.assertEqual(elm.attrib['controls'], 'controls')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4")
@@ -324,6 +325,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
                       "the video->video tag transform: " \
                       + transformed_html)
         self.assertTrue('src' not in elm.attrib)
+        self.assertEqual(elm.attrib['controls'], 'controls')
         self.assertEqual(elm.attrib['data-standby'], 'message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')

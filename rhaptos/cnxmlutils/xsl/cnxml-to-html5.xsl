@@ -742,7 +742,7 @@
 </xsl:template>
 
 <xsl:template match="c:video">
-  <video>
+  <video controls="controls">
     <xsl:apply-templates select="@*|c:param"/>
     <source src="{@src}" type="{@mime-type}"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
