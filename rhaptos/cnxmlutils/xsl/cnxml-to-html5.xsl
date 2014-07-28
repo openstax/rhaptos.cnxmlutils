@@ -695,6 +695,10 @@
   <xsl:copy/>
 </xsl:template>
 
+<!-- Discard src attribute in audio and video, use source tag instead -->
+<xsl:template match="c:audio/@src|c:video/@src">
+</xsl:template>
+
 <!-- change @mime-type to @data-media-type -->
 <xsl:template match="c:audio/@mime-type|c:video/@mime-type">
   <xsl:attribute name="data-media-type">

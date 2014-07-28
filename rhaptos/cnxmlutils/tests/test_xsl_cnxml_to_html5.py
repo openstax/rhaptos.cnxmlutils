@@ -262,8 +262,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the audio->audio tag transform: " \
                       + transformed_html)
-        self.assertEqual(elm.attrib['src'],
-                         "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
+        self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['id'], "mus_shost")
         self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
         self.assertEqual(elm.attrib['controls'], 'controls')
@@ -284,6 +283,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the audio->audio tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['data-standby'], 'standby message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'false')
@@ -305,6 +305,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the video->video tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4")
@@ -322,6 +323,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the video->video tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['data-standby'], 'message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')
