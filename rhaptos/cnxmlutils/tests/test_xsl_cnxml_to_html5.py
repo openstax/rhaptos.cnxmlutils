@@ -128,12 +128,15 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_image_w_optional_attrs']/img")[0]
+            elm = html.xpath("//*[@id='test_media_image_w_optional_attrs']/a")[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the image->img tag transform: " + transformed_html)
 
+        # Link to the actual image
+        self.assertEqual(elm.attrib['href'], 'Picture 2.jpg')
+        elm = elm.xpath('img')[0]
         # Optional attributes...
         self.assertEqual(elm.attrib['height'], '302')
         self.assertEqual(elm.attrib['width'], '502')
@@ -143,7 +146,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['id'], 'id2204878__onlineimage')
         self.assertEqual(elm.attrib['data-longdesc'], 'image long description')
         self.assertEqual(elm.attrib['data-print-width'], '700')
-        self.assertEqual(elm.attrib['data-thumbnail'], 'Picture 2 tumbnail.jpg')
+        self.assertEqual(elm.attrib['src'], 'Picture 2 tumbnail.jpg')
 
     def test_media_image_for_attribute(self):
         # Case to test the conversion of c:media/c:image transformation.
@@ -259,10 +262,10 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the audio->audio tag transform: " \
                       + transformed_html)
-        self.assertEqual(elm.attrib['src'],
-                         "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
+        self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['id'], "mus_shost")
         self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
+        self.assertEqual(elm.attrib['controls'], 'controls')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
@@ -280,10 +283,11 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the audio->audio tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['data-standby'], 'standby message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'false')
-        self.assertEqual(elm.attrib['autoplay'], 'true')
+        self.assertEqual(elm.attrib['autoplay'], 'autoplay')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
@@ -301,6 +305,8 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the video->video tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
+        self.assertEqual(elm.attrib['controls'], 'controls')
         elm = elm.xpath('source')[0]
         self.assertEqual(elm.attrib['src'],
                          "http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4")
@@ -318,10 +324,12 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id and/or "
                       "the video->video tag transform: " \
                       + transformed_html)
+        self.assertTrue('src' not in elm.attrib)
+        self.assertEqual(elm.attrib['controls'], 'controls')
         self.assertEqual(elm.attrib['data-standby'], 'message')
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')
-        self.assertEqual(elm.attrib['autoplay'], 'false')
+        self.assertTrue('autoplay' not in elm.attrib)
 
     def test_media_java_applet(self):
         # Case for java-applet that needs to be object embedded.
