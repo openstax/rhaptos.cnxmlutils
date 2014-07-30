@@ -458,6 +458,23 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         # And ensure param pass through.
         pass
 
+    def test_glossary(self):
+        """Verify the transformation of the glossary section
+        into the main content body of our documents.
+        """
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'glossary.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("(/body/div)[last()]")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed transform: " + transformed_html)
+        self.assertEqual(elm.attrib['data-type'], 'glossary')
+        elm = elm.getchildren()[0]
+        self.assertEqual(elm.tag, 'h2')
+        self.assertEqual(elm.text, 'Glossary')
+
 
 class XsltprocTestCase(unittest.TestCase):
     """rhaptos/cnxmlutils/xsl/test test cases:

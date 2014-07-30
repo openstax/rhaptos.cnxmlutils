@@ -33,6 +33,7 @@
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
+    <xsl:apply-templates select="c:glossary"/>
   </body>
 </xsl:template>
 
@@ -981,6 +982,13 @@
 <!-- ========================= -->
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
+
+<xsl:template match="c:glossary">
+  <div data-type="{local-name()}">
+    <h2>Glossary</h2>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="c:definition">
   <dfn>
