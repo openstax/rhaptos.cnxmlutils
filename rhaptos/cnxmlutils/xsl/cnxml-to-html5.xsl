@@ -990,23 +990,28 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:definition">
-  <dfn>
+<xsl:template match="c:content//c:definition">
+  <div data-type="{local-name()}">
+    <xsl:apply-templates select="@*"/>
+    <span data-type="label">Definition: </span>
+    <xsl:apply-templates select="node()"/>
+  </div>
+</xsl:template>
 
+<xsl:template match="c:glossary//c:definition">
+  <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
-  </dfn>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:meaning[not(c:title)]">
   <div data-type="{local-name()}">
-
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:seealso">
   <span data-type="{local-name()}">
-
     <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>

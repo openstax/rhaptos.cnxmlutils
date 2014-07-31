@@ -475,6 +475,35 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.tag, 'h2')
         self.assertEqual(elm.text, 'Glossary')
 
+    def test_definition_in_glossary(self):
+        """Verify that definitions are not labeled when inside the glossary.
+        """
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'glossary.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elms = html.xpath("//*[@data-type='definition']/*[@data-type='label']")
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed transform: " + transformed_html)
+        # We shouldn't find any lables in the definitions.
+        self.assertEqual(elms, [])
+
+    def test_definition_in_content(self):
+        """Verify that definitions are labeled when inside the content."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'definition.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@data-type='definition']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed transform: " + transformed_html)
+        label_elm, term_elm, meaning_elm = elm.getchildren()
+        self.assertEqual(label_elm.text, 'Definition: ')
+        self.assertEqual(term_elm.attrib['data-type'], 'term')
+        self.assertEqual(meaning_elm.attrib['data-type'], 'meaning')
+
 
 class XsltprocTestCase(unittest.TestCase):
     """rhaptos/cnxmlutils/xsl/test test cases:
