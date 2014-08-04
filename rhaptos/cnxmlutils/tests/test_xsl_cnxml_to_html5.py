@@ -398,3 +398,20 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['height'], '540')
         # And ensure param pass through.
         pass
+
+
+    def test_list_w_title_2_section(self):
+        """Verify conversion of //c:list[c:title] to sections."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='listed-section-list']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, list_elm = elm.getchildren()
+        # This list becomes a section inside the current section,
+        # giving it a depth of 2, which creates an h2 tag.
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(list_elm.tag, 'ul')

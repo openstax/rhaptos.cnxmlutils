@@ -333,13 +333,23 @@
 <xsl:template match="c:list/@list-type"/>
 
 <xsl:template match="c:list[c:title]">
-  <div><!-- list-id-and-class will give it the class "list" at least -->
+  <xsl:param name="depth" select="1"/>
+  <section>
+    <!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
-    <xsl:apply-templates select="c:title"/>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+
+    <xsl:apply-templates select="@*|c:label"/>
+    <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="c:title"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    </xsl:element>
     <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="depth" select="$depth + 1"/>
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
-  </div>
+
+  </section>
 </xsl:template>
 
 <xsl:template match="c:para//c:list[c:title]">

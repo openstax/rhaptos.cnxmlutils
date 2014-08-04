@@ -1,0 +1,49 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" id="id1164845029421" module-id="m12345" cnxml-version="0.7">
+<content>
+  <para id="eip-985"><title>Sumario en espanol</title>Principales programas de la preparaci&#243;n son dise&#241;ados para asegurar que candidatos que completen exitosamente los programas son calificados e informado, y han tenido experiencias de liderazgo que preparan ellos competir para posiciones de liderazgo en las escuelas de hoy (Arrastre y Moorma, 2003). ... </para>
+  <note id="eip-500">Esta es una traducci&#243;n por computadora de la p&#225;gina web original. Se suministra como informaci&#243;n general y no debe considerarse completa ni exacta.</note>
+
+  <section id="id1164844141267">
+    <title>Introduction </title>
+    <list id="eip-162" list-type="labeled-item">
+      <item><emphasis effect="italics">&#8220;I can&#8217;t get a job without experience;</emphasis></item>
+      <item><emphasis effect="italics">I can&#8217;t gain experience without a job.&#8221; </emphasis></item>
+      <item><emphasis effect="italics">The proverbial Catch 22.</emphasis></item>
+    </list>
+    <para id="id1164845159023">...</para>
+  </section>
+
+  <section id="id1164845188687">
+    <title>Research Questions</title>
+      <list id="id1164846206636" list-type="enumerated" number-style="arabic">
+        <item>What degree of change occurred in students&#8217; pre and post self-assessment of their level of experience on each of the CPSELs, and how similar or different were the changes from pre to post self assessment among the six standards? </item>
+        <item>Did the degree of reported gain/loss in leadership experience vary among individual students?</item>
+        <item>How similar or different were the changes from pre to post self assessment according to the total years of professional work experience (TYE) of the candidates?</item>
+      </list>
+    </section>
+
+    <section id="listed-section">
+      <title>Section Title</title>
+      <!-- This list should be a section, because it has a title. -->
+      <list id="listed-section-list" list-type="bulleted" bullet-style="bullet">
+        <title>1. First you:</title>
+        <item><emphasis effect="italics">Convene a group of teachers to evaluate progress toward the school mission. </emphasis></item>
+        <item><emphasis effect="italics">Evaluate the effectiveness of the reading (or math) intervention program.</emphasis></item>
+      </list>
+
+      <section id="listed-subsection-one">
+        <title>subsection 1</title>
+        <section id="listed-subsection-one-one">
+          <title>subsection 1.1</title>
+          <!-- The list will now be created as a section of depth 4 -->
+          <list id="listed-subsectioned-list">
+            <title>1. Maybe you can...</title>
+            <item><emphasis effect="italics">Assess the rigor or coherence of the curricular program at my school</emphasis></item>
+            <item><emphasis effect="italics">Develop an induction plan for new teachers</emphasis></item>
+          </list>
+        </section>
+      </section>
+    </section>
+
+  </content>
+</document>
