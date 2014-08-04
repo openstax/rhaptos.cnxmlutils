@@ -415,3 +415,16 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         # giving it a depth of 2, which creates an h2 tag.
         self.assertEqual(title_elm.tag, 'h2')
         self.assertEqual(list_elm.tag, 'ul')
+
+    def test_table_w_title_2_section(self):
+        """Verify conversion of //c:table[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='tabled-section-table-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, table_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')

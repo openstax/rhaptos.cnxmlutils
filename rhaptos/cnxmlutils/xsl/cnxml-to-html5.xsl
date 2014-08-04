@@ -1059,7 +1059,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="c:table[count(c:tgroup) = 1]">
+<xsl:template match="c:table[count(c:tgroup) = 1 and not(c:title)]">
   <table>
     <xsl:apply-templates select="@*|c:label"/>
     <xsl:if test="c:caption or c:title">
@@ -1072,6 +1072,35 @@
     <xsl:apply-templates select="c:tgroup"/>
   </table>
 </xsl:template>
+
+<xsl:template match="c:table[count(c:tgroup) = 1 and c:title]">
+  <xsl:param name="depth" select="1"/>
+  <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+    <!-- Assign the section an id based on the selected node's id. -->
+    <xsl:if test="@id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat(current()/@id, '-section')"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="c:title"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    </xsl:element>
+
+    <table>
+      <xsl:apply-templates select="@*|c:label"/>
+      <xsl:if test="c:caption">
+        <caption>
+          <xsl:apply-templates select="c:caption/node()"/>
+        </caption>
+      </xsl:if>
+      <xsl:apply-templates select="c:tgroup"/>
+    </table>
+  </section>
+</xsl:template>
+
 
 <xsl:template match="c:tgroup">
   <xsl:apply-templates select="c:thead|c:tbody|c:tfoot"/>

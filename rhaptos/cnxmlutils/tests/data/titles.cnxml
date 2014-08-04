@@ -1,7 +1,6 @@
 <document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" id="id1164845029421" module-id="m12345" cnxml-version="0.7">
 <content>
   <para id="eip-985"><title>Sumario en espanol</title>Principales programas de la preparaci&#243;n son dise&#241;ados para asegurar que candidatos que completen exitosamente los programas son calificados e informado, y han tenido experiencias de liderazgo que preparan ellos competir para posiciones de liderazgo en las escuelas de hoy (Arrastre y Moorma, 2003). ... </para>
-  <note id="eip-500">Esta es una traducci&#243;n por computadora de la p&#225;gina web original. Se suministra como informaci&#243;n general y no debe considerarse completa ni exacta.</note>
 
   <section id="id1164844141267">
     <title>Introduction </title>
@@ -12,15 +11,6 @@
     </list>
     <para id="id1164845159023">...</para>
   </section>
-
-  <section id="id1164845188687">
-    <title>Research Questions</title>
-      <list id="id1164846206636" list-type="enumerated" number-style="arabic">
-        <item>What degree of change occurred in students&#8217; pre and post self-assessment of their level of experience on each of the CPSELs, and how similar or different were the changes from pre to post self assessment among the six standards? </item>
-        <item>Did the degree of reported gain/loss in leadership experience vary among individual students?</item>
-        <item>How similar or different were the changes from pre to post self assessment according to the total years of professional work experience (TYE) of the candidates?</item>
-      </list>
-    </section>
 
     <section id="listed-section">
       <title>Section Title</title>
@@ -43,6 +33,53 @@
           </list>
         </section>
       </section>
+    </section>
+
+    <section id="tabled-section">
+
+      <table id="tabled-section-table" summary="Table 1">
+        <title>
+          <emphasis effect="italics">Board Member Community Types</emphasis>
+        </title>
+        <tgroup cols="3">
+          <colspec colnum="1" colname="c1"/>
+          <colspec colnum="2" colname="c2"/>
+          <colspec colnum="3" colname="c3"/>
+          <tbody>
+            <row>
+              <entry>Community Type</entry>
+              <entry>Percentage of Males Responding</entry>
+              <entry>Percentage of Females Responding</entry>
+            </row>
+            <row>
+              <entry>Large City</entry>
+              <entry>6. 6</entry>
+              <entry>4. 1</entry>
+            </row>
+            <row>
+              <entry>Small City</entry>
+              <entry>14. 8</entry>
+              <entry>21. 6</entry>
+            </row>
+            <row>
+              <entry>Suburban</entry>
+              <entry>31. 1</entry>
+              <entry>16. 2</entry>
+            </row>
+            <row>
+              <entry>Rural and Small Town</entry>
+              <entry>47. 5</entry>
+              <entry>58. 1</entry>
+            </row>
+            <row>
+              <entry>TOTAL</entry>
+              <entry>100. 0</entry>
+              <entry>100. 0</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+
     </section>
 
   </content>
