@@ -457,7 +457,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         title_elm, table_elm = elm.getchildren()
         self.assertEqual(title_elm.tag, 'h2')
 
-    def test_note_w_title_2_section(self):
+    def test_note_w_title(self):
         """Verify conversion of //c:note[c:title] to a section."""
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
         html = self.call_target(cnxml).getroot()

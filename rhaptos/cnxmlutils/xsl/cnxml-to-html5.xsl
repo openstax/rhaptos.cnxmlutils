@@ -321,7 +321,9 @@
 
     <div>
       <xsl:apply-templates mode="class" select="."/>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
+        <xsl:with-param name="depth" select="$depth + 1"/>
+      </xsl:apply-templates>
     </div>
   </section>
 </xsl:template>
