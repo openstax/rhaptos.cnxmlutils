@@ -428,3 +428,16 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to transform: \n" + transformed_html)
         title_elm, table_elm = elm.getchildren()
         self.assertEqual(title_elm.tag, 'h2')
+
+    def test_note_w_title_2_section(self):
+        """Verify conversion of //c:note[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='noted-section-note-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')

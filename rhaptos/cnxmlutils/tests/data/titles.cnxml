@@ -82,5 +82,18 @@
 
     </section>
 
+    <!-- m48096 // 6965fe04-f7fd-4214-b1d9-cdf67a49a6b8 -->
+    <section id="noted-section">
+      <note id="noted-section-note" class="interactive">
+        <label/>
+        <title>Link to Learning</title>
+        <para id="fs-idm39005168">
+          This combination
+          <link window="new" url="http://shapeoflife.org/video/animation/annelid-animation-body-plan">video and animation</link>
+          provides a close-up look at annelid anatomy.
+        </para>
+      </note>
+    </section>
+
   </content>
 </document>
