@@ -317,13 +317,14 @@
 <xsl:template match="
      c:list/@bullet-style
     |c:list/@number-style
-    |c:list/@mark-prefix
-    |c:list/@mark-suffix
     |c:list/@item-sep
     |c:list/@display
     |c:list/@type">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
+
+<!-- These attributes are copied to <li> instead -->
+<xsl:template match="c:list/@mark-prefix|c:list/@mark-suffix"/>
 
 <xsl:template match="c:list/@start-value">
   <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
@@ -398,7 +399,16 @@
 </xsl:template>
 
 <xsl:template match="c:item">
-  <li><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></li>
+  <li>
+    <xsl:if test="../@mark-prefix">
+      <xsl:attribute name="data-mark-prefix"><xsl:value-of select="../@mark-prefix"/></xsl:attribute>
+    </xsl:if>
+    <xsl:if test="../@mark-suffix">
+      <xsl:attribute name="data-mark-suffix"><xsl:value-of select="../@mark-suffix"/></xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*|node()"/>
+  </li>
 </xsl:template>
 
 
@@ -423,7 +433,16 @@
 </xsl:template>
 
 <xsl:template match="c:para//c:list/c:item|c:list[@display='inline']/c:item">
-  <span class="item"><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
+  <span class="item">
+    <xsl:if test="../@mark-prefix">
+      <xsl:attribute name="data-mark-prefix"><xsl:value-of select="../@mark-prefix"/></xsl:attribute>
+    </xsl:if>
+    <xsl:if test="../@mark-suffix">
+      <xsl:attribute name="data-mark-suffix"><xsl:value-of select="../@mark-suffix"/></xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates mode="class" select="."/>
+    <xsl:apply-templates select="@*|node()"/>
+  </span>
 </xsl:template>
 
 
