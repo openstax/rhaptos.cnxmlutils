@@ -400,7 +400,21 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         pass
 
 
-    def test_list_w_title_2_section(self):
+    def test_section_w_title(self):
+        """Verify conversion of //c:section[c:title]"""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='sectioned-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm = elm.getchildren()[0]
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_list_w_title(self):
         """Verify conversion of //c:list[c:title] to sections."""
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
         html = self.call_target(cnxml).getroot()
@@ -416,7 +430,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(title_elm.tag, 'h2')
         self.assertEqual(list_elm.tag, 'ul')
 
-    def test_table_w_title_2_section(self):
+    def test_table_w_title(self):
         """Verify conversion of //c:table[c:title] to a section."""
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
         html = self.call_target(cnxml).getroot()
