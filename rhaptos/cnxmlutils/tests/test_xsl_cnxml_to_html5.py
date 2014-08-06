@@ -444,6 +444,18 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(title_elm.tag, 'h2')
         self.assertEqual(list_elm.tag, 'ul')
 
+        # And the subsectioned section knows what depth it is at?
+        try:
+            elm = html.xpath("//*[@id='listed-subsectioned-list']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, list_elm = elm.getchildren()
+        # This list becomes a section inside the current section,
+        # giving it a depth of 2, which creates an h2 tag.
+        self.assertEqual(title_elm.tag, 'h4')
+        self.assertEqual(list_elm.tag, 'ul')
+
     def test_table_w_title(self):
         """Verify conversion of //c:table[c:title] to a section."""
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
