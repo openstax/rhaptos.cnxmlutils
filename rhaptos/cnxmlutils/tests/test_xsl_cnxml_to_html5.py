@@ -454,6 +454,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         # This list becomes a section inside the current section,
         # giving it a depth of 2, which creates an h2 tag.
         self.assertEqual(title_elm.tag, 'h4')
+        self.assertEqual(title_elm.attrib['class'], 'title')
         self.assertEqual(list_elm.tag, 'ul')
 
     def test_table_w_title(self):
@@ -468,6 +469,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to transform: \n" + transformed_html)
         title_elm, table_elm = elm.getchildren()
         self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
 
     def test_note_w_title(self):
         """Verify conversion of //c:note[c:title] to a section."""
@@ -481,3 +483,22 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to transform: \n" + transformed_html)
         title_elm, note_elm = elm.getchildren()
         self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_code_w_title(self):
+        """Verify conversion of //c:code[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='coded-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    @unittest.skip("No instances of //c:preformat[c:title] exist in cnx.org.")
+    def test_preformat_w_title(self):
+        pass

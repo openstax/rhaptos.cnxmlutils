@@ -249,7 +249,6 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></pre>
 </xsl:template>
@@ -258,15 +257,33 @@
   <code><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
-<xsl:template match="c:code[c:title]|c:preformat[c:title and not(display='inline')]">
-  <div>
-    <xsl:apply-templates select="@id"/>
-    <xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="c:title"/>
-    <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
-  </div>
-</xsl:template>
+<xsl:template match="
+   c:code[c:title]
+  |c:preformat[c:title and not(display='inline')]">
+  <xsl:param name="depth" select="1"/>
+  <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+    <!-- Assign the section an id based on the selected node's id. -->
+    <xsl:if test="@id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat(current()/@id, '-section')"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="c:label"/>
 
+    <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="c:title"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    </xsl:element>
+
+    <pre>
+      <xsl:apply-templates mode="class" select="."/>
+      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
+        <xsl:with-param name="depth" select="$depth + 1"/>
+      </xsl:apply-templates>
+    </pre>
+  </section>
+</xsl:template>
 
 <!-- ========================= -->
 
