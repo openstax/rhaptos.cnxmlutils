@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import glob
 import os
+import subprocess
 import unittest
+
 from lxml import etree
 
 
@@ -398,3 +401,36 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['height'], '540')
         # And ensure param pass through.
         pass
+
+
+class XsltprocTestCase(unittest.TestCase):
+    """rhaptos/cnxmlutils/xsl/test test cases:
+
+    Use xsltproc to transform *.cnxml files with cnxml-to-html5.xsl and compare
+    with *.html files
+    """
+
+    xslt = os.path.join(here, '..', 'xsl', 'cnxml-to-html5.xsl')
+    maxDiff = None
+
+    @classmethod
+    def generate_tests(cls):
+        for cnxml in glob.glob(os.path.join(here, '..', 'xsl', 'test',
+                                            '*.cnxml')):
+            filename_no_ext = cnxml.rsplit('.cnxml', 1)[0]
+            test_name = os.path.basename(filename_no_ext)
+            with open('{}.html'.format(filename_no_ext)) as f:
+                html = f.read()
+
+            setattr(cls, 'test_{}'.format(test_name),
+                    cls.create_test(cnxml, html))
+
+    @classmethod
+    def create_test(cls, cnxml, html):
+        def run_test(self):
+            output = subprocess.check_output(['xsltproc', self.xslt, cnxml])
+            self.assertMultiLineEqual(output, html)
+        return run_test
+
+
+XsltprocTestCase.generate_tests()
