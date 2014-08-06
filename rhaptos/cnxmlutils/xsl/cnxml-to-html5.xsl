@@ -175,6 +175,32 @@
   <p><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
+<xsl:template match="c:para[c:title]">
+  <xsl:param name="depth" select="1"/>
+  <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+    <!-- Assign the section an id based on the selected node's id. -->
+    <xsl:if test="@id">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat(current()/@id, '-section')"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="c:label"/>
+
+    <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="c:title"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    </xsl:element>
+
+    <p>
+      <xsl:apply-templates mode="class" select="."/>
+      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
+        <xsl:with-param name="depth" select="$depth + 1"/>
+      </xsl:apply-templates>
+    </p>
+  </section>
+</xsl:template>
+
 <xsl:template match="c:example">
   <div><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
