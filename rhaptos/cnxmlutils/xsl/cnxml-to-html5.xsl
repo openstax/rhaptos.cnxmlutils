@@ -154,20 +154,6 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:title">
-  <div>
-    <xsl:apply-templates mode="class" select="."/>
-    <xsl:apply-templates select="@*|node()"/>
-  </div>
-</xsl:template>
-
-<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title">
-  <span><xsl:apply-templates mode="class" select="."/><xsl:apply-templates select="@*|node()"/></span>
-</xsl:template>
-
-
-<!-- ========================= -->
-
 <xsl:template match="c:section">
   <xsl:param name="depth" select="1"/>
   <section>
@@ -365,16 +351,6 @@
     </xsl:apply-templates>
 
   </section>
-</xsl:template>
-
-<xsl:template match="c:para//c:list[c:title]">
-  <span><!-- list-id-and-class will give it the class "list" at least -->
-    <xsl:call-template name="list-id-and-class"/>
-    <xsl:apply-templates select="c:title"/>
-    <xsl:apply-templates mode="list-mode" select=".">
-      <xsl:with-param name="convert-id-and-class" select="0"/>
-    </xsl:apply-templates>
-  </span>
 </xsl:template>
 
 <xsl:template match="c:list[not(c:title)]">
