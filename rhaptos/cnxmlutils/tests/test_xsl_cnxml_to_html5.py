@@ -502,3 +502,165 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
     @unittest.skip("No instances of //c:preformat[c:title] exist in cnx.org.")
     def test_preformat_w_title(self):
         pass
+
+    def test_quote_w_title(self):
+        """Verify conversion of //c:quote[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='quote-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_equation_w_title(self):
+        """Verify conversion of //c:equation[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='equation-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_figure_w_title(self):
+        """Verify conversion of //c:figure[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='figure-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_subfigure_w_title(self):
+        """Verify conversion of //c:subfigure[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='subfigure-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_example_w_title(self):
+        """Verify conversion of //c:example[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='example-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_exercise_w_title(self):
+        """Verify conversion of //c:exercise[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='exercise-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_problem_w_title(self):
+        """Verify conversion of //c:problem[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='problem-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_solution_w_title(self):
+        """Verify conversion of //c:solution[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='solution-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_rule_w_title(self):
+        """Verify conversion of //c:rule[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='rule-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h1')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_statement_w_title(self):
+        """Verify conversion of //c:statement[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='statement-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    def test_proof_w_title(self):
+        """Verify conversion of //c:proof[c:title] to a section."""
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'titles.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='proof-test-section']")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to transform: \n" + transformed_html)
+        title_elm, note_elm = elm.getchildren()
+        self.assertEqual(title_elm.tag, 'h2')
+        self.assertEqual(title_elm.attrib['class'], 'title')
+
+    @unittest.skip("No instances of //c:commentary[c:title] exist in cnx.org.")
+    def test_commentary_w_title(self):
+        pass
+
+    @unittest.skip("No instances of //c:meaning[c:title] exist in cnx.org.")
+    def test_meaning_w_title(self):
+        pass
