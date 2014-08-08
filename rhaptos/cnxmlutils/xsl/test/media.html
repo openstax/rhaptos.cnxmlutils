@@ -1,8 +1,8 @@
-<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div class="title">Test Module</div>
+<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="title">Test Module</div>
 
-  <p class="para">Audio and Video</p>
+  <p>Audio and Video</p>
 
-  <span class="media" id="id123" data-alt="alternate">
+  <span data-type="media" id="id123" data-alt="alternate">
     <audio controls="controls" data-media-type="audio/mp3" autoplay="autoplay" loop="true" controller="true" muted="true" data-standby="true" data-author="John Doe"><source src="file.mp3" type="audio/mp3"/>
       
     </audio>
@@ -16,25 +16,25 @@
     <audio controls="controls" data-media-type="video/mp4" data-print="true"><source src="file.mp4" type="video/mp4"/></audio>
   </span>
 
-  <p class="para">Flash examples</p>
+  <p>Flash examples</p>
 
-  <span class="media" id="id123" data-alt="alternate" data-longdesc="url.txt">
+  <span data-type="media" id="id123" data-alt="alternate" data-longdesc="url.txt">
     <object type="application/x-shockwave-flash" data="file.swf"><embed src="file.swf" type="application/x-shockwave-flash"/></object>
     <object type="application/x-shockwave-flash" data="file.swf" id="id-flash" height="100" width="100" data-longdesc="url.txt"><param name="flash-name" value="flash-value"/><embed src="file.swf" type="application/x-shockwave-flash" wmode="opaque" flashvars="var1" height="100" width="100"/></object>
   </span>
 
-  <p class="para">Labview Examples</p>
+  <p>Labview Examples</p>
 
 
-  <span class="media" id="id-labview" data-alt="alternate">
-    <object class="labview" type="application/x-labview-vi" data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq" data="file.vi"><param name="lvfppviname" value="the-path"/><param name="version" value="7.0"/><param name="reqctrl" value="true"/><param name="runlocally" value="true"/></object>
+  <span data-type="media" id="id-labview" data-alt="alternate">
+    <object type="application/x-labview-vi" data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq" data="file.vi"><param name="lvfppviname" value="the-path"/><param name="version" value="7.0"/><param name="reqctrl" value="true"/><param name="runlocally" value="true"/></object>
 
-    <object class="labview" type="application/x-labview-vi" data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq" data="file.vi" data-print="false" height="100" width="200" data-longdesc="url.txt" id="id-labview-1"><param name="lvfppviname" value="the-path"/><param name="version" value="7.0"/><param name="reqctrl" value="true"/><param name="runlocally" value="true"/></object>
+    <object type="application/x-labview-vi" data-pluginspage="http://digital.ni.com/express.nsf/bycode/exwgjq" data="file.vi" data-print="false" height="100" width="200" data-longdesc="url.txt" id="id-labview-1"><param name="lvfppviname" value="the-path"/><param name="version" value="7.0"/><param name="reqctrl" value="true"/><param name="runlocally" value="true"/></object>
   </span>
 
-  <p class="para">Java Examples</p>
+  <p>Java Examples</p>
 
-  <span class="media" id="id-java-applet" data-alt="alternate">
+  <span data-type="media" id="id-java-applet" data-alt="alternate">
     <object type="application/x-java-applet"><param name="code" value="org.cnx.Applet.class"/><span>Applet failed to run. No Java plug-in was found.</span></object>
 
     <object type="application/x-java-applet" id="id-java-applet-1" data-print="false" height="100" width="200" data-longdesc="url.txt"><param name="param-name" value="param-value"/>
@@ -43,16 +43,16 @@
 
   </span>
 
-  <p class="para">Hacky way of using Images to make a link to a jar file</p>
+  <p>Hacky way of using Images to make a link to a jar file</p>
 
-  <span class="media" data-alt="alternate">
-    <a href="equation-grapher_en.jar"><img src="PhET_Icon.png" alt="alternate" width="450"/></a>
+  <span data-type="media" data-alt="alternate">
+    <a href="equation-grapher_en.jar" data-type="image"><img src="PhET_Icon.png" alt="alternate" width="450"/></a>
   </span>
 
-  <p class="para">But for PDF do not do anything special</p>
+  <p>But for PDF do not do anything special</p>
 
-  <span class="media" data-alt="alternate">
-    <span data-media-type="image/png" data-print="true" data-src="equation-grapher_en.jar" data-thumbnail="PhET_Icon.png" width="450"></span>
+  <span data-type="media" data-alt="alternate">
+    <span data-media-type="image/png" data-print="true" data-src="equation-grapher_en.jar" data-type="image" data-thumbnail="PhET_Icon.png" width="450"></span>
   </span>
 
 </body>

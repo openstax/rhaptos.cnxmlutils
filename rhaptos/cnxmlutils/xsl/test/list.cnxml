@@ -31,11 +31,11 @@
 
       <para>... with all attributes</para>
 
-      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
         <item>list with all attributes</item>
       </list>
 
-      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
         <title>list with all attributes and title</title>
         <item>and item</item>
       </list>
@@ -59,11 +59,11 @@
 
       <para>... with all attributes</para>
 
-      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
         <item>list with all attributes</item>
       </list>
 
-      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
         <title>list with all attributes and title</title>
         <item>and item</item>
       </list>

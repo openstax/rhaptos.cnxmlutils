@@ -13,5 +13,14 @@
 
   <note><label>Custom Label</label>Body</note>
 
+  <note id="id789">
+    <label>Custom Label</label>
+    <title>Custom Title</title>
+    <para id="id1234">
+      <title>Para Title</title>
+      Para Text
+    </para>
+  </note>
+
 </content>
 </document>

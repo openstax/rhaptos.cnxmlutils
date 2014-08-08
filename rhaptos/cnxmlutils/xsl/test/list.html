@@ -1,195 +1,195 @@
-<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div class="title">Test Module</div>
+<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="title">Test Module</div>
 
-  <section data-depth="1"><h1 class="title">Lists NOT in a paragraph</h1>
+  <section data-depth="1"><h1 data-type="title">Lists NOT in a paragraph</h1>
 
-    <ul class="list">
-      <li class="item">list with item</li>
+    <ul>
+      <li>list with item</li>
     </ul>
 
-    <div class="list"><div class="title">and title</div><ul>
-      <li class="item">and item</li>
+    <div data-type="list"><div data-type="title">and title</div><ul>
+      <li>and item</li>
     </ul></div>
 
-    <section data-depth="2"><h2 class="title">Default list:</h2>
+    <section data-depth="2"><h2 data-type="title">Default list:</h2>
 
-      <p class="para">with just an id attribute</p>
+      <p>with just an id attribute</p>
 
-      <ul class="list" id="id1">
-        <li class="item">and item</li>
+      <ul id="id1">
+        <li>and item</li>
       </ul>
 
-      <div class="list" id="id2"><div class="title">and title</div><ul>
-        <li class="item">and item</li>
+      <div data-type="list" id="id2"><div data-type="title">and title</div><ul>
+        <li>and item</li>
       </ul></div>
 
-      <p class="para">... with all attributes</p>
+      <p>... with all attributes</p>
 
-      <ul class="list" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">list with all attributes</li>
+      <ul id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>list with all attributes</li>
       </ul>
 
-      <div class="list" id="id3"><div class="title">list with all attributes and title</div><ul data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">and item</li>
-      </ul></div>
-
-    </section>
-
-
-
-    <section data-depth="2"><h2 class="title">Bulleted list:</h2>
-
-      <p class="para">with just an id attribute</p>
-
-      <ul class="list" id="id1">
-        <li class="item">and item</li>
-      </ul>
-
-      <div class="list" id="id2"><div class="title">and title</div><ul>
-        <li class="item">and item</li>
-      </ul></div>
-
-      <p class="para">... with all attributes</p>
-
-      <ul class="list" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">list with all attributes</li>
-      </ul>
-
-      <div class="list" id="id3"><div class="title">list with all attributes and title</div><ul data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">and item</li>
+      <div data-type="list" id="id3"><div data-type="title">list with all attributes and title</div><ul data-bullet-style="open-circle" data-number-style="lower-alpha" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>and item</li>
       </ul></div>
 
     </section>
 
 
-    <section data-depth="2"><h2 class="title">Enumerated list:</h2>
 
-      <p class="para">with just an id attribute</p>
+    <section data-depth="2"><h2 data-type="title">Bulleted list:</h2>
 
-      <ol class="list" id="id1">
-        <li class="item">and item</li>
+      <p>with just an id attribute</p>
+
+      <ul id="id1">
+        <li>and item</li>
+      </ul>
+
+      <div data-type="list" id="id2"><div data-type="title">and title</div><ul>
+        <li>and item</li>
+      </ul></div>
+
+      <p>... with all attributes</p>
+
+      <ul id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>list with all attributes</li>
+      </ul>
+
+      <div data-type="list" id="id3"><div data-type="title">list with all attributes and title</div><ul data-bullet-style="open-circle" data-number-style="lower-alpha" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>and item</li>
+      </ul></div>
+
+    </section>
+
+
+    <section data-depth="2"><h2 data-type="title">Enumerated list:</h2>
+
+      <p>with just an id attribute</p>
+
+      <ol id="id1">
+        <li>and item</li>
       </ol>
 
-      <div class="list" id="id2"><div class="title">and title</div><ol>
-        <li class="item">and item</li>
+      <div data-type="list" id="id2"><div data-type="title">and title</div><ol>
+        <li>and item</li>
       </ol></div>
 
-      <p class="para">... with all attributes</p>
+      <p>... with all attributes</p>
 
-      <ol class="list" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">list with all attributes</li>
+      <ol id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>list with all attributes</li>
       </ol>
 
-      <div class="list" id="id3"><div class="title">list with all attributes and title</div><ol data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-        <li class="item">and item</li>
+      <div data-type="list" id="id3"><div data-type="title">list with all attributes and title</div><ol data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
+        <li>and item</li>
       </ol></div>
 
     </section>
 
 
-    <section data-depth="2"><h2 class="title">Labeled-Item list:</h2>
+    <section data-depth="2"><h2 data-type="title">Labeled-Item list:</h2>
 
-    <ul data-labeled-item="true" class="list" id="id1">
-      <li class="item" data-label="with a label"> and item</li>
+    <ul data-labeled-item="true" id="id1">
+      <li data-label="with a label"> and item</li>
     </ul>
 
     </section>
 
   </section>
 
-  <p class="para">---------------------------------------------------------------------------------------</p>
-  <p class="para">---------------------------------------------------------------------------------------</p>
-  <p class="para">---------------------------------------------------------------------------------------</p>
+  <p>---------------------------------------------------------------------------------------</p>
+  <p>---------------------------------------------------------------------------------------</p>
+  <p>---------------------------------------------------------------------------------------</p>
 
-  <section data-depth="1"><h1 class="title">The same tests but inside a paragraph (lists with titles should become spans instead of divs</h1>
+  <section data-depth="1"><h1 data-type="title">The same tests but inside a paragraph (lists with titles should become spans instead of divs</h1>
 
-  <p class="para">...<span class="list" data-list-type="bulleted">
-    <span class="item">list with item</span>
+  <p>...<span data-type="list" data-list-type="bulleted">
+    <span data-type="item">list with item</span>
   </span>...</p>
 
-  <p class="para">...<span class="list"><span class="title">and title</span><span class="list" data-list-type="bulleted">
-    <span class="item">and item</span>
+  <p>...<span data-type="list"><span data-type="title">and title</span><span data-type="list" data-list-type="bulleted">
+    <span data-type="item">and item</span>
   </span></span>...</p>
 
-  <section data-depth="2"><h2 class="title">Default list:</h2>
+  <section data-depth="2"><h2 data-type="title">Default list:</h2>
 
-    <p class="para">with just an id attribute</p>
+    <p>with just an id attribute</p>
 
-    <p class="para">...<span class="list" data-list-type="bulleted" id="id1">
-      <span class="item">and item</span>
+    <p>...<span data-type="list" data-list-type="bulleted" id="id1">
+      <span data-type="item">and item</span>
     </span>...</p>
 
-    <p class="para">...<span class="list" id="id2"><span class="title">and title</span><span class="list" data-list-type="bulleted">
-      <span class="item">and item</span>
+    <p>...<span data-type="list" id="id2"><span data-type="title">and title</span><span data-type="list" data-list-type="bulleted">
+      <span data-type="item">and item</span>
     </span></span>...</p>
 
-    <p class="para">... with all attributes</p>
+    <p>... with all attributes</p>
 
-    <p class="para">...<span class="list" data-list-type="bulleted" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">list with all attributes</span>
+    <p>...<span data-type="LIST-TYPE" data-list-type="bulleted" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">list with all attributes</span>
     </span>...</p>
 
-    <p class="para">...<span class="list" id="id3"><span class="title">list with all attributes and title</span><span class="list" data-list-type="bulleted" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">and item</span>
-    </span></span>...</p>
-
-  </section>
-
-
-
-  <section data-depth="2"><h2 class="title">Bulleted list:</h2>
-
-    <p class="para">with just an id attribute</p>
-
-    <p class="para">...<span class="list" data-list-type="bulleted" id="id1">
-      <span class="item">and item</span>
-    </span>...</p>
-
-    <p class="para">...<span class="list" id="id2"><span class="title">and title</span><span class="list" data-list-type="bulleted">
-      <span class="item">and item</span>
-    </span></span>...</p>
-
-    <p class="para">... with all attributes</p>
-
-    <p class="para">...<span class="list" data-list-type="bulleted" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">list with all attributes</span>
-    </span>...</p>
-
-    <p class="para">...<span class="list" id="id3"><span class="title">list with all attributes and title</span><span class="list" data-list-type="bulleted" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">and item</span>
+    <p>...<span data-type="list" id="id3"><span data-type="title">list with all attributes and title</span><span data-type="LIST-TYPE" data-list-type="bulleted" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">and item</span>
     </span></span>...</p>
 
   </section>
 
 
-  <section data-depth="2"><h2 class="title">Enumerated list:</h2>
 
-    <p class="para">with just an id attribute</p>
+  <section data-depth="2"><h2 data-type="title">Bulleted list:</h2>
 
-    <p class="para">...<span class="list" data-list-type="enumerated" id="id1">
-      <span class="item">and item</span>
+    <p>with just an id attribute</p>
+
+    <p>...<span data-type="list" data-list-type="bulleted" id="id1">
+      <span data-type="item">and item</span>
     </span>...</p>
 
-    <p class="para">...<span class="list" id="id2"><span class="title">and title</span><span class="list" data-list-type="enumerated">
-      <span class="item">and item</span>
+    <p>...<span data-type="list" id="id2"><span data-type="title">and title</span><span data-type="list" data-list-type="bulleted">
+      <span data-type="item">and item</span>
     </span></span>...</p>
 
-    <p class="para">... with all attributes</p>
+    <p>... with all attributes</p>
 
-    <p class="para">...<span class="list" data-list-type="enumerated" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">list with all attributes</span>
+    <p>...<span data-type="LIST-TYPE" data-list-type="bulleted" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">list with all attributes</span>
     </span>...</p>
 
-    <p class="para">...<span class="list" id="id3"><span class="title">list with all attributes and title</span><span class="list" data-list-type="enumerated" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME" data-type="LIST-TYPE">
-      <span class="item">and item</span>
+    <p>...<span data-type="list" id="id3"><span data-type="title">list with all attributes and title</span><span data-type="LIST-TYPE" data-list-type="bulleted" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">and item</span>
     </span></span>...</p>
 
   </section>
 
 
-  <section data-depth="2"><h2 class="title">Labeled-Item list:</h2>
+  <section data-depth="2"><h2 data-type="title">Enumerated list:</h2>
 
-    <p class="para">...<span class="list" data-list-type="labeled-item" id="id1">
-      <span class="item" data-label="with a label"> and item</span>
+    <p>with just an id attribute</p>
+
+    <p>...<span data-type="list" data-list-type="enumerated" id="id1">
+      <span data-type="item">and item</span>
+    </span>...</p>
+
+    <p>...<span data-type="list" id="id2"><span data-type="title">and title</span><span data-type="list" data-list-type="enumerated">
+      <span data-type="item">and item</span>
+    </span></span>...</p>
+
+    <p>... with all attributes</p>
+
+    <p>...<span data-type="LIST-TYPE" data-list-type="enumerated" id="id3" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">list with all attributes</span>
+    </span>...</p>
+
+    <p>...<span data-type="list" id="id3"><span data-type="title">list with all attributes and title</span><span data-type="LIST-TYPE" data-list-type="enumerated" data-bullet-style="open-circle" data-number-style="lower-alpha" start="3" data-mark-prefix="[PREFIX]" data-mark-suffix="[SUFFIX]" data-item-sep="[SEPARATOR]" data-display="IGNORE-ME">
+      <span data-type="item">and item</span>
+    </span></span>...</p>
+
+  </section>
+
+
+  <section data-depth="2"><h2 data-type="title">Labeled-Item list:</h2>
+
+    <p>...<span data-type="list" data-list-type="labeled-item" id="id1">
+      <span data-type="item" data-label="with a label"> and item</span>
     </span>...</p>
 
   </section>

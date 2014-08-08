@@ -1,22 +1,22 @@
-<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div class="title">Test Module</div>
+<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="title">Test Module</div>
 
   <figure>
-    <span>Text</span>
+    <p>Text</p>
   </figure>
 
-  <figure data-label="Label"><div class="title">Title</div><figcaption>Caption</figcaption>
-    <span>Text</span>
+  <figure data-label="Label"><div data-type="title">Title</div><figcaption>Caption</figcaption>
+    <p>Text</p>
     
   </figure>
 
-  <figure id="id123" data-orient="vertical" data-type="foo">
-    <span>Text</span>
+  <figure id="id123" data-orient="vertical" data-label="foo">
+    <p>Text</p>
   </figure>
 
 
-  <p class="para">Inside a para (make sure the title is a span, not a div):
-    <figure data-label="Label"><span class="title">Title</span><figcaption>Caption</figcaption>
-      <span>Text</span>
+  <p>Inside a para (make sure the title is a span, not a div):
+    <figure data-label="Label"><span data-type="title">Title</span><figcaption>Caption</figcaption>
+      <p>Text</p>
       
     </figure>
   </p>
@@ -25,7 +25,7 @@
     
 
     <figure><figcaption>Subfigure Caption</figcaption>
-      <span>Text</span>
+      <p>Text</p>
       
     </figure>
 

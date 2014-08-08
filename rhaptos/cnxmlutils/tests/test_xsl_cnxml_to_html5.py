@@ -48,7 +48,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id: " + transformed_html)
-        self.assertEqual(elm.attrib['class'], 'media')
+        self.assertEqual(elm.attrib['data-type'], 'media')
         self.assertEqual(elm.attrib['data-alt'], '')
 
     def test_media_w_optional_attrs(self):
@@ -65,7 +65,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             self.fail("Failed to pass through media@id: " + transformed_html)
         # Check concatenation of media@display.
         self.assertEqual(elm.attrib['data-display'], 'block')
-        self.assertEqual(elm.attrib['class'], 'media')
+        self.assertEqual(elm.attrib['data-type'], 'media')
         # Check media@longdesc attribute name change.
         self.assertEqual(elm.attrib['data-longdesc'],
                          'Long media description')
@@ -83,7 +83,7 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
                       "the download->a tag transform: " + transformed_html)
-        self.assertEqual(elm.attrib['class'], 'download')
+        self.assertEqual(elm.attrib['data-type'], 'download')
         self.assertEqual(elm.attrib['href'], 'oralPresentGuide.ppt')
         # Check download@mime-type attribute name change.
         self.assertEqual(elm.attrib['data-media-type'],
