@@ -775,12 +775,29 @@
   </audio>
 </xsl:template>
 
-<xsl:template match="c:video">
+<xsl:template match="c:video[contains(@src, 'youtube')]">
+  <iframe type="text/html" frameborder="0" src="{@src}" width="640" height="390">
+    <xsl:apply-templates select="@width|@height"/>
+  </iframe>
+</xsl:template>
+
+<xsl:template match="c:video[@mime-type='video/mp4' or @mimetype='video/ogg' or @mimetype='video/webm']">
   <video controls="controls">
     <xsl:apply-templates select="@*|c:param"/>
     <source src="{@src}" type="{@mime-type}"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </video>
+</xsl:template>
+
+<xsl:template match="c:video">
+  <object width="640" height="400">
+    <xsl:apply-templates select="@*|c:param"/>
+    <param name="src" value="{@src}"/>
+    <xsl:apply-templates select="node()[not(self::c:param)]"/>
+    <embed src="{@src}" type="{@mime-type}" width="640" height="400">
+      <xsl:apply-templates select="@width|@height"/>
+    </embed>
+  </object>
 </xsl:template>
 
 <!-- ===================== -->

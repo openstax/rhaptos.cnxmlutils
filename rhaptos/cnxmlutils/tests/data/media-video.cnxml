@@ -24,5 +24,24 @@
       </figure> 
     </para>
 
+    <para id="para-3">
+      <figure id="fig-3">
+        <media id="test_media_video_youtube" alt="alt text">
+          <video mime-type="application/x-shockwave-flash" src="http://www.youtube.com/v/k9oSQNTHUZM"/>
+        </media>
+        <media id="test_media_video_youtube_2" alt="alt text">
+          <video mime-type="video/mpeg" src="http://www.youtube.com/embed/r-FonWBEb0o" autoplay="false" width="320" height="260"/>
+        </media>
+      </figure>
+    </para>
+
+    <para id="para-4">
+      <figure id="fig-4">
+        <media id="test_media_video_quicktime" alt="alt text">
+          <video mime-type="video/quicktime" src="http://dev.cnx.org/resources/659920df8c48f27d0f46b14c1f495dea" height="300"/>
+        </media>
+      </figure>
+    </para>
+
   </content>
 </document>

@@ -22,7 +22,7 @@ CNXML_SHELL = """\
 
 
 
-class CxnmlToHtmlTestCase(unittest.TestCase):
+class CnxmlToHtmlTestCase(unittest.TestCase):
     # c:media/c:download cases also test general c:media transformation.
 
     def call_target(self, *args, **kwargs):
@@ -333,6 +333,62 @@ class CxnmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'true')
         self.assertTrue('autoplay' not in elm.attrib)
+
+    def test_media_video_youtube(self):
+        # Case for embedding youtube videos
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-video.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_video_youtube']/iframe")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the video->iframe tag transform: " \
+                      + transformed_html)
+
+        self.assertEqual(elm.attrib['src'], 'http://www.youtube.com/v/k9oSQNTHUZM')
+        self.assertEqual(elm.attrib['type'], 'text/html')
+        self.assertEqual(int(elm.attrib['width']), 640)
+        self.assertEqual(int(elm.attrib['height']), 390)
+
+        try:
+            elm = html.xpath("//*[@id='test_media_video_youtube_2']/iframe")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the video->iframe tag transform: " \
+                      + transformed_html)
+
+        self.assertEqual(elm.attrib['src'], 'http://www.youtube.com/embed/r-FonWBEb0o')
+        self.assertEqual(elm.attrib['type'], 'text/html')
+        self.assertEqual(int(elm.attrib['width']), 320)
+        self.assertEqual(int(elm.attrib['height']), 260)
+
+    def test_media_video_embed(self):
+        # Case for video types not supported by the video tag
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-video.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        try:
+            elm = html.xpath("//*[@id='test_media_video_quicktime']/object")[0]
+        except IndexError:
+            transformed_html = etree.tostring(html)
+            self.fail("Failed to pass through media@id and/or "
+                      "the video->iframe tag transform: " \
+                      + transformed_html)
+
+        self.assertEqual(int(elm.attrib['height']), 300)
+        self.assertEqual(int(elm.attrib['width']), 640)
+        param, embed = elm.getchildren()
+        self.assertEqual(param.attrib['name'], 'src')
+        self.assertEqual(param.attrib['value'],
+                'http://dev.cnx.org/resources/659920df8c48f27d0f46b14c1f495dea')
+        self.assertEqual(embed.attrib['src'],
+                'http://dev.cnx.org/resources/659920df8c48f27d0f46b14c1f495dea')
+        self.assertEqual(embed.attrib['type'], 'video/quicktime')
+        self.assertEqual(int(embed.attrib['height']), 300)
+        self.assertEqual(int(embed.attrib['width']), 640)
 
     def test_media_java_applet(self):
         # Case for java-applet that needs to be object embedded.
