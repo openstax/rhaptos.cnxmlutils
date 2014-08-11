@@ -375,7 +375,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
-                      "the video->iframe tag transform: " \
+                      "the video->object tag transform: " \
                       + transformed_html)
 
         self.assertEqual(int(elm.attrib['height']), 300)

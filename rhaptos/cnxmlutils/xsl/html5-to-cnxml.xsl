@@ -348,6 +348,46 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="video">
+  <c:video src="{source/@src}" mime-type="{source/@type}">
+    <xsl:if test="@muted">
+      <xsl:attribute name="volume">0</xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*"/>
+  </c:video>
+</xsl:template>
+<!-- remove source tag, @src and @type should be in video tag -->
+<xsl:template match="video/source"/>
+
+<xsl:template match="video/@autoplay">
+  <xsl:attribute name="autoplay">true</xsl:attribute>
+</xsl:template>
+
+<!-- embedded objects -->
+<xsl:template match="object">
+  <c:video src="{embed/@src}">
+    <xsl:apply-templates select="@*|node()"/>
+  </c:video>
+</xsl:template>
+<!-- copy object/@data-media-type to mime-type -->
+<xsl:template match="object/@data-media-type">
+  <xsl:attribute name="mime-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+<!-- remove embed tags, attributes copied to video tag -->
+<xsl:template match="object/embed"/>
+
+<!-- ========================= -->
+<!-- Iframe                    -->
+<!-- ========================= -->
+
+<xsl:template match="iframe">
+  <c:iframe>
+    <xsl:apply-templates select="@*|node()"/>
+  </c:iframe>
+</xsl:template>
+
 <!-- ========================= -->
 <!-- Glossary: Partial Support -->
 <!-- ========================= -->
