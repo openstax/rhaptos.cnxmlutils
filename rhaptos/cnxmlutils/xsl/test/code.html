@@ -1,4 +1,4 @@
-<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="title">Test Module</div>
+<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="document-title">Test Module</div>
 
 
   <pre>[line 1]
@@ -16,13 +16,13 @@
 
   <pre id="id123">with an id</pre>
 
-  <div data-type="code" id="id456"><div data-type="title">the title</div><pre>with a title</pre></div>
+  <section data-depth="1" id="id456-section"><h1 data-type="title">the title</h1><pre id="id456">with a title</pre></section>
 
-  <div data-type="code" id="id789"><div data-type="title">the title</div><pre data-label="the label">with a title and label</pre></div>
+  <section data-depth="1" id="id789-section" data-label="the label"><h1 data-type="title">the title</h1><pre id="id789">with a title and label</pre></section>
 
-  <div data-type="code" id="id789"><div data-type="title">the title</div><pre data-display="block" data-lang="JavaScript" data-label="the label">with a title and label
+  <section data-depth="1" id="id789-section" data-label="the label"><h1 data-type="title">the title</h1><pre id="id789" data-display="block" data-lang="JavaScript">with a title and label
 [line 2]
-[line 3]</pre></div>
+[line 3]</pre></section>
 
   <p>Preformat elemnt (much like a block of code but styled differently)</p>
 
@@ -32,9 +32,9 @@
 
   <pre id="id123">with an id</pre>
 
-  <div data-type="code" id="id456"><div data-type="title">the title</div><pre>with a title
+  <section data-depth="1" id="id456-section"><h1 data-type="title">the title</h1><pre id="id456">with a title
 [line 2]
-[line 3]</pre></div>
+[line 3]</pre></section>
 
 
   <ul>
