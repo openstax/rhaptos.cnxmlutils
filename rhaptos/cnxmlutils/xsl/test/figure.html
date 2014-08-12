@@ -1,13 +1,13 @@
-<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="title">Test Module</div>
+<body xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://dev.w3.org/html5/spec/#custom"><div data-type="document-title">Test Module</div>
 
   <figure>
     <p>Text</p>
   </figure>
 
-  <figure data-label="Label"><div data-type="title">Title</div><figcaption>Caption</figcaption>
+  <section data-depth="1" data-label="Label"><h1 data-type="title">Title</h1><figure><figcaption>Caption</figcaption>
     <p>Text</p>
     
-  </figure>
+  </figure></section>
 
   <figure id="id123" data-orient="vertical" data-label="foo">
     <p>Text</p>
@@ -15,10 +15,10 @@
 
 
   <p>Inside a para (make sure the title is a span, not a div):
-    <figure data-label="Label"><span data-type="title">Title</span><figcaption>Caption</figcaption>
+    <section data-depth="1" data-label="Label"><h1 data-type="title">Title</h1><figure><figcaption>Caption</figcaption>
       <p>Text</p>
       
-    </figure>
+    </figure></section>
   </p>
 
   <figure><figcaption>Figure Caption</figcaption>
