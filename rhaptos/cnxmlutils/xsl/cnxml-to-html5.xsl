@@ -33,6 +33,14 @@
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
+    <xsl:if test="c:content//c:footnote">
+      <div data-type="footnote-refs">
+        <h2>Footnotes</h2>
+        <ol>
+          <xsl:apply-templates select="//c:footnote" mode="footnote"/>
+        </ol>
+      </div>
+    </xsl:if>
     <xsl:apply-templates select="c:glossary"/>
   </body>
 </xsl:template>
@@ -605,7 +613,30 @@
 </xsl:template>
 
 <xsl:template match="c:footnote">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <a data-type="{local-name()}-number">
+    <xsl:attribute name="name">
+      <xsl:text>footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+    </xsl:attribute>
+    <xsl:attribute name="href">
+      <xsl:text>#footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+    </xsl:attribute>
+    <sup><xsl:number level="any" count="c:footnote" format="1"/></sup>
+  </a>
+</xsl:template>
+
+<xsl:template match="c:footnote" mode="footnote">
+    <li>
+      <a data-type="{local-name()}-ref">
+        <xsl:attribute name="name">
+          <xsl:text>footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+        </xsl:attribute>
+        <xsl:attribute name="href">
+          <xsl:text>#footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+        </xsl:attribute>
+        <xsl:number level="any" count="c:footnote" format="1"/>
+      </a>
+      <xsl:text> </xsl:text><xsl:apply-templates/>
+    </li>
 </xsl:template>
 
 <xsl:template match="c:sub">
