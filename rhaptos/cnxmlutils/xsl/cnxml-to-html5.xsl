@@ -117,10 +117,12 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@type
-    |@effect|@pub-type">
+<xsl:template match="@effect|@pub-type">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
+
+<!-- TODO not sure what to do with @type yet -->
+<xsl:template match="c:*/@type"/>
 
 <xsl:template match="@class">
   <xsl:copy/>
@@ -301,7 +303,7 @@
 <!-- ========================= -->
 
 <!-- Convert c:note/@type to @data-label so things like "Point of Interest" and "Tip" are visually labeled as such -->
-<xsl:template match="@type">
+<xsl:template match="c:note/@type">
   <xsl:attribute name="data-label">
     <xsl:value-of select="."/>
   </xsl:attribute>
