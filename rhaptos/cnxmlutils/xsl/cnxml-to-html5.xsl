@@ -154,6 +154,7 @@
 
 
 <xsl:template match="c:label[node()]|c:label[not(node())]">
+  <!--xsl:message>Applying label to <xsl:value-of select="../@id"/></xsl:message-->
   <xsl:attribute name="data-label"><xsl:value-of select="node()"/></xsl:attribute>
 </xsl:template>
 
@@ -173,20 +174,38 @@
   </div>
 </xsl:template>
 
+<xsl:template match="c:title">
+  <div data-type="title">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title">
+  <span data-type="title"><xsl:apply-templates select="@*|node()"/></span>
+</xsl:template>
+
 <!-- ========================= -->
 
-<xsl:template match="c:section">
+<xsl:template match="c:section[c:title]">
   <xsl:param name="depth" select="1"/>
   <section>
     <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
     <xsl:apply-templates select="@*|c:label"/>
-    <xsl:if test="c:title">
-      <xsl:element name="h{$depth}">
-        <xsl:apply-templates mode="class" select="c:title"/>
-        <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-      </xsl:element>
-    </xsl:if>
+    <xsl:element name="h{$depth}">
+      <xsl:apply-templates mode="class" select="c:title"/>
+      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+    </xsl:element>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
+      <xsl:with-param name="depth" select="$depth + 1"/>
+    </xsl:apply-templates>
+  </section>
+</xsl:template>
+
+<xsl:template match="c:section[not(c:title)]">
+  <xsl:param name="depth" select="1"/>
+  <section>
+    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+    <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
   </section>
@@ -194,31 +213,6 @@
 
 <xsl:template match="c:para">
   <p><xsl:apply-templates select="@*|node()"/></p>
-</xsl:template>
-
-<xsl:template match="c:para[c:title]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="c:label"/>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <p>
-      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
-        <xsl:with-param name="depth" select="$depth + 1"/>
-      </xsl:apply-templates>
-    </p>
-  </section>
 </xsl:template>
 
 <xsl:template match="c:example">
@@ -257,39 +251,6 @@
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="
-   c:example[c:title]
-  |c:exercise[c:title]
-  |c:problem[c:title]
-  |c:solution[c:title]
-  |c:equation[c:title]
-  |c:rule[c:title]
-  |c:statement[c:title]
-  |c:proof[c:title]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="c:label"/>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <div data-type="{local-name()}">
-      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
-        <xsl:with-param name="depth" select="$depth + 1"/>
-      </xsl:apply-templates>
-    </div>
-  </section>
-</xsl:template>
-
 <!-- ========================= -->
 <!-- Code alternatives -->
 <!-- ========================= -->
@@ -302,6 +263,7 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates select="@*|node()"/></pre>
 </xsl:template>
@@ -310,31 +272,12 @@
   <code><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
-<xsl:template match="
-   c:code[c:title]
-  |c:preformat[c:title and not(@display='inline')]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="c:label"/>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <pre>
-      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
-        <xsl:with-param name="depth" select="$depth + 1"/>
-      </xsl:apply-templates>
-    </pre>
-  </section>
+<xsl:template match="c:code[c:title]|c:preformat[c:title and not(display='inline')]">
+  <div data-type="code">
+    <xsl:apply-templates select="@id"/>
+    <xsl:apply-templates select="c:title"/>
+    <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
+  </div>
 </xsl:template>
 
 <!-- ========================= -->
@@ -355,31 +298,6 @@
   </blockquote>
 </xsl:template>
 
-<xsl:template match="c:quote[c:title and not(@display='inline')]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="c:label"/>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <blockquote>
-      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
-        <xsl:with-param name="depth" select="$depth + 1"/>
-      </xsl:apply-templates>
-    </blockquote>
-  </section>
-</xsl:template>
-
 <!-- ========================= -->
 
 <!-- Convert c:note/@type to @data-label so things like "Point of Interest" and "Tip" are visually labeled as such -->
@@ -395,29 +313,26 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:note[c:title]">
+<!-- Brittle HACK to get notes with headings to create valid CNXML -->
+<!-- Special cases for notes that get converted to sections for the editor -->
+<xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]">
   <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <div>
-      <xsl:apply-templates select="@*|node()[not(self::c:title or self::c:label)]">
+  <div data-type="{local-name()}">
+    <xsl:apply-templates select="@*|c:title|c:label"/>
+    <section>
+      <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
+      <xsl:element name="h{$depth}">
+        <xsl:apply-templates mode="class" select="c:para/c:title"/>
+        <xsl:apply-templates select="c:para/c:title/@*|c:para/c:title/node()"/>
+      </xsl:element>
+      <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
         <xsl:with-param name="depth" select="$depth + 1"/>
       </xsl:apply-templates>
-    </div>
-  </section>
+    </section>
+  </div>
 </xsl:template>
+
+<xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]/c:para/c:title"/>
 
 <!-- ========================= -->
 
@@ -453,23 +368,25 @@
 <xsl:template match="c:list/@list-type"/>
 
 <xsl:template match="c:list[c:title]">
-  <xsl:param name="depth" select="1"/>
-  <section>
+  <div data-type="{local-name()}">
     <!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
 
-    <xsl:apply-templates select="c:label"/>
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
+    <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates mode="list-mode" select=".">
-      <xsl:with-param name="depth" select="$depth + 1"/>
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
+  </div>
+</xsl:template>
 
-  </section>
+<xsl:template match="c:para//c:list[c:title]">
+  <span data-type="{local-name()}"><!-- list-id-and-class will give it the class "list" at least -->
+    <xsl:call-template name="list-id-and-class"/>
+    <xsl:apply-templates select="c:title"/>
+    <xsl:apply-templates mode="list-mode" select=".">
+      <xsl:with-param name="convert-id-and-class" select="0"/>
+    </xsl:apply-templates>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:list[not(c:title)]">
@@ -733,38 +650,13 @@
   </figcaption>
 </xsl:template>
 
-<xsl:template match="c:figure[not(c:title)]|c:subfigure[not(c:title)]">
+<xsl:template match="c:figure|c:subfigure">
   <figure>
     <xsl:apply-templates select="@*|c:label"/>
+    <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:caption"/>
-    <xsl:apply-templates select="node()[not(self::c:caption or self::c:label)]"/>
+    <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
   </figure>
-</xsl:template>
-
-<xsl:template match="c:figure[c:title]|c:subfigure[c:title]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <!-- Assign the section an id based on the selected node's id. -->
-    <xsl:if test="@id">
-      <xsl:attribute name="id">
-        <xsl:value-of select="concat(current()/@id, '-section')"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:apply-templates select="c:label"/>
-
-    <xsl:element name="h{$depth}">
-      <xsl:apply-templates mode="class" select="c:title"/>
-      <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-    </xsl:element>
-
-    <figure>
-      <xsl:apply-templates select="c:caption"/>
-      <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]">
-        <xsl:with-param name="depth" select="$depth + 1"/>
-      </xsl:apply-templates>
-    </figure>
-  </section>
 </xsl:template>
 
 <!-- ========================= -->
@@ -1265,30 +1157,6 @@
     </xsl:if>
     <xsl:apply-templates select="c:tgroup"/>
   </table>
-</xsl:template>
-
-<xsl:template match="c:table[count(c:tgroup) = 1 and c:title]">
-  <xsl:param name="depth" select="1"/>
-  <section>
-    <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
-    <xsl:apply-templates select="c:label"/>
-    <xsl:if test="c:title">
-      <xsl:element name="h{$depth}">
-        <xsl:apply-templates mode="class" select="c:title"/>
-        <xsl:apply-templates select="c:title/@*|c:title/node()"/>
-      </xsl:element>
-    </xsl:if>
-
-    <table>
-      <xsl:apply-templates select="@*"/>
-      <xsl:if test="c:caption">
-        <caption>
-          <xsl:apply-templates select="c:caption/node()"/>
-        </caption>
-      </xsl:if>
-      <xsl:apply-templates select="c:tgroup"/>
-    </table>
-  </section>
 </xsl:template>
 
 <xsl:template match="c:tgroup">
