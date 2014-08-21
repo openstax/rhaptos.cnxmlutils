@@ -29,104 +29,13 @@
     </xsl:copy>
   </xsl:template>
 
-
-<xsl:template name="build-doc-link">
-  <xsl:param name="contents" select="''"/>
-  <xsl:param name="docstring" select="''"/>
-  <xsl:param name="docid" select="''"/>
-  <xsl:param name="version" select="''"/>
-  <xsl:param name="filename" select="''"/>
-  <xsl:param name="targetid" select="''"/>
-
-<!--  <xsl:message>
-  docstring: <xsl:value-of select="$docstring" />
-  docid: <xsl:value-of select="$docid" />
-  version: <xsl:value-of select="$version" />
-  filename: <xsl:value-of select="$filename" />
-  targetid: <xsl:value-of select="$targetid" />
-  </xsl:message> -->
-
-  <xsl:choose>
-    <xsl:when test="$docstring!=''">
-      <xsl:choose>
-        <xsl:when test="contains($docstring,'#')">
-          <xsl:call-template name="build-doc-link">
-            <xsl:with-param name="targetid" select="substring-after($docstring,'#')"/>
-            <xsl:with-param name="docstring" select="substring-before($docstring,'#')"/>
-            <xsl:with-param name="contents" select="$contents"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:when test="$docid=''">
-            <xsl:choose>
-            <xsl:when test="contains($docstring,'/')">
-              <xsl:call-template name="build-doc-link">
-                <xsl:with-param name="docid" select="substring-before($docstring,'/')"/>
-                <xsl:with-param name="docstring" select="substring-after($docstring,'/')"/>
-                <xsl:with-param name="contents" select="$contents"/>
-                <xsl:with-param name="targetid" select="$targetid"/>
-              </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:call-template name="build-doc-link">
-                <xsl:with-param name="docid" select="$docstring"/>
-                <xsl:with-param name="contents" select="$contents"/>
-                <xsl:with-param name="targetid" select="$targetid"/>
-              </xsl:call-template>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:when>
-        <xsl:otherwise> <!-- have docid -->
-            <xsl:choose>
-            <xsl:when test="contains($docstring,'/')">
-              <xsl:call-template name="build-doc-link">
-                <xsl:with-param name="docid" select="$docid"/>
-                <xsl:with-param name="version" select="substring-before($docstring,'/')"/>
-                <xsl:with-param name="filename" select="substring-after($docstring,'/')"/>
-                <xsl:with-param name="contents" select="$contents"/>
-                <xsl:with-param name="targetid" select="$targetid"/>
-              </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:call-template name="build-doc-link">
-                <xsl:with-param name="docid" select="$docid"/>
-                <xsl:with-param name="version" select="$docstring"/>
-                <xsl:with-param name="contents" select="$contents"/>
-                <xsl:with-param name="targetid" select="$targetid"/>
-              </xsl:call-template>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
-    <xsl:otherwise>
-      <link>
-        <xsl:if test="$docid!=''">
-          <xsl:attribute name="document"><xsl:value-of select="$docid"/></xsl:attribute>
-        </xsl:if>
-        <xsl:if test="$version!=''">
-        <xsl:attribute name="version"><xsl:value-of select="$version"/></xsl:attribute>
-        </xsl:if>
-        <xsl:if test="$filename!=''">
-        <xsl:attribute name="resource"><xsl:value-of select="$filename"/></xsl:attribute>
-        </xsl:if>
-        <xsl:if test="$targetid!=''">
-        <xsl:attribute name="target-id"><xsl:value-of select="$targetid"/></xsl:attribute>
-        </xsl:if>
-        <xsl:apply-templates select="@id|@window|@strength"/>
-        <xsl:apply-templates select="$contents"/>
-      </link>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-
 <xsl:template match="cnxml:link">
     <xsl:choose>
       <xsl:when  test="contains(@url,'http://cnx.org/content/')">
-        <xsl:call-template name="build-doc-link">
-          <xsl:with-param name="docstring" select="substring-after(@url,'http://cnx.org/content/')"/>
-          <xsl:with-param name="contents" select="node()"/>
-        </xsl:call-template>
+          <link>
+          <xsl:attribute name="url"><xsl:value-of select="substring-after(@url,'http://cnx.org/content')"/></xsl:attribute>
+          <xsl:apply-templates select="node()|@id|@window|@strength"/>
+          </link>
       </xsl:when>
       <xsl:otherwise>
         <xsl:copy>
