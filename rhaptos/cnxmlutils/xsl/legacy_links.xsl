@@ -20,8 +20,7 @@
   extension-element-prefixes="exsl str"
 >
 
-  <xsl:output indent="yes" encoding="UTF-8" method="xml"/>
-  <xsl:strip-space elements="*"/>
+  <xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" />
   <xsl:preserve-space elements="md:abstract cnxml:code cnxml:preformat"/>
 
   <xsl:template match="node()|@*">
