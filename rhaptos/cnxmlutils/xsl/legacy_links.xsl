@@ -33,7 +33,7 @@
     <xsl:choose>
       <xsl:when  test="contains(@url,'http://cnx.org/content/')">
           <link>
-          <xsl:attribute name="url"><xsl:value-of select="substring-after(@url,'http://cnx.org/content')"/></xsl:attribute>
+          <xsl:attribute name="url"><xsl:value-of select="substring-after(@url,'http://cnx.org')"/></xsl:attribute>
           <xsl:apply-templates select="node()|@id|@window|@strength"/>
           </link>
       </xsl:when>
