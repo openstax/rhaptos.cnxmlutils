@@ -118,9 +118,18 @@
     <item>list with item</item>
   </list>...</para>
 
+  <para>...<list display="inline">
+    <item>list with item (inline)</item>
+  </list>...</para>
+
   <para>...<list>
     <title>and title</title>
     <item>and item</item>
+  </list>...</para>
+
+  <para>...<list display="inline">
+    <title>and title</title>
+    <item>and item (inline)</item>
   </list>...</para>
 
   <section><title>Default list:</title>
@@ -131,20 +140,38 @@
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list id="id1-inline" display="inline">
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>...<list id="id2">
       <title>and title</title>
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list id="id2-inline" display="inline">
+      <title>and title</title>
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>... with all attributes</para>
 
-    <para>...<list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" type="LIST-TYPE">
       <item>list with all attributes</item>
     </list>...</para>
 
-    <para>...<list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <item>list with all attributes (inline)</item>
+    </list>...</para>
+
+    <para>...<list id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
       <title>list with all attributes and title</title>
       <item>and item</item>
+    </list>...</para>
+
+    <para>...<list id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <title>list with all attributes and title</title>
+      <item>and item (inline)</item>
     </list>...</para>
 
   </section>
@@ -159,20 +186,38 @@
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list list-type="bulleted" id="id1-inline" display="inline">
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>...<list list-type="bulleted" id="id2">
       <title>and title</title>
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list list-type="bulleted" id="id2-inline" display="inline">
+      <title>and title</title>
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>... with all attributes</para>
 
-    <para>...<list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" type="LIST-TYPE">
       <item>list with all attributes</item>
     </list>...</para>
 
-    <para>...<list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list list-type="bulleted" id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <item>list with all attributes (inline)</item>
+    </list>...</para>
+
+    <para>...<list list-type="bulleted" id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
       <title>list with all attributes and title</title>
       <item>and item</item>
+    </list>...</para>
+
+    <para>...<list list-type="bulleted" id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <title>list with all attributes and title</title>
+      <item>and item (inline)</item>
     </list>...</para>
 
   </section>
@@ -186,20 +231,38 @@
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list list-type="enumerated" id="id1-inline" display="inline">
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>...<list list-type="enumerated" id="id2">
       <title>and title</title>
       <item>and item</item>
     </list>...</para>
 
+    <para>...<list list-type="enumerated" id="id2-inline" display="inline">
+      <title>and title</title>
+      <item>and item (inline)</item>
+    </list>...</para>
+
     <para>... with all attributes</para>
 
-    <para>...<list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
       <item>list with all attributes</item>
     </list>...</para>
 
-    <para>...<list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
+    <para>...<list list-type="enumerated" id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <item>list with all attributes (inline)</item>
+    </list>...</para>
+
+    <para>...<list list-type="enumerated" id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
       <title>list with all attributes and title</title>
       <item>and item</item>
+    </list>...</para>
+
+    <para>...<list list-type="enumerated" id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
+      <title>list with all attributes and title</title>
+      <item>and item (inline)</item>
     </list>...</para>
 
   </section>
@@ -209,6 +272,10 @@
 
     <para>...<list list-type="labeled-item" id="id1">
       <item><label>with a label</label> and item</item>
+    </list>...</para>
+
+    <para>...<list list-type="labeled-item" id="id1-inline" display="inline">
+      <item><label>with a label</label> and item (inline)</item>
     </list>...</para>
 
   </section>
