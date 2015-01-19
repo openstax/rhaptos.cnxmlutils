@@ -1,287 +1,537 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
   <title>Test Module</title>
-<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-</metadata>
-
-<content>
-
-  <section><title>Lists NOT in a paragraph</title>
-
-    <list>
-      <item>list with item</item>
-    </list>
-
-    <list>
-      <title>and title</title>
-      <item>and item</item>
-    </list>
-
-    <section><title>Default list:</title>
-
-      <para>with just an id attribute</para>
-
-      <list id="id1">
-        <item>and item</item>
+  <metadata
+    mdml-version='0.5'
+    xmlns:md='http://cnx.rice.edu/mdml'
+  ></metadata>
+  <content>
+    <section>
+      <title>Lists NOT in a paragraph</title>
+      <list>
+        <item>list with item</item>
       </list>
-
-      <list id="id2">
+      <list>
         <title>and title</title>
         <item>and item</item>
       </list>
-
-      <para>... with all attributes</para>
-
-      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <item>list with all attributes</item>
-      </list>
-
-      <list id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <title>list with all attributes and title</title>
-        <item>and item</item>
-      </list>
-
+      <section>
+        <title>Default list:</title>
+        <para>with just an id attribute</para>
+        <list
+          id='id1'
+        >
+          <item>and item</item>
+        </list>
+        <list
+          id='id2'
+        >
+          <title>and title</title>
+          <item>and item</item>
+        </list>
+        <para>... with all attributes</para>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          type='LIST-TYPE'
+        >
+          <item>list with all attributes</item>
+        </list>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          type='LIST-TYPE'
+        >
+          <title>list with all attributes and title</title>
+          <item>and item</item>
+        </list>
+      </section>
+      <section>
+        <title>Bulleted list:</title>
+        <para>with just an id attribute</para>
+        <list
+          id='id1'
+          list-type='bulleted'
+        >
+          <item>and item</item>
+        </list>
+        <list
+          id='id2'
+          list-type='bulleted'
+        >
+          <title>and title</title>
+          <item>and item</item>
+        </list>
+        <para>... with all attributes</para>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          list-type='bulleted'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          type='LIST-TYPE'
+        >
+          <item>list with all attributes</item>
+        </list>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          list-type='bulleted'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          type='LIST-TYPE'
+        >
+          <title>list with all attributes and title</title>
+          <item>and item</item>
+        </list>
+      </section>
+      <section>
+        <title>Enumerated list:</title>
+        <para>with just an id attribute</para>
+        <list
+          id='id1'
+          list-type='enumerated'
+        >
+          <item>and item</item>
+        </list>
+        <list
+          id='id2'
+          list-type='enumerated'
+        >
+          <title>and title</title>
+          <item>and item</item>
+        </list>
+        <para>... with all attributes</para>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          list-type='enumerated'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          start-value='3'
+          type='LIST-TYPE'
+        >
+          <item>list with all attributes</item>
+        </list>
+        <list
+          bullet-style='open-circle'
+          display='IGNORE-ME'
+          id='id3'
+          item-sep='[SEPARATOR]'
+          list-type='enumerated'
+          mark-prefix='[PREFIX]'
+          mark-suffix='[SUFFIX]'
+          number-style='lower-alpha'
+          start-value='3'
+          type='LIST-TYPE'
+        >
+          <title>list with all attributes and title</title>
+          <item>and item</item>
+        </list>
+      </section>
+      <section>
+        <title>Labeled-Item list:</title>
+        <list
+          id='id1'
+          list-type='labeled-item'
+        >
+          <item>
+            <label>with a label</label>and item
+          </item>
+        </list>
+      </section>
     </section>
-
-
-
-    <section><title>Bulleted list:</title>
-
-      <para>with just an id attribute</para>
-
-      <list list-type="bulleted" id="id1">
-        <item>and item</item>
-      </list>
-
-      <list list-type="bulleted" id="id2">
-        <title>and title</title>
-        <item>and item</item>
-      </list>
-
-      <para>... with all attributes</para>
-
-      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <item>list with all attributes</item>
-      </list>
-
-      <list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <title>list with all attributes and title</title>
-        <item>and item</item>
-      </list>
-
+    <para>---------------------------------------------------------------------------------------</para>
+    <para>---------------------------------------------------------------------------------------</para>
+    <para>---------------------------------------------------------------------------------------</para>
+    <section>
+      <title>The same tests but inside a paragraph (lists with titles should become spans instead of divs</title>
+      <para>...
+        <list>
+          <item>list with item</item>
+        </list>...
+      </para>
+      <para>...
+        <list
+          display='inline'
+        >
+          <item>list with item (inline)</item>
+        </list>...
+      </para>
+      <para>...
+        <list>
+          <title>and title</title>
+          <item>and item</item>
+        </list>...
+      </para>
+      <para>...
+        <list
+          display='inline'
+        >
+          <title>and title</title>
+          <item>and item (inline)</item>
+        </list>...
+      </para>
+      <section>
+        <title>Default list:</title>
+        <para>with just an id attribute</para>
+        <para>...
+          <list
+            id='id1'
+          >
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id1-inline'
+          >
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            id='id2'
+          >
+            <title>and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id2-inline'
+          >
+            <title>and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>... with all attributes</para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            id='id3'
+            item-sep='[SEPARATOR]'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id3-inline'
+            item-sep='[SEPARATOR]'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='block'
+            id='id4'
+            item-sep='[SEPARATOR]'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id4-inline'
+            item-sep='[SEPARATOR]'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+      </section>
+      <section>
+        <title>Bulleted list:</title>
+        <para>with just an id attribute</para>
+        <para>...
+          <list
+            id='id1'
+            list-type='bulleted'
+          >
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id1-inline'
+            list-type='bulleted'
+          >
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            id='id2'
+            list-type='bulleted'
+          >
+            <title>and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id2-inline'
+            list-type='bulleted'
+          >
+            <title>and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>... with all attributes</para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            id='id3'
+            item-sep='[SEPARATOR]'
+            list-type='bulleted'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id3-inline'
+            item-sep='[SEPARATOR]'
+            list-type='bulleted'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='block'
+            id='id4'
+            item-sep='[SEPARATOR]'
+            list-type='bulleted'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id4-inline'
+            item-sep='[SEPARATOR]'
+            list-type='bulleted'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+      </section>
+      <section>
+        <title>Enumerated list:</title>
+        <para>with just an id attribute</para>
+        <para>...
+          <list
+            id='id1'
+            list-type='enumerated'
+          >
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id1-inline'
+            list-type='enumerated'
+          >
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            id='id2'
+            list-type='enumerated'
+          >
+            <title>and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id2-inline'
+            list-type='enumerated'
+          >
+            <title>and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+        <para>... with all attributes</para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='block'
+            id='id3'
+            item-sep='[SEPARATOR]'
+            list-type='enumerated'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id3-inline'
+            item-sep='[SEPARATOR]'
+            list-type='enumerated'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <item>list with all attributes (inline)</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='block'
+            id='id4'
+            item-sep='[SEPARATOR]'
+            list-type='enumerated'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item</item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            bullet-style='open-circle'
+            display='inline'
+            id='id4-inline'
+            item-sep='[SEPARATOR]'
+            list-type='enumerated'
+            mark-prefix='[PREFIX]'
+            mark-suffix='[SUFFIX]'
+            number-style='lower-alpha'
+            start-value='3'
+            type='LIST-TYPE'
+          >
+            <title>list with all attributes and title</title>
+            <item>and item (inline)</item>
+          </list>...
+        </para>
+      </section>
+      <section>
+        <title>Labeled-Item list:</title>
+        <para>...
+          <list
+            id='id1'
+            list-type='labeled-item'
+          >
+            <item>
+              <label>with a label</label>and item
+            </item>
+          </list>...
+        </para>
+        <para>...
+          <list
+            display='inline'
+            id='id1-inline'
+            list-type='labeled-item'
+          >
+            <item>
+              <label>with a label</label>and item (inline)
+            </item>
+          </list>...
+        </para>
+      </section>
     </section>
-
-
-    <section><title>Enumerated list:</title>
-
-      <para>with just an id attribute</para>
-
-      <list list-type="enumerated" id="id1">
-        <item>and item</item>
-      </list>
-
-      <list list-type="enumerated" id="id2">
-        <title>and title</title>
-        <item>and item</item>
-      </list>
-
-      <para>... with all attributes</para>
-
-      <list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <item>list with all attributes</item>
-      </list>
-
-      <list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="IGNORE-ME" type="LIST-TYPE">
-        <title>list with all attributes and title</title>
-        <item>and item</item>
-      </list>
-
-    </section>
-
-
-    <section><title>Labeled-Item list:</title>
-
-    <list list-type="labeled-item" id="id1">
-      <item><label>with a label</label> and item</item>
-    </list>
-
-    </section>
-
-  </section>
-
-  <para>---------------------------------------------------------------------------------------</para>
-  <para>---------------------------------------------------------------------------------------</para>
-  <para>---------------------------------------------------------------------------------------</para>
-
-  <section><title>The same tests but inside a paragraph (lists with titles should become spans instead of divs</title>
-
-  <para>...<list>
-    <item>list with item</item>
-  </list>...</para>
-
-  <para>...<list display="inline">
-    <item>list with item (inline)</item>
-  </list>...</para>
-
-  <para>...<list>
-    <title>and title</title>
-    <item>and item</item>
-  </list>...</para>
-
-  <para>...<list display="inline">
-    <title>and title</title>
-    <item>and item (inline)</item>
-  </list>...</para>
-
-  <section><title>Default list:</title>
-
-    <para>with just an id attribute</para>
-
-    <para>...<list id="id1">
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list id="id1-inline" display="inline">
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>...<list id="id2">
-      <title>and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list id="id2-inline" display="inline">
-      <title>and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>... with all attributes</para>
-
-    <para>...<list id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" type="LIST-TYPE">
-      <item>list with all attributes</item>
-    </list>...</para>
-
-    <para>...<list id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <item>list with all attributes (inline)</item>
-    </list>...</para>
-
-    <para>...<list id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-  </section>
-
-
-
-  <section><title>Bulleted list:</title>
-
-    <para>with just an id attribute</para>
-
-    <para>...<list list-type="bulleted" id="id1">
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id1-inline" display="inline">
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id2">
-      <title>and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id2-inline" display="inline">
-      <title>and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>... with all attributes</para>
-
-    <para>...<list list-type="bulleted" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" type="LIST-TYPE">
-      <item>list with all attributes</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <item>list with all attributes (inline)</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="bulleted" id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-  </section>
-
-
-  <section><title>Enumerated list:</title>
-
-    <para>with just an id attribute</para>
-
-    <para>...<list list-type="enumerated" id="id1">
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id1-inline" display="inline">
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id2">
-      <title>and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id2-inline" display="inline">
-      <title>and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-    <para>... with all attributes</para>
-
-    <para>...<list list-type="enumerated" id="id3" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
-      <item>list with all attributes</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id3-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <item>list with all attributes (inline)</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id4" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="block" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="enumerated" id="id4-inline" bullet-style="open-circle" number-style="lower-alpha" start-value="3" mark-prefix="[PREFIX]" mark-suffix="[SUFFIX]" item-sep="[SEPARATOR]" display="inline" type="LIST-TYPE">
-      <title>list with all attributes and title</title>
-      <item>and item (inline)</item>
-    </list>...</para>
-
-  </section>
-
-
-  <section><title>Labeled-Item list:</title>
-
-    <para>...<list list-type="labeled-item" id="id1">
-      <item><label>with a label</label> and item</item>
-    </list>...</para>
-
-    <para>...<list list-type="labeled-item" id="id1-inline" display="inline">
-      <item><label>with a label</label> and item (inline)</item>
-    </list>...</para>
-
-  </section>
-
-
-  </section>
-
-</content>
+  </content>
 </document>

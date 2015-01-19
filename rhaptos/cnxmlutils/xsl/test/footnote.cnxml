@@ -1,24 +1,82 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" id="imported-from-openoffice" module-id="imported-from-openoffice" cnxml-version="0.7">
-  <title>Footnote test</title>
-<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-</metadata>
+<?xml version="1.0"?>
+<document
+    xmlns="http://cnx.rice.edu/cnxml"
+    xmlns:md="http://cnx.rice.edu/mdml"
+    xmlns:m="http://www.w3.org/1998/Math/MathML"
+    xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
+    id="imported-from-openoffice"
+    module-id="imported-from-openoffice"
+    cnxml-version="0.7"
+  >
+  <title
+    >Footnote test</title
+  >
+<metadata
+      xmlns:md="http://cnx.rice.edu/mdml"
+      mdml-version="0.5"
+    >
+</metadata
+  >
 
-<content>
+<content
+    >
 
-  <para> ... </para>
+  <para
+      > ... </para
+    >
 
-  <para>(observed<footnote id="eip-id1169737806114">Predicted by theory and first observed in 1983.</footnote>)</para>
+  <para
+      >(observed<footnote
+          id="eip-id1169737806114"
+        >Predicted by theory and first observed in 1983.</footnote
+      >)</para
+    >
 
-  <para>Gluons (conjectured<footnote id="eip-id1169738239687">Eight proposed&#8212;indirect evidence of existence. Underlie meson exchange.</footnote>)</para>
+  <para
+      >Gluons (conjectured<footnote
+          id="eip-id1169738239687"
+        >Eight proposed&#x2014;indirect evidence of existence. Underlie meson exchange.</footnote
+      >)</para
+    >
 
-  <para> ... </para>       
+  <para
+      > ... </para
+    >       
 
-</content>
+</content
+  >
 <!-- Ensure the glossary appears after the footnotes. -->
 <!-- Note, there aren't any //c:glossary//c:footnote entries in production. -->
-<glossary>
-  <definition id="import-auto-id1169737716876"><term>Feynman diagram</term> <meaning id="fs-id1169738208078">a graph of time versus position that describes the exchange of virtual particles between subatomic particles</meaning></definition>
-  <definition id="import-auto-id1169737813579"><term>gluons</term> <meaning id="fs-id1169738116395">exchange particles, analogous to the exchange of photons that gives rise to the electromagnetic force between two charged particles</meaning></definition>
-  <definition id="import-auto-id1169738065015"><term>quantum electrodynamics</term> <meaning id="fs-id1169737896970">the theory of electromagnetism on the particle scale</meaning></definition>
-</glossary> 
-</document>
+<glossary
+    >
+  <definition
+        id="import-auto-id1169737716876"
+      ><term
+        >Feynman diagram</term
+      > <meaning
+          id="fs-id1169738208078"
+        >a graph of time versus position that describes the exchange of virtual particles between subatomic particles</meaning
+      ></definition
+    >
+  <definition
+        id="import-auto-id1169737813579"
+      ><term
+        >gluons</term
+      > <meaning
+          id="fs-id1169738116395"
+        >exchange particles, analogous to the exchange of photons that gives rise to the electromagnetic force between two charged particles</meaning
+      ></definition
+    >
+  <definition
+        id="import-auto-id1169738065015"
+      ><term
+        >quantum electrodynamics</term
+      > <meaning
+          id="fs-id1169737896970"
+        >the theory of electromagnetism on the particle scale</meaning
+      ></definition
+    >
+</glossary
+  > 
+</document
+>

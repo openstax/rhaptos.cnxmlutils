@@ -459,6 +459,20 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         pass
 
 
+XMLPP_DIR = os.path.join(here, 'xml_utils')
+
+
+def xmlpp(input_):
+    """Pretty Print XML"""
+    proc = subprocess.Popen(['./xmlpp.pl', '-sSten'],
+                            stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            cwd=XMLPP_DIR)
+    output, _ = proc.communicate(input_)
+    return output
+
+
 class XsltprocTestCase(unittest.TestCase):
     """rhaptos/cnxmlutils/xsl/test test cases:
 
@@ -476,7 +490,7 @@ class XsltprocTestCase(unittest.TestCase):
             filename_no_ext = cnxml.rsplit('.cnxml', 1)[0]
             test_name = os.path.basename(filename_no_ext)
             with open('{}.html'.format(filename_no_ext)) as f:
-                html = f.read()
+                html = xmlpp(f.read())
 
             setattr(cls, 'test_{}'.format(test_name),
                     cls.create_test(cnxml, html))
@@ -485,6 +499,7 @@ class XsltprocTestCase(unittest.TestCase):
     def create_test(cls, cnxml, html):
         def run_test(self):
             output = subprocess.check_output(['xsltproc', self.xslt, cnxml])
+            output = xmlpp(output)
             self.assertMultiLineEqual(output, html)
         return run_test
 

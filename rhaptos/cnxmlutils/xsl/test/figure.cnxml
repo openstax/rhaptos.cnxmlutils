@@ -1,44 +1,104 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
-  <title>Test Module</title>
-<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-</metadata>
+<?xml version="1.0"?>
+<document
+    xmlns="http://cnx.rice.edu/cnxml"
+    xmlns:md="http://cnx.rice.edu/mdml/0.4"
+    xmlns:bib="http://bibtexml.sf.net/"
+    xmlns:q="http://cnx.rice.edu/qml/1.0"
+    xmlns:md1="http://cnx.rice.edu/mdml"
+    cnxml-version="0.7"
+  >
+  <title
+    >Test Module</title
+  >
+<metadata
+      xmlns:md="http://cnx.rice.edu/mdml"
+      mdml-version="0.5"
+    >
+</metadata
+  >
 
-<content>
+<content
+    >
 
-  <figure>
-    <para>Text</para>
-  </figure>
+  <figure
+      >
+    <para
+        >Text</para
+      >
+  </figure
+    >
 
-  <figure>
-    <label>Label</label>
-    <title>Title</title>
-    <para>Text</para>
-    <caption>Caption</caption>
-  </figure>
+  <figure
+      >
+    <label
+        >Label</label
+      >
+    <title
+        >Title</title
+      >
+    <para
+        >Text</para
+      >
+    <caption
+        >Caption</caption
+      >
+  </figure
+    >
 
-  <figure id="id123" orient="vertical" type="foo">
-    <para>Text</para>
-  </figure>
+  <figure
+        id="id123"
+        orient="vertical"
+        type="foo"
+      >
+    <para
+        >Text</para
+      >
+  </figure
+    >
 
 
-  <para>Inside a para (make sure the title is a span, not a div):
-    <figure>
-      <label>Label</label>
-      <title>Title</title>
-      <para>Text</para>
-      <caption>Caption</caption>
-    </figure>
-  </para>
+  <para
+      >Inside a para (make sure the title is a span, not a div):
+    <figure
+        >
+      <label
+          >Label</label
+        >
+      <title
+          >Title</title
+        >
+      <para
+          >Text</para
+        >
+      <caption
+          >Caption</caption
+        >
+    </figure
+      >
+  </para
+    >
 
-  <figure>
-    <caption>Figure Caption</caption>
+  <figure
+      >
+    <caption
+        >Figure Caption</caption
+      >
 
-    <subfigure>
-      <para>Text</para>
-      <caption>Subfigure Caption</caption>
-    </subfigure>
+    <subfigure
+        >
+      <para
+          >Text</para
+        >
+      <caption
+          >Subfigure Caption</caption
+        >
+    </subfigure
+      >
 
-  </figure>
+  </figure
+    >
 
-</content>
-</document>
+</content
+  >
+</document
+>

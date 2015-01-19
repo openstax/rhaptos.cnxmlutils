@@ -1,138 +1,216 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
-  <title>Test Module</title>
-<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-</metadata>
+<?xml version="1.0"?>
+<document
+    xmlns="http://cnx.rice.edu/cnxml"
+    xmlns:md="http://cnx.rice.edu/mdml/0.4"
+    xmlns:bib="http://bibtexml.sf.net/"
+    xmlns:q="http://cnx.rice.edu/qml/1.0"
+    xmlns:md1="http://cnx.rice.edu/mdml"
+    cnxml-version="0.7"
+  >
+  <title
+    >Test Module</title
+  >
+<metadata
+      xmlns:md="http://cnx.rice.edu/mdml"
+      mdml-version="0.5"
+    >
+</metadata
+  >
 
-<content>
+<content
+    >
 
-  <para>Audio and Video</para>
+  <para
+      >Audio and Video</para
+    >
 
-  <media id="id123" alt="alternate">
-    <audio
-      src="file.mp3"
-      mime-type="audio/mp3"
-      autoplay="true"
-      loop="true"
-      controller="true"
-      volume="0"
-      standby="true"
+  <media
+        id="id123"
+        alt="alternate"
       >
-      <param name="author" value="John Doe"/>
-    </audio>
+    <audio
+          src="file.mp3"
+          mime-type="audio/mp3"
+          autoplay="true"
+          loop="true"
+          controller="true"
+          volume="0"
+          standby="true"
+        >
+      <param
+            name="author"
+            value="John Doe"
+        />
+    </audio
+      >
 
     <video
-      src="file.mp4"
-      mime-type="video/mp4"
-      autoplay="true"
-      loop="true"
-      controller="true"
-      volume="11"
+          src="file.mp4"
+          mime-type="video/mp4"
+          autoplay="true"
+          loop="true"
+          controller="true"
+          volume="11"
+        >
+
+      <param
+            name="author"
+            value="John Doe"
+        />
+    </video
       >
 
-      <param name="author" value="John Doe"/>
-    </video>
-
-    <audio src="file.mp3" mime-type="audio/mp3" for="pdf"/>
-    <audio src="file.mp4" mime-type="video/mp4" for="pdf"/>
-  </media>
-
-  <para>Flash examples</para>
-
-  <media id="id123" alt="alternate" longdesc="url.txt">
-    <flash
-      src="file.swf"
-      mime-type="application/x-shockwave-flash"
-    />
-    <flash
-      id="id-flash"
-      src="file.swf"
-      mime-type="application/x-shockwave-flash"
-      for="online"
-      wmode="opaque"
-      quality="autolow"
-      loop="false"
-      scale="noorder"
-      bgcolor="ffff00"
-      flash-vars="var1"
-      height="100"
-      width="100"
-      longdesc="url.txt"
-      >
-      <param name="flash-name" value="flash-value"/>
-    </flash>
-  </media>
-
-  <para>Labview Examples</para>
-
-
-  <media id="id-labview" alt="alternate">
-    <labview
-      src="file.vi"
-      mime-type="application/x-labview-vi"
-      viname="the-path"
-      version="7.0"
-    />
-
-    <labview
-      src="file.vi"
-      mime-type="application/x-labview-vi"
-      viname="the-path"
-      version="7.0"
-      for="online"
-      height="100"
-      width="200"
-      longdesc="url.txt"
-      id="id-labview-1"
-    />
-  </media>
-
-  <para>Java Examples</para>
-
-  <media id="id-java-applet" alt="alternate">
-    <java-applet
-      code="org.cnx.Applet.class"
-      mime-type="application/x-java-applet"
-    />
-
-    <java-applet
-      id="id-java-applet-1"
-      code="org.cnx.Applet.class"
-      mime-type="application/x-java-applet"
-      for="online"
-      codebase="src/path"
-      archive="src.jar,more.jar"
-      name="Applet"
-      src="Applet.java"
-      height="100"
-      width="200"
-      longdesc="url.txt"
+    <audio
+          src="file.mp3"
+          mime-type="audio/mp3"
+          for="pdf"
+      />
+    <audio
+          src="file.mp4"
+          mime-type="video/mp4"
+          for="pdf"
+      />
+  </media
     >
-      <param name="param-name" value="param-value"/>
-    </java-applet>
 
-  </media>
+  <para
+      >Flash examples</para
+    >
 
-  <para>Hacky way of using Images to make a link to a jar file</para>
+  <media
+        id="id123"
+        alt="alternate"
+        longdesc="url.txt"
+      >
+    <flash
+          src="file.swf"
+          mime-type="application/x-shockwave-flash"
+      />
+    <flash
+          id="id-flash"
+          src="file.swf"
+          mime-type="application/x-shockwave-flash"
+          for="online"
+          wmode="opaque"
+          quality="autolow"
+          loop="false"
+          scale="noorder"
+          bgcolor="ffff00"
+          flash-vars="var1"
+          height="100"
+          width="100"
+          longdesc="url.txt"
+        >
+      <param
+            name="flash-name"
+            value="flash-value"
+        />
+    </flash
+      >
+  </media
+    >
 
-  <media alt="alternate">
+  <para
+      >Labview Examples</para
+    >
+
+
+  <media
+        id="id-labview"
+        alt="alternate"
+      >
+    <labview
+          src="file.vi"
+          mime-type="application/x-labview-vi"
+          viname="the-path"
+          version="7.0"
+      />
+
+    <labview
+          src="file.vi"
+          mime-type="application/x-labview-vi"
+          viname="the-path"
+          version="7.0"
+          for="online"
+          height="100"
+          width="200"
+          longdesc="url.txt"
+          id="id-labview-1"
+      />
+  </media
+    >
+
+  <para
+      >Java Examples</para
+    >
+
+  <media
+        id="id-java-applet"
+        alt="alternate"
+      >
+    <java-applet
+          code="org.cnx.Applet.class"
+          mime-type="application/x-java-applet"
+      />
+
+    <java-applet
+          id="id-java-applet-1"
+          code="org.cnx.Applet.class"
+          mime-type="application/x-java-applet"
+          for="online"
+          codebase="src/path"
+          archive="src.jar,more.jar"
+          name="Applet"
+          src="Applet.java"
+          height="100"
+          width="200"
+          longdesc="url.txt"
+        >
+      <param
+            name="param-name"
+            value="param-value"
+        />
+    </java-applet
+      >
+
+  </media
+    >
+
+  <para
+      >Hacky way of using Images to make a link to a jar file</para
+    >
+
+  <media
+        alt="alternate"
+      >
     <image
-      mime-type="image/png"
-      for="online"
-      src="equation-grapher_en.jar"
-      thumbnail="PhET_Icon.png"
-      width="450"/>
-  </media>
+          mime-type="image/png"
+          for="online"
+          src="equation-grapher_en.jar"
+          thumbnail="PhET_Icon.png"
+          width="450"
+      />
+  </media
+    >
 
-  <para>But for PDF do not do anything special</para>
+  <para
+      >But for PDF do not do anything special</para
+    >
 
-  <media alt="alternate">
+  <media
+        alt="alternate"
+      >
     <image
-      mime-type="image/png"
-      for="pdf"
-      src="equation-grapher_en.jar"
-      thumbnail="PhET_Icon.png"
-      width="450"/>
-  </media>
+          mime-type="image/png"
+          for="pdf"
+          src="equation-grapher_en.jar"
+          thumbnail="PhET_Icon.png"
+          width="450"
+      />
+  </media
+    >
 
-</content>
-</document>
+</content
+  >
+</document
+>

@@ -1,23 +1,54 @@
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" cnxml-version="0.7">
-  <title>Test Module</title>
-<metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
-</metadata>
+<?xml version="1.0"?>
+<document
+    xmlns="http://cnx.rice.edu/cnxml"
+    xmlns:md="http://cnx.rice.edu/mdml/0.4"
+    xmlns:bib="http://bibtexml.sf.net/"
+    xmlns:q="http://cnx.rice.edu/qml/1.0"
+    xmlns:md1="http://cnx.rice.edu/mdml"
+    cnxml-version="0.7"
+  >
+  <title
+    >Test Module</title
+  >
+<metadata
+      xmlns:md="http://cnx.rice.edu/mdml"
+      mdml-version="0.5"
+    >
+</metadata
+  >
 
-<content>
+<content
+    >
 
-  <list>
-    <item>
-      <label>label</label>
+  <list
+      >
+    <item
+        >
+      <label
+          >label</label
+        >
       item
-    </item>
-  </list>
+    </item
+      >
+  </list
+    >
 
-  <list>
-    <item>
-      <label>hello <emphasis>there</emphasis></label>
+  <list
+      >
+    <item
+        >
+      <label
+          >hello <emphasis
+            >there</emphasis
+          ></label
+        >
       item
-    </item>
-  </list>
+    </item
+      >
+  </list
+    >
 
-</content>
-</document>
+</content
+  >
+</document
+>
