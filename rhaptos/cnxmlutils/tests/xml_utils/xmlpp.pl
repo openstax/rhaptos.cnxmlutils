@@ -177,16 +177,16 @@ sub parseStart {
     $textContent =~ s/\s+$//; 
     printContent($textContent);
 
-    if($inAnnotation) {
-        return;
-    }
+    # if($inAnnotation) {
+    #     return;
+    # }
 
-    if($schemaHackMode and $s =~ m/(^|:)annotation$/) {
-        $inAnnotation = 1;
-        $textContent = '';
-        $lastTag = 1;
-        return;
-    }
+    # if($schemaHackMode and $s =~ m/(^|:)annotation$/) {
+    #     $inAnnotation = 1;
+    #     $textContent = '';
+    #     $lastTag = 1;
+    #     return;
+    # }
     if (length($output)) {
         $output .= "\n";
     }
@@ -270,12 +270,12 @@ sub parseStart {
 sub parseEnd {
     my $s = shift;
 
-    if($inAnnotation) {
-        if($s =~ m/(^|:)annotation$/) {
-            $inAnnotation = 0;
-        }
-        return;
-    }
+    # if($inAnnotation) {
+    #     if($s =~ m/(^|:)annotation$/) {
+    #         $inAnnotation = 0;
+    #     }
+    #     return;
+    # }
 
     if($normaliseWhiteSpace) {
         $textContent =~ s/^\s*(.*?)\s*$/$1/;
@@ -293,7 +293,7 @@ sub parseEnd {
 
 sub parseDefault {
     my $s = shift;
-    if($inAnnotation) { return }
+    # if($inAnnotation) { return }
     $textContent .= "$s";
 }
 
@@ -317,7 +317,7 @@ sub parseDoctype {
 
 sub parseComment {
     my $s = shift; 
-    if($inAnnotation) { return }
+    # if($inAnnotation) { return }
     printContent($textContent,1);
     if ($s =~ /([^\<]*)(<.*>)(.*)/ms) {
       $start = $1;
