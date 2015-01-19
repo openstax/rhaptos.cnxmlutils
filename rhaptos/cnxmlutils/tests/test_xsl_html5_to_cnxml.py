@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import glob
 import os.path
+import subprocess
 import unittest
 
 from lxml import etree
@@ -122,3 +124,56 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
         self.assertEqual(video.attrib['mime-type'], 'video/quicktime')
         self.assertEqual(video.attrib['src'],
             'http://dev.cnx.org/resources/659920df8c48f27d0f46b14c1f495dea')
+
+
+
+
+XMLPP_DIR = os.path.join(here, 'xml_utils')
+
+
+
+def xmlpp(input_):
+    """Pretty Print XML"""
+    proc = subprocess.Popen(['./xmlpp.pl', '-sSten'],
+                            stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            cwd=XMLPP_DIR)
+    output, _ = proc.communicate(input_)
+    return output
+
+
+class XsltprocTestCase(unittest.TestCase):
+    """rhaptos/cnxmlutils/xsl/test test cases:
+
+    Use xsltproc to transform *.html files with html5-to-cnxml.xsl and compare
+    with *.cnxml files
+    """
+
+    xslt = os.path.join(here, '..', 'xsl', 'html5-to-cnxml.xsl')
+    maxDiff = None
+
+    @classmethod
+    def generate_tests(cls):
+        for html_filename in glob.glob(os.path.join(here, '..', 'xsl', 'test',
+                                            '*.html')):
+            filename_no_ext = html_filename.rsplit('.html', 1)[0]
+            test_name = os.path.basename(filename_no_ext)
+            with open('{}.cnxml'.format(filename_no_ext)) as f:
+                cnxml = xmlpp(f.read())
+
+            setattr(cls, 'test_{}'.format(test_name),
+                    # FIXME html5 to cnxml is not fully implemented yet
+                    unittest.expectedFailure(
+                        cls.create_test(html_filename, cnxml)))
+
+    @classmethod
+    def create_test(cls, html, cnxml):
+        def run_test(self):
+            output = subprocess.check_output(['xsltproc', self.xslt, html])
+            output = xmlpp(output)
+            self.assertMultiLineEqual(output, cnxml)
+        return run_test
+
+
+XsltprocTestCase.generate_tests()
