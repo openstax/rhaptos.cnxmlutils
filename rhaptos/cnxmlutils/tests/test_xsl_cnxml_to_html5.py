@@ -21,7 +21,6 @@ CNXML_SHELL = """\
 """
 
 
-
 class CnxmlToHtmlTestCase(unittest.TestCase):
     # c:media/c:download cases also test general c:media transformation.
 
@@ -78,7 +77,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
 
         # Test the required attributes have been transformed: id and alt
         try:
-            elm = html.xpath("//*[@id='idm1802560']/a")[0]
+            elm = html.xpath("//*[@id='idm1802560']/h:a",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -97,7 +97,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='other-media']/a")[0]
+            elm = html.xpath("//*[@id='other-media']/h:a",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -115,7 +116,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='id1169537615277_media']/img")[0]
+            elm = html.xpath("//*[@id='id1169537615277_media']/h:img",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -131,7 +133,9 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_image_w_optional_attrs']/a")[0]
+            elm = html.xpath(
+                "//*[@id='test_media_image_w_optional_attrs']/h:a",
+                namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -139,7 +143,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
 
         # Link to the actual image
         self.assertEqual(elm.attrib['href'], 'Picture 2.jpg')
-        elm = elm.xpath('img')[0]
+        elm = elm.xpath('h:img', namespaces={'h': html.nsmap[None]})[0]
         # Optional attributes...
         self.assertEqual(elm.attrib['height'], '302')
         self.assertEqual(elm.attrib['width'], '502')
@@ -158,7 +162,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         # @for (default, pdf and online)
-        default_elm, online_elm, pdf_elm = html.xpath("//*[@id='test_media_image_for_attribute']/*")
+        default_elm, online_elm, pdf_elm = html.xpath(
+            "//*[@id='test_media_image_for_attribute']/*")
 
         # - 'default' translates to 'online'
         self.assertNotIn('data-print', default_elm.attrib)
@@ -176,7 +181,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-image.cnxml'))
         html = self.call_target(cnxml).getroot()
 
-        elm = html.xpath("//img[@id='test_media_image_alt']")[0]
+        elm = html.xpath("//h:img[@id='test_media_image_alt']",
+                         namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['alt'], "alternative text")
 
     def test_media_image_parent_alt(self):
@@ -184,7 +190,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-image.cnxml'))
         html = self.call_target(cnxml).getroot()
 
-        elm = html.xpath("//img[@id='test_media_image_parent_alt']")[0]
+        elm = html.xpath("//h:img[@id='test_media_image_parent_alt']",
+                         namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['alt'], "media alt")
 
     def test_media_flash(self):
@@ -193,7 +200,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_flash']/object")[0]
+            elm = html.xpath("//*[@id='test_media_flash']/h:object",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -204,7 +212,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['width'], '580')
 
         try:
-            embed_elm = elm.xpath("embed")[0]
+            embed_elm = elm.xpath(
+                "h:embed", namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to transform flash->object/embed tag: " \
@@ -215,7 +224,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(embed_elm.attrib['height'], '380')
         self.assertEqual(embed_elm.attrib['width'], '580')
         try:
-            param_elm = elm.xpath('param')[0]
+            param_elm = elm.xpath(
+                'h:param', namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to transform flash/param->object/param tag: " \
@@ -228,7 +238,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-flash.cnxml'))
         html = self.call_target(cnxml).getroot()
 
-        elm = html.xpath("//*[@id='test_media_flash_generic_attrs']/object")[0]
+        elm = html.xpath("//*[@id='test_media_flash_generic_attrs']/h:object",
+                         namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['id'], '123abc')
         self.assertEqual(elm.attrib['data-longdesc'], 'flash long description')
 
@@ -238,7 +249,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_param']/img")[0]
+            elm = html.xpath("//*[@id='test_media_param']/h:img",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -259,7 +271,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_audio']/audio")[0]
+            elm = html.xpath("//*[@id='test_media_audio']/h:audio",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -269,7 +282,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['id'], "mus_shost")
         self.assertEqual(elm.attrib['data-media-type'], "audio/mpeg")
         self.assertEqual(elm.attrib['controls'], 'controls')
-        elm = elm.xpath('source')[0]
+        elm = elm.xpath('h:source', namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
         self.assertEqual(elm.attrib['type'], 'audio/mpeg')
@@ -280,7 +293,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_audio_embedded']/audio")[0]
+            elm = html.xpath("//*[@id='test_media_audio_embedded']/h:audio",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -291,7 +305,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['controller'], 'true')
         self.assertEqual(elm.attrib['loop'], 'false')
         self.assertEqual(elm.attrib['autoplay'], 'autoplay')
-        elm = elm.xpath('source')[0]
+        elm = elm.xpath('h:source', namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['src'],
                          "http://music.cnx.rice.edu/Brandt/times_effect/shostakovich_quartet.mp3")
         self.assertEqual(elm.attrib['type'], 'audio/mpeg')
@@ -302,7 +316,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_video']/video")[0]
+            elm = html.xpath("//*[@id='test_media_video']/h:video",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -310,7 +325,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
                       + transformed_html)
         self.assertTrue('src' not in elm.attrib)
         self.assertEqual(elm.attrib['controls'], 'controls')
-        elm = elm.xpath('source')[0]
+        elm = elm.xpath('h:source', namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['src'],
                          "http://www.archive.org/download/CollaborativeStatistics_Lecture_Videos/CollaborativeStatistics_Chap09.mp4")
         self.assertEqual(elm.attrib['type'], 'video/mp4')
@@ -321,7 +336,9 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_video_w_optional_attrs']/video")[0]
+            elm = html.xpath(
+                "//*[@id='test_media_video_w_optional_attrs']/h:video",
+                namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -340,7 +357,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_video_youtube']/iframe")[0]
+            elm = html.xpath("//*[@id='test_media_video_youtube']/h:iframe",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -353,7 +371,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(int(elm.attrib['height']), 390)
 
         try:
-            elm = html.xpath("//*[@id='test_media_video_youtube_2']/iframe")[0]
+            elm = html.xpath("//*[@id='test_media_video_youtube_2']/h:iframe",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -371,7 +390,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_video_quicktime']/object")[0]
+            elm = html.xpath("//*[@id='test_media_video_quicktime']/h:object",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -396,7 +416,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_java_applet']/object")[0]
+            elm = html.xpath("//*[@id='test_media_java_applet']/h:object",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -405,7 +426,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['type'], 'application/x-java-applet')
         self.assertEqual(elm.attrib['height'], '200')
         self.assertEqual(elm.attrib['width'], '600')
-        elms = elm.xpath('param')
+        elms = elm.xpath('h:param', namespaces={'h': html.nsmap[None]})
         elm_code, elm_codebase, elm_archive, elm_name, elm_src = elms
         self.assertEqual(elm_code.attrib,
                          {'name': 'code', 'value': 'AliasingDemo.class'})
@@ -424,7 +445,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_object']/object")[0]
+            elm = html.xpath("//*[@id='test_media_object']/h:object",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "
@@ -435,7 +457,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         self.assertEqual(elm.attrib['width'], '400')
         self.assertEqual(elm.attrib['height'], '400')
         # And ensure param pass through.
-        elm = elm.xpath('param')[1]
+        elm = elm.xpath('h:param', namespaces={'h': html.nsmap[None]})[1]
         self.assertEqual(elm.attrib['name'], 'faux2')
         self.assertEqual(elm.attrib['value'], 'faux-value')
 
@@ -445,7 +467,8 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         html = self.call_target(cnxml).getroot()
 
         try:
-            elm = html.xpath("//*[@id='test_media_labview']/object")[0]
+            elm = html.xpath("//*[@id='test_media_labview']/h:object",
+                             namespaces={'h': html.nsmap[None]})[0]
         except IndexError:
             transformed_html = etree.tostring(html)
             self.fail("Failed to pass through media@id and/or "

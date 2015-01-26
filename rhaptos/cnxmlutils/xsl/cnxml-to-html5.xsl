@@ -1,5 +1,6 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns="http://www.w3.org/1999/xhtml"
   xmlns:c="http://cnx.rice.edu/cnxml"
   xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:mml="http://www.w3.org/1998/Math/MathML"
@@ -29,7 +30,7 @@
 </xsl:template>
 
 <xsl:template match="c:document">
-  <body>
+  <body xmlns="http://www.w3.org/1999/xhtml">
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
