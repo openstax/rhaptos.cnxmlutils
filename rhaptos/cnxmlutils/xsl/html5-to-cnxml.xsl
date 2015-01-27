@@ -343,6 +343,10 @@
   </link>
 </xsl:template>
 
+<xsl:template match="h:a[@data-type='image']">
+  <xsl:apply-templates select="node()" mode="jar-image"/>
+</xsl:template>
+
 <xsl:template match="h:a/@*[local-name()!='id']"/>
 
 <!-- ========================= -->
@@ -413,7 +417,7 @@
 
 
 <!-- ========================= -->
-<!-- Media: Partial Support    -->
+<!-- Media -->
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='media']">
@@ -422,8 +426,9 @@
   </media>
 </xsl:template>
 
-<xsl:template match="h:img">
-  <image src="{@src}" mime-type="{@data-media-type}">
+<xsl:template match="h:img/@alt|*[@data-type='image']/@alt"/>
+<xsl:template match="h:img|*[@data-type='image']">
+  <image mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
         <xsl:value-of select="substring-before(substring-after(@class, 'for-'), ' ')"/>
@@ -432,39 +437,129 @@
     <xsl:apply-templates select="@*|node()"/>
   </image>
 </xsl:template>
-<xsl:template match="h:img/@width|h:img/@height">
+<xsl:template match="h:img/@width|h:img/@height|h:img/@src|
+                     *[@data-type='image']/@width|*[@data-type='image']/@height">
   <xsl:copy/>
 </xsl:template>
+<xsl:template match="h:img" mode="jar-image">
+  <image thumbnail="{@src}" src="{../@href}">
+    <xsl:apply-templates select="@*[local-name()!='src']|node()"/>
+  </image>
+</xsl:template>
+<!-- already in image@mime-type -->
+<xsl:template match="h:img/@data-media-type|*[@data-type='image']/@data-media-type"/>
 
-<xsl:template match="h:video">
-  <video src="{h:source/@src}" mime-type="{h:source/@type}">
+<xsl:template match="h:video/@*|h:audio/@*">
+  <xsl:if test="starts-with(local-name(), 'data-')">
+    <xsl:call-template name="data-prefix"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="h:video|h:audio">
+  <xsl:element name="{name(.)}">
+    <xsl:attribute name="src"><xsl:value-of select="h:source/@src"/></xsl:attribute>
+    <xsl:attribute name="mime-type"><xsl:value-of select="h:source/@type"/></xsl:attribute>
     <xsl:if test="@muted">
       <xsl:attribute name="volume">0</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*"/>
-  </video>
+    <xsl:apply-templates select="@*|node()"/>
+    <xsl:if test="@data-author">
+      <param name="author" value="{@data-author}"/>
+    </xsl:if>
+  </xsl:element>
 </xsl:template>
-<!-- remove source tag, @src and @type should be in video tag -->
-<xsl:template match="h:video/h:source"/>
 
-<xsl:template match="h:video/@autoplay">
+<!-- remove source tag, @src and @type should be in video/audio tag -->
+<xsl:template match="h:video/h:source|h:audio/h:source"/>
+
+<xsl:template match="h:video/@autoplay|h:audio/@autoplay">
   <xsl:attribute name="autoplay">true</xsl:attribute>
 </xsl:template>
 
-<!-- embedded objects -->
-<xsl:template match="h:object">
-  <video src="{h:embed/@src}">
+<xsl:template match="h:video/@loop|h:video/@controller|h:video/@height|h:video/@width|
+                     h:audio/@loop|h:audio/@controller|h:audio/@height|h:audio/@width">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- media type is already in mime-type -->
+<xsl:template match="h:video/@data-media-type|h:audio/@data-media-type"/>
+
+<xsl:template match="h:video/@controls|h:audio/@controls"/>
+
+<!-- already added to as a param tag -->
+<xsl:template match="h:video/@data-author|h:audio/@data-author"/>
+
+<xsl:template match="*[@data-print='true']/@data-print">
+  <xsl:attribute name="for">pdf</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="*[@data-print='false']/@data-print">
+  <xsl:attribute name="for">online</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:object/h:param"/>
+
+<xsl:template match="h:object/h:param/@*">
+  <xsl:copy/>
+</xsl:template>
+<xsl:template match="h:object[not(@type='application/x-labview-vi')]/h:param">
+  <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<!-- create attributes in parent element for some of the params -->
+<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='version']|
+                     h:object[@type='application/x-java-applet']/h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']">
+  <xsl:attribute name="{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:object/@height|h:object/@width">
+  <xsl:copy/>
+</xsl:template>
+<xsl:template match="h:object">
+  <video mime-type="{@data-media-type}" src="{h:embed/@src}">
+    <xsl:apply-templates select="@*"/>
   </video>
 </xsl:template>
-<!-- copy object/@data-media-type to mime-type -->
-<xsl:template match="h:object/@data-media-type">
+<xsl:template match="h:object[@type='application/x-shockwave-flash']">
+  <flash src="{h:embed/@src}">
+    <xsl:if test="h:embed/@wmode">
+      <xsl:attribute name="wmode">
+        <xsl:value-of select="h:embed/@wmode"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*[local-name() != 'data']|h:param|node()[not(self::h:param)]"/>
+  </flash>
+</xsl:template>
+<xsl:template match="h:object[@type='application/x-labview-vi']">
+  <labview src="{@data}">
+    <xsl:apply-templates select="@*[local-name() != 'data']|h:param"/>
+  </labview>
+</xsl:template>
+<xsl:template match="h:object[@type='application/x-java-applet']">
+  <java-applet src="{h:embed/@src}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']"/>
+    <xsl:apply-templates select="h:param[not(@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src')]|node()[not(self::h:param) and not(self::h:span)]"/>
+  </java-applet>
+</xsl:template>
+<!-- copy object/@type to mime-type -->
+<xsl:template match="h:object/@type">
   <xsl:attribute name="mime-type">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
-<!-- remove embed tags, attributes copied to video tag -->
+<!-- remove embed tags, attributes copied to parent tag -->
 <xsl:template match="h:object/h:embed"/>
+
+<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='lvfppviname']">
+  <xsl:attribute name="viname">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Iframe                    -->
