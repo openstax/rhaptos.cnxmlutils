@@ -5,7 +5,7 @@
   xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:q="http://cnx.rice.edu/qml/1.0"
   xmlns:bib="http://bibtexml.sf.net/"
-  exclude-result-prefixes="c"
+  exclude-result-prefixes="h"
   >
 
 <xsl:output method="xml" omit-xml-declaration="no" indent="no" encoding="utf-8"/>
@@ -228,19 +228,17 @@
 <!-- Lists -->
 <!-- ======================================== -->
 
-<!-- <xsl:template match="ol"> -->
-<!--   <list list-type="enumerated"> -->
-<!--     <xsl:call-template name="data-prefix"/> -->
-<!--     <xsl:apply-templates select="@*|node()"/> -->
-<!--   </list> -->
-<!-- </xsl:template> -->
+<xsl:template match="h:ol">
+  <list list-type="enumerated">
+    <xsl:apply-templates select="@*|node()"/>
+  </list>
+</xsl:template>
 
-<!-- <xsl:template match="ul"> -->
-<!--   <list list-type="bulleted"> -->
-<!--     <xsl:call-template name="data-prefix"/> -->
-<!--     <xsl:apply-templates select="@*|node()"/> -->
-<!--   </list> -->
-<!-- </xsl:template> -->
+<xsl:template match="h:ul">
+  <list list-type="bulleted">
+    <xsl:apply-templates select="@*|node()"/>
+  </list>
+</xsl:template>
 
 <xsl:template match="h:li">
   <item><xsl:apply-templates select="@*|node()"/></item>
