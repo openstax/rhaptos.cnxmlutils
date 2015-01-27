@@ -21,6 +21,28 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
         target = etree.XSLT(xsl)
         return target(*args, **kwargs)
 
+    def test_abstract_unwrapped(self):
+        # The key thing here is
+        #   to dispose of the div[@data-type='abstract-wrapper']
+        html = """\
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul class="list"><li class="item">one</li><li class="item">two</li><li class="item">three</li></ul></div>"""
+        html = etree.fromstring(html)
+        cnxml = self.call_target(html)
+        cnxml = etree.tostring(cnxml)
+        expected = """\
+<wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/">A number list: <list list-type="bulleted"><item>one</item><item>two</item><item>three</item></list></wrapper>"""
+        self.assertEqual(cnxml, expected)
+
+        # And again when the unwrap would make invalid xml.
+        html = """\
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A link to an <a href="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</a>.</div>"""
+        html = etree.fromstring(html)
+        cnxml = self.call_target(html)
+        cnxml = etree.tostring(cnxml)
+        expected = """\
+<wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/">A link to an <link>interal document</link>.</wrapper>"""
+        self.assertEqual(cnxml, expected)
+
     @unittest.expectedFailure  # FIXME
     def test_media_video(self):
         html = etree.parse(os.path.join(TEST_DATA_DIR, 'media-video.html'))
