@@ -97,6 +97,13 @@
   </document>
 </xsl:template>
 
+<!-- @data-type='abstract-wrapper' is an container element that is placed on an abstract just before transformation. -->
+<!-- The 'wrapper' tag is used to contain otherwise loose content. It is removed in post-processing. -->
+<xsl:template match="*[@data-type='abstract-wrapper']">
+  <wrapper>
+    <xsl:apply-templates select="node()"/>
+  </wrapper>
+</xsl:template>
 
 
 <!-- ====== -->
