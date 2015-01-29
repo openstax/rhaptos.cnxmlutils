@@ -178,16 +178,24 @@ class XsltprocTestCase(unittest.TestCase):
     @classmethod
     def generate_tests(cls):
         for html_filename in glob.glob(os.path.join(here, '..', 'xsl', 'test',
-                                            '*.html')):
+                                                    '*.html')):
             filename_no_ext = html_filename.rsplit('.html', 1)[0]
             test_name = os.path.basename(filename_no_ext)
-            with open('{}.cnxml'.format(filename_no_ext)) as f:
+            if os.path.exists('{}.html.cnxml'.format(filename_no_ext)):
+                cnxml_filename = '{}.html.cnxml'.format(filename_no_ext)
+            else:
+                cnxml_filename = '{}.cnxml'.format(filename_no_ext)
+            with open(cnxml_filename) as f:
                 cnxml = xmlpp(f.read())
 
-            setattr(cls, 'test_{}'.format(test_name),
-                    # FIXME html5 to cnxml is not fully implemented yet
-                    unittest.expectedFailure(
-                        cls.create_test(html_filename, cnxml)))
+            if cnxml_filename.endswith('.html.cnxml'):
+                created_test = cls.create_test(html_filename, cnxml)
+            else:
+                # FIXME html5 to cnxml is not fully implemented yet
+                created_test = unittest.expectedFailure(
+                    cls.create_test(html_filename, cnxml))
+
+            setattr(cls, 'test_{}'.format(test_name), created_test)
 
     @classmethod
     def create_test(cls, html, cnxml):

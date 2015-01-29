@@ -510,6 +510,10 @@ class XsltprocTestCase(unittest.TestCase):
     def generate_tests(cls):
         for cnxml in glob.glob(os.path.join(here, '..', 'xsl', 'test',
                                             '*.cnxml')):
+            if '.html' in cnxml:
+                # it's probably a file for html5-to-cnxml transformation
+                # e.g. media.html.cnxml
+                continue
             filename_no_ext = cnxml.rsplit('.cnxml', 1)[0]
             test_name = os.path.basename(filename_no_ext)
             with open('{}.html'.format(filename_no_ext)) as f:
