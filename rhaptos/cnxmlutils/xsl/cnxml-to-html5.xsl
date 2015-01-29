@@ -1298,7 +1298,7 @@
   <xsl:variable name="nameend">
     <xsl:choose>
       <xsl:when test="$entry/@spanname and not($entry/ancestor::*[2]/c:colspec)">
-        <xsl:value-of select="$entry/ancestor::*[3]/cnx:spanspec[@spanname=$spanname]/@nameend"/>
+        <xsl:value-of select="$entry/ancestor::*[3]/c:spanspec[@spanname=$spanname]/@nameend"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="$entry/@nameend"/>
