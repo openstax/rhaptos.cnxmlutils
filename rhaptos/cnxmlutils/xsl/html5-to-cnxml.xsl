@@ -288,30 +288,14 @@
   </list>
 </xsl:template>
 
-<xsl:template match="h:li">
+<xsl:template match="h:li|*[@data-type='item']">
   <item>
     <xsl:call-template name="labeled-content"/>
   </item>
 </xsl:template>
 
-<xsl:template match="h:ol/@start">
-  <xsl:attribute name="start-value"><xsl:value-of select="."/></xsl:attribute>
-</xsl:template>
-
-<xsl:template match="h:ul/@*[local-name()!='id']|ol/@*[local-name()!='id']"/>
-<!-- <xsl:template match="@*[starts-with(local-name(), 'data-')]"> -->
-<!--   <xsl:attribute name="{substring-after(local-name(), 'data-')}"> -->
-<!--     <xsl:value-of select="."/> -->
-<!--   </xsl:attribute> -->
-<!-- </xsl:template> -->
-
-
 <xsl:template match="*[@data-type='list']">
   <list>
-    <!-- Attach any attributes on the html list element to the cnxml list tag. -->
-    <xsl:for-each select="h:ul/@*|h:ol/@*">
-      <xsl:call-template name="data-prefix"/>
-    </xsl:for-each>
     <!-- Specifiy the list-type based on the html list element. -->
     <xsl:choose>
       <xsl:when test="h:ol">
@@ -322,8 +306,67 @@
       </xsl:when>
     </xsl:choose>
 
-    <xsl:apply-templates select="@*|node()"/>
+    <!-- Attach any attributes on the html list element to the cnxml list tag. -->
+    <xsl:apply-templates select="@*"/>
+    <!-- do something with the attributes of my child list
+         (this happens when it's a list with title)
+         <div data-type='list' id='id4'>
+           <div data-type='title'>
+             list with all attributes and title
+           </div>
+           <div data-type='list'>
+             <div data-type='item'>and item</div>
+           </div>
+         </div> -->
+    <xsl:apply-templates select="*[@data-type='list']/@*|h:ul/@*|h:ol/@*"/>
+    <!-- finally go through all the nodes -->
+    <xsl:apply-templates select="node()"/>
   </list>
+</xsl:template>
+
+<xsl:template match="*[@data-type='list' and
+                       preceding-sibling::*/@data-type='title' and
+                       parent::*/@data-type='list']/@*">
+  <xsl:apply-templates select="."/>
+</xsl:template>
+
+<xsl:template match="h:ul/@*|h:ol/@*|*[@data-type='list']/@*">
+  <xsl:if test="starts-with(local-name(), 'data-')">
+    <xsl:call-template name="data-prefix"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="h:ol/@start|*[@data-type='list']/@start">
+  <xsl:attribute name="start-value">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:ul/@id|
+                     h:ol/@id|
+                     *[@data-type='list']/@id">
+  <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="h:ul/@data-labeled-item|
+                     h:ol/@data-labeled-item|
+                     *[@data-type='list']/@data-labeled-item">
+  <xsl:attribute name="list-type">labeled-item</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:ul/@data-element-type|
+                     h:ol/@data-element-type|
+                     *[@data-type='list']/@data-element-type">
+  <xsl:attribute name="type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
+<!-- no need to copy data-type as it's already in the tag name -->
+<xsl:template match="*[@data-type='list']/@data-type"/>
+
+<xsl:template match="*[@data-type='list' and preceding-sibling::*/@data-type='title' and parent::*/@data-type='list']">
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <xsl:template match="*[@data-type='list']/h:ul|*[@data-type='list']/h:ol">
