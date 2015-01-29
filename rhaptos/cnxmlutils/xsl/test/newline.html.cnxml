@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Module</title>
+  <content>
+    <newline></newline>
+    <newline
+      effect='normal'
+    ></newline>
+    <newline
+      effect='underline'
+    ></newline>
+    <newline
+      id='id123'
+    ></newline>
+    <newline
+      count='3'
+    ></newline>
+    <newline
+      effect='underline'
+      id='id456'
+    ></newline>
+    <newline
+      count='3'
+      effect='underline'
+    ></newline>
+    <newline
+      count='3'
+      effect='underline'
+      id='id789'
+    ></newline>
+    <para>
+      <newline></newline>
+    </para>
+    <list
+      list-type='bulleted'
+    >
+      <item>
+        <newline></newline>
+        <newline
+          effect='underline'
+        ></newline>
+      </item>
+    </list>
+    <para>
+      <space></space>
+      <space
+        effect='normal'
+      ></space>
+      <space
+        effect='underline'
+      ></space>
+      <space
+        id='id123'
+      ></space>
+      <space
+        count='3'
+      ></space>
+      <space
+        effect='underline'
+        id='id456'
+      ></space>
+      <space
+        count='3'
+        effect='underline'
+      ></space>
+      <space
+        count='3'
+        effect='underline'
+        id='id789'
+      ></space>
+    </para>
+    <para>The following is not implemented yet</para>
+    <para>
+      <para
+        class='not-converted-yet'
+      >NOT_CONVERTED_YET: div</para>
+      <div
+        xmlns='http://www.w3.org/1999/xhtml'
+      >NOT_CONVERTED_YET: newline</div>
+      <para
+        class='not-converted-yet'
+      >NOT_CONVERTED_YET: newline</para>
+      <newline
+        effect='underline'
+      ></newline>
+    </para>
+    <list
+      list-type='bulleted'
+    >
+      <para
+        class='not-converted-yet'
+      >NOT_CONVERTED_YET: div</para>
+      <div
+        xmlns='http://www.w3.org/1999/xhtml'
+      >NOT_CONVERTED_YET: newline</div>
+      <para
+        class='not-converted-yet'
+      >NOT_CONVERTED_YET: newline</para>
+      <newline></newline>
+    </list>
+  </content>
+</document>

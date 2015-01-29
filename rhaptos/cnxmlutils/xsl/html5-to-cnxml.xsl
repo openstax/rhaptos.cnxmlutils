@@ -273,6 +273,32 @@
 
 
 <!-- ======================================== -->
+<!-- Newlines & Spaces -->
+<!-- ======================================== -->
+
+<xsl:template match="*[@data-type='newline']">
+  <newline>
+    <xsl:apply-templates select="@*"/>
+  </newline>
+</xsl:template>
+
+<xsl:template match="*[@data-type='newline']/@*|*[@data-type='space']/@*">
+  <xsl:if test="local-name()='data-effect' or local-name()='data-count'">
+    <xsl:call-template name="data-prefix"/>
+  </xsl:if>
+  <xsl:if test="local-name()='id'">
+    <xsl:copy/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="*[@data-type='space']">
+  <space>
+    <xsl:apply-templates select="@*"/>
+  </space>
+</xsl:template>
+
+
+<!-- ======================================== -->
 <!-- Lists -->
 <!-- ======================================== -->
 
