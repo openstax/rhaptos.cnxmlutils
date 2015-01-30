@@ -40,7 +40,7 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)
         expected = """\
-<wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/">A link to an <link>interal document</link>.</wrapper>"""
+<wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/">A link to an <link url="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</link>.</wrapper>"""
         self.assertEqual(cnxml, expected)
 
     def test_media_video(self):

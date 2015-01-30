@@ -331,18 +331,15 @@
   <sup><xsl:apply-templates select="@*|node()"/></sup>
 </xsl:template>
 
-<!-- ========================= -->
-<!-- Links: encode in @data-*  -->
-<!-- ========================= -->
-
-<xsl:template match="h:a[@href and starts-with(@href, 'http')]">
-  <link url="{@href}"><xsl:apply-templates select="@id|node()"/></link>
-</xsl:template>
+<!-- ======================================== -->
+<!-- Link -->
+<!-- All link data is treated the same way. All @href values are transformed to @url. -->
+<!-- We post-process the @url value during the reference resolution procedure. -->
+<!-- ======================================== -->
 
 <xsl:template match="h:a[@href]">
-  <link>
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="@id|node()"/>
+  <link url="{@href}">
+    <xsl:apply-templates select="@*|node()"/>
   </link>
 </xsl:template>
 
