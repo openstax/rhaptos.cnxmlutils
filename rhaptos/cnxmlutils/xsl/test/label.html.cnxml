@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Module</title>
+  <content>
+    <list
+      list-type='bulleted'
+    >
+      <item>
+        <label>label</label>item
+      </item>
+    </list>
+    <list
+      list-type='bulleted'
+    >
+      <item>
+        <label>hello there</label>item
+      </item>
+    </list>
+  </content>
+</document>
