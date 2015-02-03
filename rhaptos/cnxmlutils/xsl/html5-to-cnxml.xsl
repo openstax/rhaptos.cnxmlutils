@@ -799,6 +799,9 @@
   </definition>
 </xsl:template>
 
+<!-- Ignore the definition label -->
+<xsl:template match="*[@data-type='definition']/*[@data-type='label' and text()='Definition:']"/>
+
 <xsl:template match="*[@data-type='meaning']">
   <meaning>
     <xsl:apply-templates select="@*|node()"/>
