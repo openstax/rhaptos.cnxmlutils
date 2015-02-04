@@ -33,13 +33,6 @@
 
 
 
-<!-- <xsl:template match="@*|node()"> -->
-  <!-- Match any attribute or node and copy it. -->
-<!--   <xsl:copy> -->
-<!--     <xsl:apply-templates select="@*|node()"/> -->
-<!--   </xsl:copy> -->
-<!-- </xsl:template> -->
-
 <!-- ======================================== -->
 <!-- Global Attribute Handlers -->
 <!-- ======================================== -->
@@ -54,9 +47,12 @@
 <!-- Ignore document-title, it is handled explicitly. -->
 <xsl:template match="/h:body/*[@data-type='document-title']"/>
 
-<!-- <xsl:template match="@data-label"> -->
-<!--   <label><xsl:value-of select="."/></label> -->
-<!-- </xsl:template> -->
+<xsl:template match="@data-label" mode="labeled">
+  <!-- FIXME labels can have child elements. However, the cnxml->html doesn't address this either. -->
+  <label><xsl:value-of select="."/></label>
+</xsl:template>
+<!-- drop label from the attribute list -->
+<xsl:template match="@data-label"/>
 
 <xsl:template name="data-prefix">
   <!-- Places data-{name} attributes on parent tag as name without the 'data-' prefix. -->
@@ -106,6 +102,20 @@
 </xsl:template>
 
 
+<!-- ======================================== -->
+<!-- Callables -->
+<!-- ======================================== -->
+
+<xsl:template name="labeled-content">
+  <!-- Essentially does the same as:  <xsl:apply-templates select="@*|node()"/> -->
+  <!-- ... Except it interjects the label after calls to the the other attributes have been made. -->
+  <!-- If not called in this order, the created element will prevent the other attributes from applying themselves to the parent element. -->
+  <xsl:apply-templates select="@*"/>
+  <xsl:apply-templates select="@data-label" mode="labeled"/>
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+
 <!-- ====== -->
 <!-- MathML -->
 <!-- ====== -->
@@ -135,6 +145,7 @@
   <section>
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="*[self::h:h1 or self::h:h2 or self::h:h3 or self::h:h4 or self::h:h5 or self::h:h6]/@id"/>
+    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:apply-templates select="node()"/>
   </section>
 </xsl:template>
@@ -149,59 +160,87 @@
 </xsl:template>
 
 <xsl:template match="*[@data-type='example']">
-  <example><xsl:apply-templates select="@*|node()"/></example>
+  <example>
+    <xsl:call-template name="labeled-content"/>
+  </example>
 </xsl:template>
 
 <xsl:template match="*[@data-type='exercise']">
-  <exercise><xsl:apply-templates select="@*|node()"/></exercise>
+  <exercise>
+    <xsl:call-template name="labeled-content"/>
+  </exercise>
 </xsl:template>
 
 <xsl:template match="*[@data-type='problem']">
-  <problem><xsl:apply-templates select="@*|node()"/></problem>
+  <problem>
+    <xsl:call-template name="labeled-content"/>
+  </problem>
 </xsl:template>
 
 <xsl:template match="*[@data-type='solution']">
-  <solution><xsl:apply-templates select="@*|node()"/></solution>
+  <solution>
+    <xsl:call-template name="labeled-content"/>
+  </solution>
 </xsl:template>
 
 <xsl:template match="*[@data-type='proof']">
-  <proof><xsl:apply-templates select="@*|node()"/></proof>
+  <proof>
+    <xsl:call-template name="labeled-content"/>
+  </proof>
 </xsl:template>
 
 <xsl:template match="*[@data-type='statement']">
-  <statement><xsl:apply-templates select="@*|node()"/></statement>
+  <statement>
+    <xsl:call-template name="labeled-content"/>
+  </statement>
 </xsl:template>
 
 <xsl:template match="*[@data-type='commentary']">
-  <commentary><xsl:apply-templates select="@*|node()"/></commentary>
+  <commentary>
+    <xsl:call-template name="labeled-content"/>
+</commentary>
 </xsl:template>
 
 <xsl:template match="*[@data-type='equation']">
-  <equation><xsl:apply-templates select="@*|node()"/></equation>
+  <equation>
+    <xsl:call-template name="labeled-content"/>
+  </equation>
 </xsl:template>
 
 <xsl:template match="*[@data-type='rule']">
-  <rule><xsl:apply-templates select="@*|node()"/></rule>
+  <rule>
+    <xsl:call-template name="labeled-content"/>
+  </rule>
 </xsl:template>
 
 <xsl:template match="h:q">
-  <quote><xsl:apply-templates select="@*|node()"/></quote>
+  <quote>
+    <xsl:call-template name="labeled-content"/>
+  </quote>
 </xsl:template>
 
 <xsl:template match="h:blockquote">
-  <quote><xsl:apply-templates select="@*|node()"/></quote>
+  <quote>
+    <xsl:call-template name="labeled-content"/>
+  </quote>
 </xsl:template>
 
 <xsl:template match="h:code">
-  <code><xsl:apply-templates select="@*|node()"/></code>
+  <code>
+    <xsl:call-template name="labeled-content"/>
+  </code>
 </xsl:template>
 
 <xsl:template match="h:pre">
-  <code><xsl:apply-templates select="@*|node()"/></code>
+  <code>
+    <xsl:call-template name="labeled-content"/>
+  </code>
 </xsl:template>
 
 <xsl:template match="*[@data-type='code']">
-  <code><xsl:apply-templates select="@*|node()"/></code>
+  <code>
+    <xsl:call-template name="labeled-content"/>
+  </code>
 </xsl:template>
 
 <xsl:template match="*[@data-type='code']/h:pre">
@@ -213,7 +252,9 @@
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='note']">
-  <note><xsl:apply-templates select="@*|node()"/></note>
+  <note>
+    <xsl:call-template name="labeled-content"/>
+  </note>
 </xsl:template>
 
 <!-- Brittle HACK to get notes with headings to create valid CNXML -->
@@ -237,18 +278,20 @@
 
 <xsl:template match="h:ol">
   <list list-type="enumerated">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="labeled-content"/>
   </list>
 </xsl:template>
 
 <xsl:template match="h:ul">
   <list list-type="bulleted">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="labeled-content"/>
   </list>
 </xsl:template>
 
 <xsl:template match="h:li">
-  <item><xsl:apply-templates select="@*|node()"/></item>
+  <item>
+    <xsl:call-template name="labeled-content"/>
+  </item>
 </xsl:template>
 
 <xsl:template match="h:ol/@start">
@@ -367,6 +410,7 @@
 
 <xsl:template name="figure-body">
   <xsl:apply-templates select="@*"/>
+  <xsl:apply-templates select="@data-label" mode="labeled"/>
   <!-- pull the title out of the caption -->
   <xsl:apply-templates select="node()[not(self::h:figcaption)]"/>
   <!-- only generate the caption tag if there is something other than the title in it -->
@@ -388,6 +432,7 @@
 <xsl:template match="h:table">
   <table summary="{@summary}">
     <!-- Akin to figure captions -->
+    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:apply-templates select="h:caption/*[@data-type='title']"/>
     <xsl:if test="h:caption/node()[not(self::*[@data-type='title'])]">
       <caption>
@@ -577,7 +622,7 @@
 
 <xsl:template match="*[@data-type='definition']">
   <definition>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="labeled-content"/>
   </definition>
 </xsl:template>
 
@@ -589,7 +634,7 @@
 
 <xsl:template match="*[@data-type='seealso']">
   <seealso>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="labeled-content"/>
   </seealso>
 </xsl:template>
 
