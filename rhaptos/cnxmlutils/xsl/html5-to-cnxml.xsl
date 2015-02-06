@@ -722,4 +722,18 @@
   </seealso>
 </xsl:template>
 
+<!-- ========================= -->
+<!-- MathML -->
+<!-- ========================= -->
+
+<xsl:template match="m:*">
+  <xsl:element name="m:{name()}">
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="m:*/@*">
+  <xsl:copy/>
+</xsl:template>
+
 </xsl:stylesheet>
