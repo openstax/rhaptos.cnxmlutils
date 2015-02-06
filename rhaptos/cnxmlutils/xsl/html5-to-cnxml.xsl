@@ -1,49 +1,119 @@
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:c="http://cnx.rice.edu/cnxml"
+  xmlns="http://cnx.rice.edu/cnxml"
+  xmlns:h="http://www.w3.org/1999/xhtml"
   xmlns:m="http://www.w3.org/1998/Math/MathML"
-  xmlns:qml="http://cnx.rice.edu/qml/1.0"
-  xmlns:mod="http://cnx.rice.edu/#moduleIds"
+  xmlns:q="http://cnx.rice.edu/qml/1.0"
   xmlns:bib="http://bibtexml.sf.net/"
-  exclude-result-prefixes="c"
+  exclude-result-prefixes="h"
   >
 
-<xsl:template match="@*|node()">
+<xsl:output method="xml" omit-xml-declaration="no" indent="no" encoding="utf-8"/>
+
+
+<!-- DEBUG catchalls -->
+<xsl:template match="@*" priority="-1000">
+    <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/@<xsl:value-of select="local-name()"/></xsl:message>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
+
+<xsl:template match="*" priority="-1">
+  <xsl:message>TODO: <xsl:value-of select="local-name(.)"/></xsl:message>
+  <para class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(.)"/></para>
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<!-- /DEBUG -->
+
+
+
+
+
+
+<!-- <xsl:template match="@*|node()"> -->
+  <!-- Match any attribute or node and copy it. -->
+<!--   <xsl:copy> -->
+<!--     <xsl:apply-templates select="@*|node()"/> -->
+<!--   </xsl:copy> -->
+<!-- </xsl:template> -->
+
+<!-- ======================================== -->
+<!-- Global Attribute Handlers -->
+<!-- ======================================== -->
 
 <xsl:template match="@id">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
+  <xsl:copy/>
 </xsl:template>
 
-<!-- TODO: Don't ignore @class -->
+<!-- FIXME: Don't ignore @class -->
 <xsl:template match="@class"/>
 
-<!-- Ignore title, it is handled explicitly below. -->
-<xsl:template match="/body/*[@data-type='title']" />
+<!-- Ignore document-title, it is handled explicitly. -->
+<xsl:template match="/h:body/*[@data-type='document-title']"/>
+
+<!-- <xsl:template match="@data-label"> -->
+<!--   <label><xsl:value-of select="."/></label> -->
+<!-- </xsl:template> -->
+
+<xsl:template name="data-prefix">
+  <!-- Places data-{name} attributes on parent tag as name without the 'data-' prefix. -->
+  <xsl:param name="name" select="local-name()"/>
+  <xsl:param name="value" select="."/>
+  <xsl:attribute name="{substring-after($name, 'data-')}">
+    <xsl:value-of select="$value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="@*[starts-with(local-name(), 'data-') and (local-name() != 'data-label')]">
+  <xsl:if test="local-name() != 'data-type'">
+    <xsl:attribute name="{substring-after(local-name(), 'data-')}">
+      <xsl:value-of select="."/>
+    </xsl:attribute>
+  </xsl:if>
+</xsl:template>
+
+
+<!-- ======================================== -->
+<!-- Document -->
+<!-- Main document handler, everything outside of body is (or should be) ignored by this template -->
+<!-- ======================================== -->
+
+<xsl:template match="h:body">
+  <document xmlns="http://cnx.rice.edu/cnxml"
+            xmlns:md="http://cnx.rice.edu/mdml/0.4"
+            xmlns:md1='http://cnx.rice.edu/mdml'
+            xmlns:bib="http://bibtexml.sf.net/"
+            xmlns:m="http://www.w3.org/1998/Math/MathML"
+            xmlns:q="http://cnx.rice.edu/qml/1.0"
+            cnxml-version="0.7">
+    <!-- Unable to utilize @module-id or @id because this information is not in the html. -->
+    <title>
+      <xsl:apply-templates select="*[@data-type='document-title']/text()" />
+    </title>
+    <content><xsl:apply-templates select="@*|node()"/></content>
+  </document>
+</xsl:template>
+
+<!-- @data-type='abstract-wrapper' is an container element that is placed on an abstract just before transformation. -->
+<!-- The 'wrapper' tag is used to contain otherwise loose content. It is removed in post-processing. -->
+<xsl:template match="*[@data-type='abstract-wrapper']">
+  <wrapper>
+    <xsl:apply-templates select="node()"/>
+  </wrapper>
+</xsl:template>
+
+
+<!-- ====== -->
+<!-- MathML -->
+<!-- ====== -->
 
 <xsl:template match="m:*/@class">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
-</xsl:template>
-
-<xsl:template match="body">
-  <c:document xmlns="http://cnx.rice.edu/cnxml"
-              xmlns:md="http://cnx.rice.edu/mdml"
-              xmlns:bib="http://bibtexml.sf.net/"
-              xmlns:m="http://www.w3.org/1998/Math/MathML"
-              xmlns:q="http://cnx.rice.edu/qml/1.0"
-              cnxml-version="0.7" module-id="new" id="_root">
-      <c:title>
-        <xsl:apply-templates select="*[@data-type='title']/text()" />
-      </c:title>
-      <c:content><xsl:apply-templates select="@*|node()"/></c:content>
-  </c:document>
 </xsl:template>
 
 
@@ -53,76 +123,88 @@
 <xsl:template match="@data-type"/>
 
 <xsl:template match="*[@data-type='title']">
-  <c:title><xsl:apply-templates select="@*|node()"/></c:title>
+  <title><xsl:apply-templates select="@*|node()"/></title>
 </xsl:template>
 
 <!-- ========================= -->
 
-<xsl:template match="section/@data-depth"/>
+<xsl:template match="h:section/@data-depth"/>
 
 
-<xsl:template match="section">
-  <c:section>
+<xsl:template match="h:section">
+  <section>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]/@id"/>
+    <xsl:apply-templates select="*[self::h:h1 or self::h:h2 or self::h:h3 or self::h:h4 or self::h:h5 or self::h:h6]/@id"/>
     <xsl:apply-templates select="node()"/>
-  </c:section>
+  </section>
 </xsl:template>
 
-<xsl:template match="section/*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]">
-  <c:title><xsl:apply-templates select="@*[not(local-name()='id')]|node()"/></c:title>
+<xsl:template match="h:section/*[self::h:h1 or self::h:h2 or self::h:h3 or self::h:h4 or self::h:h5 or self::h:h6]">
+  <title><xsl:apply-templates select="@*[not(local-name()='id')]|node()"/></title>
 </xsl:template>
 
 
-<xsl:template match="p">
-  <c:para><xsl:apply-templates select="@*|node()"/></c:para>
+<xsl:template match="h:p">
+  <para><xsl:apply-templates select="@*|node()"/></para>
 </xsl:template>
 
 <xsl:template match="*[@data-type='example']">
-  <c:example><xsl:apply-templates select="@*|node()"/></c:example>
+  <example><xsl:apply-templates select="@*|node()"/></example>
 </xsl:template>
 
 <xsl:template match="*[@data-type='exercise']">
-  <c:exercise><xsl:apply-templates select="@*|node()"/></c:exercise>
+  <exercise><xsl:apply-templates select="@*|node()"/></exercise>
 </xsl:template>
 
 <xsl:template match="*[@data-type='problem']">
-  <c:problem><xsl:apply-templates select="@*|node()"/></c:problem>
+  <problem><xsl:apply-templates select="@*|node()"/></problem>
 </xsl:template>
 
 <xsl:template match="*[@data-type='solution']">
-  <c:solution><xsl:apply-templates select="@*|node()"/></c:solution>
+  <solution><xsl:apply-templates select="@*|node()"/></solution>
+</xsl:template>
+
+<xsl:template match="*[@data-type='proof']">
+  <proof><xsl:apply-templates select="@*|node()"/></proof>
+</xsl:template>
+
+<xsl:template match="*[@data-type='statement']">
+  <statement><xsl:apply-templates select="@*|node()"/></statement>
 </xsl:template>
 
 <xsl:template match="*[@data-type='commentary']">
-  <c:commentary><xsl:apply-templates select="@*|node()"/></c:commentary>
+  <commentary><xsl:apply-templates select="@*|node()"/></commentary>
 </xsl:template>
 
 <xsl:template match="*[@data-type='equation']">
-  <c:equation><xsl:apply-templates select="@*|node()"/></c:equation>
+  <equation><xsl:apply-templates select="@*|node()"/></equation>
 </xsl:template>
 
 <xsl:template match="*[@data-type='rule']">
-  <c:rule><xsl:apply-templates select="@*|node()"/></c:rule>
+  <rule><xsl:apply-templates select="@*|node()"/></rule>
 </xsl:template>
 
-<xsl:template match="q">
-  <c:quote><xsl:apply-templates select="@*|node()"/></c:quote>
+<xsl:template match="h:q">
+  <quote><xsl:apply-templates select="@*|node()"/></quote>
 </xsl:template>
 
-<xsl:template match="code">
-  <c:code><xsl:apply-templates select="@*|node()"/></c:code>
+<xsl:template match="h:blockquote">
+  <quote><xsl:apply-templates select="@*|node()"/></quote>
 </xsl:template>
 
-<xsl:template match="pre">
-  <c:code><xsl:apply-templates select="@*|node()"/></c:code>
+<xsl:template match="h:code">
+  <code><xsl:apply-templates select="@*|node()"/></code>
+</xsl:template>
+
+<xsl:template match="h:pre">
+  <code><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <xsl:template match="*[@data-type='code']">
-  <c:code><xsl:apply-templates select="@*|node()"/></c:code>
+  <code><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
-<xsl:template match="*[@data-type='code']/pre">
+<xsl:template match="*[@data-type='code']/h:pre">
   <!-- unwrap the pre tag in the div -->
   <xsl:apply-templates select="node()"/>
 </xsl:template>
@@ -131,161 +213,171 @@
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='note']">
-  <c:note><xsl:apply-templates select="@*|node()"/></c:note>
+  <note><xsl:apply-templates select="@*|node()"/></note>
 </xsl:template>
 
 <!-- Brittle HACK to get notes with headings to create valid CNXML -->
 <!-- Use "2" because the 1st child is a title -->
-<xsl:template match="*[@data-type='note']//section[*[2][self::p]]">
+<xsl:template match="*[@data-type='note']//h:section[*[2][self::h:p]]">
   <xsl:apply-templates select="node()[not(self::*[@data-type='title'])]"/>
 </xsl:template>
 
-<xsl:template match="*[@data-type='note']//section/*[2][self::p]">
-  <c:para>
+<xsl:template match="*[@data-type='note']//h:section/*[2][self::h:p]">
+  <para>
     <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="../@*|../*[@data-type='title']"/>
     <xsl:apply-templates select="node()"/>
-  </c:para>
+  </para>
 </xsl:template>
 
-<!-- ========================= -->
 
-<xsl:template match="ol">
-  <c:list list-type="enumerated">
+<!-- ======================================== -->
+<!-- Lists -->
+<!-- ======================================== -->
+
+<xsl:template match="h:ol">
+  <list list-type="enumerated">
     <xsl:apply-templates select="@*|node()"/>
-  </c:list>
+  </list>
 </xsl:template>
 
-<xsl:template match="ul">
-  <c:list><xsl:apply-templates select="@*|node()"/></c:list>
+<xsl:template match="h:ul">
+  <list list-type="bulleted">
+    <xsl:apply-templates select="@*|node()"/>
+  </list>
 </xsl:template>
 
-<xsl:template match="li">
-  <c:item><xsl:apply-templates select="@*|node()"/></c:item>
+<xsl:template match="h:li">
+  <item><xsl:apply-templates select="@*|node()"/></item>
 </xsl:template>
 
-<xsl:template match="ol/@start">
+<xsl:template match="h:ol/@start">
   <xsl:attribute name="start-value"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
-<xsl:template match="ul/@*[local-name()!='id']|ol/@*[local-name()!='id']"/>
-<xsl:template match="@*[starts-with(local-name(), 'data-')]">
-  <xsl:attribute name="{substring-after(local-name(), 'data-')}">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
+<xsl:template match="h:ul/@*[local-name()!='id']|ol/@*[local-name()!='id']"/>
+<!-- <xsl:template match="@*[starts-with(local-name(), 'data-')]"> -->
+<!--   <xsl:attribute name="{substring-after(local-name(), 'data-')}"> -->
+<!--     <xsl:value-of select="."/> -->
+<!--   </xsl:attribute> -->
+<!-- </xsl:template> -->
 
 
 <xsl:template match="*[@data-type='list']">
-  <c:list>
-    <xsl:if test="ol">
-      <xsl:attribute name="list-type">enumerated</xsl:attribute>
-    </xsl:if>
+  <list>
+    <!-- Attach any attributes on the html list element to the cnxml list tag. -->
+    <xsl:for-each select="h:ul/@*|h:ol/@*">
+      <xsl:call-template name="data-prefix"/>
+    </xsl:for-each>
+    <!-- Specifiy the list-type based on the html list element. -->
+    <xsl:choose>
+      <xsl:when test="h:ol">
+        <xsl:attribute name="list-type">enumerated</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="h:ul">
+        <xsl:attribute name="list-type">bulleted</xsl:attribute>
+      </xsl:when>
+    </xsl:choose>
+
     <xsl:apply-templates select="@*|node()"/>
-  </c:list>
+  </list>
 </xsl:template>
 
-<xsl:template match="*[@data-type='list']/ul|*[@data-type='list']/ol">
+<xsl:template match="*[@data-type='list']/h:ul|*[@data-type='list']/h:ol">
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<!-- ========================= -->
+<!-- ======================================== -->
 
-<xsl:template match="strong|b">
-  <c:emphasis><xsl:apply-templates select="@*|node()"/></c:emphasis>
+<xsl:template match="h:strong|h:b">
+  <emphasis><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
-<xsl:template match="em|i">
-  <c:emphasis effect="italics"><xsl:apply-templates select="@*|node()"/></c:emphasis>
+<xsl:template match="h:em|h:i">
+  <emphasis effect="italics"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
-<xsl:template match="u">
-  <c:emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></c:emphasis>
+<xsl:template match="h:u">
+  <emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
 <xsl:template match="*[@data-type='smallcaps']">
-  <c:emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></c:emphasis>
+  <emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
 <xsl:template match="*[@data-type='normal']">
-  <c:emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></c:emphasis>
+  <emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='term']">
-  <c:term><xsl:apply-templates select="@*|node()"/></c:term>
+  <term><xsl:apply-templates select="@*|node()"/></term>
 </xsl:template>
 
 <xsl:template match="*[@data-type='foreign']">
-  <c:foreign><xsl:apply-templates select="@*|node()"/></c:foreign>
+  <foreign><xsl:apply-templates select="@*|node()"/></foreign>
 </xsl:template>
 
 <xsl:template match="*[@data-type='footnote']">
-  <c:footnote><xsl:apply-templates select="@*|node()"/></c:footnote>
+  <footnote><xsl:apply-templates select="@*|node()"/></footnote>
 </xsl:template>
 
-<xsl:template match="sub">
-  <c:sub><xsl:apply-templates select="@*|node()"/></c:sub>
+<xsl:template match="h:sub">
+  <sub><xsl:apply-templates select="@*|node()"/></sub>
 </xsl:template>
 
-<xsl:template match="sup">
-  <c:sup><xsl:apply-templates select="@*|node()"/></c:sup>
+<xsl:template match="h:sup">
+  <sup><xsl:apply-templates select="@*|node()"/></sup>
 </xsl:template>
 
-<!-- ========================= -->
-<!-- Links: encode in @data-*  -->
-<!-- ========================= -->
+<!-- ======================================== -->
+<!-- Link -->
+<!-- All link data is treated the same way. All @href values are transformed to @url. -->
+<!-- We post-process the @url value during the reference resolution procedure. -->
+<!-- ======================================== -->
 
-<xsl:template match="a[@href and starts-with(@href, 'http')]">
-  <c:link url="{@href}"><xsl:apply-templates select="@id|node()"/></c:link>
+<xsl:template match="h:a[@href]">
+  <link url="{@href}">
+    <xsl:apply-templates select="@*|node()"/>
+  </link>
 </xsl:template>
 
-<xsl:template match="a[@href]">
-  <c:link>
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="@id|node()"/>
-  </c:link>
+<xsl:template match="h:a[@data-type='image']">
+  <xsl:apply-templates select="node()" mode="jar-image"/>
 </xsl:template>
 
-<xsl:template match="a/@*[local-name()!='id']"/>
-<xsl:template match="@*[starts-with(local-name(), 'data-')]">
-  <xsl:if test="local-name() != 'data-type'">
-    <xsl:attribute name="{substring-after(local-name(), 'data-')}">
-      <xsl:value-of select="."/>
-    </xsl:attribute>
-  </xsl:if>
-</xsl:template>
+<xsl:template match="h:a/@*[local-name()!='id']"/>
 
 <!-- ========================= -->
 <!-- Figures and subfigures    -->
 <!-- ========================= -->
 
 <!-- A subfigure -->
-<xsl:template match="figure//figure">
-  <c:subfigure>
+<xsl:template match="h:figure//h:figure">
+  <subfigure>
     <xsl:call-template name="figure-body"/>
-  </c:subfigure>
+  </subfigure>
 </xsl:template>
-<xsl:template match="figure">
-  <c:figure>
+<xsl:template match="h:figure">
+  <figure>
     <xsl:call-template name="figure-body"/>
-  </c:figure>
+  </figure>
 </xsl:template>
 
 <xsl:template name="figure-body">
   <xsl:apply-templates select="@*"/>
   <!-- pull the title out of the caption -->
-  <xsl:apply-templates select="node()[not(self::figcaption)]"/>
+  <xsl:apply-templates select="node()[not(self::h:figcaption)]"/>
   <!-- only generate the caption tag if there is something other than the title in it -->
   <!-- According to the spec, the caption must come at the end of a figure -->
-  <xsl:apply-templates select="figcaption"/>
+  <xsl:apply-templates select="h:figcaption"/>
 </xsl:template>
 
-<xsl:template match="figcaption">
-  <c:caption>
+<xsl:template match="h:figcaption">
+  <caption>
     <xsl:apply-templates select="@*|node()"/>
-  </c:caption>
+  </caption>
 </xsl:template>
 
 
@@ -293,99 +385,190 @@
 <!-- Tables: partial support   -->
 <!-- ========================= -->
 
-<xsl:template match="table">
-  <c:table summary="{@summary}">
+<xsl:template match="h:table">
+  <table summary="{@summary}">
     <!-- Akin to figure captions -->
-    <xsl:apply-templates select="caption/*[@data-type='title']"/>
-    <xsl:if test="caption/node()[not(self::*[@data-type='title'])]">
-      <c:caption>
-        <xsl:apply-templates select="caption/node()[not(self::*[@data-type='title'])]"/>
-      </c:caption>
+    <xsl:apply-templates select="h:caption/*[@data-type='title']"/>
+    <xsl:if test="h:caption/node()[not(self::*[@data-type='title'])]">
+      <caption>
+        <xsl:apply-templates select="h:caption/node()[not(self::*[@data-type='title'])]"/>
+      </caption>
     </xsl:if>
 
-    <c:tgroup>
-      <xsl:apply-templates select="node()[not(self::caption)]"/>
-    </c:tgroup>
-  </c:table>
+    <tgroup>
+      <xsl:apply-templates select="node()[not(self::h:caption)]"/>
+    </tgroup>
+  </table>
 </xsl:template>
 
-<xsl:template match="thead|tbody|tfoot">
-  <xsl:element name="c:{local-name()}">
+<xsl:template match="h:thead|h:tbody|h:tfoot">
+  <xsl:element name="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="tr">
-  <c:row><xsl:apply-templates select="@*|node()"/></c:row>
+<xsl:template match="h:tr">
+  <row><xsl:apply-templates select="@*|node()"/></row>
 </xsl:template>
 
-<xsl:template match="td">
-  <c:entry><xsl:apply-templates select="@*|node()"/></c:entry>
+<xsl:template match="h:td">
+  <entry><xsl:apply-templates select="@*|node()"/></entry>
 </xsl:template>
 
 
 <!-- ========================= -->
-<!-- Media: Partial Support    -->
+<!-- Media -->
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='media']">
-  <c:media>
+  <media>
     <xsl:apply-templates select="@*|node()"/>
-  </c:media>
+  </media>
 </xsl:template>
 
-<xsl:template match="img">
-  <c:image src="{@src}" mime-type="{@data-media-type}">
+<xsl:template match="h:img/@alt|*[@data-type='image']/@alt"/>
+<xsl:template match="h:img|*[@data-type='image']">
+  <image mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
         <xsl:value-of select="substring-before(substring-after(@class, 'for-'), ' ')"/>
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
-  </c:image>
+  </image>
 </xsl:template>
-<xsl:template match="img/@width|img/@height">
+<xsl:template match="h:img/@width|h:img/@height|h:img/@src|
+                     *[@data-type='image']/@width|*[@data-type='image']/@height">
   <xsl:copy/>
 </xsl:template>
+<xsl:template match="h:img" mode="jar-image">
+  <image thumbnail="{@src}" src="{../@href}">
+    <xsl:apply-templates select="@*[local-name()!='src']|node()"/>
+  </image>
+</xsl:template>
+<!-- already in image@mime-type -->
+<xsl:template match="h:img/@data-media-type|*[@data-type='image']/@data-media-type"/>
 
-<xsl:template match="video">
-  <c:video src="{source/@src}" mime-type="{source/@type}">
+<xsl:template match="h:video/@*|h:audio/@*">
+  <xsl:if test="starts-with(local-name(), 'data-')">
+    <xsl:call-template name="data-prefix"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="h:video|h:audio">
+  <xsl:element name="{name(.)}">
+    <xsl:attribute name="src"><xsl:value-of select="h:source/@src"/></xsl:attribute>
+    <xsl:attribute name="mime-type"><xsl:value-of select="h:source/@type"/></xsl:attribute>
     <xsl:if test="@muted">
       <xsl:attribute name="volume">0</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*"/>
-  </c:video>
+    <xsl:apply-templates select="@*|node()"/>
+    <xsl:if test="@data-author">
+      <param name="author" value="{@data-author}"/>
+    </xsl:if>
+  </xsl:element>
 </xsl:template>
-<!-- remove source tag, @src and @type should be in video tag -->
-<xsl:template match="video/source"/>
 
-<xsl:template match="video/@autoplay">
+<!-- remove source tag, @src and @type should be in video/audio tag -->
+<xsl:template match="h:video/h:source|h:audio/h:source"/>
+
+<xsl:template match="h:video/@autoplay|h:audio/@autoplay">
   <xsl:attribute name="autoplay">true</xsl:attribute>
 </xsl:template>
 
-<!-- embedded objects -->
-<xsl:template match="object">
-  <c:video src="{embed/@src}">
-    <xsl:apply-templates select="@*|node()"/>
-  </c:video>
+<xsl:template match="h:video/@loop|h:video/@controller|h:video/@height|h:video/@width|
+                     h:audio/@loop|h:audio/@controller|h:audio/@height|h:audio/@width">
+  <xsl:copy/>
 </xsl:template>
-<!-- copy object/@data-media-type to mime-type -->
-<xsl:template match="object/@data-media-type">
+
+<!-- media type is already in mime-type -->
+<xsl:template match="h:video/@data-media-type|h:audio/@data-media-type"/>
+
+<xsl:template match="h:video/@controls|h:audio/@controls"/>
+
+<!-- already added to as a param tag -->
+<xsl:template match="h:video/@data-author|h:audio/@data-author"/>
+
+<xsl:template match="*[@data-print='true']/@data-print">
+  <xsl:attribute name="for">pdf</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="*[@data-print='false']/@data-print">
+  <xsl:attribute name="for">online</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:object/h:param"/>
+
+<xsl:template match="h:object/h:param/@*">
+  <xsl:copy/>
+</xsl:template>
+<xsl:template match="h:object[not(@type='application/x-labview-vi')]/h:param">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<!-- create attributes in parent element for some of the params -->
+<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='version']|
+                     h:object[@type='application/x-java-applet']/h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']">
+  <xsl:attribute name="{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="h:object/@height|h:object/@width">
+  <xsl:copy/>
+</xsl:template>
+<xsl:template match="h:object">
+  <video mime-type="{@data-media-type}" src="{h:embed/@src}">
+    <xsl:apply-templates select="@*"/>
+  </video>
+</xsl:template>
+<xsl:template match="h:object[@type='application/x-shockwave-flash']">
+  <flash src="{h:embed/@src}">
+    <xsl:if test="h:embed/@wmode">
+      <xsl:attribute name="wmode">
+        <xsl:value-of select="h:embed/@wmode"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*[local-name() != 'data']|h:param|node()[not(self::h:param)]"/>
+  </flash>
+</xsl:template>
+<xsl:template match="h:object[@type='application/x-labview-vi']">
+  <labview src="{@data}">
+    <xsl:apply-templates select="@*[local-name() != 'data']|h:param"/>
+  </labview>
+</xsl:template>
+<xsl:template match="h:object[@type='application/x-java-applet']">
+  <java-applet src="{h:embed/@src}">
+    <xsl:apply-templates select="@*"/>
+    <xsl:apply-templates select="h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']"/>
+    <xsl:apply-templates select="h:param[not(@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src')]|node()[not(self::h:param) and not(self::h:span)]"/>
+  </java-applet>
+</xsl:template>
+<!-- copy object/@type to mime-type -->
+<xsl:template match="h:object/@type">
   <xsl:attribute name="mime-type">
     <xsl:value-of select="."/>
   </xsl:attribute>
 </xsl:template>
-<!-- remove embed tags, attributes copied to video tag -->
-<xsl:template match="object/embed"/>
+<!-- remove embed tags, attributes copied to parent tag -->
+<xsl:template match="h:object/h:embed"/>
+
+<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='lvfppviname']">
+  <xsl:attribute name="viname">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Iframe                    -->
 <!-- ========================= -->
 
-<xsl:template match="iframe">
-  <c:iframe>
+<xsl:template match="h:iframe">
+  <iframe>
     <xsl:apply-templates select="@*|node()"/>
-  </c:iframe>
+  </iframe>
 </xsl:template>
 
 <!-- ========================= -->
@@ -393,21 +576,21 @@
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='definition']">
-  <c:definition>
+  <definition>
     <xsl:apply-templates select="@*|node()"/>
-  </c:definition>
+  </definition>
 </xsl:template>
 
 <xsl:template match="*[@data-type='meaning']">
-  <c:meaning>
+  <meaning>
     <xsl:apply-templates select="@*|node()"/>
-  </c:meaning>
+  </meaning>
 </xsl:template>
 
 <xsl:template match="*[@data-type='seealso']">
-  <c:seealso>
+  <seealso>
     <xsl:apply-templates select="@*|node()"/>
-  </c:seealso>
+  </seealso>
 </xsl:template>
 
 </xsl:stylesheet>
