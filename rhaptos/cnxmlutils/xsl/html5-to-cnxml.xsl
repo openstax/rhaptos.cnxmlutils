@@ -227,22 +227,25 @@
   </quote>
 </xsl:template>
 
-<xsl:template match="h:code">
-  <code>
-    <xsl:call-template name="labeled-content"/>
-  </code>
-</xsl:template>
-
-<xsl:template match="h:pre">
-  <code>
-    <xsl:call-template name="labeled-content"/>
-  </code>
+<xsl:template match="h:code|h:pre">
+  <code><xsl:call-template name="labeled-content"/></code>
 </xsl:template>
 
 <xsl:template match="*[@data-type='code']">
   <code>
-    <xsl:call-template name="labeled-content"/>
+    <xsl:apply-templates select="@*|h:pre/@*"/>
+    <xsl:apply-templates select="h:pre/@data-label" mode="labeled"/>
+    <xsl:apply-templates select="node()"/>
   </code>
+</xsl:template>
+
+<!-- don't copy whitespace only text node in <div data-type="code"> -->
+<xsl:template match="*[@data-type='code']/text()[normalize-space()='']"/>
+
+<xsl:template match="*[@data-type='code']/h:pre/@*">
+  <xsl:if test="starts-with(local-name(), 'data-') and local-name()!='data-label'">
+    <xsl:call-template name="data-prefix"/>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="*[@data-type='code']/h:pre">
