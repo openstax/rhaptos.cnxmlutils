@@ -103,6 +103,9 @@
   </wrapper>
 </xsl:template>
 
+<!-- abstract should not be in content, it's already in the database -->
+<xsl:template match="*[@data-type='abstract']"/>
+
 
 <!-- ======================================== -->
 <!-- Callables -->
