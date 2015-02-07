@@ -308,6 +308,10 @@
   <xsl:attribute name="data-label">
     <xsl:value-of select="."/>
   </xsl:attribute>
+  <!-- also store it as a separate attribute so we can transform back from html to cnxml -->
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:note">
