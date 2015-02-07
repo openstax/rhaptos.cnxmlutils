@@ -42,7 +42,7 @@
 </xsl:template>
 
 <xsl:template match="@class"/>
-<xsl:template match="h:a/@class">
+<xsl:template match="h:a/@class|*[@data-type='note']/@class">
   <xsl:copy/>
 </xsl:template>
 
@@ -258,8 +258,19 @@
 
 <xsl:template match="*[@data-type='note']">
   <note>
-    <xsl:call-template name="labeled-content"/>
+    <xsl:apply-templates select="@*[not(local-name()='data-label')]"/>
+    <xsl:apply-templates select="@data-label|node()"/>
   </note>
+</xsl:template>
+
+<xsl:template match="*[@data-type='note']/@data-element-type">
+  <xsl:attribute name="type"><xsl:value-of select="."/></xsl:attribute>
+</xsl:template>
+
+<xsl:template match="*[@data-type='note']/@data-label">
+  <xsl:if test="not(. = ../@data-element-type)">
+    <xsl:apply-templates select="." mode="labeled"/>
+  </xsl:if>
 </xsl:template>
 
 <!-- Brittle HACK to get notes with headings to create valid CNXML -->
