@@ -548,20 +548,53 @@
 <!-- ========================= -->
 
 <xsl:template match="h:table">
-  <table summary="{@summary}">
+  <table>
     <!-- Akin to figure captions -->
     <xsl:apply-templates select="@data-label" mode="labeled"/>
-    <xsl:apply-templates select="h:caption/*[@data-type='title']"/>
-    <xsl:if test="h:caption/node()[not(self::*[@data-type='title'])]">
+    <xsl:apply-templates select="h:caption/*[@data-type='title']|@*"/>
+    <xsl:if test="h:caption/node()[not(self::*[@data-type='title']) and not(normalize-space()='')]">
       <caption>
         <xsl:apply-templates select="h:caption/node()[not(self::*[@data-type='title'])]"/>
       </caption>
     </xsl:if>
 
-    <tgroup>
+    <!-- calculate maximum number of columns -->
+    <xsl:variable name="cols">
+      <xsl:for-each select="child::*/h:tr">
+        <xsl:sort select="count(h:th) + count(h:td)" data-type="number" order="descending"/>
+        <xsl:if test="position() = 1">
+          <xsl:value-of select="count(h:th) + count(h:td)"/>
+        </xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+
+    <tgroup cols="{$cols}">
+      <xsl:call-template name="colspec">
+        <xsl:with-param name="colspec.cols" select="$cols"/>
+      </xsl:call-template>
       <xsl:apply-templates select="node()[not(self::h:caption)]"/>
     </tgroup>
   </table>
+</xsl:template>
+
+<!-- generate colspec
+     arguments: colspec.cols - number of colspec to create
+     generate <colspec colname="c{$column.number}"/> -->
+<xsl:template name="colspec">
+  <xsl:param name="colspec.cols"/>
+  <xsl:param name="colspec.current" select="1"/>
+
+  <xsl:if test="$colspec.current &lt;= $colspec.cols">
+    <colspec colname="c{$colspec.current}"/>
+    <xsl:call-template name="colspec">
+      <xsl:with-param name="colspec.cols" select="$colspec.cols"/>
+      <xsl:with-param name="colspec.current" select="$colspec.current + 1"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="h:table/@summary">
+  <xsl:copy/>
 </xsl:template>
 
 <xsl:template match="h:thead|h:tbody|h:tfoot">
@@ -574,8 +607,30 @@
   <row><xsl:apply-templates select="@*|node()"/></row>
 </xsl:template>
 
-<xsl:template match="h:td">
+<xsl:template match="h:td|h:th">
   <entry><xsl:apply-templates select="@*|node()"/></entry>
+</xsl:template>
+
+<xsl:template match="h:td/@rowspan|h:th/@rowspan">
+  <xsl:attribute name="morerows">
+    <xsl:value-of select=". - 1"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="calculate-namest">
+  <xsl:value-of select="sum(../preceding-sibling::*/@colspan) + count(../preceding-sibling::*[not(@colspan)])"/>
+</xsl:template>
+
+<xsl:template match="h:td/@colspan|h:th/@colspan">
+  <xsl:variable name="namest">
+    <xsl:call-template name="calculate-namest"/>
+  </xsl:variable>
+  <xsl:attribute name="namest">
+    <xsl:text>c</xsl:text><xsl:value-of select="$namest + 1"/>
+  </xsl:attribute>
+  <xsl:attribute name="nameend">
+    <xsl:text>c</xsl:text><xsl:value-of select="$namest + ."/>
+  </xsl:attribute>
 </xsl:template>
 
 

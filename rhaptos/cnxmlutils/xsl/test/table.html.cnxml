@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title></title>
+  <content>
+    <section
+      id='section-1'
+    >
+      <table
+        id='report_card'
+        summary="The first column             lists each course. Each row in the second column             delineates a semester. The corresponding row in            the third column shows that semester's grade.              The footer tallies the student's average."
+      >
+        <title>Report card</title>
+        <tgroup
+          cols='3'
+        >
+          <colspec
+            colname='c1'
+          ></colspec>
+          <colspec
+            colname='c2'
+          ></colspec>
+          <colspec
+            colname='c3'
+          ></colspec>
+          <thead>
+            <row>
+              <entry>Course</entry>
+              <entry>Semester</entry>
+              <entry>Grade</entry>
+            </row>
+          </thead>
+          <tfoot>
+            <row>
+              <entry
+                nameend='c2'
+                namest='c1'
+              >Average:</entry>
+              <entry>85.5%</entry>
+            </row>
+          </tfoot>
+          <tbody>
+            <row>
+              <entry
+                morerows='1'
+              >Biology</entry>
+              <entry>1</entry>
+              <entry>86%</entry>
+            </row>
+            <row>
+              <entry>2</entry>
+              <entry>91%</entry>
+            </row>
+            <row>
+              <entry
+                morerows='1'
+              >English</entry>
+              <entry>1</entry>
+              <entry>87%</entry>
+            </row>
+            <row>
+              <entry>2</entry>
+              <entry>78%</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </content>
+</document>
