@@ -91,7 +91,12 @@
     <title>
       <xsl:apply-templates select="*[@data-type='document-title']/text()" />
     </title>
-    <content><xsl:apply-templates select="@*|node()"/></content>
+    <content><xsl:apply-templates select="@*|node()[not(@data-type='glossary')]"/></content>
+    <xsl:if test="*[@data-type='glossary']">
+      <glossary>
+        <xsl:apply-templates select="*[@data-type='glossary']/@*|*[@data-type='glossary']/node()"/>
+      </glossary>
+    </xsl:if>
   </document>
 </xsl:template>
 
@@ -798,8 +803,11 @@
 </xsl:template>
 
 <!-- ========================= -->
-<!-- Glossary: Partial Support -->
+<!-- Glossary -->
 <!-- ========================= -->
+
+<!-- A header is placed on the glossary during cnxml->html5. -->
+<xsl:template match="*[@data-type='glossary-title']"/>
 
 <xsl:template match="*[@data-type='definition']">
   <definition>
