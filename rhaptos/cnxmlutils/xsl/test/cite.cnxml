@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<document
+    xmlns="http://cnx.rice.edu/cnxml">
+  <title>Test Module</title>
+  <content>
+    <para
+      id="cite-example-1"
+    >
+      <cite>
+        <cite-title>A Tale of Two Cities</cite-title>
+        by Charles Dickens
+      </cite>
+      is a classic novel.
+    </para>
+    <para
+      id="cite-example-2"
+    >This article was taken from
+      <cite
+        window="new"
+        url="http://www.cnn.com"
+      >CNN.com
+      </cite>.
+    </para>
+  </content>
+</document>

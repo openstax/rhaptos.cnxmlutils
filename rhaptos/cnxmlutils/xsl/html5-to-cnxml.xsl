@@ -277,6 +277,22 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<xsl:template match="h:cite/@*">
+  <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="h:cite">
+  <cite>
+    <xsl:apply-templates select="@*|node()"/>
+  </cite>
+</xsl:template>
+
+<xsl:template match="*[@data-type='cite-title']">
+  <cite-title>
+    <xsl:apply-templates select="@*|node()"/>
+  </cite-title>
+</xsl:template>
+
 
 <!-- ========================= -->
 
