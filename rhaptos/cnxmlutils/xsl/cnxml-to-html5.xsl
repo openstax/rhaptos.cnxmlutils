@@ -222,7 +222,7 @@
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type">
+<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type|c:section/@type">
   <xsl:attribute name="data-element-type">
     <xsl:value-of select="."/>
   </xsl:attribute>
