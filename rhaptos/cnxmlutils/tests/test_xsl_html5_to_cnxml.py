@@ -188,14 +188,8 @@ class XsltprocTestCase(unittest.TestCase):
             with open(cnxml_filename) as f:
                 cnxml = xmlpp(f.read())
 
-            if cnxml_filename.endswith('.html.cnxml'):
-                created_test = cls.create_test(html_filename, cnxml)
-            else:
-                # FIXME html5 to cnxml is not fully implemented yet
-                created_test = unittest.expectedFailure(
+            setattr(cls, 'test_{}'.format(test_name),
                     cls.create_test(html_filename, cnxml))
-
-            setattr(cls, 'test_{}'.format(test_name), created_test)
 
     @classmethod
     def create_test(cls, html, cnxml):
