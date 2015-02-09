@@ -91,7 +91,9 @@
     <title>
       <xsl:apply-templates select="*[@data-type='document-title']/text()" />
     </title>
-    <content><xsl:apply-templates select="@*|node()[not(@data-type='glossary')]"/></content>
+    <content>
+      <xsl:apply-templates select="@*|node()[not(@data-type='glossary' or @data-type='footnote-refs')]"/>
+    </content>
     <xsl:if test="*[@data-type='glossary']">
       <glossary>
         <xsl:apply-templates select="*[@data-type='glossary']/@*|*[@data-type='glossary']/node()"/>
@@ -459,10 +461,6 @@
   <foreign><xsl:apply-templates select="@*|node()"/></foreign>
 </xsl:template>
 
-<xsl:template match="*[@data-type='footnote']">
-  <footnote><xsl:apply-templates select="@*|node()"/></footnote>
-</xsl:template>
-
 <xsl:template match="h:sub">
   <sub><xsl:apply-templates select="@*|node()"/></sub>
 </xsl:template>
@@ -486,7 +484,7 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
-<xsl:template match="h:a[@href]">
+<xsl:template match="h:a[@href and not(@data-type='footnote-number')]">
   <xsl:variable name="tag_name">
     <xsl:choose>
       <xsl:when test="@data-to-term='true'">term</xsl:when>
@@ -829,6 +827,34 @@
     <xsl:call-template name="labeled-content"/>
   </seealso>
 </xsl:template>
+
+<!-- ========================= -->
+<!-- Footnote -->
+<!-- This works by pulling the footnotes content out of the footnote section to place it inside the content. -->
+<!-- ========================= -->
+
+<xsl:template name="get-footnote">
+  <xsl:param name="name"/>
+  <xsl:apply-templates select="//h:li[h:a[@data-type='footnote-ref' and @name=$name]]" mode="footnote"/>
+</xsl:template>
+
+<xsl:template match="h:li" mode="footnote">
+  <xsl:apply-templates select="h:a" mode="footnote"/>
+  <xsl:apply-templates select="node()[not(@data-type='footnote-ref')]"/>
+</xsl:template>
+<xsl:template match="h:a[@data-type='footnote-ref']" mode="footnote"/>
+
+<xsl:template match="*[@data-type='footnote-number']">
+  <footnote>
+    <xsl:call-template name="get-footnote">
+      <xsl:with-param name="name" select="substring(@href, 2)"/>
+    </xsl:call-template>
+  </footnote>
+</xsl:template>
+<!-- A header is placed on the footnotes section during cnxml->html5. -->
+<xsl:template match="*[@data-type='footnote-title']"/>
+
+<xsl:template match="*[@date-type='footnote-refs']"/>
 
 <!-- ========================= -->
 <!-- MathML -->

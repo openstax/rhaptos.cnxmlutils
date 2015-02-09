@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Footnote test</title>
+  <content>
+    <para>...</para>
+    <para>(observed
+      <footnote>Predicted by theory and first observed in 1983.</footnote>)
+    </para>
+    <para>Gluons (conjectured
+      <footnote>Eight proposed—indirect evidence of existence. Underlie meson exchange.</footnote>)
+    </para>
+    <para>...</para>
+  </content>
+  <glossary>
+    <definition
+      id='import-auto-id1169737716876'
+    >
+      <term>Feynman diagram</term>
+      <meaning
+        id='fs-id1169738208078'
+      >a graph of time versus position that describes the exchange of virtual particles between subatomic particles</meaning>
+    </definition>
+    <definition
+      id='import-auto-id1169737813579'
+    >
+      <term>gluons</term>
+      <meaning
+        id='fs-id1169738116395'
+      >exchange particles, analogous to the exchange of photons that gives rise to the electromagnetic force between two charged particles</meaning>
+    </definition>
+    <definition
+      id='import-auto-id1169738065015'
+    >
+      <term>quantum electrodynamics</term>
+      <meaning
+        id='fs-id1169737896970'
+      >the theory of electromagnetism on the particle scale</meaning>
+    </definition>
+  </glossary>
+</document>
