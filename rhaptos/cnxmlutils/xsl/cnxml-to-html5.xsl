@@ -222,6 +222,12 @@
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
+<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type">
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:exercise">
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
@@ -308,6 +314,10 @@
   <xsl:attribute name="data-label">
     <xsl:value-of select="."/>
   </xsl:attribute>
+  <!-- also store it as a separate attribute so we can transform back from html to cnxml -->
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:note">
@@ -369,6 +379,15 @@
 
 <!-- Discard these attributes because they are converted in some other way or deprecated -->
 <xsl:template match="c:list/@list-type"/>
+
+<!-- Give this attribute (type of list, a user-defined value that reflects the
+     purpose of the list) a different name because @data-type is already used
+     for storing the cnxml tag name -->
+<xsl:template match="c:list/@type">
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
 
 <xsl:template match="c:list[c:title]">
   <div data-type="{local-name()}">

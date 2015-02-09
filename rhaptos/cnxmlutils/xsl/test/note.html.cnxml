@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Module</title>
+  <content>
+    <note
+      id='id123'
+    >Body</note>
+    <note
+      class='custom'
+      id='id456'
+    >Body</note>
+    <note
+      type='Point of Interest'
+    >Body</note>
+    <note
+      type='Tip'
+    >Body</note>
+    <note>
+      <label>Custom Label</label>Body
+    </note>
+    <note
+      id='id789'
+    >
+      <label>Custom Label</label>
+      <title>Custom Title</title>
+      <para
+        id='id1234'
+      >
+        <title>Para Title</title>Para Text
+      </para>
+    </note>
+  </content>
+</document>
