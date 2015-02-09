@@ -36,7 +36,7 @@
     <xsl:apply-templates select="c:content"/>
     <xsl:if test="c:content//c:footnote">
       <div data-type="footnote-refs">
-        <h2>Footnotes</h2>
+        <h2 data-type="footnote-title">Footnotes</h2>
         <ol>
           <xsl:apply-templates select="//c:footnote" mode="footnote"/>
         </ol>
@@ -1062,7 +1062,7 @@
 
 <xsl:template match="c:glossary">
   <div data-type="{local-name()}">
-    <h2>Glossary</h2>
+    <h2 data-type="glossary-title">Glossary</h2>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
