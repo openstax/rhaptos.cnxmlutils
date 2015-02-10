@@ -174,6 +174,11 @@
   </xsl:attribute>
 </xsl:template>
 
+<xsl:template match="*[@data-type='exercise']/@data-print-placement|
+                     *[@data-type='solution']/@data-print-placement">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <xsl:template match="*[@data-type='exercise']">
   <exercise>
     <xsl:call-template name="labeled-content"/>

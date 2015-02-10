@@ -228,6 +228,10 @@
   </xsl:attribute>
 </xsl:template>
 
+<xsl:template match="c:exercise/@print-placement|c:solution/@print-placement">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <xsl:template match="c:exercise">
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>

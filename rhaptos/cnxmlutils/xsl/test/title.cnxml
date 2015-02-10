@@ -476,6 +476,7 @@ __enable_interrupt();
     <!-- m42219 // 030347e9-f128-486f-a779-019ac474ff90 -->
     <exercise
         id="exercise-test"
+        print-placement="here"
         type="check-understanding"
       >
       <label
@@ -518,6 +519,7 @@ __enable_interrupt();
       <solution
           id="solution-test"
           class="solutions"
+          print-placement="here"
         >
         <label
         />

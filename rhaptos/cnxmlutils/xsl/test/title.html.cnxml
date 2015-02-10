@@ -281,6 +281,7 @@ __enable_interrupt();
     </example>
     <exercise
       id='exercise-test'
+      print-placement='here'
       type='check-understanding'
     >
       <label></label>
@@ -305,6 +306,7 @@ __enable_interrupt();
       <solution
         class='solutions'
         id='solution-test'
+        print-placement='here'
       >
         <label></label>
         <title>Try It Solutions</title>
