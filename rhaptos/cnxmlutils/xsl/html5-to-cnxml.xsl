@@ -112,6 +112,12 @@
 <!-- abstract should not be in content, it's already in the database -->
 <xsl:template match="*[@data-type='abstract']"/>
 
+<xsl:template match="h:span[not(@*)]">
+  <span>
+    <xsl:apply-templates select="node()"/>
+  </span>
+</xsl:template>
+
 
 <!-- ======================================== -->
 <!-- Callables -->
