@@ -13,10 +13,14 @@
   <content>
     <para>...</para>
     <para>(observed
-      <footnote>Predicted by theory and first observed in 1983.</footnote>)
+      <footnote
+        id='footnote1'
+      >Predicted by theory and first observed in 1983.</footnote>)
     </para>
     <para>Gluons (conjectured
-      <footnote>Eight proposed—indirect evidence of existence. Underlie meson exchange.</footnote>)
+      <footnote
+        id='footnote2'
+      >Eight proposed—indirect evidence of existence. Underlie meson exchange.</footnote>)
     </para>
     <para>...</para>
   </content>

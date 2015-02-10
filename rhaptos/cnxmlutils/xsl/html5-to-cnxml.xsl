@@ -845,7 +845,7 @@
 <xsl:template match="h:a[@data-type='footnote-ref']" mode="footnote"/>
 
 <xsl:template match="*[@data-type='footnote-number']">
-  <footnote>
+  <footnote id="{substring(@href, 2)}">
     <xsl:call-template name="get-footnote">
       <xsl:with-param name="name" select="substring(@href, 2)"/>
     </xsl:call-template>
