@@ -520,6 +520,7 @@ __enable_interrupt();
           id="solution-test"
           class="solutions"
           print-placement="here"
+          type="solution-type"
         >
         <label
         />

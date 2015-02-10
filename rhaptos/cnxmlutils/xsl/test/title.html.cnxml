@@ -307,6 +307,7 @@ __enable_interrupt();
         class='solutions'
         id='solution-test'
         print-placement='here'
+        type='solution-type'
       >
         <label></label>
         <title>Try It Solutions</title>
