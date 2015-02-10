@@ -43,7 +43,9 @@
           ></colspec>
           <thead>
             <row>
-              <entry>Course</entry>
+              <entry
+                align='center'
+              >Course</entry>
               <entry>Semester</entry>
               <entry>Grade</entry>
             </row>
@@ -64,7 +66,9 @@
               <entry
                 morerows='1'
               >Biology</entry>
-              <entry>1</entry>
+              <entry
+                align='center'
+              >1</entry>
               <entry>86%</entry>
             </row>
             <row>

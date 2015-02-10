@@ -1253,6 +1253,9 @@
 </xsl:template>
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
+<xsl:template match="c:entry/@align">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
 
 <xsl:template match="c:entrytbl">
   <td colspan="{@cols}">
