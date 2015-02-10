@@ -22,8 +22,8 @@
         loop='true'
         mime-type='audio/mp3'
         src='file.mp3'
-        volume='0'
         standby='true'
+        volume='0'
       >
         <param
           name='author'

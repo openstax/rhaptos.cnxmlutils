@@ -25,7 +25,7 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
         # The key thing here is
         #   to dispose of the div[@data-type='abstract-wrapper']
         html = """\
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul class="list"><li class="item">one</li><li class="item">two</li><li class="item">three</li></ul></div>"""
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul><li>one</li><li>two</li><li>three</li></ul></div>"""
         html = etree.fromstring(html)
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)

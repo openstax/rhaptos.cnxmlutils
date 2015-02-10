@@ -41,8 +41,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@class"/>
-<xsl:template match="h:a/@class|*[@data-type='note']/@class">
+<xsl:template match="*/@class">
   <xsl:copy/>
 </xsl:template>
 
@@ -125,17 +124,6 @@
   <xsl:apply-templates select="@*"/>
   <xsl:apply-templates select="@data-label" mode="labeled"/>
   <xsl:apply-templates select="node()"/>
-</xsl:template>
-
-
-<!-- ====== -->
-<!-- MathML -->
-<!-- ====== -->
-
-<xsl:template match="m:*/@class">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
 </xsl:template>
 
 

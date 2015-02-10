@@ -303,6 +303,7 @@ __enable_interrupt();
         </para>
       </problem>
       <solution
+        class='solutions'
         id='solution-test'
       >
         <label></label>
