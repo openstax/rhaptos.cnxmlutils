@@ -175,6 +175,7 @@
                      *[@data-type='exercise']/@data-element-type|
                      *[@data-type='rule']/@data-element-type|
                      *[@data-type='solution']/@data-element-type|
+                     *[@data-type='problem']/@data-element-type|
                      h:section/@data-element-type">
   <xsl:attribute name="type">
     <xsl:value-of select="."/>

@@ -487,6 +487,7 @@ __enable_interrupt();
       <!-- m31849 // fea36ff3-dc5d-43ee-ab74-f40da2a94c1a -->
       <problem
           id="problem-test"
+          type="problem-type"
         >
         <title
           >Extra Credit Problem</title

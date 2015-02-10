@@ -288,6 +288,7 @@ __enable_interrupt();
       <title>Check Your Understanding</title>
       <problem
         id='problem-test'
+        type='problem-type'
       >
         <title>Extra Credit Problem</title>
         <para
