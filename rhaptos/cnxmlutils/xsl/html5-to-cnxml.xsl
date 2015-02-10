@@ -441,12 +441,11 @@
   <emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
-<xsl:template match="*[@data-type='smallcaps']">
-  <emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></emphasis>
-</xsl:template>
+<!-- The emphasis class is already in the effect -->
+<xsl:template match="*[@data-type='emphasis']/@class"/>
 
-<xsl:template match="*[@data-type='normal']">
-  <emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></emphasis>
+<xsl:template match="*[@data-type='emphasis']">
+  <emphasis><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
 <!-- ========================= -->

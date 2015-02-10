@@ -525,12 +525,11 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <!-- TODO: Sould "normal" be a class or data-type="emphasis" data-effect="normal" -->
-  <span class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <!-- ========================= -->

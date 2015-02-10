@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Emphasis</title>
+  <content>
+    <para
+      id='emphexample'
+    >
+      In addition to bananas and ice cream, a
+      <emphasis
+        effect='underline'
+      >proper</emphasis> banana split requires whipped cream,
+      nuts,
+      <emphasis>and</emphasis>
+      cherries.  Remember that the
+      <emphasis
+        effect='smallcaps'
+      >quality</emphasis> of
+      the dessert depends on the ice cream, so do
+      <emphasis
+        effect='italics'
+      >not</emphasis>
+      use a
+      <emphasis
+        effect='normal'
+      >generic</emphasis>brand.
+    </para>
+  </content>
+</document>
