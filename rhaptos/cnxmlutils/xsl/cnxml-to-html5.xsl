@@ -516,8 +516,13 @@
   <strong><xsl:apply-templates select="@*|node()"/></strong>
 </xsl:template>
 
-<xsl:template match="c:emphasis[@effect='italics']">
+<xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
   <em><xsl:apply-templates select="@*|node()"/></em>
+</xsl:template>
+
+<!-- Fix emphasis effect typo "italic" -->
+<xsl:template match="c:emphasis[@effect='italic']/@effect">
+  <xsl:attribute name="data-effect">italics</xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='underline']">

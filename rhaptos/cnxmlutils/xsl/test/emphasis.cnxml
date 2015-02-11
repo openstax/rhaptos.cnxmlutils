@@ -36,5 +36,12 @@
         effect='normal'
       >generic</emphasis>brand.
     </para>
+    <para id='broken-content'>
+      In m42218,
+      <emphasis
+        effect='italic'>italic</emphasis> was used instead of
+      <emphasis
+        effect='italics'> italics</emphasis>.
+    </para>
   </content>
 </document>
