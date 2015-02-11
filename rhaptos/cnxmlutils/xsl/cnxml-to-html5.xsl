@@ -725,7 +725,7 @@
 </xsl:template>
 
 <!-- General attribute reassignment -->
-<xsl:template match="c:media/*[@for='pdf']/@for">
+<xsl:template match="c:media/*[@for='pdf']/@for|c:media/*[@for='Pdf']/@for">
   <xsl:attribute name="data-print">
     <xsl:text>true</xsl:text>
   </xsl:attribute>
@@ -1019,14 +1019,18 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="c:image[not(@for='pdf')]">
+<xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
 </xsl:template>
 
-<xsl:template match="c:image[@for='pdf']">
+<xsl:template match="c:image[@for='online']/@for">
+  <xsl:attribute name="data-print">false</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:image[@for='pdf' or @for='Pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
@@ -1045,10 +1049,10 @@
     NOTE: This needs to occur **after** the other templates for some reason.
 -->
 <!-- Discard the thumbnail attribute because it is handled elsewhere -->
-<xsl:template match="c:image[@thumbnail and not(@for='pdf')]/@thumbnail"/>
-<xsl:template match="c:image[@thumbnail and not(@for='pdf')]">
+<xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]/@thumbnail"/>
+<xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]">
   <a href="{@src}" data-type="{local-name()}">
-    <img src="{@thumbnail}" alt="{parent::c:media/@alt}">
+    <img src="{@thumbnail}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
       <xsl:apply-templates select="@*|node()"/>
     </img>
   </a>

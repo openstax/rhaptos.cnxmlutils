@@ -674,7 +674,7 @@
   <xsl:copy/>
 </xsl:template>
 <xsl:template match="h:img" mode="jar-image">
-  <image thumbnail="{@src}" src="{../@href}">
+  <image thumbnail="{@src}" src="{../@href}" mime-type="{@data-media-type}">
     <xsl:apply-templates select="@*[local-name()!='src']|node()"/>
   </image>
 </xsl:template>
