@@ -572,12 +572,14 @@
 
     <!-- calculate maximum number of columns -->
     <xsl:variable name="cols">
-      <xsl:for-each select="child::*/h:tr">
-        <xsl:sort select="count(h:th) + count(h:td)" data-type="number" order="descending"/>
-        <xsl:if test="position() = 1">
-          <xsl:value-of select="count(h:th) + count(h:td)"/>
-        </xsl:if>
-      </xsl:for-each>
+      <xsl:choose>
+        <xsl:when test="h:thead/h:tr[1]/h:th">
+          <xsl:value-of select="sum(h:thead/h:tr[1]/*/@colspan) + count(h:thead/h:tr[1]/*[not(@colspan)])"/>
+        </xsl:when>
+        <xsl:when test="h:tbody/h:tr[1]/h:td">
+          <xsl:value-of select="sum(h:tbody/h:tr[1]/*/@colspan) + count(h:tbody/h:tr[1]/*[not(@colspan)])"/>
+        </xsl:when>
+      </xsl:choose>
     </xsl:variable>
 
     <tgroup cols="{$cols}">

@@ -89,6 +89,62 @@
           </tbody>
         </tgroup>
       </table>
+      <table
+        id='import-auto-id1169737909561'
+        summary=''
+      >
+        <title>Quark Composition of Selected Hadrons</title>
+        <tgroup
+          cols='3'
+        >
+          <colspec
+            colname='c1'
+            colnum='1'
+          ></colspec>
+          <colspec
+            colname='c2'
+            colnum='2'
+          ></colspec>
+          <colspec
+            colname='c3'
+            colnum='3'
+          ></colspec>
+          <thead>
+            <row>
+              <entry>
+                <emphasis>Particle</emphasis>
+              </entry>
+              <entry
+                nameend='c3'
+                namest='c2'
+              >
+                <emphasis>Quark Composition</emphasis>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry
+                nameend='c3'
+                namest='c1'
+              >
+                <emphasis>
+                  <emphasis
+                    effect='italics'
+                  >Mesons</emphasis>
+                </emphasis>
+              </entry>
+            </row>
+            <row>
+              <entry
+                nameend='c2'
+                namest='c1'
+              >0</entry>
+              <entry>1</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
   </content>
 </document>
