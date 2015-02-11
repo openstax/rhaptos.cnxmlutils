@@ -22,8 +22,8 @@
         loop='true'
         mime-type='audio/mp3'
         src='file.mp3'
-        volume='0'
         standby='true'
+        volume='0'
       >
         <param
           name='author'
@@ -140,6 +140,8 @@
       alt='alternate'
     >
       <image
+        for='online'
+        mime-type='image/png'
         src='equation-grapher_en.jar'
         thumbnail='PhET_Icon.png'
         width='450'
@@ -157,5 +159,33 @@
         width='450'
       ></image>
     </media>
+    <para>From College Physics, m42596</para>
+    <figure
+      id='eip-id2970922'
+    >
+      <media
+        alt=''
+        id='Phet_module_31.3'
+      >
+        <image
+          for='online'
+          mime-type='image/png'
+          src='hydrogen-atom_en.jar'
+          thumbnail='PhET_Icon.png'
+          width='450'
+        ></image>
+        <image
+          for='pdf'
+          mime-type='image/png'
+          src='PhET_Icon.png'
+          width='450'
+        ></image>
+      </media>
+      <caption>
+        <link
+          url='hydrogen-atom_en.jar'
+        >Models of the Hydrogen Atom</link>
+      </caption>
+    </figure>
   </content>
 </document>

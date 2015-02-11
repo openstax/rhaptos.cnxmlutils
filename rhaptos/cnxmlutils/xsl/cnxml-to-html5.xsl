@@ -222,10 +222,14 @@
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
-<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type">
+<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type|c:section/@type|c:solution/@type|c:problem/@type">
   <xsl:attribute name="data-element-type">
     <xsl:value-of select="."/>
   </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:exercise/@print-placement|c:solution/@print-placement">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <xsl:template match="c:exercise">
@@ -512,8 +516,13 @@
   <strong><xsl:apply-templates select="@*|node()"/></strong>
 </xsl:template>
 
-<xsl:template match="c:emphasis[@effect='italics']">
+<xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
   <em><xsl:apply-templates select="@*|node()"/></em>
+</xsl:template>
+
+<!-- Fix emphasis effect typo "italic" -->
+<xsl:template match="c:emphasis[@effect='italic']/@effect">
+  <xsl:attribute name="data-effect">italics</xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='underline']">
@@ -521,12 +530,11 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <!-- TODO: Sould "normal" be a class or data-type="emphasis" data-effect="normal" -->
-  <span class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -722,7 +730,7 @@
 </xsl:template>
 
 <!-- General attribute reassignment -->
-<xsl:template match="c:media/*[@for='pdf']/@for">
+<xsl:template match="c:media/*[@for='pdf']/@for|c:media/*[@for='Pdf']/@for">
   <xsl:attribute name="data-print">
     <xsl:text>true</xsl:text>
   </xsl:attribute>
@@ -1016,14 +1024,18 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="c:image[not(@for='pdf')]">
+<xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
 </xsl:template>
 
-<xsl:template match="c:image[@for='pdf']">
+<xsl:template match="c:image[@for='online']/@for">
+  <xsl:attribute name="data-print">false</xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:image[@for='pdf' or @for='Pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
     <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
@@ -1042,10 +1054,10 @@
     NOTE: This needs to occur **after** the other templates for some reason.
 -->
 <!-- Discard the thumbnail attribute because it is handled elsewhere -->
-<xsl:template match="c:image[@thumbnail and not(@for='pdf')]/@thumbnail"/>
-<xsl:template match="c:image[@thumbnail and not(@for='pdf')]">
+<xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]/@thumbnail"/>
+<xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]">
   <a href="{@src}" data-type="{local-name()}">
-    <img src="{@thumbnail}" alt="{parent::c:media/@alt}">
+    <img src="{@thumbnail}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
       <xsl:apply-templates select="@*|node()"/>
     </img>
   </a>
@@ -1250,6 +1262,9 @@
 </xsl:template>
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
+<xsl:template match="c:entry/@align">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
 
 <xsl:template match="c:entrytbl">
   <td colspan="{@cols}">

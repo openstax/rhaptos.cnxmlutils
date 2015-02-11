@@ -476,6 +476,7 @@ __enable_interrupt();
     <!-- m42219 // 030347e9-f128-486f-a779-019ac474ff90 -->
     <exercise
         id="exercise-test"
+        print-placement="here"
         type="check-understanding"
       >
       <label
@@ -486,6 +487,7 @@ __enable_interrupt();
       <!-- m31849 // fea36ff3-dc5d-43ee-ab74-f40da2a94c1a -->
       <problem
           id="problem-test"
+          type="problem-type"
         >
         <title
           >Extra Credit Problem</title
@@ -518,6 +520,8 @@ __enable_interrupt();
       <solution
           id="solution-test"
           class="solutions"
+          print-placement="here"
+          type="solution-type"
         >
         <label
         />

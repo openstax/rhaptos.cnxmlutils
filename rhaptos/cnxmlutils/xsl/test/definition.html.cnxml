@@ -13,6 +13,7 @@
   <content>
     <section
       id='cid1'
+      type='intro'
     >
       <title>Introduction</title>
       <para
@@ -1533,6 +1534,7 @@ For each of the following substances state whether it is a pure substance or a m
           id='eip-824'
         >
           <list
+            class='stepwise'
             id='id7432'
             list-type='enumerated'
             number-style='arabic'
@@ -1569,6 +1571,7 @@ For each of the following substances state whether it is a pure substance or a m
           id='eip-345'
         >
           <list
+            class='stepwise'
             id='id874452'
             list-type='enumerated'
             number-style='arabic'

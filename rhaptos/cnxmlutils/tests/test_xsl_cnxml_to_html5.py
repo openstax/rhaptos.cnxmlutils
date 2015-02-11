@@ -165,10 +165,10 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
         default_elm, online_elm, pdf_elm = html.xpath(
             "//*[@id='test_media_image_for_attribute']/*")
 
-        # - 'default' translates to 'online'
+        # - 'default'
         self.assertNotIn('data-print', default_elm.attrib)
         # - 'online'
-        self.assertNotIn('data-print', online_elm.attrib)
+        self.assertEqual(online_elm.attrib['data-print'], 'false')
         # - 'pdf' (aka print)
         self.assertEqual(pdf_elm.attrib['data-print'], 'true')
 

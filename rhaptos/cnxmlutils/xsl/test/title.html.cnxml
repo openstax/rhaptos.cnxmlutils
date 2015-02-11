@@ -281,12 +281,14 @@ __enable_interrupt();
     </example>
     <exercise
       id='exercise-test'
+      print-placement='here'
       type='check-understanding'
     >
       <label></label>
       <title>Check Your Understanding</title>
       <problem
         id='problem-test'
+        type='problem-type'
       >
         <title>Extra Credit Problem</title>
         <para
@@ -303,7 +305,10 @@ __enable_interrupt();
         </para>
       </problem>
       <solution
+        class='solutions'
         id='solution-test'
+        print-placement='here'
+        type='solution-type'
       >
         <label></label>
         <title>Try It Solutions</title>

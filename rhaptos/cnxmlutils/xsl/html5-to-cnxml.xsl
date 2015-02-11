@@ -41,8 +41,7 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="@class"/>
-<xsl:template match="h:a/@class|*[@data-type='note']/@class">
+<xsl:template match="*/@class">
   <xsl:copy/>
 </xsl:template>
 
@@ -113,6 +112,12 @@
 <!-- abstract should not be in content, it's already in the database -->
 <xsl:template match="*[@data-type='abstract']"/>
 
+<xsl:template match="h:span[not(@*)]">
+  <span>
+    <xsl:apply-templates select="node()"/>
+  </span>
+</xsl:template>
+
 
 <!-- ======================================== -->
 <!-- Callables -->
@@ -125,17 +130,6 @@
   <xsl:apply-templates select="@*"/>
   <xsl:apply-templates select="@data-label" mode="labeled"/>
   <xsl:apply-templates select="node()"/>
-</xsl:template>
-
-
-<!-- ====== -->
-<!-- MathML -->
-<!-- ====== -->
-
-<xsl:template match="m:*/@class">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()"/>
-  </xsl:copy>
 </xsl:template>
 
 
@@ -179,10 +173,18 @@
 
 <xsl:template match="*[@data-type='example']/@data-element-type|
                      *[@data-type='exercise']/@data-element-type|
-                     *[@data-type='rule']/@data-element-type">
+                     *[@data-type='rule']/@data-element-type|
+                     *[@data-type='solution']/@data-element-type|
+                     *[@data-type='problem']/@data-element-type|
+                     h:section/@data-element-type">
   <xsl:attribute name="type">
     <xsl:value-of select="."/>
   </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="*[@data-type='exercise']/@data-print-placement|
+                     *[@data-type='solution']/@data-print-placement">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <xsl:template match="*[@data-type='exercise']">
@@ -447,12 +449,11 @@
   <emphasis effect="underline"><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
-<xsl:template match="*[@data-type='smallcaps']">
-  <emphasis effect="smallcaps"><xsl:apply-templates select="@*|node()"/></emphasis>
-</xsl:template>
+<!-- The emphasis class is already in the effect -->
+<xsl:template match="*[@data-type='emphasis']/@class"/>
 
-<xsl:template match="*[@data-type='normal']">
-  <emphasis effect="normal"><xsl:apply-templates select="@*|node()"/></emphasis>
+<xsl:template match="*[@data-type='emphasis']">
+  <emphasis><xsl:apply-templates select="@*|node()"/></emphasis>
 </xsl:template>
 
 <!-- ========================= -->
@@ -571,12 +572,14 @@
 
     <!-- calculate maximum number of columns -->
     <xsl:variable name="cols">
-      <xsl:for-each select="child::*/h:tr">
-        <xsl:sort select="count(h:th) + count(h:td)" data-type="number" order="descending"/>
-        <xsl:if test="position() = 1">
-          <xsl:value-of select="count(h:th) + count(h:td)"/>
-        </xsl:if>
-      </xsl:for-each>
+      <xsl:choose>
+        <xsl:when test="h:thead/h:tr[1]/h:th">
+          <xsl:value-of select="sum(h:thead/h:tr[1]/*/@colspan) + count(h:thead/h:tr[1]/*[not(@colspan)])"/>
+        </xsl:when>
+        <xsl:when test="h:tbody/h:tr[1]/h:td">
+          <xsl:value-of select="sum(h:tbody/h:tr[1]/*/@colspan) + count(h:tbody/h:tr[1]/*[not(@colspan)])"/>
+        </xsl:when>
+      </xsl:choose>
     </xsl:variable>
 
     <tgroup cols="{$cols}">
@@ -671,7 +674,7 @@
   <xsl:copy/>
 </xsl:template>
 <xsl:template match="h:img" mode="jar-image">
-  <image thumbnail="{@src}" src="{../@href}">
+  <image thumbnail="{@src}" src="{../@href}" mime-type="{@data-media-type}">
     <xsl:apply-templates select="@*[local-name()!='src']|node()"/>
   </image>
 </xsl:template>

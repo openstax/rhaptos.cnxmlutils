@@ -62,9 +62,11 @@
     <para
       id='linkexample6'
     >
-      <link
-        url='#uid27'
-      ></link>with no text.
+      <span>
+        <link
+          url='#uid27'
+        ></link>with no text.
+      </span>
     </para>
   </content>
 </document>

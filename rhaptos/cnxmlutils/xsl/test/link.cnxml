@@ -69,9 +69,11 @@
     <para
       id='linkexample6'
     >
-      <link
-        target-id='uid27'
-      ></link>with no text.
+      <span>
+        <link
+          target-id='uid27'
+        ></link>with no text.
+      </span>
     </para>
   </content>
 </document>
