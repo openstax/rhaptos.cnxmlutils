@@ -1029,6 +1029,15 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<xsl:template match="
+   c:image/c:param[@name='longdesc']
+  |c:image/c:param[@name='thumbnail']
+  |c:image/c:param[@name='print-width']">
+  <xsl:attribute name="data-{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
+</xsl:template>
+
 <!-- discard these attributes because they are being handled elsewhere -->
 <xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
 
