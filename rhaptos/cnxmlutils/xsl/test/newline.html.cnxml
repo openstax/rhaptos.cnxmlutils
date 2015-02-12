@@ -80,12 +80,8 @@
     </para>
     <para>The following is not implemented yet</para>
     <para>
-      <para
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: div</para>
       <div
         class='not-converted-yet'
-        xmlns='http://www.w3.org/1999/xhtml'
       >NOT_CONVERTED_YET: newline</div>
       <para
         class='not-converted-yet'
@@ -97,12 +93,8 @@
     <list
       list-type='bulleted'
     >
-      <para
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: div</para>
       <div
         class='not-converted-yet'
-        xmlns='http://www.w3.org/1999/xhtml'
       >NOT_CONVERTED_YET: newline</div>
       <para
         class='not-converted-yet'

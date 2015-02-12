@@ -25,6 +25,10 @@
   <xsl:attribute name="data-{local-name()}"><xsl:value-of select="." /></xsl:attribute>
 </xsl:template>
 
+<xsl:template match="c:div">
+  <div><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
 <xsl:template match="c:span">
   <span><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
