@@ -39,9 +39,15 @@
     <para id='broken-content'>
       In m42218,
       <emphasis
-        effect='italic'>italic</emphasis> was used instead of
+        effect='italic'
+      >italic</emphasis> was used instead of
       <emphasis
-        effect='italics'> italics</emphasis>.
+        effect='italics'
+      > italics</emphasis>.
+      If the effect is
+      <emphasis
+        effect='itelics'
+      >misspelled</emphasis>, it should be treated as not having an effect.
     </para>
   </content>
 </document>

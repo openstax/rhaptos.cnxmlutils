@@ -39,6 +39,8 @@
         effect='italics'>italic</emphasis> was used instead of
       <emphasis
         effect='italics'> italics</emphasis>.
+      If the effect is
+      <emphasis>misspelled</emphasis>, it should be treated as not having an effect.
     </para>
   </content>
 </document>
