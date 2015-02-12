@@ -90,9 +90,11 @@
         </tgroup>
       </table>
       <table
+        frame='none'
         id='import-auto-id1169737909561'
         summary=''
       >
+        <label></label>
         <title>Quark Composition of Selected Hadrons</title>
         <tgroup
           cols='3'

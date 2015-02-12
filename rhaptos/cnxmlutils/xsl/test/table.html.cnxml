@@ -74,10 +74,12 @@
         </tgroup>
       </table>
       <table
+        frame='none'
         id='import-auto-id1169737909561'
         summary=''
       >
         <title>Quark Composition of Selected Hadrons</title>
+        <label></label>
         <tgroup
           cols='3'
         >

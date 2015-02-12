@@ -582,8 +582,8 @@
 <xsl:template match="h:table">
   <table>
     <!-- Akin to figure captions -->
-    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:apply-templates select="h:caption/*[@data-type='title']|@*"/>
+    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:if test="h:caption/node()[not(self::*[@data-type='title']) and not(normalize-space()='')]">
       <caption>
         <xsl:apply-templates select="h:caption/node()[not(self::*[@data-type='title'])]"/>
