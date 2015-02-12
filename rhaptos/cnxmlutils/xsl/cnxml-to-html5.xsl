@@ -55,6 +55,10 @@
   </xsl:if>
 </xsl:template>
 
+<xsl:template match="processing-instruction()">
+  <xsl:processing-instruction name="{local-name()}"><xsl:value-of select="."/></xsl:processing-instruction>
+</xsl:template>
+
 
 <!-- ========================= -->
 <!-- Generic Util Tempaltes    -->

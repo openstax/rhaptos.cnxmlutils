@@ -10,11 +10,12 @@
     module-id="m12345"
     cnxml-version="0.7"
   >
-<title
-    >Document testing the use of the title tag</title
-  >
-<content
-    >
+<title>Document testing the use of the title tag</title>
+<content>
+<?chapter-toc label="Learning Objectives"?>
+<?cnx.eoc class="section-summary" title="Section Summary"?>
+<?cnx.eoc class="conceptual-questions" title="Conceptual Questions"?>
+<?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
 
   <section
         id="sectioned-section"
