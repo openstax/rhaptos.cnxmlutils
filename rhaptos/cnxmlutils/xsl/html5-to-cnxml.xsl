@@ -299,13 +299,13 @@
 
 <xsl:template match="*[@data-type='note']">
   <note>
-    <xsl:apply-templates select="@*[not(local-name()='data-label')]"/>
+    <xsl:apply-templates select="@*[not(local-name()='data-label' or local-name()='data-has-label')]"/>
     <xsl:apply-templates select="@data-label|node()"/>
   </note>
 </xsl:template>
 
 <xsl:template match="*[@data-type='note']/@data-label">
-  <xsl:if test="not(. = ../@data-element-type)">
+  <xsl:if test="../@data-has-label='true'">
     <xsl:apply-templates select="." mode="labeled"/>
   </xsl:if>
 </xsl:template>

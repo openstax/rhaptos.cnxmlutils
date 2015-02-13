@@ -331,6 +331,9 @@
 
 <xsl:template match="c:note">
   <div data-type="{local-name()}">
+    <xsl:if test="c:label">
+      <xsl:attribute name="data-has-label">true</xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -340,6 +343,9 @@
 <xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]">
   <xsl:param name="depth" select="1"/>
   <div data-type="{local-name()}">
+    <xsl:if test="c:label">
+      <xsl:attribute name="data-has-label">true</xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|c:title|c:label"/>
     <section>
       <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>

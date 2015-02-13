@@ -66,6 +66,26 @@
   </note
     >
 
+  <note
+    id="label-and-type-1"
+    type="Hint"
+    >
+    <label>Hint</label>Hint Body
+  </note>
+
+  <note
+    id="label-and-type-2"
+    type="Hint"
+    >
+    <label>Custom Label</label>Hint Body 2
+  </note>
+
+  <note
+    id="label-and-type-3"
+    type="Hint"
+    >Hint Body 3
+  </note>
+
 </content
   >
 </document
