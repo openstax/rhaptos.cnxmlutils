@@ -851,7 +851,7 @@
 </xsl:template>
 
 <xsl:template match="h:li" mode="footnote">
-  <xsl:apply-templates select="h:a" mode="footnote"/>
+  <xsl:apply-templates select="h:a[@data-type='footnote-ref']" mode="footnote"/>
   <xsl:apply-templates select="node()[not(@data-type='footnote-ref')]"/>
 </xsl:template>
 <xsl:template match="h:a[@data-type='footnote-ref']" mode="footnote"/>
