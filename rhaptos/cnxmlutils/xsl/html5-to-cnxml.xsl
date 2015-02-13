@@ -45,6 +45,12 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="*/@data-element-type">
+  <xsl:attribute name="type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 <!-- Ignore document-title, it is handled explicitly. -->
 <xsl:template match="/h:body/*[@data-type='document-title']"/>
 
@@ -181,17 +187,6 @@
   </example>
 </xsl:template>
 
-<xsl:template match="*[@data-type='example']/@data-element-type|
-                     *[@data-type='exercise']/@data-element-type|
-                     *[@data-type='rule']/@data-element-type|
-                     *[@data-type='solution']/@data-element-type|
-                     *[@data-type='problem']/@data-element-type|
-                     h:section/@data-element-type">
-  <xsl:attribute name="type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
-
 <xsl:template match="*[@data-type='exercise']/@data-print-placement|
                      *[@data-type='solution']/@data-print-placement">
   <xsl:call-template name="data-prefix"/>
@@ -307,10 +302,6 @@
     <xsl:apply-templates select="@*[not(local-name()='data-label')]"/>
     <xsl:apply-templates select="@data-label|node()"/>
   </note>
-</xsl:template>
-
-<xsl:template match="*[@data-type='note']/@data-element-type">
-  <xsl:attribute name="type"><xsl:value-of select="."/></xsl:attribute>
 </xsl:template>
 
 <xsl:template match="*[@data-type='note']/@data-label">
@@ -440,14 +431,6 @@
                      h:ol/@data-labeled-item|
                      *[@data-type='list']/@data-labeled-item">
   <xsl:attribute name="list-type">labeled-item</xsl:attribute>
-</xsl:template>
-
-<xsl:template match="h:ul/@data-element-type|
-                     h:ol/@data-element-type|
-                     *[@data-type='list']/@data-element-type">
-  <xsl:attribute name="type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <!-- no need to copy data-type as it's already in the tag name -->

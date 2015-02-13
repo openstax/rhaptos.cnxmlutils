@@ -130,8 +130,11 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<!-- TODO not sure what to do with @type yet -->
-<xsl:template match="c:*/@type"/>
+<xsl:template match="c:*/@type">
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
 
 <xsl:template match="@class">
   <xsl:copy/>
@@ -228,12 +231,6 @@
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
-</xsl:template>
-
-<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type|c:section/@type|c:solution/@type|c:problem/@type">
-  <xsl:attribute name="data-element-type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:exercise/@print-placement|c:solution/@print-placement">
@@ -380,8 +377,7 @@
     |c:list/@mark-prefix
     |c:list/@mark-suffix
     |c:list/@item-sep
-    |c:list/@display
-    |c:list/@type">
+    |c:list/@display">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
@@ -391,15 +387,6 @@
 
 <!-- Discard these attributes because they are converted in some other way or deprecated -->
 <xsl:template match="c:list/@list-type"/>
-
-<!-- Give this attribute (type of list, a user-defined value that reflects the
-     purpose of the list) a different name because @data-type is already used
-     for storing the cnxml tag name -->
-<xsl:template match="c:list/@type">
-  <xsl:attribute name="data-element-type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
 
 <xsl:template match="c:list[c:title]">
   <div data-type="{local-name()}">
