@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Module</title>
+  <content>
+    <para
+      id="cite-example-1"
+    >
+      <cite>
+        <cite-title>A Tale of Two Cities</cite-title>
+        by Charles Dickens
+      </cite>
+      is a classic novel.
+    </para>
+    <para
+      id="cite-example-2"
+    >This article was taken from
+      <cite
+        window="new"
+        url="http://www.cnn.com"
+      >CNN.com
+      </cite>.
+    </para>
+  </content>
+</document>

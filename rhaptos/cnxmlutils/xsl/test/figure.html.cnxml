@@ -23,6 +23,7 @@
     <figure
       id='id123'
       orient='vertical'
+      type="foo"
     >
       <para>Text</para>
     </figure>

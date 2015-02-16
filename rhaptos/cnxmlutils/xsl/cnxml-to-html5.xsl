@@ -25,6 +25,10 @@
   <xsl:attribute name="data-{local-name()}"><xsl:value-of select="." /></xsl:attribute>
 </xsl:template>
 
+<xsl:template match="c:div">
+  <div><xsl:apply-templates select="@*|node()"/></div>
+</xsl:template>
+
 <xsl:template match="c:span">
   <span><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
@@ -53,6 +57,10 @@
       <xsl:apply-templates select="@*|node()"/>
     </div>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="processing-instruction()">
+  <xsl:processing-instruction name="{local-name()}"><xsl:value-of select="."/></xsl:processing-instruction>
 </xsl:template>
 
 
@@ -122,8 +130,11 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<!-- TODO not sure what to do with @type yet -->
-<xsl:template match="c:*/@type"/>
+<xsl:template match="c:*/@type">
+  <xsl:attribute name="data-element-type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
 
 <xsl:template match="@class">
   <xsl:copy/>
@@ -220,12 +231,6 @@
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
-</xsl:template>
-
-<xsl:template match="c:example/@type|c:exercise/@type|c:rule/@type|c:section/@type|c:solution/@type|c:problem/@type">
-  <xsl:attribute name="data-element-type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="c:exercise/@print-placement|c:solution/@print-placement">
@@ -326,6 +331,9 @@
 
 <xsl:template match="c:note">
   <div data-type="{local-name()}">
+    <xsl:if test="c:label">
+      <xsl:attribute name="data-has-label">true</xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -335,6 +343,9 @@
 <xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]">
   <xsl:param name="depth" select="1"/>
   <div data-type="{local-name()}">
+    <xsl:if test="c:label">
+      <xsl:attribute name="data-has-label">true</xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|c:title|c:label"/>
     <section>
       <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
@@ -372,8 +383,7 @@
     |c:list/@mark-prefix
     |c:list/@mark-suffix
     |c:list/@item-sep
-    |c:list/@display
-    |c:list/@type">
+    |c:list/@display">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
@@ -383,15 +393,6 @@
 
 <!-- Discard these attributes because they are converted in some other way or deprecated -->
 <xsl:template match="c:list/@list-type"/>
-
-<!-- Give this attribute (type of list, a user-defined value that reflects the
-     purpose of the list) a different name because @data-type is already used
-     for storing the cnxml tag name -->
-<xsl:template match="c:list/@type">
-  <xsl:attribute name="data-element-type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
-</xsl:template>
 
 <xsl:template match="c:list[c:title]">
   <div data-type="{local-name()}">
@@ -511,6 +512,10 @@
 
 
 <!-- ========================= -->
+
+<xsl:template match="c:emphasis">
+  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/></strong>
+</xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
   <strong><xsl:apply-templates select="@*|node()"/></strong>
@@ -1015,6 +1020,15 @@
   |c:image/@thumbnail
   |c:image/@print-width">
   <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<xsl:template match="
+   c:image/c:param[@name='longdesc']
+  |c:image/c:param[@name='thumbnail']
+  |c:image/c:param[@name='print-width']">
+  <xsl:attribute name="data-{@name}">
+    <xsl:value-of select="@value"/>
+  </xsl:attribute>
 </xsl:template>
 
 <!-- discard these attributes because they are being handled elsewhere -->

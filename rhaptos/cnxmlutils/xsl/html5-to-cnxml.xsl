@@ -45,6 +45,12 @@
   <xsl:copy/>
 </xsl:template>
 
+<xsl:template match="*/@data-element-type">
+  <xsl:attribute name="type">
+    <xsl:value-of select="."/>
+  </xsl:attribute>
+</xsl:template>
+
 <!-- Ignore document-title, it is handled explicitly. -->
 <xsl:template match="/h:body/*[@data-type='document-title']"/>
 
@@ -70,6 +76,10 @@
       <xsl:value-of select="."/>
     </xsl:attribute>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="processing-instruction()">
+  <xsl:processing-instruction name="{local-name()}"><xsl:value-of select="."/></xsl:processing-instruction>
 </xsl:template>
 
 
@@ -111,6 +121,12 @@
 
 <!-- abstract should not be in content, it's already in the database -->
 <xsl:template match="*[@data-type='abstract']"/>
+
+<xsl:template match="h:div[not(@data-type)]">
+  <div>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="h:span[not(@*)]">
   <span>
@@ -169,17 +185,6 @@
   <example>
     <xsl:call-template name="labeled-content"/>
   </example>
-</xsl:template>
-
-<xsl:template match="*[@data-type='example']/@data-element-type|
-                     *[@data-type='exercise']/@data-element-type|
-                     *[@data-type='rule']/@data-element-type|
-                     *[@data-type='solution']/@data-element-type|
-                     *[@data-type='problem']/@data-element-type|
-                     h:section/@data-element-type">
-  <xsl:attribute name="type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <xsl:template match="*[@data-type='exercise']/@data-print-placement|
@@ -273,22 +278,34 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<xsl:template match="h:cite/@*">
+  <xsl:copy/>
+</xsl:template>
+
+<xsl:template match="h:cite">
+  <cite>
+    <xsl:apply-templates select="@*|node()"/>
+  </cite>
+</xsl:template>
+
+<xsl:template match="*[@data-type='cite-title']">
+  <cite-title>
+    <xsl:apply-templates select="@*|node()"/>
+  </cite-title>
+</xsl:template>
+
 
 <!-- ========================= -->
 
 <xsl:template match="*[@data-type='note']">
   <note>
-    <xsl:apply-templates select="@*[not(local-name()='data-label')]"/>
+    <xsl:apply-templates select="@*[not(local-name()='data-label' or local-name()='data-has-label')]"/>
     <xsl:apply-templates select="@data-label|node()"/>
   </note>
 </xsl:template>
 
-<xsl:template match="*[@data-type='note']/@data-element-type">
-  <xsl:attribute name="type"><xsl:value-of select="."/></xsl:attribute>
-</xsl:template>
-
 <xsl:template match="*[@data-type='note']/@data-label">
-  <xsl:if test="not(. = ../@data-element-type)">
+  <xsl:if test="../@data-has-label='true'">
     <xsl:apply-templates select="." mode="labeled"/>
   </xsl:if>
 </xsl:template>
@@ -414,14 +431,6 @@
                      h:ol/@data-labeled-item|
                      *[@data-type='list']/@data-labeled-item">
   <xsl:attribute name="list-type">labeled-item</xsl:attribute>
-</xsl:template>
-
-<xsl:template match="h:ul/@data-element-type|
-                     h:ol/@data-element-type|
-                     *[@data-type='list']/@data-element-type">
-  <xsl:attribute name="type">
-    <xsl:value-of select="."/>
-  </xsl:attribute>
 </xsl:template>
 
 <!-- no need to copy data-type as it's already in the tag name -->
@@ -562,8 +571,8 @@
 <xsl:template match="h:table">
   <table>
     <!-- Akin to figure captions -->
-    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:apply-templates select="h:caption/*[@data-type='title']|@*"/>
+    <xsl:apply-templates select="@data-label" mode="labeled"/>
     <xsl:if test="h:caption/node()[not(self::*[@data-type='title']) and not(normalize-space()='')]">
       <caption>
         <xsl:apply-templates select="h:caption/node()[not(self::*[@data-type='title'])]"/>
@@ -842,7 +851,7 @@
 </xsl:template>
 
 <xsl:template match="h:li" mode="footnote">
-  <xsl:apply-templates select="h:a" mode="footnote"/>
+  <xsl:apply-templates select="h:a[@data-type='footnote-ref']" mode="footnote"/>
   <xsl:apply-templates select="node()[not(@data-type='footnote-ref')]"/>
 </xsl:template>
 <xsl:template match="h:a[@data-type='footnote-ref']" mode="footnote"/>
