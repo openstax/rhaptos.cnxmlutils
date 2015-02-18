@@ -743,14 +743,14 @@
 <xsl:template match="h:object/h:param/@*">
   <xsl:copy/>
 </xsl:template>
-<xsl:template match="h:object[not(@type='application/x-labview-vi')]/h:param">
+<xsl:template match="h:object[not(starts-with(@type, 'application/x-labview'))]/h:param">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
 <!-- create attributes in parent element for some of the params -->
-<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='version']|
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/h:param[@name='version']|
                      h:object[@type='application/x-java-applet']/h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']">
   <xsl:attribute name="{@name}">
     <xsl:value-of select="@value"/>
@@ -775,7 +775,7 @@
     <xsl:apply-templates select="@*[local-name() != 'data']|h:param|node()[not(self::h:param)]"/>
   </flash>
 </xsl:template>
-<xsl:template match="h:object[@type='application/x-labview-vi']">
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]">
   <labview src="{@data}">
     <xsl:apply-templates select="@*[local-name() != 'data']|h:param"/>
   </labview>
@@ -796,7 +796,10 @@
 <!-- remove embed tags, attributes copied to parent tag -->
 <xsl:template match="h:object/h:embed"/>
 
-<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='lvfppviname']">
+<!-- labview plugins page is only for html -->
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/@data-pluginspage"/>
+
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/h:param[@name='lvfppviname']">
   <xsl:attribute name="viname">
     <xsl:value-of select="@value"/>
   </xsl:attribute>
