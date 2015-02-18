@@ -600,6 +600,13 @@
   </table>
 </xsl:template>
 
+<xsl:template match="h:col/@*"/>
+<!-- @data-width is copied to colwidth in the colspec template -->
+<xsl:template match="h:col/@data-width"/>
+<xsl:template match="h:col/@*[starts-with(local-name(),'data-')]">
+  <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
 <!-- generate colspec
      arguments: colspec.cols - number of colspec to create
      generate <colspec colname="c{$column.number}"/> -->
@@ -614,6 +621,7 @@
           <xsl:value-of select="h:colgroup/h:col[$colspec.current]/@data-width"/>
         </xsl:attribute>
       </xsl:if>
+      <xsl:apply-templates select="h:colgroup/h:col[$colspec.current]/@*"/>
     </colspec>
     <xsl:call-template name="colspec">
       <xsl:with-param name="colspec.cols" select="$colspec.cols"/>

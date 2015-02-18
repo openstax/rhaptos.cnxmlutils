@@ -1228,7 +1228,7 @@
 </xsl:template>
 
 <xsl:template match="c:tgroup">
-  <xsl:if test="c:colspec/@colwidth">
+  <xsl:if test="c:colspec/@colwidth or c:colspec/@align">
     <colgroup>
       <xsl:call-template name="column-maker"/>
     </colgroup>
@@ -1412,6 +1412,21 @@
       </xsl:when>
     </xsl:choose>
   </xsl:param>
+  <xsl:param name="colalign">
+    <!-- copied from colwidth -->
+    <xsl:choose>
+      <xsl:when test="child::*/c:colspec[(@colnum=$cm.iteration)
+                      or (position()=$cm.iteration and not(@colnum))]/@align">
+        <xsl:value-of select="child::*/c:colspec[(@colnum=$cm.iteration)
+                              or (position()=$cm.iteration and not(@colnum))]/@align"/>
+      </xsl:when>
+      <xsl:when test="c:colspec[(@colnum=$cm.iteration)
+                      or (position()=$cm.iteration and not(@colnum))]/@align">
+        <xsl:value-of select="c:colspec[(@colnum=$cm.iteration)
+                              or (position()=$cm.iteration and not(@colnum))]/@align"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:param>
 
   <xsl:choose>
     <xsl:when test="$cm.iteration &gt; @cols"/>
@@ -1420,6 +1435,11 @@
         <xsl:if test="not($colwidth='')">
           <xsl:attribute name="data-width">
             <xsl:value-of select="$colwidth"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="not($colalign='')">
+          <xsl:attribute name="data-align">
+            <xsl:value-of select="$colalign"/>
           </xsl:attribute>
         </xsl:if>
         <xsl:choose>

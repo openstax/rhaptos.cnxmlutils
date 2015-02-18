@@ -112,6 +112,7 @@
           <colspec
             colname='c3'
             colnum='3'
+            align='right'
           ></colspec>
           <thead>
             <row>

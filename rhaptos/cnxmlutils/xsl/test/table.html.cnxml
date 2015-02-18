@@ -94,6 +94,7 @@
             colwidth='4*'
           ></colspec>
           <colspec
+            align='right'
             colname='c3'
           ></colspec>
           <thead>
