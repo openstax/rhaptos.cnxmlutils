@@ -33,7 +33,10 @@
           ></colspec>
           <thead>
             <row>
-              <entry align="center">Course</entry>
+                <entry
+                  align='center'
+                  valign='top'
+                  >Course</entry>
               <entry>Semester</entry>
               <entry>Grade</entry>
             </row>

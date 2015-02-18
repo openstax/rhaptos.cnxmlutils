@@ -1276,7 +1276,7 @@
 </xsl:template>
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
-<xsl:template match="c:entry/@align">
+<xsl:template match="c:entry/@align|c:entry/@valign">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
