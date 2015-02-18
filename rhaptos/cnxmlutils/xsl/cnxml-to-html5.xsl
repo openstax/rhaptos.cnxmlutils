@@ -1228,6 +1228,11 @@
 </xsl:template>
 
 <xsl:template match="c:tgroup">
+  <xsl:if test="c:colspec/@colwidth">
+    <colgroup>
+      <xsl:call-template name="column-maker"/>
+    </colgroup>
+  </xsl:if>
   <xsl:apply-templates select="c:thead|c:tbody|c:tfoot"/>
 </xsl:template>
 
@@ -1411,13 +1416,17 @@
   <xsl:choose>
     <xsl:when test="$cm.iteration &gt; @cols"/>
     <xsl:otherwise>
-      <col data-width="{$colwidth}">
+      <col>
+        <xsl:if test="not($colwidth='')">
+          <xsl:attribute name="data-width">
+            <xsl:value-of select="$colwidth"/>
+          </xsl:attribute>
+        </xsl:if>
         <xsl:choose>
           <xsl:when test="c:colspec[(@colnum=$cm.iteration)
                           or (position()=$cm.iteration and not(@colnum))][@colwidth!='']
                           or child::*/c:colspec[(@colnum=$cm.iteration)
                           or (position()=$cm.iteration and not(@colnum))][@colwidth!='']">
-            <b>grumble</b>
           </xsl:when>
         </xsl:choose>
       </col>

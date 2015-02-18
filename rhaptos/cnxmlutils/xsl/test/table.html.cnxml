@@ -91,6 +91,7 @@
           ></colspec>
           <colspec
             colname='c2'
+            colwidth='4*'
           ></colspec>
           <colspec
             colname='c3'

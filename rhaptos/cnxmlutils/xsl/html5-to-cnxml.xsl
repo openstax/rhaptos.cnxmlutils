@@ -595,7 +595,7 @@
       <xsl:call-template name="colspec">
         <xsl:with-param name="colspec.cols" select="$cols"/>
       </xsl:call-template>
-      <xsl:apply-templates select="node()[not(self::h:caption)]"/>
+      <xsl:apply-templates select="node()[not(self::h:caption) and not(self::h:colgroup)]"/>
     </tgroup>
   </table>
 </xsl:template>
@@ -608,7 +608,13 @@
   <xsl:param name="colspec.current" select="1"/>
 
   <xsl:if test="$colspec.current &lt;= $colspec.cols">
-    <colspec colname="c{$colspec.current}"/>
+    <colspec colname="c{$colspec.current}">
+      <xsl:if test="h:colgroup/h:col[$colspec.current]/@data-width[normalize-space()!='']">
+        <xsl:attribute name="colwidth">
+          <xsl:value-of select="h:colgroup/h:col[$colspec.current]/@data-width"/>
+        </xsl:attribute>
+      </xsl:if>
+    </colspec>
     <xsl:call-template name="colspec">
       <xsl:with-param name="colspec.cols" select="$colspec.cols"/>
       <xsl:with-param name="colspec.current" select="$colspec.current + 1"/>

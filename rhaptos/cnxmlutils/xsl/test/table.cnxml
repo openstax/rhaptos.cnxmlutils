@@ -107,6 +107,7 @@
           <colspec
             colname='c2'
             colnum='2'
+            colwidth='4*'
           ></colspec>
           <colspec
             colname='c3'
