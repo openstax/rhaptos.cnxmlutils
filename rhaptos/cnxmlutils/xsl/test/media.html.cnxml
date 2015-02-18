@@ -87,7 +87,6 @@
     >
       <labview
         mime-type='application/x-labview-vi'
-        pluginspage='http://digital.ni.com/express.nsf/bycode/exwgjq'
         src='file.vi'
         version='7.0'
         viname='the-path'
@@ -98,7 +97,17 @@
         id='id-labview-1'
         longdesc='url.txt'
         mime-type='application/x-labview-vi'
-        pluginspage='http://digital.ni.com/express.nsf/bycode/exwgjq'
+        src='file.vi'
+        version='7.0'
+        viname='the-path'
+        width='200'
+      ></labview>
+      <labview
+        for='online'
+        height='100'
+        id='id-labview-1'
+        longdesc='url.txt'
+        mime-type='application/x-labviewrpvi80'
         src='file.vi'
         version='7.0'
         viname='the-path'

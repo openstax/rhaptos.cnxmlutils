@@ -137,6 +137,18 @@
           longdesc="url.txt"
           id="id-labview-1"
       />
+
+    <labview
+          src="file.vi"
+          mime-type="application/x-labviewrpvi80"
+          viname="the-path"
+          version="7.0"
+          for="online"
+          height="100"
+          width="200"
+          longdesc="url.txt"
+          id="id-labview-1"
+      />
   </media
     >
 

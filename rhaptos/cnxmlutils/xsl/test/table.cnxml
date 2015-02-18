@@ -45,6 +45,7 @@
             <row>
               <entry
                 align='center'
+                valign='top'
               >Course</entry>
               <entry>Semester</entry>
               <entry>Grade</entry>
@@ -106,10 +107,12 @@
           <colspec
             colname='c2'
             colnum='2'
+            colwidth='4*'
           ></colspec>
           <colspec
             colname='c3'
             colnum='3'
+            align='right'
           ></colspec>
           <thead>
             <row>

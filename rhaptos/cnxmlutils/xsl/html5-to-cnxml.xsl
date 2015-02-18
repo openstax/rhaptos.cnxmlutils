@@ -595,9 +595,16 @@
       <xsl:call-template name="colspec">
         <xsl:with-param name="colspec.cols" select="$cols"/>
       </xsl:call-template>
-      <xsl:apply-templates select="node()[not(self::h:caption)]"/>
+      <xsl:apply-templates select="node()[not(self::h:caption) and not(self::h:colgroup)]"/>
     </tgroup>
   </table>
+</xsl:template>
+
+<xsl:template match="h:col/@*"/>
+<!-- @data-width is copied to colwidth in the colspec template -->
+<xsl:template match="h:col/@data-width"/>
+<xsl:template match="h:col/@*[starts-with(local-name(),'data-')]">
+  <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
 <!-- generate colspec
@@ -608,7 +615,14 @@
   <xsl:param name="colspec.current" select="1"/>
 
   <xsl:if test="$colspec.current &lt;= $colspec.cols">
-    <colspec colname="c{$colspec.current}"/>
+    <colspec colname="c{$colspec.current}">
+      <xsl:if test="h:colgroup/h:col[$colspec.current]/@data-width[normalize-space()!='']">
+        <xsl:attribute name="colwidth">
+          <xsl:value-of select="h:colgroup/h:col[$colspec.current]/@data-width"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates select="h:colgroup/h:col[$colspec.current]/@*"/>
+    </colspec>
     <xsl:call-template name="colspec">
       <xsl:with-param name="colspec.cols" select="$colspec.cols"/>
       <xsl:with-param name="colspec.current" select="$colspec.current + 1"/>
@@ -743,14 +757,14 @@
 <xsl:template match="h:object/h:param/@*">
   <xsl:copy/>
 </xsl:template>
-<xsl:template match="h:object[not(@type='application/x-labview-vi')]/h:param">
+<xsl:template match="h:object[not(starts-with(@type, 'application/x-labview'))]/h:param">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
 </xsl:template>
 
 <!-- create attributes in parent element for some of the params -->
-<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='version']|
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/h:param[@name='version']|
                      h:object[@type='application/x-java-applet']/h:param[@name='code' or @name='codebase' or @name='archive' or @name='name' or @name='src']">
   <xsl:attribute name="{@name}">
     <xsl:value-of select="@value"/>
@@ -775,7 +789,7 @@
     <xsl:apply-templates select="@*[local-name() != 'data']|h:param|node()[not(self::h:param)]"/>
   </flash>
 </xsl:template>
-<xsl:template match="h:object[@type='application/x-labview-vi']">
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]">
   <labview src="{@data}">
     <xsl:apply-templates select="@*[local-name() != 'data']|h:param"/>
   </labview>
@@ -796,7 +810,10 @@
 <!-- remove embed tags, attributes copied to parent tag -->
 <xsl:template match="h:object/h:embed"/>
 
-<xsl:template match="h:object[@type='application/x-labview-vi']/h:param[@name='lvfppviname']">
+<!-- labview plugins page is only for html -->
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/@data-pluginspage"/>
+
+<xsl:template match="h:object[starts-with(@type, 'application/x-labview')]/h:param[@name='lvfppviname']">
   <xsl:attribute name="viname">
     <xsl:value-of select="@value"/>
   </xsl:attribute>
