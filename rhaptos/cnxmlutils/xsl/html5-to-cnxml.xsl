@@ -131,9 +131,9 @@
   </div>
 </xsl:template>
 
-<xsl:template match="h:span[not(@*)]">
+<xsl:template match="h:span[not(@data-type)]">
   <span>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>
 
