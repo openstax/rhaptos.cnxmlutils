@@ -78,28 +78,17 @@
         id='id789'
       ></space>
     </para>
-    <para>The following is not implemented yet</para>
     <para>
-      <div
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: newline</div>
-      <para
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: newline</para>
+      <newline
+      ></newline>
+    </para>
+    <para>
+      <newline
+        effect='underline'
+      ></newline>
       <newline
         effect='underline'
       ></newline>
     </para>
-    <list
-      list-type='bulleted'
-    >
-      <div
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: newline</div>
-      <para
-        class='not-converted-yet'
-      >NOT_CONVERTED_YET: newline</para>
-      <newline></newline>
-    </list>
   </content>
 </document>

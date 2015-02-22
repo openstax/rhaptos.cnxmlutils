@@ -329,6 +329,14 @@
 <!-- Newlines & Spaces -->
 <!-- ======================================== -->
 
+<xsl:template match="h:br">
+  <newline/>
+</xsl:template>
+
+<xsl:template match="h:hr">
+  <newline effect="underline"/>
+</xsl:template>
+
 <xsl:template match="*[@data-type='newline']">
   <newline>
     <xsl:apply-templates select="@*"/>
