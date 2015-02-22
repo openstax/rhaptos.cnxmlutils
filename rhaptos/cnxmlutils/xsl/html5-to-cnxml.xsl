@@ -122,7 +122,10 @@
 <!-- abstract should not be in content, it's already in the database -->
 <xsl:template match="*[@data-type='abstract']"/>
 
-<xsl:template match="h:div[not(@data-type)]">
+<xsl:template match="h:div[@data-type='description']/@itemprop"/>
+
+<!-- data-type description is in the summary when using the webview editor -->
+<xsl:template match="h:div[not(@data-type) or @data-type='description']">
   <div>
     <xsl:apply-templates select="@*|node()"/>
   </div>
