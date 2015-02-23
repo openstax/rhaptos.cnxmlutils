@@ -693,7 +693,7 @@
 </xsl:template>
 
 <xsl:template match="h:img/@alt|*[@data-type='image']/@alt"/>
-<xsl:template match="h:img|*[@data-type='image']">
+<xsl:template match="h:img|*[@data-type='image']" mode="normal-image">
   <image mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
@@ -703,6 +703,17 @@
     <xsl:apply-templates select="@*|node()"/>
   </image>
 </xsl:template>
+
+<xsl:template match="h:img|*[@data-type='image']">
+  <xsl:apply-templates select="." mode="normal-image"/>
+</xsl:template>
+
+<xsl:template match="h:img[not(parent::*[@data-type='media'])]">
+  <media alt="{@alt}">
+    <xsl:apply-templates select="." mode="normal-image"/>
+  </media>
+</xsl:template>
+
 <xsl:template match="h:img/@width|h:img/@height|h:img/@src|
                      *[@data-type='image']/@width|*[@data-type='image']/@height">
   <xsl:copy/>
