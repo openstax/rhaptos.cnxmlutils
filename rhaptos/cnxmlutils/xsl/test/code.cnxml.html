@@ -1,0 +1,86 @@
+<body
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:c='http://cnx.rice.edu/cnxml'
+  xmlns:data='http://dev.w3.org/html5/spec/#custom'
+  xmlns:md='http://cnx.rice.edu/mdml'
+  xmlns:mod='http://cnx.rice.edu/#moduleIds'
+  xmlns:qml='http://cnx.rice.edu/qml/1.0'
+>
+  <div
+    data-type='document-title'
+  >Test Module</div>
+  <pre>[line 1]
+[line 2]          [after 10 spaces]
+[line 3]</pre>
+  <p>...
+    <code>[some text]          [after 10 spaces]</code>...
+  </p>
+  <code
+    data-display='inline'
+  >Inline code where it would normally be a block</code>
+  <pre
+    data-lang='JavaScript'
+  >with a language attribute</pre>
+  <pre
+    id='id123'
+  >with an id</pre>
+  <div
+    data-type='code'
+    id='id456'
+  >
+    <div
+      data-type='title'
+    >the title</div>
+    <pre>with a title</pre>
+  </div>
+  <div
+    data-type='code'
+    id='id789'
+  >
+    <div
+      data-type='title'
+    >the title</div>
+    <pre
+      data-label='the label'
+    >with a title and label</pre>
+  </div>
+  <div
+    data-type='code'
+    id='id789'
+  >
+    <div
+      data-type='title'
+    >the title</div>
+    <pre
+      data-display='block'
+      data-label='the label'
+      data-lang='JavaScript'
+    >with a title and label
+[line 2]
+[line 3]</pre>
+  </div>
+  <p>Preformat elemnt (much like a block of code but styled differently)</p>
+  <pre>[line 1]
+[line 2]          [after 10 spaces]
+[line 3]</pre>
+  <pre
+    id='id123'
+  >with an id</pre>
+  <div
+    data-type='code'
+    id='id456'
+  >
+    <div
+      data-type='title'
+    >the title</div>
+    <pre>with a title
+[line 2]
+[line 3]</pre>
+  </div>
+  <ul>
+    <li>
+      <code>inline code; should not be a blockish pre</code>
+    </li>
+  </ul>
+</body>

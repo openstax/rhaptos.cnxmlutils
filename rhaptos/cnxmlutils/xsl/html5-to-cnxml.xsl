@@ -122,15 +122,18 @@
 <!-- abstract should not be in content, it's already in the database -->
 <xsl:template match="*[@data-type='abstract']"/>
 
-<xsl:template match="h:div[not(@data-type)]">
+<xsl:template match="h:div[@data-type='description']/@itemprop"/>
+
+<!-- data-type description is in the summary when using the webview editor -->
+<xsl:template match="h:div[not(@data-type) or @data-type='description']">
   <div>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
 
-<xsl:template match="h:span[not(@*)]">
+<xsl:template match="h:span[not(@data-type)]">
   <span>
-    <xsl:apply-templates select="node()"/>
+    <xsl:apply-templates select="@*|node()"/>
   </span>
 </xsl:template>
 
@@ -328,6 +331,14 @@
 <!-- ======================================== -->
 <!-- Newlines & Spaces -->
 <!-- ======================================== -->
+
+<xsl:template match="h:br">
+  <newline/>
+</xsl:template>
+
+<xsl:template match="h:hr">
+  <newline effect="underline"/>
+</xsl:template>
 
 <xsl:template match="*[@data-type='newline']">
   <newline>
@@ -682,7 +693,7 @@
 </xsl:template>
 
 <xsl:template match="h:img/@alt|*[@data-type='image']/@alt"/>
-<xsl:template match="h:img|*[@data-type='image']">
+<xsl:template match="h:img|*[@data-type='image']" mode="normal-image">
   <image mime-type="{@data-media-type}">
     <xsl:if test="contains(@class, 'for-')">
       <xsl:attribute name="for">
@@ -692,6 +703,17 @@
     <xsl:apply-templates select="@*|node()"/>
   </image>
 </xsl:template>
+
+<xsl:template match="h:img|*[@data-type='image']">
+  <xsl:apply-templates select="." mode="normal-image"/>
+</xsl:template>
+
+<xsl:template match="h:img[not(parent::*[@data-type='media'])]">
+  <media alt="{@alt}">
+    <xsl:apply-templates select="." mode="normal-image"/>
+  </media>
+</xsl:template>
+
 <xsl:template match="h:img/@width|h:img/@height|h:img/@src|
                      *[@data-type='image']/@width|*[@data-type='image']/@height">
   <xsl:copy/>
