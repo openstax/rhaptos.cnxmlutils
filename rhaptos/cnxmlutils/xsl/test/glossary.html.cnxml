@@ -127,7 +127,9 @@
     </section>
     <para>...</para>
   </content>
-  <glossary>
+  <glossary
+    class='ost-reading-discard'
+  >
     <definition
       id='import-auto-id1170614029097'
     >

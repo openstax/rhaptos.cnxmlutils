@@ -1083,13 +1083,14 @@
 </xsl:template>
 
 <!-- ========================= -->
-<!-- Glossary: Partial Support -->
+<!-- Glossary -->
 <!-- ========================= -->
 
 <xsl:template match="c:glossary">
   <div data-type="{local-name()}">
+    <xsl:apply-templates select="@*"/>
     <h2 data-type="glossary-title">Glossary</h2>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates select="node()"/>
   </div>
 </xsl:template>
 
