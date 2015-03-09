@@ -1097,8 +1097,15 @@
 <xsl:template match="c:content//c:definition">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*"/>
-    <span data-type="label">Definition: </span>
-    <xsl:apply-templates select="node()"/>
+    <xsl:choose>
+      <xsl:when test="c:label">
+        <xsl:apply-templates select="c:label"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <span data-type="label">Definition: </span>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:apply-templates select="node()[not(self::c:label)]"/>
   </div>
 </xsl:template>
 
