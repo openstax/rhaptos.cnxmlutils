@@ -78,10 +78,6 @@
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="processing-instruction()">
-  <xsl:processing-instruction name="{local-name()}"><xsl:value-of select="."/></xsl:processing-instruction>
-</xsl:template>
-
 
 <!-- ======================================== -->
 <!-- Document -->
@@ -149,6 +145,23 @@
   <xsl:apply-templates select="@*"/>
   <xsl:apply-templates select="@data-label" mode="labeled"/>
   <xsl:apply-templates select="node()"/>
+</xsl:template>
+
+
+<!-- ======================================== -->
+<!-- Processing instructions -->
+<!-- ======================================== -->
+
+<xsl:template match="processing-instruction()">
+  <xsl:processing-instruction name="{local-name()}">
+    <xsl:value-of select="."/>
+  </xsl:processing-instruction>
+</xsl:template>
+
+<xsl:template match="h:cnx-pi">
+  <xsl:processing-instruction name="{@data-type}">
+    <xsl:value-of select="text()"/>
+  </xsl:processing-instruction>
 </xsl:template>
 
 

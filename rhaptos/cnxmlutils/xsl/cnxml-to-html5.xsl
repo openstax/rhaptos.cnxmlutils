@@ -59,8 +59,15 @@
   </xsl:if>
 </xsl:template>
 
+
+<!-- ========================= -->
+<!-- Processing instructions   -->
+<!-- ========================= -->
+
 <xsl:template match="processing-instruction()">
-  <xsl:processing-instruction name="{local-name()}"><xsl:value-of select="."/></xsl:processing-instruction>
+  <cnx-pi data-type="{local-name()}">
+    <xsl:value-of select="."/>
+  </cnx-pi>
 </xsl:template>
 
 
