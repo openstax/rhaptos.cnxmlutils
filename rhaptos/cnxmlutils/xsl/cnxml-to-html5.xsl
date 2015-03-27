@@ -550,7 +550,7 @@
 </xsl:template>
 
 <!-- ========================= -->
-<!-- Terms -->
+<!-- Inline Terms -->
 <!-- ========================= -->
 
 <!-- Prefix these attributes with "data-" -->
@@ -1102,30 +1102,26 @@
 </xsl:template>
 
 <xsl:template match="c:content//c:definition">
-  <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*"/>
-    <xsl:choose>
-      <xsl:when test="c:label">
-        <xsl:apply-templates select="c:label"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <span data-type="label">Definition: </span>
-      </xsl:otherwise>
-    </xsl:choose>
+  <dl>
+    <xsl:apply-templates select="@*|c:label"/>
     <xsl:apply-templates select="node()[not(self::c:label)]"/>
-  </div>
+  </dl>
 </xsl:template>
 
 <xsl:template match="c:glossary//c:definition">
-  <div data-type="{local-name()}">
+  <dl>
     <xsl:apply-templates select="@*|node()"/>
-  </div>
+  </dl>
+</xsl:template>
+
+<xsl:template match="c:definition//c:term">
+  <dt><xsl:apply-templates select="@*|node()"/></dt>
 </xsl:template>
 
 <xsl:template match="c:meaning[not(c:title)]">
-  <div data-type="{local-name()}">
+  <dd>
     <xsl:apply-templates select="@*|node()"/>
-  </div>
+  </dd>
 </xsl:template>
 
 <xsl:template match="c:seealso">

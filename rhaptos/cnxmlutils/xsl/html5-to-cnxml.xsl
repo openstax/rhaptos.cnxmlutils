@@ -871,16 +871,19 @@
 <!-- A header is placed on the glossary during cnxml->html5. -->
 <xsl:template match="*[@data-type='glossary-title']"/>
 
-<xsl:template match="*[@data-type='definition']">
+<xsl:template match="h:dl">
   <definition>
     <xsl:call-template name="labeled-content"/>
   </definition>
 </xsl:template>
 
-<!-- Ignore the definition label -->
-<xsl:template match="*[@data-type='definition']/*[@data-type='label' and text()='Definition:']"/>
+<xsl:template match="h:dt">
+  <term>
+    <xsl:apply-templates select="@*|node()"/>
+  </term>
+</xsl:template>
 
-<xsl:template match="*[@data-type='meaning']">
+<xsl:template match="h:dd">
   <meaning>
     <xsl:apply-templates select="@*|node()"/>
   </meaning>
