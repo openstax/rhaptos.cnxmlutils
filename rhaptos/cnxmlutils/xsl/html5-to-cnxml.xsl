@@ -42,7 +42,44 @@
 </xsl:template>
 
 <xsl:template match="*/@class">
-  <xsl:copy/>
+  <!-- FIXME Drop the choose in favor of a straight copy (in the xsl:otherwise). -->
+  <xsl:choose>
+    <xsl:when test="parent::*[@data-type='example']
+                    |parent::*[@data-type='exercise']
+                    |parent::*[@data-type='note']
+                    |parent::*[@data-type='equation']">
+      <!-- FFF When @data-type is added to the aloha plugins, this will strip the previously used class as type definer from the classes. -->
+      <xsl:variable name="classes">
+        <xsl:call-template name="string-replace-all">
+          <xsl:with-param name="text" select="."/>
+          <xsl:with-param name="replace" select="parent::*/@data-type"/>
+          <xsl:with-param name="by" select="string('')"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:if test="$classes != ''">
+        <xsl:attribute name="class">
+          <xsl:value-of select="normalize-space($classes)"/>
+        </xsl:attribute>
+      </xsl:if>
+    </xsl:when>
+    <xsl:when test="parent::h:dl">
+      <xsl:variable name="classes">
+        <xsl:call-template name="string-replace-all">
+          <xsl:with-param name="text" select="."/>
+          <xsl:with-param name="replace" select="string('definition')"/>
+          <xsl:with-param name="by" select="string('')"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:if test="$classes != ''">
+        <xsl:attribute name="class">
+          <xsl:value-of select="normalize-space($classes)"/>
+        </xsl:attribute>
+      </xsl:if>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:copy/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="*/@data-element-type">
@@ -147,6 +184,26 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<xsl:template name="string-replace-all">
+  <!-- Origin http://stackoverflow.com/questions/1069092/xslt-replace-function-not-found -->
+  <xsl:param name="text"/>
+  <xsl:param name="replace"/>
+  <xsl:param name="by"/>
+  <xsl:choose>
+    <xsl:when test="contains($text,$replace)">
+      <xsl:value-of select="substring-before($text,$replace)"/>
+      <xsl:value-of select="$by"/>
+      <xsl:call-template name="string-replace-all">
+        <xsl:with-param name="text" select="substring-after($text,$replace)"/>
+        <xsl:with-param name="replace" select="$replace"/>
+        <xsl:with-param name="by" select="$by"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$text"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 <!-- ======================================== -->
 <!-- Processing instructions -->
