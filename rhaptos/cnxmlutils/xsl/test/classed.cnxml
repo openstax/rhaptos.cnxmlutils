@@ -159,5 +159,31 @@
         id='fs-idm90760848'
       >a characteristic of interest for each person or object in a population</meaning>
     </definition>
+    <!-- figures contain a class based title -->
+    <figure>
+      <span
+        class='add-figure-left'
+      >+</span>
+      <title
+        id='989b1ea2-9f98-2bbd-a51e-32ec96d51b88'
+      >Green Beans</title>
+      <media
+        alt='green beans'
+        >
+        <image
+          draggable='false'
+          mime-type=''
+          src='/resources/f70c629d7879f221bacd9ce6eec01568402cf741'
+        ></image>
+      </media>
+      <span
+        class='add-figure-right'
+      >+</span>
+      <caption>
+        <para
+          id='2def1e45-ec49-85b1-190f-033a45d126b1'
+        ></para>
+      </caption>
+    </figure>
   </content>
 </document>
