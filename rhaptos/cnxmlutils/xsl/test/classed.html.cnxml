@@ -16,12 +16,14 @@
 <?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
 
     <example
-      class='foo bar'
+      class='example foo bar'
       id='example-test'
       type='listing'
     >
       <label>Listing</label>
-      <title>
+      <title
+        class='title boldly'
+      >
         <emphasis
           effect='bold'
           id='Listing_1'
@@ -30,11 +32,14 @@
       <para>...</para>
     </example>
     <example
+      class='example'
       id='example-test'
       type='listing'
     >
       <label>Listing</label>
-      <title>
+      <title
+        class='title'
+      >
         <emphasis
           effect='bold'
           id='Listing_1'
@@ -43,7 +48,7 @@
       <para>...</para>
     </example>
     <exercise
-      class='foo bar'
+      class='exercise foo bar'
       id='exercise-test'
       print-placement='here'
       type='check-understanding'
@@ -51,6 +56,7 @@
       <label></label>
       <title>Check Your Understanding</title>
       <problem
+        class='problem'
         id='problem-test'
         type='problem-type'
       >
@@ -69,7 +75,7 @@
         </para>
       </problem>
       <solution
-        class='solutions'
+        class='solution solutions'
         id='solution-test'
         print-placement='here'
         type='solution-type'
@@ -85,11 +91,12 @@
       </solution>
     </exercise>
     <note
-      class='interactive'
+      class='note interactive'
       id='fs-idm13022000'
     >
-      <label></label>
-      <title>Link to Learning</title>
+      <title
+        class='title'
+      >Link to Learning</title>
       <media
         alt='QR Code representing a URL'
         id='fs-idm145499088'
@@ -111,7 +118,7 @@
       </para>
     </note>
     <equation
-      class='foo bar'
+      class='equation foo bar'
       id='element-252'
     >
       <m:math>
@@ -151,5 +158,31 @@
         id='fs-idm90760848'
       >a characteristic of interest for each person or object in a population</meaning>
     </definition>
+    <figure>
+      <title
+        class='title'
+        id='989b1ea2-9f98-2bbd-a51e-32ec96d51b88'
+      >Green Beans</title>
+      <span
+        class='add-figure-left'
+      >+</span>
+      <media
+        alt='green beans'
+      >
+        <image
+          draggable='false'
+          mime-type=''
+          src='/resources/f70c629d7879f221bacd9ce6eec01568402cf741'
+        ></image>
+      </media>
+      <span
+        class='add-figure-right'
+      >+</span>
+      <caption>
+        <para
+          id='2def1e45-ec49-85b1-190f-033a45d126b1'
+        ></para>
+      </caption>
+    </figure>
   </content>
 </document>

@@ -148,9 +148,13 @@
   <xsl:choose>
     <xsl:when test="parent::c:example
                     |parent::c:exercise
+                    |parent::c:problem
+                    |parent::c:solution
+                    |parent::c:commentary
                     |parent::c:note
                     |parent::c:equation
-                    |parent::c:definition">
+                    |parent::c:definition
+                    |parent::c:title[parent::c:example or parent::c:note or parent::c:figure]">
       <xsl:attribute name="class">
         <!-- Prepend the node name for as a **TEMPORARY** type definer. -->
         <xsl:value-of select="concat(concat(name(parent::*), ' '), .)"/>
@@ -211,7 +215,13 @@
 </xsl:template>
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
+  <!-- FIXME Drop @class as type definer. -->
   <div data-type="title">
+    <xsl:if test="not(@class) and (parent::c:example or parent::c:note or parent::c:figure)">
+      <xsl:attribute name="class">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
@@ -280,15 +290,39 @@
 </xsl:template>
 
 <xsl:template match="c:problem">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <!-- FIXME Drop @class as type definer. -->
+  <div data-type="{local-name()}">
+    <xsl:if test="not(@class)">
+      <xsl:attribute name="class">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:solution">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <!-- FIXME Drop @class as type definer. -->
+  <div data-type="{local-name()}">
+    <xsl:if test="not(@class)">
+      <xsl:attribute name="class">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <!-- FIXME Drop @class as type definer. -->
+  <div data-type="{local-name()}">
+    <xsl:if test="not(@class)">
+      <xsl:attribute name="class">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:equation">

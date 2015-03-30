@@ -10,11 +10,11 @@
   xmlns:q='http://cnx.rice.edu/qml/1.0'
 >
   <title>Document testing the use of the title tag</title>
-  <content>
-<?chapter-toc label="Learning Objectives"?>
+  <content><?chapter-toc label="Learning Objectives"?>
 <?cnx.eoc class="section-summary" title="Section Summary"?>
 <?cnx.eoc class="conceptual-questions" title="Conceptual Questions"?>
 <?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
+
     <section
       id='sectioned-section'
     >
@@ -309,7 +309,7 @@ __enable_interrupt();
         </para>
       </problem>
       <solution
-        class='solutions'
+        class='s'
         id='solution-test'
         print-placement='here'
         type='solution-type'

@@ -46,8 +46,12 @@
   <xsl:choose>
     <xsl:when test="parent::*[@data-type='example']
                     |parent::*[@data-type='exercise']
+                    |parent::*[@data-type='problem']
+                    |parent::*[@data-type='solution']
+                    |parent::*[@data-type='commentary']
                     |parent::*[@data-type='note']
-                    |parent::*[@data-type='equation']">
+                    |parent::*[@data-type='equation']
+                    |parent::*[@data-type='title' and parent::*[@data-type='example' or @data-type='note' or @data-type='figure']]">
       <!-- FFF When @data-type is added to the aloha plugins, this will strip the previously used class as type definer from the classes. -->
       <xsl:variable name="classes">
         <xsl:call-template name="string-replace-all">
@@ -158,7 +162,16 @@
 <xsl:template match="h:div[@data-type='description']/@itemprop"/>
 
 <!-- data-type description is in the summary when using the webview editor -->
-<xsl:template match="h:div[not(@data-type) or @data-type='description']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="h:div[(not(@data-type) or @data-type='description')
+                           and not(contains(@class, 'example')
+                                   or contains(@class, 'exercise')
+                                   or contains(@class, 'problem')
+                                   or contains(@class, 'solution')
+                                   or contains(@class, 'commentary')
+                                   or contains(@class, 'note')
+                                   or contains(@class, 'equation')
+                                   or contains(@class, 'title'))]">
   <div>
     <xsl:apply-templates select="@*|node()"/>
   </div>
@@ -227,7 +240,11 @@
 
 <xsl:template match="@data-type"/>
 
-<xsl:template match="*[@data-type='title']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='title']
+                     |*[contains(@class, 'title')
+                        and (parent::*[contains(@class, 'example') or contains(@class, 'note')]
+                             or parent::h:figure)]">
   <title><xsl:apply-templates select="@*|node()"/></title>
 </xsl:template>
 
@@ -254,7 +271,9 @@
   <para><xsl:apply-templates select="@*|node()"/></para>
 </xsl:template>
 
-<xsl:template match="*[@data-type='example']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='example']
+                     |*[contains(@class, 'example')]">
   <example>
     <xsl:call-template name="labeled-content"/>
   </example>
@@ -265,19 +284,25 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
-<xsl:template match="*[@data-type='exercise']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='exercise']
+                     |*[contains(@class, 'exercise')]">
   <exercise>
     <xsl:call-template name="labeled-content"/>
   </exercise>
 </xsl:template>
 
-<xsl:template match="*[@data-type='problem']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='problem']
+                     |*[contains(@class, 'problem')]">
   <problem>
     <xsl:call-template name="labeled-content"/>
   </problem>
 </xsl:template>
 
-<xsl:template match="*[@data-type='solution']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='solution']
+                     |*[contains(@class, 'solution')]">
   <solution>
     <xsl:call-template name="labeled-content"/>
   </solution>
@@ -295,13 +320,17 @@
   </statement>
 </xsl:template>
 
-<xsl:template match="*[@data-type='commentary']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='commentary']
+                     |*[contains(@class, 'commentary')]">
   <commentary>
     <xsl:call-template name="labeled-content"/>
 </commentary>
 </xsl:template>
 
-<xsl:template match="*[@data-type='equation']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='equation']
+                     |*[contains(@class, 'equation')]">
   <equation>
     <xsl:call-template name="labeled-content"/>
   </equation>
@@ -370,7 +399,9 @@
 
 <!-- ========================= -->
 
-<xsl:template match="*[@data-type='note']">
+<!-- FIXME Remove class matching -->
+<xsl:template match="*[@data-type='note']
+                     |*[contains(@class, 'note')]">
   <note>
     <xsl:apply-templates select="@*[not(local-name()='data-label' or local-name()='data-has-label')]"/>
     <xsl:apply-templates select="@data-label|node()"/>
