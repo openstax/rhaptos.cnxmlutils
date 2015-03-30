@@ -153,7 +153,8 @@
                     |parent::c:commentary
                     |parent::c:note
                     |parent::c:equation
-                    |parent::c:definition">
+                    |parent::c:definition
+                    |parent::c:title[parent::c:example or parent::c:note]">
       <xsl:attribute name="class">
         <!-- Prepend the node name for as a **TEMPORARY** type definer. -->
         <xsl:value-of select="concat(concat(name(parent::*), ' '), .)"/>
@@ -214,7 +215,13 @@
 </xsl:template>
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
+  <!-- FIXME Drop @class as type definer. -->
   <div data-type="title">
+    <xsl:if test="not(@class) and (parent::c:example or parent::c:note)">
+      <xsl:attribute name="class">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
   </div>
 </xsl:template>
