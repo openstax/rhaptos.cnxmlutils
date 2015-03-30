@@ -51,7 +51,7 @@
                     |parent::*[@data-type='commentary']
                     |parent::*[@data-type='note']
                     |parent::*[@data-type='equation']
-                    |parent::*[@data-type='title' and (parent::*[@data-type='example'] or parent::*[@data-type='note'])]">
+                    |parent::*[@data-type='title' and parent::*[@data-type='example' or @data-type='note' or @data-type='figure']]">
       <!-- FFF When @data-type is added to the aloha plugins, this will strip the previously used class as type definer from the classes. -->
       <xsl:variable name="classes">
         <xsl:call-template name="string-replace-all">
@@ -243,7 +243,8 @@
 <!-- FIXME Remove class matching -->
 <xsl:template match="*[@data-type='title']
                      |*[contains(@class, 'title')
-                        and (parent::*[contains(@class, 'example') or contains(@class, 'note')])]">
+                        and (parent::*[contains(@class, 'example') or contains(@class, 'note')]
+                             or parent::h:figure)]">
   <title><xsl:apply-templates select="@*|node()"/></title>
 </xsl:template>
 
