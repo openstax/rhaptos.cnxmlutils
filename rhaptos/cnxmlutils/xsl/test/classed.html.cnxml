@@ -21,7 +21,9 @@
       type='listing'
     >
       <label>Listing</label>
-      <title>
+      <title
+        class='boldly'
+      >
         <emphasis
           effect='bold'
           id='Listing_1'

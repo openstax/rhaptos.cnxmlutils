@@ -50,7 +50,8 @@
                     |parent::*[@data-type='solution']
                     |parent::*[@data-type='commentary']
                     |parent::*[@data-type='note']
-                    |parent::*[@data-type='equation']">
+                    |parent::*[@data-type='equation']
+                    |parent::*[@data-type='title' and (parent::*[@data-type='example'] or parent::*[@data-type='note'])]">
       <!-- FFF When @data-type is added to the aloha plugins, this will strip the previously used class as type definer from the classes. -->
       <xsl:variable name="classes">
         <xsl:call-template name="string-replace-all">
