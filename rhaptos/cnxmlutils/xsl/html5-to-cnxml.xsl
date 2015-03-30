@@ -46,6 +46,9 @@
   <xsl:choose>
     <xsl:when test="parent::*[@data-type='example']
                     |parent::*[@data-type='exercise']
+                    |parent::*[@data-type='problem']
+                    |parent::*[@data-type='solution']
+                    |parent::*[@data-type='commentary']
                     |parent::*[@data-type='note']
                     |parent::*[@data-type='equation']">
       <!-- FFF When @data-type is added to the aloha plugins, this will strip the previously used class as type definer from the classes. -->

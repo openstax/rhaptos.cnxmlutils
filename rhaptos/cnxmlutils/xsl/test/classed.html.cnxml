@@ -69,7 +69,7 @@
         </para>
       </problem>
       <solution
-        class='solutions'
+        class='s'
         id='solution-test'
         print-placement='here'
         type='solution-type'
