@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <document
+  class='introduction'
   cnxml-version='0.7'
   xmlns='http://cnx.rice.edu/cnxml'
   xmlns:bib='http://bibtexml.sf.net/'
@@ -14,6 +15,7 @@
 <?cnx.eoc class="section-summary" title="Section Summary"?>
 <?cnx.eoc class="conceptual-questions" title="Conceptual Questions"?>
 <?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
+<?cnx.flag.introduction class="introduction"?>
 
     <section
       id='sectioned-section'

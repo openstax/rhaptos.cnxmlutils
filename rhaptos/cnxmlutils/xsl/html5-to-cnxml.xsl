@@ -133,6 +133,11 @@
             xmlns:m="http://www.w3.org/1998/Math/MathML"
             xmlns:q="http://cnx.rice.edu/qml/1.0"
             cnxml-version="0.7">
+    <xsl:if test="./h:cnx-pi[@data-type='cnx.flag.introduction']">
+      <xsl:attribute name="class">
+        <xsl:value-of select="substring-before(substring-after(./h:cnx-pi[@data-type='cnx.flag.introduction']/text(), 'class=&quot;'), '&quot;')"/>
+      </xsl:attribute>
+    </xsl:if>
     <!-- Unable to utilize @module-id or @id because this information is not in the html. -->
     <title>
       <xsl:apply-templates select="*[@data-type='document-title']/text()" />

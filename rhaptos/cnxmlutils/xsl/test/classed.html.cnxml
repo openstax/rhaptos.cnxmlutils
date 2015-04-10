@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <document
+  class='introduction flagged'
   cnxml-version='0.7'
   xmlns='http://cnx.rice.edu/cnxml'
   xmlns:bib='http://bibtexml.sf.net/'
@@ -10,7 +11,8 @@
   xmlns:q='http://cnx.rice.edu/qml/1.0'
 >
   <title>Document testing</title>
-  <content><?chapter-toc label="Learning Objectives"?>
+  <content><?cnx.flag.introduction class="introduction flagged"?>
+<?chapter-toc label="Learning Objectives"?>
 <?cnx.eoc class="section-summary" title="Section Summary"?>
 <?cnx.eoc class="conceptual-questions" title="Conceptual Questions"?>
 <?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
