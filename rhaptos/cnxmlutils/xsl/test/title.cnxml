@@ -16,6 +16,8 @@
 <?cnx.eoc class="section-summary" title="Section Summary"?>
 <?cnx.eoc class="conceptual-questions" title="Conceptual Questions"?>
 <?cnx.eoc class="problems-exercises" title="Problems & Exercises"?>
+<!-- forward compatible processing-instruction for //c:document/@class -->
+<?cnx.flag.introduction class="introduction"?>
 
   <section
         id="sectioned-section"
