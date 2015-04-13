@@ -36,6 +36,11 @@
 <xsl:template match="c:document">
   <body xmlns="http://www.w3.org/1999/xhtml">
     <xsl:apply-templates select="c:title"/>
+    <xsl:if test="contains(@class, 'introduction')">
+      <cnx-pi data-type="cnx.flag.introduction">
+        class="<xsl:value-of select="@class"/>"
+      </cnx-pi>
+    </xsl:if>
     <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
     <xsl:if test="c:content//c:footnote">
