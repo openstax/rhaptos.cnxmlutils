@@ -5,6 +5,7 @@
   xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:q="http://cnx.rice.edu/qml/1.0"
   xmlns:bib="http://bibtexml.sf.net/"
+  xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
   exclude-result-prefixes="h"
   >
 
@@ -111,13 +112,95 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@*[starts-with(local-name(), 'data-') and (local-name() != 'data-label')]">
-  <xsl:if test="local-name() != 'data-type'">
-    <xsl:attribute name="{substring-after(local-name(), 'data-')}">
-      <xsl:value-of select="."/>
-    </xsl:attribute>
-  </xsl:if>
+<xsl:template match="@*[starts-with(local-name(), 'data-') and local-name() != 'data-label']">
+  <xsl:variable name="name" select="substring-after(local-name(), 'data-')"/>
+  <xsl:choose>
+    <xsl:when test="local-name() = 'data-type'">
+      <!-- Do nothing. Another statement handles this. -->
+    </xsl:when>
+    <xsl:when test="$name != 'align'
+                    and $name != 'alt'
+                    and $name != 'archive'
+                    and $name != 'autoplay'
+                    and $name != 'bgcolor'
+                    and $name != 'bullet-style'
+                    and $name != 'char'
+                    and $name != 'charoff'
+                    and $name != 'code'
+                    and $name != 'codebase'
+                    and $name != 'colname'
+                    and $name != 'colnum'
+                    and $name != 'cols'
+                    and $name != 'colsep'
+                    and $name != 'colwidth'
+                    and $name != 'controller'
+                    and $name != 'count'
+                    and $name != 'display'
+                    and $name != 'document'
+                    and $name != 'effect'
+                    and $name != 'element-type'
+                    and $name != 'flash-vars'
+                    and $name != 'for'
+                    and $name != 'frame'
+                    and $name != 'height'
+                    and $name != 'item-sep'
+                    and $name != 'label'
+                    and $name != 'lang'
+                    and $name != 'list-type'
+                    and $name != 'loop'
+                    and $name != 'longdesc'
+                    and $name != 'mark-prefix'
+                    and $name != 'mark-suffix'
+                    and $name != 'mime-type'
+                    and $name != 'morerows'
+                    and $name != 'name'
+                    and $name != 'nameend'
+                    and $name != 'namest'
+                    and $name != 'number-style'
+                    and $name != 'orient'
+                    and $name != 'pgwide'
+                    and $name != 'print-placement'
+                    and $name != 'print-width'
+                    and $name != 'pub-type'
+                    and $name != 'quality'
+                    and $name != 'resource'
+                    and $name != 'rowsep'
+                    and $name != 'scale'
+                    and $name != 'spanname'
+                    and $name != 'src'
+                    and $name != 'standby'
+                    and $name != 'start-value'
+                    and $name != 'strength'
+                    and $name != 'summary'
+                    and $name != 'target-id'
+                    and $name != 'thumbnail'
+                    and $name != 'type'
+                    and $name != 'url'
+                    and $name != 'valign'
+                    and $name != 'value'
+                    and $name != 'version'
+                    and $name != 'volume'
+                    and $name != 'width'
+                    and $name != 'window'
+                    and $name != 'wmode'
+                    ">
+      <xsl:attribute name="data:{$name}">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:attribute name="{substring-after(local-name(), 'data-')}">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:otherwise>
+  </xsl:choose>
+  <!-- <xsl:if test="local-name() != 'data-type'"> -->
+  <!--   <xsl:attribute name="{substring-after(local-name(), 'data-')}"> -->
+  <!--     <xsl:value-of select="."/> -->
+  <!--   </xsl:attribute> -->
+  <!-- </xsl:if> -->
 </xsl:template>
+
 
 
 <!-- ======================================== -->
