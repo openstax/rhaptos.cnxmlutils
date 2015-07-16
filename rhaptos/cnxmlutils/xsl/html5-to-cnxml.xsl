@@ -121,6 +121,7 @@
     <xsl:when test="$name != 'align'
                     and $name != 'alt'
                     and $name != 'archive'
+                    and $name != 'author'
                     and $name != 'autoplay'
                     and $name != 'bgcolor'
                     and $name != 'bullet-style'
@@ -135,6 +136,7 @@
                     and $name != 'colwidth'
                     and $name != 'controller'
                     and $name != 'count'
+                    and $name != 'depth'
                     and $name != 'display'
                     and $name != 'document'
                     and $name != 'effect'
@@ -142,15 +144,18 @@
                     and $name != 'flash-vars'
                     and $name != 'for'
                     and $name != 'frame'
+                    and $name != 'has-label'
                     and $name != 'height'
                     and $name != 'item-sep'
                     and $name != 'label'
+                    and $name != 'labeled-item'
                     and $name != 'lang'
                     and $name != 'list-type'
                     and $name != 'loop'
                     and $name != 'longdesc'
                     and $name != 'mark-prefix'
                     and $name != 'mark-suffix'
+                    and $name != 'media-type'
                     and $name != 'mime-type'
                     and $name != 'morerows'
                     and $name != 'name'
@@ -159,6 +164,7 @@
                     and $name != 'number-style'
                     and $name != 'orient'
                     and $name != 'pgwide'
+                    and $name != 'pluginspage'
                     and $name != 'print-placement'
                     and $name != 'print-width'
                     and $name != 'pub-type'
@@ -174,6 +180,7 @@
                     and $name != 'summary'
                     and $name != 'target-id'
                     and $name != 'thumbnail'
+                    and $name != 'to-term'
                     and $name != 'type'
                     and $name != 'url'
                     and $name != 'valign'
@@ -194,11 +201,6 @@
       </xsl:attribute>
     </xsl:otherwise>
   </xsl:choose>
-  <!-- <xsl:if test="local-name() != 'data-type'"> -->
-  <!--   <xsl:attribute name="{substring-after(local-name(), 'data-')}"> -->
-  <!--     <xsl:value-of select="."/> -->
-  <!--   </xsl:attribute> -->
-  <!-- </xsl:if> -->
 </xsl:template>
 
 
