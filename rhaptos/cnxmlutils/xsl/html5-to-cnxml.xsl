@@ -6,7 +6,8 @@
   xmlns:q="http://cnx.rice.edu/qml/1.0"
   xmlns:bib="http://bibtexml.sf.net/"
   xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
-  exclude-result-prefixes="h"
+  xmlns:a="http://attributes.list"
+  exclude-result-prefixes="h a"
   >
 
 <xsl:output method="xml" omit-xml-declaration="no" indent="no" encoding="utf-8"/>
@@ -112,95 +113,101 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@*[starts-with(local-name(), 'data-') and local-name() != 'data-label']">
+<a:attributes>
+<a:attrib name='align'/>
+<a:attrib name='alt'/>
+<a:attrib name='archive'/>
+<a:attrib name='author'/>
+<a:attrib name='autoplay'/>
+<a:attrib name='bgcolor'/>
+<a:attrib name='bullet-style'/>
+<a:attrib name='char'/>
+<a:attrib name='charoff'/>
+<a:attrib name='code'/>
+<a:attrib name='codebase'/>
+<a:attrib name='colname'/>
+<a:attrib name='colnum'/>
+<a:attrib name='cols'/>
+<a:attrib name='colsep'/>
+<a:attrib name='colwidth'/>
+<a:attrib name='controller'/>
+<a:attrib name='count'/>
+<a:attrib name='depth'/>
+<a:attrib name='display'/>
+<a:attrib name='document'/>
+<a:attrib name='effect'/>
+<a:attrib name='element-type'/>
+<a:attrib name='flash-vars'/>
+<a:attrib name='for'/>
+<a:attrib name='frame'/>
+<a:attrib name='has-label'/>
+<a:attrib name='height'/>
+<a:attrib name='item-sep'/>
+<a:attrib name='label'/>
+<a:attrib name='labeled-item'/>
+<a:attrib name='lang'/>
+<a:attrib name='list-type'/>
+<a:attrib name='loop'/>
+<a:attrib name='longdesc'/>
+<a:attrib name='mark-prefix'/>
+<a:attrib name='mark-suffix'/>
+<a:attrib name='media-type'/>
+<a:attrib name='mime-type'/>
+<a:attrib name='morerows'/>
+<a:attrib name='name'/>
+<a:attrib name='nameend'/>
+<a:attrib name='namest'/>
+<a:attrib name='number-style'/>
+<a:attrib name='orient'/>
+<a:attrib name='pgwide'/>
+<a:attrib name='pluginspage'/>
+<a:attrib name='print-placement'/>
+<a:attrib name='print-width'/>
+<a:attrib name='pub-type'/>
+<a:attrib name='quality'/>
+<a:attrib name='resource'/>
+<a:attrib name='rowsep'/>
+<a:attrib name='scale'/>
+<a:attrib name='spanname'/>
+<a:attrib name='src'/>
+<a:attrib name='standby'/>
+<a:attrib name='start-value'/>
+<a:attrib name='strength'/>
+<a:attrib name='summary'/>
+<a:attrib name='target-id'/>
+<a:attrib name='thumbnail'/>
+<a:attrib name='to-term'/>
+<a:attrib name='type'/>
+<a:attrib name='url'/>
+<a:attrib name='valign'/>
+<a:attrib name='value'/>
+<a:attrib name='version'/>
+<a:attrib name='volume'/>
+<a:attrib name='width'/>
+<a:attrib name='window'/>
+<a:attrib name='wmode'/>
+</a:attributes>
+
+<xsl:key name='attr' match='a:attrib' use='@name' />
+<xsl:variable name='attributes' select='document("")//a:attributes' />
+
+<xsl:template match="@*[starts-with(local-name(), 'data-') and local-name() != 'data-label' and local-name() != 'data-type']">
   <xsl:variable name="name" select="substring-after(local-name(), 'data-')"/>
-  <xsl:choose>
-    <xsl:when test="local-name() = 'data-type'">
-      <!-- Do nothing. Another statement handles this. -->
-    </xsl:when>
-    <xsl:when test="$name != 'align'
-                    and $name != 'alt'
-                    and $name != 'archive'
-                    and $name != 'author'
-                    and $name != 'autoplay'
-                    and $name != 'bgcolor'
-                    and $name != 'bullet-style'
-                    and $name != 'char'
-                    and $name != 'charoff'
-                    and $name != 'code'
-                    and $name != 'codebase'
-                    and $name != 'colname'
-                    and $name != 'colnum'
-                    and $name != 'cols'
-                    and $name != 'colsep'
-                    and $name != 'colwidth'
-                    and $name != 'controller'
-                    and $name != 'count'
-                    and $name != 'depth'
-                    and $name != 'display'
-                    and $name != 'document'
-                    and $name != 'effect'
-                    and $name != 'element-type'
-                    and $name != 'flash-vars'
-                    and $name != 'for'
-                    and $name != 'frame'
-                    and $name != 'has-label'
-                    and $name != 'height'
-                    and $name != 'item-sep'
-                    and $name != 'label'
-                    and $name != 'labeled-item'
-                    and $name != 'lang'
-                    and $name != 'list-type'
-                    and $name != 'loop'
-                    and $name != 'longdesc'
-                    and $name != 'mark-prefix'
-                    and $name != 'mark-suffix'
-                    and $name != 'media-type'
-                    and $name != 'mime-type'
-                    and $name != 'morerows'
-                    and $name != 'name'
-                    and $name != 'nameend'
-                    and $name != 'namest'
-                    and $name != 'number-style'
-                    and $name != 'orient'
-                    and $name != 'pgwide'
-                    and $name != 'pluginspage'
-                    and $name != 'print-placement'
-                    and $name != 'print-width'
-                    and $name != 'pub-type'
-                    and $name != 'quality'
-                    and $name != 'resource'
-                    and $name != 'rowsep'
-                    and $name != 'scale'
-                    and $name != 'spanname'
-                    and $name != 'src'
-                    and $name != 'standby'
-                    and $name != 'start-value'
-                    and $name != 'strength'
-                    and $name != 'summary'
-                    and $name != 'target-id'
-                    and $name != 'thumbnail'
-                    and $name != 'to-term'
-                    and $name != 'type'
-                    and $name != 'url'
-                    and $name != 'valign'
-                    and $name != 'value'
-                    and $name != 'version'
-                    and $name != 'volume'
-                    and $name != 'width'
-                    and $name != 'window'
-                    and $name != 'wmode'
-                    ">
-      <xsl:attribute name="data:{$name}">
-        <xsl:value-of select="."/>
-      </xsl:attribute>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:attribute name="{substring-after(local-name(), 'data-')}">
-        <xsl:value-of select="."/>
-      </xsl:attribute>
-    </xsl:otherwise>
-  </xsl:choose>
+  <xsl:variable name="value" select="."/>
+  <xsl:for-each select="$attributes">
+      <xsl:choose>
+      <xsl:when test='key("attr",$name)'>
+          <xsl:attribute name="{$name}">
+            <xsl:value-of select="$value"/>
+          </xsl:attribute>
+      </xsl:when>
+      <xsl:otherwise>
+          <xsl:attribute name="data:{$name}">
+            <xsl:value-of select="$value"/>
+          </xsl:attribute>
+      </xsl:otherwise>
+      </xsl:choose>
+  </xsl:for-each>
 </xsl:template>
 
 
