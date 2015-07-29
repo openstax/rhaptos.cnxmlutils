@@ -5,6 +5,7 @@
   cnxml-version='0.7'
   xmlns='http://cnx.rice.edu/cnxml'
   xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:data='http://www.w3.org/TR/html5/dom.html#custom-data-attribute'
   xmlns:m='http://www.w3.org/1998/Math/MathML'
   xmlns:md='http://cnx.rice.edu/mdml/0.4'
   xmlns:md1='http://cnx.rice.edu/mdml'

@@ -8,8 +8,7 @@
   xmlns:qml="http://cnx.rice.edu/qml/1.0"
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
-
-  xmlns:data="http://dev.w3.org/html5/spec/#custom"
+  xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
   exclude-result-prefixes="m mml"
 
   >

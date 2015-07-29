@@ -10,22 +10,15 @@
   xmlns:md1='http://cnx.rice.edu/mdml'
   xmlns:q='http://cnx.rice.edu/qml/1.0'
 >
-  <title>Test Module</title>
+  <title></title>
   <content>
     <para
-      id='cite-example-1'
+      data:foo='bar'
+      id='titled'
     >
-      <cite>
-        <cite-title>A Tale of Two Cities</cite-title>by Charles Dickens
-      </cite>is a classic novel.
-    </para>
-    <para
-      id='cite-example-2'
-    >This article was taken from
-      <cite
-        url='http://www.cnn.com'
-        window='new'
-      >CNN.com</cite>.
+      <title
+        data:goo='car'
+      >Sumario en espanol</title>Principales programas de la preparación son diseñados para asegurar que candidatos que completen exitosamente los programas son calificados e informado, y han tenido experiencias de liderazgo que preparan ellos competir para posiciones de liderazgo en las escuelas de hoy (Arrastre y Moorma, 2003). ...
     </para>
   </content>
 </document>
