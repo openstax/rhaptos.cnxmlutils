@@ -24,22 +24,22 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
     def test_abstract_unwrapped(self):
         # The key thing here is
         #   to dispose of the div[@data-type='abstract-wrapper']
-        html = """\
+        html = b"""\
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul><li>one</li><li>two</li><li>three</li></ul></div>"""
         html = etree.fromstring(html)
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)
-        expected = """\
+        expected = b"""\
 <wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute">A number list: <list list-type="bulleted"><item>one</item><item>two</item><item>three</item></list></wrapper>"""
         self.assertEqual(cnxml, expected)
 
         # And again when the unwrap would make invalid xml.
-        html = """\
+        html = b"""\
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A link to an <a href="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</a>.</div>"""
         html = etree.fromstring(html)
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)
-        expected = """\
+        expected = b"""\
 <wrapper xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute">A link to an <link url="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</link>.</wrapper>"""
         self.assertEqual(cnxml, expected)
 
@@ -189,7 +189,7 @@ class XsltprocTestCase(unittest.TestCase):
                 cnxml_filename = '{}.html.cnxml'.format(filename_no_ext)
             else:
                 cnxml_filename = '{}.cnxml'.format(filename_no_ext)
-            with open(cnxml_filename) as f:
+            with open(cnxml_filename, 'rb') as f:
                 cnxml = xmlpp(f.read())
 
             setattr(cls, 'test_{}'.format(test_name),
@@ -200,7 +200,8 @@ class XsltprocTestCase(unittest.TestCase):
         def run_test(self):
             output = subprocess.check_output(['xsltproc', self.xslt, html])
             output = xmlpp(output)
-            self.assertMultiLineEqual(output, cnxml)
+            # https://bugs.python.org/issue10164
+            self.assertEqual(output.split(b'\n'), cnxml.split(b'\n'))
         return run_test
 
 
