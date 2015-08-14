@@ -25,7 +25,7 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
         # The key thing here is
         #   to dispose of the div[@data-type='abstract-wrapper']
         html = """\
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul><li>one</li><li>two</li><li>three</li></ul></div>"""
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A number list: <ul><li>one</li><li>two</li><li>three</li></ul></div>"""
         html = etree.fromstring(html)
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)
@@ -35,7 +35,7 @@ class HtmlToCnxmlTestCase(unittest.TestCase):
 
         # And again when the unwrap would make invalid xml.
         html = """\
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://dev.w3.org/html5/spec/#custom" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A link to an <a href="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</a>.</div>"""
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute" xmlns:bib="http://bibtexml.sf.net/" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mod="http://cnx.rice.edu/#moduleIds" data-type="abstract-wrapper">A link to an <a href="/contents/d395b566-5fe3-4428-bcb2-19016e3aa3ce@1.4">interal document</a>.</div>"""
         html = etree.fromstring(html)
         cnxml = self.call_target(html)
         cnxml = etree.tostring(cnxml)
