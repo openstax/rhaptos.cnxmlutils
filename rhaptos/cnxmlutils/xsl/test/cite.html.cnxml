@@ -27,5 +27,11 @@
         window='new'
       >CNN.com</cite>.
     </para>
+    <para
+      id="cite-example-3">
+      <cite url="#fs-1234">
+        <para id="fs-1234">My cool reference</para>
+      </cite>
+    </para>
   </content>
 </document>

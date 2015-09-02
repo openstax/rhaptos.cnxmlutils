@@ -689,7 +689,7 @@
 </xsl:template>
 
 <!-- ======================================== -->
-<!-- Link and term -->
+<!-- Link and term and cite -->
 <!-- All link data is treated the same way. All @href values are transformed to @url. -->
 <!-- We post-process the @url value during the reference resolution procedure. -->
 <!-- ======================================== -->
@@ -703,10 +703,25 @@
   <xsl:apply-templates select="node()"/>
 </xsl:template>
 
+<xsl:template match="*[@data-type='cite']">
+  <cite>
+    <xsl:apply-templates select="@*|node()"/>
+</cite>
+</xsl:template>
+
+<xsl:template match="h:a/*[@data-type='cite']">
+  <!-- unwrap the cite inside the link -->
+  <xsl:apply-templates select="@*[local-name()!='data-type']|node()"/>
+</xsl:template>
+
+<!-- suppress cite data-type, currently only data-type on a -->
+<xsl:template match="h:a/@data-type"/>
+
 <xsl:template match="h:a[@href and not(@data-type='footnote-number')]">
   <xsl:variable name="tag_name">
     <xsl:choose>
       <xsl:when test="@data-to-term='true'">term</xsl:when>
+      <xsl:when test="@data-type='cite'">cite</xsl:when>
       <xsl:otherwise>link</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
