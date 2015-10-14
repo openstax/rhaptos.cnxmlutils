@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2'
 """
 Copyright (C) 2013 Rice University
 
@@ -12,7 +11,7 @@ See LICENSE.txt for details.
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.2'
 
 setup(name='rhaptos.cnxmlutils',
       version=version,
