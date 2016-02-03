@@ -516,7 +516,7 @@ class XsltprocTestCase(unittest.TestCase):
                 continue
             filename_no_ext = cnxml_filename.rsplit('.cnxml', 1)[0]
             test_name = os.path.basename(filename_no_ext)
-            with open('{}.cnxml.html'.format(filename_no_ext)) as f:
+            with open('{}.cnxml.html'.format(filename_no_ext), 'rb') as f:
                 html = xmlpp(f.read())
 
             setattr(cls, 'test_{}'.format(test_name),
@@ -527,7 +527,8 @@ class XsltprocTestCase(unittest.TestCase):
         def run_test(self):
             output = subprocess.check_output(['xsltproc', self.xslt, cnxml])
             output = xmlpp(output)
-            self.assertMultiLineEqual(output, html)
+            # https://bugs.python.org/issue10164
+            self.assertEqual(output.split(b'\n'), html.split(b'\n'))
         return run_test
 
 

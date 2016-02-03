@@ -1,9 +1,9 @@
 language: python
 python:
   - "2.7"
+  - "3.4"
 before_install:
   - sudo apt-get install xsltproc
-  - pip install lxml
 install:
   - python setup.py develop
 script:
