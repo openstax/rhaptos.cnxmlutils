@@ -4,6 +4,7 @@
 
 <content>
 
+ <para id="p1">
   <newline/>
   <newline effect="normal"/>
   <newline effect="underline"/>
@@ -12,6 +13,7 @@
   <newline id="id456" effect="underline"/>
   <newline effect="underline" count="3"/>
   <newline id="id789" effect="underline" count="3"/>
+  </para>
   <para id="idm46259579218000"><newline/></para>
   <list id="idm46259579217616">
     <item><newline/><newline effect="underline"/></item>
