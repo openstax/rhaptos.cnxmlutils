@@ -5,7 +5,7 @@
 
   <link url="http://cnx.org"/>
   <link url="http://cnx.org">Custom <emphasis>content</emphasis></link>
-  <link url="http://cnx.org" id="id012">with an id</link>
+  <link url="http://cnx.org" id="id014">with an id</link>
 
   <link document="m123">to a module</link>
   <link document="m123" target-id="id456">to an id in a module</link>
@@ -21,15 +21,15 @@
 
   <link url="http://cnx.org" strength="2">with a strength</link>
 
-  <para>---------------------------------------------------------------</para>
+  <para id="idm45444807851888">---------------------------------------------------------------</para>
 
-  <para>FIXME: the data-to-term attribute is fungible and may disappear</para>
+  <para id="idm45444807851424">FIXME: the data-to-term attribute is fungible and may disappear</para>
 
 
   <term id="id012">with an id</term>
 
   <term url="http://cnx.org">Custom <emphasis>content</emphasis></term>
-  <term url="http://cnx.org" id="id012">with an id</term>
+  <term url="http://cnx.org" id="id013">with an id</term>
 
 
   <term document="m123">to a module</term>
@@ -43,7 +43,6 @@
 
   <term url="http://cnx.org" window="replace">in the same window</term>
   <term url="http://cnx.org" window="new">in a new window</term>
-  <term url="http://cnx.org" strength="2">with a strength</term>
 
 </content>
 </document>

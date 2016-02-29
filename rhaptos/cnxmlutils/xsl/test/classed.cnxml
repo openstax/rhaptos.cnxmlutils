@@ -31,21 +31,21 @@
           id='Listing_1'
         ></emphasis>Question 4.
       </title>
-      <para>...</para>
+      <para id="pid6767">...</para>
     </example>
 <!-- ...without existing classes -->
     <example
-      id='example-test'
+      id='example-test-2'
       type='listing'
     >
       <label>Listing</label>
       <title>
         <emphasis
           effect='bold'
-          id='Listing_1'
+          id='Listing_2'
         ></emphasis>Question 4.
       </title>
-      <para>...</para>
+      <para id="pid234234">...</para>
     </example>
 <!-- m42219 // 030347e9-f128-486f-a779-019ac474ff90 -->
     <exercise
@@ -161,14 +161,15 @@
       >a characteristic of interest for each person or object in a population</meaning>
     </definition>
     <!-- figures contain a class based title -->
-    <figure>
+    <figure id="fid234523">
       <span
         class='add-figure-left'
       >+</span>
       <title
-        id='989b1ea2-9f98-2bbd-a51e-32ec96d51b88'
+        id='id989b1ea2-9f98-2bbd-a51e-32ec96d51b88'
       >Green Beans</title>
       <media
+        id="mid234543"
         alt='green beans'
         >
         <image

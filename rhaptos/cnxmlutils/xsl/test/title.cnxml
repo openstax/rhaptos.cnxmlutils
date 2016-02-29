@@ -199,7 +199,7 @@ __enable_interrupt();
         <emphasis id="Listing_1" effect="bold"/>
         Question 4.
       </title>
-      <para> ... </para>
+      <para id="idm45615968092288"> ... </para>
     </example>
 
     <!-- m42219 // 030347e9-f128-486f-a779-019ac474ff90 -->
@@ -243,12 +243,12 @@ __enable_interrupt();
       <statement id="statement-test">
         <!-- m18908 // 3082636b-c837-4cf3-bae4-e3d9cbb19a00 -->
         <title>Real Symmetry</title>
-        <para> ... </para>
+        <para id="idm45615968078112"> ... </para>
       </statement>
       <proof id="proof-test">
         <!-- m12849 // 5c38f888-5797-46ab-9d48-6b99d79281f1 -->
         <title>Real Proof</title>
-        <para> ... </para>
+        <para id="idm45615968076272"> ... </para>
       </proof>
     </rule>
 

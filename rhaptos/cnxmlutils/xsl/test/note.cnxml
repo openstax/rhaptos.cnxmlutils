@@ -7,10 +7,10 @@
   <note id="id123">Body</note>
   <note id="id456" class="custom">Body</note>
 
-  <note type="Point of Interest">Body</note>
-  <note type="Tip">Body</note>
+  <note id="idm46182773372208" type="Point of Interest">Body</note>
+  <note id="idm46182773371520" type="Tip">Body</note>
 
-  <note><label>Custom Label</label>Body</note>
+  <note id="idm46182773370816"><label>Custom Label</label>Body</note>
 
   <note id="id789">
     <label>Custom Label</label>

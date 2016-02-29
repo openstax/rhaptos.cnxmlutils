@@ -4,14 +4,14 @@
 
 <content>
 
-  <list>
+  <list id="idm45791213869968">
     <item>
       <label>label</label>
       item
     </item>
   </list>
 
-  <list>
+  <list id="idm45791213868720">
     <item>
         <label>hello <emphasis>there</emphasis></label>
       item
