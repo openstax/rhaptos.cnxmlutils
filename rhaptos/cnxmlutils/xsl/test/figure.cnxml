@@ -5,18 +5,18 @@
 <content>
 
   <figure id="idm45763482823568">
-    <para id="idm45763482823264">Text</para>
+    <code id="idm45763482823264">Text</code>
   </figure>
 
   <figure id="idm45763482822752">
     <label>Label</label>
     <title>Title</title>
-    <para id="idm45763482821696">Text</para>
+    <code id="idm45763482821696">Text</code>
     <caption>Caption</caption>
   </figure>
 
   <figure id="id123" orient="vertical" type="foo">
-    <para>Text</para>
+    <code id="idm45763482819648">Text</code>
   </figure>
 
 
@@ -24,18 +24,22 @@
     <figure id="idm45763482818720">
       <label>Label</label>
       <title>Title</title>
-      <para id="idm45763482817584">Text</para>
+      <code id="idm45763482817584">Text</code>
       <caption>Caption</caption>
     </figure>
   </para>
 
   <figure id="idm45763482816496">
-    <caption>Figure Caption</caption>
 
     <subfigure id="idm45763482815776">
-      <para id="idm45763482815520">Text</para>
+      <code id="idm45763482815520">Text</code>
       <caption>Subfigure Caption</caption>
     </subfigure>
+    <subfigure id="idm45763482815888">
+      <code id="idm45763482815999">Text</code>
+      <caption>Subfigure Caption</caption>
+    </subfigure>
+    <caption>Figure Caption</caption>
 
   </figure>
 
