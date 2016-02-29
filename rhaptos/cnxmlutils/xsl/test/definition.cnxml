@@ -1,15 +1,5 @@
 <?xml version="1.0"?>
-<document
-    xmlns="http://cnx.rice.edu/cnxml"
-    xmlns:m="http://www.w3.org/1998/Math/MathML"
-    xmlns:md="http://cnx.rice.edu/mdml/0.4"
-    xmlns:bib="http://bibtexml.sf.net/"
-    xmlns:q="http://cnx.rice.edu/qml/1.0"
-    xmlns:md1="http://cnx.rice.edu/mdml"
-    id="id62148"
-    module-id="m12345"
-    cnxml-version="0.7"
-  >
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:bib="http://bibtexml.sf.net/" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:md1="http://cnx.rice.edu/mdml" id="id62148" module-id="m12345" cnxml-version="0.7">
   <title
     >Matter: Mixtures, compounds and elements</title
   >

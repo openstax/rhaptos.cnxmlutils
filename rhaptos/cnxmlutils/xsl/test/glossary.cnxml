@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
-<document
-    xmlns="http://cnx.rice.edu/cnxml"
-    xmlns:md="http://cnx.rice.edu/mdml"
-    xmlns:m="http://www.w3.org/1998/Math/MathML"
-    id="imported-from-openoffice"
-    module-id="imported-from-openoffice"
-    cnxml-version="0.7"
-  >
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:m="http://www.w3.org/1998/Math/MathML" id="imported-from-openoffice" module-id="imported-from-openoffice" cnxml-version="0.7">
     <title
     >Ohm&#x2019;s Law: Resistance and Simple Circuits</title
   >
