@@ -15,7 +15,7 @@
     </para>
     <para id="cite-example-3">
       <cite target-id="fs-1234">
-        <para id="fs-1234">My cool reference</para>
+        <note display="inline" class="reference" id="fs-1234">My cool reference</note>
       </cite>
     </para>
   </content>
