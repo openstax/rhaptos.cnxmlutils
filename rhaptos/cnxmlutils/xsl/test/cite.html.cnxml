@@ -28,9 +28,16 @@
       >CNN.com</cite>.
     </para>
     <para
-      id="cite-example-3">
-      <cite url="#fs-1234">
-        <para id="fs-1234">My cool reference</para>
+      id='cite-example-3'
+    >
+      <cite
+        url='#fs-1234'
+      >
+        <note
+          class='reference'
+          display='inline'
+          id='fs-1234'
+        >My cool reference</note>
       </cite>
     </para>
   </content>
