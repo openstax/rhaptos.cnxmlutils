@@ -11,6 +11,7 @@
     data-type='document-title'
   >Test Module</div>
   <pre
+    data-display='block'
     id='idc23423423'
   >[line 1]
 [line 2]          [after 10 spaces]
@@ -20,10 +21,15 @@
   >...
     <code>[some text]          [after 10 spaces]</code>...
   </p>
-  <code
-    data-display='inline'
-  >Inline code where it would normally be a block</code>
+  <p
+    id='id2342345'
+  >
+    <code
+      data-display='inline'
+    >Inline code where it would normally be a block</code>
+  </p>
   <pre
+    data-display='block'
     data-lang='JavaScript'
     id='id34556'
   >with a language attribute</pre>
@@ -34,7 +40,9 @@
     <div
       data-type='title'
     >the title</div>
-    <pre>with a title</pre>
+    <pre
+      data-display='block'
+    >with a title</pre>
   </div>
   <div
     data-type='code'
@@ -44,12 +52,13 @@
       data-type='title'
     >the title</div>
     <pre
+      data-display='block'
       data-label='the label'
     >with a title and label</pre>
   </div>
   <div
     data-type='code'
-    id='id789'
+    id='id7890'
   >
     <div
       data-type='title'

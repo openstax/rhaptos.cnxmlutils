@@ -5,7 +5,7 @@
 <content>
 
 
-  <code id="idc23423423">[line 1]
+  <code id="idc23423423" display="block">[line 1]
 [line 2]          [after 10 spaces]
 [line 3]</code>
 
@@ -14,15 +14,15 @@
 
 
 
-  <code display="inline">Inline code where it would normally be a block</code>
+  <para id="id2342345"> <code display="inline">Inline code where it would normally be a block</code>
+  </para>
+  <code lang="JavaScript" display="block" id="id34556">with a language attribute</code>
 
-  <code lang="JavaScript" id="id34556">with a language attribute</code>
+  <code id="id456" display="block"><title>the title</title>with a title</code>
 
-  <code id="id456"><title>the title</title>with a title</code>
+  <code id="id789" display="block"><label>the label</label><title>the title</title>with a title and label</code>
 
-  <code id="id789"><label>the label</label><title>the title</title>with a title and label</code>
-
-  <code id="id789" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label
+  <code id="id7890" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label
 [line 2]
 [line 3]</code>
 
