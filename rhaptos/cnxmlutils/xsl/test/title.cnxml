@@ -183,11 +183,19 @@ __enable_interrupt();
       <media id="id-mediaa" display="block" alt="Video">
         <image src="example.png" mime-type="image/png"/>
       </media>
+    </figure>
       <!-- m46185 // 3a3321e4-29e5-4709-a9f3-f9c342fe0127 -->
+    <figure id="figure-subfigure-test">
       <subfigure id="subfigure-test">
         <title>Zero Correlation</title>
         <media id="id1165447908510" alt="Scatterplot of points in a horizontal configuration.">
           <image src="example.png" mime-type="image/png" print-width="2in"/>
+        </media>
+      </subfigure>
+      <subfigure id="subfigure-test-2">
+        <title>Intslación de GNU Octave 6.3.1</title>
+        <media id="id-mediab" display="block" alt="Video">
+          <image src="example.png" mime-type="image/png"/>
         </media>
       </subfigure>
     </figure>
