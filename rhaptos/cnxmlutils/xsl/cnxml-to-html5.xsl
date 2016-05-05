@@ -430,9 +430,12 @@
 
 <!-- Brittle HACK to get notes with headings to create valid CNXML -->
 <!-- Special cases for notes that get converted to sections for the editor -->
+<!--
 <xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]">
   <xsl:param name="depth" select="1"/>
+-->
   <!-- FIXME Drop @class as type definer. -->
+<!--
   <div data-type="{local-name()}">
     <xsl:if test="not(@class)">
       <xsl:attribute name="class">
@@ -455,8 +458,11 @@
     </section>
   </div>
 </xsl:template>
+-->
 
+<!--
 <xsl:template match="c:note[count(c:para[c:title]) = 1 and count(c:para) = 1]/c:para/c:title"/>
+-->
 
 <!-- ========================= -->
 
