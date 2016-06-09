@@ -34,6 +34,12 @@
 
 <xsl:template match="c:document">
   <body xmlns="http://www.w3.org/1999/xhtml">
+    <xsl:if test="boolean(@class)">
+      <xsl:attribute name="class">
+        <!-- propagate top-level classes -->
+        <xsl:value-of select="@class"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="c:title"/>
     <xsl:if test="contains(@class, 'introduction')">
       <cnx-pi data-type="cnx.flag.introduction">
