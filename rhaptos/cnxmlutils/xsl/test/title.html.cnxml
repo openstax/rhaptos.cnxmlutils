@@ -159,6 +159,41 @@
       </note>
     </section>
     <section
+      id='noted-section-1'
+    >
+      <note
+        class='career'
+        id='fs-id2681692'
+      >
+        <label></label>
+        <title>Career Connection</title>
+        <para
+          id='fs-id1808500'
+        >
+          <title>Forensic Scientist</title>Forensic science is the application of science to answer questions related to the law.
+        </para>
+      </note>
+    </section>
+    <section
+      id='noted-section-2'
+    >
+      <note
+        class='evolution'
+        id='fs-id2581806'
+      >
+        <label></label>
+        <title>Evolution Connection</title>
+        <para
+          id='fs-id2024686'
+        >
+          <title>Carl Woese and the Phylogenetic Tree</title>In the past, biologists grouped living organisms into five kingdoms...
+        </para>
+        <para
+          id='fs-id2956594'
+        >Woese’s tree was constructed from comparative sequencing of the genes that are universally distributed, present in every organism, and conserved.</para>
+      </note>
+    </section>
+    <section
       id='pre-section'
     >
       <code
