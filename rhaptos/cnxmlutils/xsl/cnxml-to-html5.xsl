@@ -50,7 +50,7 @@
     <xsl:apply-templates select="c:content"/>
     <xsl:if test="c:content//c:footnote">
       <div data-type="footnote-refs">
-        <h2 data-type="footnote-title">Footnotes</h2>
+        <h3 data-type="footnote-title">Footnotes</h3>
         <ol>
           <xsl:apply-templates select="//c:footnote" mode="footnote"/>
         </ol>
@@ -247,7 +247,7 @@
   <section>
     <xsl:attribute name="data-depth"><xsl:value-of select="$depth"/></xsl:attribute>
     <xsl:apply-templates select="@*|c:label"/>
-    <xsl:element name="h{$depth}">
+    <xsl:element name="h{$depth+2}">
       <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="c:title/@*|c:title/node()"/>
     </xsl:element>
@@ -1236,7 +1236,7 @@
 <xsl:template match="c:glossary">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*"/>
-    <h2 data-type="glossary-title">Glossary</h2>
+    <h3 data-type="glossary-title">Glossary</h3>
     <xsl:apply-templates select="node()"/>
   </div>
 </xsl:template>
