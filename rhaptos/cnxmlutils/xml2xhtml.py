@@ -26,7 +26,7 @@ dirname = os.path.dirname(__file__)
 
 def makeXsl(filename):
   """ Helper that creates a XSLT stylesheet """
-  pkg = 'cnxml2html'
+  pkg = 'xsl'
   package = ''.join(['.' + x for x in __name__.split('.')[:-1]])[1:]
   if package != '':
       pkg = package + '.' + pkg
@@ -39,7 +39,7 @@ def transform_collxml(collxml_file):
         (including "include" anchor links to the modules) """
 
     xml = etree.parse(collxml_file)
-    xslt = makeXsl('collxml2xhtml.xsl')
+    xslt = makeXsl('collxml-to-html5.xsl')
     xml = xslt(xml)
     return xml
 
@@ -47,7 +47,7 @@ def transform_cnxml(cnxml_file):
     """ Given a module cnxml file (index.cnxml) this returns an HTML version of it """
 
     xml = etree.parse(cnxml_file)
-    xslt = makeXsl('cnxml2xhtml.xsl')
+    xslt = makeXsl('cnxml-to-html5.xsl')
     xml = xslt(xml)
     return xml
 
