@@ -44,4 +44,9 @@ setup(name='rhaptos.cnxmlutils',
       zip_safe=False,
       test_suite='rhaptos.cnxmlutils.tests',
       install_requires=install_requires,
+      entry_points="""\
+      [console_scripts]
+      cnxml2html = rhaptos.cnxmlutils.xml2xhtml:main
+      """,
+
       )
