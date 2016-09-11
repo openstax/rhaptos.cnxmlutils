@@ -15,6 +15,7 @@ IS_PY24 = sys.version_info < (2, 7,)
 
 install_requires = [
     'setuptools',
+    'pytidylib',
     ]
 if not IS_PY24:
     # Only list lxml as a dependency when outside the legacy context,
