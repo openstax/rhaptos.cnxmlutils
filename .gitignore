@@ -5,3 +5,5 @@ rhaptos.cnxmlutils.egg-info/
 jing
 build/
 dist/
+
+/venv

@@ -8,8 +8,8 @@ addons:
     packages:
       - xsltproc
 install:
-  - python setup.py develop
+  - ./scripts/setup
 script:
-  - python setup.py test
+  - ./scripts/test
 notifications:
   email: false
