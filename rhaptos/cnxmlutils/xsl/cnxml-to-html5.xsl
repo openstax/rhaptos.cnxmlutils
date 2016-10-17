@@ -50,10 +50,10 @@
     <xsl:apply-templates select="c:content"/>
     <xsl:if test="c:content//c:footnote">
       <div data-type="footnote-refs">
-        <h3 data-type="footnote-title">Footnotes</h3>
-        <ol>
+        <h3 data-type="footnote-refs-title">Footnotes</h3>
+        <ul>
           <xsl:apply-templates select="//c:footnote" mode="footnote"/>
-        </ol>
+        </ul>
       </div>
     </xsl:if>
     <xsl:apply-templates select="c:glossary"/>
@@ -689,29 +689,34 @@
 </xsl:template>
 
 <xsl:template match="c:footnote">
-  <a data-type="{local-name()}-number">
-    <xsl:attribute name="name">
+  <sup data-type="footnote-number">
+    <xsl:attribute name="id">
       <xsl:text>footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
     </xsl:attribute>
-    <xsl:attribute name="href">
-      <xsl:text>#footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
-    </xsl:attribute>
-    <sup><xsl:number level="any" count="c:footnote" format="1"/></sup>
-  </a>
+    <a data-type="footnote-link">
+      <xsl:attribute name="href">
+        <xsl:text>#footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+      </xsl:attribute>
+      <xsl:number level="any" count="c:footnote" format="1"/>
+    </a>
+  </sup>
 </xsl:template>
 
 <xsl:template match="c:footnote" mode="footnote">
-    <li>
-      <a data-type="{local-name()}-ref">
-        <xsl:attribute name="name">
-          <xsl:text>footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
-        </xsl:attribute>
+    <li data-type="footnote-ref">
+      <xsl:attribute name="id">
+        <xsl:text>footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
+      </xsl:attribute>
+      <a data-type="footnote-ref-link">
         <xsl:attribute name="href">
           <xsl:text>#footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
         </xsl:attribute>
         <xsl:number level="any" count="c:footnote" format="1"/>
       </a>
-      <xsl:text> </xsl:text><xsl:apply-templates/>
+      <xsl:text> </xsl:text>
+      <span data-type="footnote-ref-content">
+        <xsl:apply-templates/>
+      </span>
     </li>
 </xsl:template>
 
