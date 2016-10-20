@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+if [ ! "${CI}" = "true" ] # Skip when running Travis
+then
+  # Only activate the virtualenv if not already in one
+  if [ -z "${VIRTUAL_ENV}" ]
+  then
+    virtualenv ./venv
+    . ./venv/bin/activate
+  fi
+fi
+
+
+python setup.py develop

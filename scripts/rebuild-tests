@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+if [ ! "${CI}" = "true" ] # Skip when running Travis
+then
+  # Only activate the virtualenv if not already in one
+  if [ -z "${VIRTUAL_ENV}" ]
+  then
+    . ./venv/bin/activate
+  fi
+fi
+
+cd ./rhaptos/cnxmlutils/xsl/test
+python build.py $1 $2 $3 $4 $5
