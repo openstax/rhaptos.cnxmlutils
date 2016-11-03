@@ -51,7 +51,7 @@
     <xsl:if test="c:content//c:footnote">
       <div data-type="footnote-refs">
         <h3 data-type="footnote-refs-title">Footnotes</h3>
-        <ul>
+        <ul data-list-type="bulleted" data-bullet-style="none">
           <xsl:apply-templates select="//c:footnote" mode="footnote"/>
         </ul>
       </div>
