@@ -1,0 +1,3 @@
+[submodule "rhaptos/cnxmlutils/xsl/mml2tex"]
+	path = rhaptos/cnxmlutils/xsl/mml2tex
+	url = https://github.com/transpect/mml2tex
