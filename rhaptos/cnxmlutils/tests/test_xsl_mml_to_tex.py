@@ -44,7 +44,7 @@ class SaxonTestCase(unittest.TestCase):
     @classmethod
     def create_test(cls, xhtml, expected_xhtml):
         def run_test(self):
-            output = subprocess.check_output(['saxon',
+            output = subprocess.check_output(['saxonb-xslt',
                                               '-s:{}'.format(xhtml),
                                               '-xsl:{}'.format(self.xslt)])
             output = xmlpp(output)
