@@ -17,6 +17,7 @@
     >
       <table
         id='report_card'
+        class='foo bar'
         summary="The first column             lists each course. Each row in the second column             delineates a semester. The corresponding row in            the third column shows that semester's grade.              The footer tallies the student's average."
       >
         <title>Report card</title>
@@ -135,6 +136,18 @@
             </row>
           </tbody>
         </tgroup>
+      </table>
+      <table
+        id="id123"
+        >
+        <tgroup>
+          <tbody>
+            <row>
+              <entry>1</entry>
+            </row>
+          </tbody>
+        </tgroup>
+        <caption>The caption</caption>
       </table>
     </section>
   </content>

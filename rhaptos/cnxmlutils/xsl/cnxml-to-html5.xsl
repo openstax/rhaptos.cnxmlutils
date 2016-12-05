@@ -1381,18 +1381,45 @@
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="c:table[count(c:tgroup) = 1]">
+<!-- A table with a title gets a wrapper element around it because HTML tables
+     do not support marking up titles.
+  -->
+<xsl:template match="c:table[count(c:tgroup) = 1][c:title]">
+  <div data-type="table">
+    <xsl:apply-templates select="@*|c:label"/>
+    <table>
+      <xsl:if test="c:caption">
+        <caption>
+          <!-- NOTE: caption loses the optional id -->
+          <xsl:apply-templates select="c:caption/node()"/>
+        </caption>
+      </xsl:if>
+      <xsl:apply-templates select="c:tgroup"/>
+    </table>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:table[count(c:tgroup) = 1][not(c:title)]">
   <table>
     <xsl:apply-templates select="@*|c:label"/>
-    <xsl:if test="c:caption or c:title">
-      <caption>
-        <xsl:apply-templates select="c:title"/>
-        <!-- NOTE: caption loses the optional id -->
-        <xsl:apply-templates select="c:caption/node()"/>
-      </caption>
-    </xsl:if>
+    <!-- convert the caption above the table body because
+         it can always be moved lower as part of baking
+    -->
+    <xsl:apply-templates select="c:caption"/>
     <xsl:apply-templates select="c:tgroup"/>
   </table>
+</xsl:template>
+
+<xsl:template match="c:table/c:title">
+  <div data-type="title">
+    <xsl:apply-templates select="@*|node()"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="c:table/c:caption">
+  <caption>
+    <xsl:apply-templates select="@*|node()"/>
+  </caption>
 </xsl:template>
 
 <xsl:template match="c:tgroup">
