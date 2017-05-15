@@ -499,7 +499,7 @@
 <xsl:template match="c:list/@list-type"/>
 
 <xsl:template match="c:list[c:title]">
-  <div data-type="{local-name()}">
+  <div role="list">
     <!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
 
@@ -511,7 +511,7 @@
 </xsl:template>
 
 <xsl:template match="c:para//c:list[c:title][@display='inline']">
-  <span data-type="{local-name()}"><!-- list-id-and-class will give it the class "list" at least -->
+  <span role="list">
     <xsl:call-template name="list-id-and-class"/>
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates mode="list-mode" select=".">
@@ -582,7 +582,7 @@
       <xsl:otherwise><xsl:value-of select="@list-type"/></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <div data-type="list" data-list-type="{$list-type}">
+  <div role="list" data-list-type="{$list-type}">
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
@@ -598,7 +598,7 @@
       <xsl:otherwise><xsl:value-of select="@list-type"/></xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <span data-type="list" data-list-type="{$list-type}">
+  <span role="list" data-list-type="{$list-type}">
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
@@ -607,11 +607,11 @@
 </xsl:template>
 
 <xsl:template match="c:list[@display='inline']/c:item">
-  <span data-type="item"><xsl:apply-templates select="@*|node()"/></span>
+  <span role="listitem"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:para//c:list[@display='block']/c:item|c:para//c:list[not(@display)]/c:item">
-  <div data-type="item"><xsl:apply-templates select="@*|node()"/></div>
+  <div role="listitem"><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
 
@@ -639,11 +639,11 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <span role="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <span role="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -665,7 +665,7 @@
   |c:term/@window"/>
 
 <xsl:template match="c:term[not(@url or @document or @target-id or @resource or @version)]" name="build-term">
-  <span data-type="term"><xsl:apply-templates select="@*|node()"/></span>
+  <dfn><xsl:apply-templates select="@*|node()"/></dfn>
 </xsl:template>
 
 <xsl:template match="c:term[@url or @document or @target-id or @resource or @version]">
@@ -932,7 +932,7 @@
 <xsl:template match="c:download/@src|c:download/@mime-type"/>
 
 <xsl:template match="c:download">
-  <a href="{@src}" data-media-type="{@mime-type}" data-type="{local-name()}">
+  <a href="{@src}" data-media-type="{@mime-type}" data-type="{local-name()}" aria-label="download link">
 
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
