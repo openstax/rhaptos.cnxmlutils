@@ -242,7 +242,23 @@
   </section>
 </xsl:template>
 
-<xsl:template match="c:para">
+
+<!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
+
+<!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
+<xsl:template match="c:para[count(node()) = 1][c:figure|c:quote|c:list|c:table]">
+  <xsl:message>PHIL: Unwrapping paragraph which contains only a single child</xsl:message>
+  <xsl:apply-templates select="*"/>
+</xsl:template>
+
+<!-- when the blockish child is not the only option then report a message -->
+<xsl:template match="c:para[count(node()) >= 2][c:figure|c:quote|c:list|c:table]">
+  <xsl:message>PHIL: TODO: c:para contains a blockish child that cannot just be unwrapped. This para needs to be split into multiple paragraphs</xsl:message>
+  <xsl:call-template name="convert-para"/>
+</xsl:template>
+
+
+<xsl:template match="c:para" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
@@ -422,6 +438,7 @@
 
 <!-- Discard these attributes because they are converted in some other way or deprecated -->
 <xsl:template match="c:list/@list-type"/>
+<xsl:template match="c:list[@display='block']/@display"/>
 
 <xsl:template match="c:list[c:title]">
   <div data-type="{local-name()}">
@@ -480,6 +497,7 @@
   </ul>
 </xsl:template>
 
+<xsl:template match="c:list[not(@list-type) or @list-type='bulleted'][@display='block']/@display"/>
 <xsl:template mode="list-mode" match="c:list[not(@list-type) or @list-type='bulleted']">
   <xsl:param name="convert-id-and-class"/>
   <ul>
@@ -559,6 +577,8 @@
   <xsl:attribute name="data-effect">italics</xsl:attribute>
 </xsl:template>
 
+
+<xsl:template match="c:emphasis[@effect='underline']/@effect"/>
 <xsl:template match="c:emphasis[@effect='underline']">
   <u><xsl:apply-templates select="@*|node()"/></u>
 </xsl:template>
@@ -1253,6 +1273,30 @@
       <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
   </div>
+</xsl:template>
+
+<!-- newlines inside a <c:para> should be converted to spans -->
+<xsl:template match="c:newline[ancestor::c:para or ancestor::c:table]">
+  <span data-type="{local-name()}">
+
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:variable name="string">
+      <xsl:choose>
+        <xsl:when test="@effect = 'underline'">
+          <xsl:text>&lt;hr/&gt;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>&lt;br/&gt;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="count-helper">
+      <xsl:with-param name="count" select="@count" />
+      <xsl:with-param name="string" select="$string"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 
