@@ -246,19 +246,19 @@
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) = 1][c:figure|c:quote|c:list|c:table]">
+<xsl:template match="c:para[count(node()) = 1][.//c:figure|.//c:quote|.//c:list|.//c:table]">
   <xsl:message>PHIL: Unwrapping paragraph which contains only a single child</xsl:message>
   <xsl:apply-templates select="*"/>
 </xsl:template>
 
 <!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 2][c:figure|c:quote|c:list|c:table]">
+<xsl:template match="c:para[count(node()) >= 2][.//c:figure|.//c:quote|.//c:list|.//c:table]">
   <xsl:message>PHIL: TODO: c:para contains a blockish child that cannot just be unwrapped. This para needs to be split into multiple paragraphs</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
 
-<xsl:template match="c:para" name="convert-para">
+<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 

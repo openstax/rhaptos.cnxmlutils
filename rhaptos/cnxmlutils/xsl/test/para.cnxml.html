@@ -1,0 +1,96 @@
+<body
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:c='http://cnx.rice.edu/cnxml'
+  xmlns:data='http://www.w3.org/TR/html5/dom.html#custom-data-attribute'
+  xmlns:md='http://cnx.rice.edu/mdml'
+  xmlns:mod='http://cnx.rice.edu/#moduleIds'
+  xmlns:qml='http://cnx.rice.edu/qml/1.0'
+>
+  <div
+    data-type='document-title'
+  >Test Module</div>
+  <p
+    id='id1'
+  >This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</p>
+  <p
+    id='id2'
+  >
+    <blockquote
+      id='id3'
+    ></blockquote>
+  </p>
+  <p
+    id='id4'
+  >
+    <blockquote
+      id='id5'
+    ></blockquote>
+  </p>
+  <p
+    id='id6'
+  >
+      before
+    <span
+      data-type='term'
+    >inline element</span>
+    <blockquote
+      id='id7'
+    ></blockquote>
+      between
+    <span
+      data-type='term'
+    >inline element</span>
+      between
+    <blockquote
+      id='id8'
+    ></blockquote>
+      after
+    <span
+      data-type='term'
+    >inline element</span>after
+  </p>
+<!-- 
+  
+<para id="id4">
+<table id="id5" summary="">
+<tgroup cols="1">
+<tbody>
+<row>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+<para id="id6">
+some text
+<term>and an element
+</term>
+and more text
+<table id="id7" summary="">
+<tgroup cols="1">
+<tbody>
+<row>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+some text
+<term>and an element
+</term>
+and more text
+<table id="id8" summary="">
+<tgroup cols="1">
+<tbody>
+<row>
+<entry/>
+</row>
+</tbody>
+</tgroup>
+</table>
+and even more text
+</para>
+  -->
+</body>

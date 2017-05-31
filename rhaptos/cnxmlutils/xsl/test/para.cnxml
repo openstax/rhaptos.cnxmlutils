@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:bib="http://bibtexml.sf.net/" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:md1="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" id="idm45159773362944" cnxml-version="0.7" module-id="mXXXX">
+  <title>Test Module</title>
+  <content>
+    <para id="id1">This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</para>
+
+    <para id="id2"><quote id="id3"></quote></para>
+
+    <para id="id4">
+      <quote id="id5"></quote>
+    </para>
+
+    <para id="id6">
+      before
+      <term>inline element</term>
+      <quote id="id7"></quote>
+      between
+      <term>inline element</term>
+      between
+      <quote id="id8"></quote>
+      after
+      <term>inline element</term>
+      after
+    </para>
+
+
+    <!-- <para id="id4">
+      <table id="id5" summary="">
+        <tgroup cols="1">
+          <tbody>
+            <row>
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </para>
+
+
+    <para id="id6">
+      some text
+      <term>and an element</term>
+      and more text
+      <table id="id7" summary="">
+        <tgroup cols="1">
+          <tbody>
+            <row>
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      some text
+      <term>and an element</term>
+      and more text
+      <table id="id8" summary="">
+        <tgroup cols="1">
+          <tbody>
+            <row>
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      and even more text
+    </para> -->
+
+  </content>
+</document>
