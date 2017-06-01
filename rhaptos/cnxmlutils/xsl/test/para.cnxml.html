@@ -1,96 +1,64 @@
-<body
-  xmlns='http://www.w3.org/1999/xhtml'
-  xmlns:bib='http://bibtexml.sf.net/'
-  xmlns:c='http://cnx.rice.edu/cnxml'
-  xmlns:data='http://www.w3.org/TR/html5/dom.html#custom-data-attribute'
-  xmlns:md='http://cnx.rice.edu/mdml'
-  xmlns:mod='http://cnx.rice.edu/#moduleIds'
-  xmlns:qml='http://cnx.rice.edu/qml/1.0'
->
-  <div
-    data-type='document-title'
-  >Test Module</div>
-  <p
-    id='id1'
-  >This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</p>
-  <p
-    id='id2'
-  >
-    <blockquote
-      id='id3'
-    ></blockquote>
-  </p>
-  <p
-    id='id4'
-  >
-    <blockquote
-      id='id5'
-    ></blockquote>
-  </p>
-  <p
-    id='id6'
-  >
+<body xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:qml="http://cnx.rice.edu/qml/1.0" xmlns:mod="http://cnx.rice.edu/#moduleIds" xmlns:bib="http://bibtexml.sf.net/" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"><div data-type="document-title">Test Module</div>
+    <p id="keep1">This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</p>
+
+    <blockquote id="keep2"/>
+
+    <blockquote id="keep3"/>
+
+    <!-- TODO: ensure the attributes on this para are preserved -->
+    <p>
       before
-    <span
-      data-type='term'
-    >inline element</span>
-    <blockquote
-      id='id7'
-    ></blockquote>
+      <span data-type="term" id="keep5">inline element1</span>
+      before2
+      </p><blockquote id="keep6"/><p>
       between
-    <span
-      data-type='term'
-    >inline element</span>
-      between
-    <blockquote
-      id='id8'
-    ></blockquote>
+      <span data-type="term" id="keep7">inline element2</span>
+      between2
+      </p><blockquote id="keep8"/><p>
       after
-    <span
-      data-type='term'
-    >inline element</span>after
-  </p>
-<!-- 
-  
-<para id="id4">
-<table id="id5" summary="">
-<tgroup cols="1">
-<tbody>
-<row>
-<entry/>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-<para id="id6">
-some text
-<term>and an element
-</term>
-and more text
-<table id="id7" summary="">
-<tgroup cols="1">
-<tbody>
-<row>
-<entry/>
-</row>
-</tbody>
-</tgroup>
-</table>
-some text
-<term>and an element
-</term>
-and more text
-<table id="id8" summary="">
-<tgroup cols="1">
-<tbody>
-<row>
-<entry/>
-</row>
-</tbody>
-</tgroup>
-</table>
-and even more text
-</para>
-  -->
-</body>
+      <span data-type="term" id="keep9">inline element3</span>
+      after2
+    </p>
+
+
+    <!-- TODO: ensure the attributes on this para are preserved -->
+    <blockquote id="keep11"/><blockquote id="keep12"/><p>
+      after
+    </p>
+
+    <p>
+      before
+      </p><blockquote id="keep14"/><p>
+      between
+      </p><blockquote id="keep15"/><p>
+      after
+    </p>
+
+    <table id="keep16" summary=""><tbody>
+            <tr>
+              <td/>
+            </tr>
+          </tbody></table>
+
+
+    <p>
+      some text
+      <span data-type="term" id="keep18">and an element</span>
+      and more text
+      </p><table id="keep19" summary=""><tbody>
+            <tr>
+              <td/>
+            </tr>
+          </tbody></table><p>
+      some text
+      <span data-type="term" id="keep20">and an element</span>
+      and more text
+      </p><table id="keep21" summary=""><tbody>
+            <tr>
+              <td/>
+            </tr>
+          </tbody></table><p>
+      and even more text
+    </p>
+
+  </body>

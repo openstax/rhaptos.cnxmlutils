@@ -246,17 +246,130 @@
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) = 1][.//c:figure|.//c:quote|.//c:list|.//c:table]">
-  <xsl:message>PHIL: Unwrapping paragraph which contains only a single child</xsl:message>
-  <xsl:apply-templates select="*"/>
-</xsl:template>
-
-<!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 2][.//c:figure|.//c:quote|.//c:list|.//c:table]">
-  <xsl:message>PHIL: TODO: c:para contains a blockish child that cannot just be unwrapped. This para needs to be split into multiple paragraphs</xsl:message>
+<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table]">
+  <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
+<!-- when the blockish child is not the only option then report a message -->
+<xsl:template match="c:para[count(node()) >= 1][.//c:figure|.//c:quote|.//c:list|.//c:table]">
+  <xsl:message>c:para contains a blockish child that cannot just be unwrapped. Splitting into multiple paragraphs</xsl:message>
+  <xsl:variable name="blockishIndexes">
+    <xsl:call-template name="index-of-blockish-children"/>
+  </xsl:variable>
+  <xsl:call-template name="traverse-blockish-list">
+    <xsl:with-param name="prevBlockish">0</xsl:with-param>
+    <xsl:with-param name="list" select="$blockishIndexes"/>
+  </xsl:call-template>
+  <!-- <xsl:for-each select="node()">
+    <xsl:value-of select="'&lt;phil/>'" disable-output-escaping="yes" />
+  </xsl:for-each>
+  <xsl:call-template name="convert-para"/> -->
+</xsl:template>
+
+<xsl:template name="index-of-blockish-children">
+  <xsl:for-each select="node()">
+    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table">
+      <xsl:value-of select="position()"/>
+      <xsl:text>,</xsl:text>
+    </xsl:if>
+  </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="apply-only-certain-children">
+  <xsl:param name="start"/>
+  <xsl:param name="end"/>
+
+  <!-- <xsl:comment>
+    <xsl:text>start:</xsl:text>
+    <xsl:value-of select="$start"/>
+    <xsl:text>end:</xsl:text>
+    <xsl:value-of select="$end"/>
+  </xsl:comment>
+ -->
+  <xsl:for-each select="node()">
+    <xsl:if test="position() &lt; $end and position() > $start">
+      <xsl:apply-templates select="."/>
+    </xsl:if>
+  </xsl:for-each>
+</xsl:template>
+
+
+<xsl:template name="has-non-empty-contents">
+  <xsl:param name="start"/>
+  <xsl:param name="end"/>
+
+  <xsl:for-each select="node()">
+    <xsl:if test="position() &lt; $end and position() > $start">
+      <xsl:choose>
+        <xsl:when test="local-name()">
+          <xsl:value-of select="local-name()"/>
+        </xsl:when>
+        <xsl:when test="self::text()"><xsl:value-of select="."/></xsl:when>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:for-each>
+</xsl:template>
+
+
+<xsl:template name="add-wrapping-para">
+  <xsl:param name="start"/>
+  <xsl:param name="end"/>
+  <!-- Only add a wrapping <p> when there is: text (not whitespace) or an element -->
+  <xsl:variable name="nonEmptyContents">
+    <xsl:call-template name="has-non-empty-contents">
+      <xsl:with-param name="start" select="$start"/>
+      <xsl:with-param name="end" select="$end"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <!-- check that there is NOT only whitespace -->
+  <xsl:if test="string-length(normalize-space($nonEmptyContents)) != 0">
+    <!-- Inject the <p> -->
+    <xsl:value-of select="'&lt;p>'" disable-output-escaping="yes" />
+    <xsl:call-template name="apply-only-certain-children">
+      <xsl:with-param name="start" select="$start"/>
+      <xsl:with-param name="end" select="$end"/>
+    </xsl:call-template>
+    <!-- Inject the </p> -->
+    <xsl:value-of select="'&lt;/p>'" disable-output-escaping="yes" />
+  </xsl:if>
+</xsl:template>
+
+
+<xsl:template name="traverse-blockish-list">
+  <xsl:param name="prevBlockish"/>
+  <xsl:param name="list"/>
+
+  <xsl:variable name="start" select="$prevBlockish"/>
+  <xsl:variable name="end" select="substring-before($list, ',')"/>
+  <xsl:choose>
+    <xsl:when test="contains($list, ',')">
+      <xsl:call-template name="add-wrapping-para">
+        <xsl:with-param name="start" select="$start"/>
+        <xsl:with-param name="end" select="$end"/>
+      </xsl:call-template>
+      <!-- Apply the blockish element by exactly picking it in the range (the -1 and +1) -->
+      <xsl:call-template name="apply-only-certain-children">
+        <xsl:with-param name="start" select="$end - 1"/>
+        <xsl:with-param name="end" select="$end + 1"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="traverse-blockish-list">
+        <xsl:with-param name="prevBlockish" select="$end"/>
+        <xsl:with-param name="list" select="substring-after($list, ',')"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- output the remaining elements after the last blockish -->
+      <xsl:if test="count(node()) > $prevBlockish">
+        <xsl:call-template name="add-wrapping-para">
+          <xsl:with-param name="start" select="$start"/>
+          <xsl:with-param name="end" select="count(node()) + 1"/>
+        </xsl:call-template>
+      </xsl:if>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 <xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>

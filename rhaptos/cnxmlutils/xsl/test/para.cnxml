@@ -2,30 +2,47 @@
 <document xmlns="http://cnx.rice.edu/cnxml" xmlns:bib="http://bibtexml.sf.net/" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:md1="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" id="idm45159773362944" cnxml-version="0.7" module-id="mXXXX">
   <title>Test Module</title>
   <content>
-    <para id="id1">This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</para>
+    <para id="keep1">This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</para>
 
-    <para id="id2"><quote id="id3"></quote></para>
+    <para id="REMOVE1"><quote id="keep2"></quote></para>
 
-    <para id="id4">
-      <quote id="id5"></quote>
+    <para id="REMOVE2">
+      <quote id="keep3"></quote>
     </para>
 
-    <para id="id6">
+    <!-- TODO: ensure the attributes on this para are preserved -->
+    <para id="keep4" class="keep">
       before
-      <term>inline element</term>
-      <quote id="id7"></quote>
+      <term id="keep5">inline element1</term>
+      before2
+      <quote id="keep6"></quote>
       between
-      <term>inline element</term>
-      between
-      <quote id="id8"></quote>
+      <term id="keep7">inline element2</term>
+      between2
+      <quote id="keep8"></quote>
       after
-      <term>inline element</term>
-      after
+      <term id="keep9">inline element3</term>
+      after2
     </para>
 
 
-    <!-- <para id="id4">
-      <table id="id5" summary="">
+    <!-- TODO: ensure the attributes on this para are preserved -->
+    <para id="keep-but-move-down10" class="keep">
+      <quote id="keep11"></quote>
+      <quote id="keep12"></quote>
+      after
+    </para>
+
+    <para id="keep13">
+      before
+      <quote id="keep14"></quote>
+      between
+      <quote id="keep15"></quote>
+      after
+    </para>
+
+    <para id="REMOVE3">
+      <table id="keep16" summary="">
         <tgroup cols="1">
           <tbody>
             <row>
@@ -37,11 +54,11 @@
     </para>
 
 
-    <para id="id6">
+    <para id="keep17">
       some text
-      <term>and an element</term>
+      <term id="keep18">and an element</term>
       and more text
-      <table id="id7" summary="">
+      <table id="keep19" summary="">
         <tgroup cols="1">
           <tbody>
             <row>
@@ -51,9 +68,9 @@
         </tgroup>
       </table>
       some text
-      <term>and an element</term>
+      <term id="keep20">and an element</term>
       and more text
-      <table id="id8" summary="">
+      <table id="keep21" summary="">
         <tgroup cols="1">
           <tbody>
             <row>
@@ -63,7 +80,7 @@
         </tgroup>
       </table>
       and even more text
-    </para> -->
+    </para>
 
   </content>
 </document>
