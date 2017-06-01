@@ -270,5 +270,10 @@
         </para>
       </section>
     </section>
+
+    <list id="list-with-title">
+      <title>my title</title>
+      <item>item1</item>
+    </list>
   </content>
 </document>

@@ -572,7 +572,7 @@
 <xsl:template match="c:list[@display='block']/@display"/>
 
 <xsl:template match="c:list[c:title]">
-  <div data-type="{local-name()}">
+  <div data-type="list-with-title">
     <!-- list-id-and-class will give it the class "list" at least -->
     <xsl:call-template name="list-id-and-class"/>
 
