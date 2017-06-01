@@ -32,5 +32,8 @@
   <note id="label-and-type-3" type="Hint">Hint Body 3
   </note>
 
+  <note id="with-class" class=" my-note ">content</note>
+  <note id="with-empty-class" class=" ">content (class attribute should be removed)</note>
+
 </content>
 </document>

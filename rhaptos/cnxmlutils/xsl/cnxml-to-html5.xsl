@@ -154,7 +154,10 @@
 </xsl:template>
 
 <xsl:template match="@class">
-  <xsl:copy/>
+  <!-- only copy the class attribute when it is not class=" " -->
+  <xsl:if test="normalize-space(.) != ''">
+    <xsl:copy/>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="c:content">
@@ -245,18 +248,18 @@
 
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
-<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[@display='block']|.//c:equation)]" name="convert-para">
+<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[@display='block']|c:equation]">
+<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[not(@display) or @display='block']|c:equation]">
   <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
 <!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[@display='block']|c:equation]">
+<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[not(@display) or @display='block']|c:equation]">
   <xsl:message>c:para contains a blockish child that cannot just be unwrapped. Splitting into multiple paragraphs</xsl:message>
   <xsl:variable name="blockishIndexes">
     <xsl:call-template name="index-of-blockish-children"/>
@@ -273,7 +276,7 @@
 
 <xsl:template name="index-of-blockish-children">
   <xsl:for-each select="node()">
-    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[@display='block'] or self::c:equation">
+    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[not(@display) or @display='block'] or self::c:equation">
       <xsl:value-of select="position()"/>
       <xsl:text>,</xsl:text>
     </xsl:if>
@@ -537,12 +540,23 @@
 
 <!-- Prefix these attributes with "data-" -->
 <xsl:template match="
-     c:list/@bullet-style
-    |c:list/@number-style
+     c:list/@number-style
     |c:list/@mark-prefix
     |c:list/@mark-suffix
     |c:list/@item-sep">
   <xsl:call-template name="data-prefix"/>
+</xsl:template>
+
+<!-- Biology has several instances of bullet-style="" but it should be bullet-style="none" -->
+<xsl:template match="c:list/@bullet-style">
+  <xsl:choose>
+    <xsl:when test="normalize-space(.) = ''">
+      <xsl:attribute name="data-bullet-style">none</xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="data-prefix"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- Discard these attributes -->
@@ -777,7 +791,15 @@
       </a>
       <xsl:text> </xsl:text>
       <span data-type="footnote-ref-content">
-        <xsl:apply-templates/>
+        <!-- Unwrap <p> tags in footnotes. 7 of these were in Biology -->
+        <xsl:choose>
+          <xsl:when test="count(*) = 1 and c:para">
+            <xsl:apply-templates select="c:para/node()"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </span>
     </li>
 </xsl:template>
@@ -1267,7 +1289,22 @@
 </xsl:template>
 
 <xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
-  <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
+  <!-- normalize jpeg images to be image/jpeg -->
+  <xsl:variable name="mediaType">
+    <xsl:choose>
+      <xsl:when test="@mime-type='image/jpg'">
+        <xsl:text>image/jpeg</xsl:text>
+      </xsl:when>
+      <!--  this is in m44878 in Biology (col11448) -->
+      <xsl:when test="@mime-type='imgae/jpg'">
+        <xsl:text>image/jpeg</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@mime-type"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <img src="{@src}" data-media-type="{$mediaType}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
@@ -1306,6 +1343,14 @@
 </xsl:template>
 
 
+<xsl:template match="
+    c:iframe/@src
+  | c:iframe/@width
+  | c:iframe/@height
+  ">
+  <xsl:copy/>
+</xsl:template>
+
 <xsl:template match="c:iframe">
   <iframe><xsl:apply-templates select="@*|node()"/></iframe>
 </xsl:template>
@@ -1322,9 +1367,14 @@
   </div>
 </xsl:template>
 
+<!-- Discard labels in glossaries. Biology has several of these and they are all empty (in m44469) -->
+<xsl:template match="c:glossary//c:definition/c:label">
+  <xsl:message>Discarding label on a definition that is in the glossary. Not sure what it is used for</xsl:message>
+</xsl:template>
+
 <xsl:template match="c:content//c:definition">
   <dl>
-    <xsl:apply-templates select="@*|c:label"/>
+    <xsl:apply-templates select="@*"/>
     <xsl:apply-templates select="node()[not(self::c:label)]"/>
   </dl>
 </xsl:template>
@@ -1468,6 +1518,10 @@
 <xsl:template match="c:table/@summary">
   <xsl:copy/>
 </xsl:template>
+
+<!-- Discard these attributes -->
+<!-- Biology has an occurrence of this -->
+<xsl:template match="c:table/@pgwide"/>
 
 <xsl:template match="c:table[count(c:tgroup) = 1]">
   <table>
