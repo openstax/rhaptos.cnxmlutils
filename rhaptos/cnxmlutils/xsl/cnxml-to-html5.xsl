@@ -944,6 +944,9 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<!-- discard because this does not contain useful data -->
+<xsl:template match="c:figure/@type"/>
+
 <xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
   <figcaption>
     <xsl:apply-templates select="@*|node()"/>
