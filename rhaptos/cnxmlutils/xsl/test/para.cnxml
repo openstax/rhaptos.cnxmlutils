@@ -89,5 +89,9 @@
 
     <para id="xsl-fo-attributes" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" fo:font-weight="bold">some text</para>
 
+    <para id="pre">
+      <preformat id="pre1">hi</preformat>
+    </para>
+
   </content>
 </document>
