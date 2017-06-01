@@ -86,6 +86,8 @@
     <para id="REMOVE4">
       <equation id="keep22"></equation>
     </para>
-    
+
+    <para id="xsl-fo-attributes" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" fo:font-weight="bold">some text</para>
+
   </content>
 </document>

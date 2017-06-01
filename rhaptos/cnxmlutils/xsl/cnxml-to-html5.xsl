@@ -9,6 +9,7 @@
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
   xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
+  xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
   exclude-result-prefixes="m mml"
 
   >
@@ -18,6 +19,9 @@
 <!-- ========================= -->
 <!-- One-way conversions       -->
 <!-- ========================= -->
+
+<!-- Discard xsl-fo attributes -->
+<xsl:template match="@fo:*"/>
 
 <!-- Pass through attributes with the data: prefix as HTML5 data-* attributes -->
 <xsl:template match="@data:*">
@@ -715,11 +719,11 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <em data-effect="smallcaps"><xsl:apply-templates select="@*|node()"/></em>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <xsl:apply-templates select="@*|node()"/>
 </xsl:template>
 
 <!-- ========================= -->
@@ -970,16 +974,36 @@
 <xsl:template match="c:media">
   <xsl:choose>
     <xsl:when test="ancestor::c:para or @display='inline'">
-      <span data-type="{local-name()}">
-        <!-- Apply c:media optional attributes -->
-        <xsl:apply-templates select="@*|node()"/>
-      </span>
+      <xsl:choose>
+        <xsl:when test="count(*) > 1">
+          <!-- https://github.com/oerpub/TextbookHTML/blob/master/specification.asciidoc#alternates-mechanism -->
+          <span data-type="alternates">
+            <xsl:apply-templates select="@*|node()"/>
+          </span>
+        </xsl:when>
+        <xsl:otherwise>
+          <span data-type="{local-name()}">
+            <!-- Apply c:media optional attributes -->
+            <xsl:apply-templates select="@*|node()"/>
+          </span>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <div data-type="{local-name()}">
-        <!-- Apply c:media optional attributes -->
-        <xsl:apply-templates select="@*|node()"/>
-      </div>
+      <xsl:choose>
+        <xsl:when test="count(*) > 1">
+          <!-- https://github.com/oerpub/TextbookHTML/blob/master/specification.asciidoc#alternates-mechanism -->
+          <div data-type="alternates">
+            <xsl:apply-templates select="@*|node()"/>
+          </div>
+        </xsl:when>
+        <xsl:otherwise>
+          <div data-type="{local-name()}">
+            <!-- Apply c:media optional attributes -->
+            <xsl:apply-templates select="@*|node()"/>
+          </div>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -1300,7 +1324,18 @@
         <xsl:text>image/jpeg</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="@mime-type"/>
+        <xsl:choose>
+          <!-- Perform this test because Physics (m42045) has some entries that have media-type="image/wmf" -->
+          <xsl:when test="contains(@src, '.jpg')">
+            <xsl:text>image/jpeg</xsl:text>
+          </xsl:when>
+          <xsl:when test="contains(@src, '.png')">
+            <xsl:text>image/png</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="@mime-type"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -1315,10 +1350,9 @@
 </xsl:template>
 
 <xsl:template match="c:image[@for='pdf' or @for='Pdf']">
-  <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
+  <img data-media-type="{@mime-type}" data-print="true" src="{@src}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
-  </span>
+  </img>
 </xsl:template>
 
 
@@ -1335,7 +1369,7 @@
 <!-- Discard the thumbnail attribute because it is handled elsewhere -->
 <xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]/@thumbnail"/>
 <xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]">
-  <a href="{@src}" data-type="{local-name()}">
+  <a href="{@src}" data-type="image-with-thumbnail">
     <img src="{@thumbnail}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
       <xsl:apply-templates select="@*|node()"/>
     </img>
