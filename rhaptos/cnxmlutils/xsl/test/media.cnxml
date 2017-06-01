@@ -84,5 +84,13 @@
     </media>
   </figure>
 
+  <para id="foo123">
+    <media alt="" id="inline-by-default"><image mime-type="image/png" src="404-not-found.png"></image></media>
+  </para>
+
+  <media alt="" id="block-by-default"><image mime-type="image/png" src="404-not-found.png"></image></media>
+
+  <media display="inline" alt="" id="explicitly-inline"><image mime-type="image/png" src="404-not-found.png"></image></media>
+
 </content>
 </document>

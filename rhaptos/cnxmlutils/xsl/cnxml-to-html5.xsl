@@ -245,14 +245,18 @@
 
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
+<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[@display='block']|.//c:equation)]" name="convert-para">
+  <p><xsl:apply-templates select="@*|node()"/></p>
+</xsl:template>
+
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table]">
+<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[@display='block']|c:equation]">
   <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
 <!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 1][.//c:figure|.//c:quote|.//c:list|.//c:table]">
+<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[@display='block']|c:equation]">
   <xsl:message>c:para contains a blockish child that cannot just be unwrapped. Splitting into multiple paragraphs</xsl:message>
   <xsl:variable name="blockishIndexes">
     <xsl:call-template name="index-of-blockish-children"/>
@@ -269,7 +273,7 @@
 
 <xsl:template name="index-of-blockish-children">
   <xsl:for-each select="node()">
-    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table">
+    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[@display='block'] or self::c:equation">
       <xsl:value-of select="position()"/>
       <xsl:text>,</xsl:text>
     </xsl:if>
@@ -371,9 +375,6 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table)]" name="convert-para">
-  <p><xsl:apply-templates select="@*|node()"/></p>
-</xsl:template>
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}">
@@ -540,10 +541,13 @@
     |c:list/@number-style
     |c:list/@mark-prefix
     |c:list/@mark-suffix
-    |c:list/@item-sep
-    |c:list/@display">
+    |c:list/@item-sep">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
+
+<!-- Discard these attributes -->
+<xsl:template match="
+    c:list/@display"/>
 
 <xsl:template match="c:list/@start-value">
   <xsl:attribute name="start"><xsl:value-of select="."/></xsl:attribute>
@@ -937,11 +941,25 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<!-- Discard the following attributes -->
+<xsl:template match="
+   c:media/@display"/>
+
 <xsl:template match="c:media">
-  <span data-type="{local-name()}">
-    <!-- Apply c:media optional attributes -->
-    <xsl:apply-templates select="@*|node()"/>
-  </span>
+  <xsl:choose>
+    <xsl:when test="ancestor::c:para or @display='inline'">
+      <span data-type="{local-name()}">
+        <!-- Apply c:media optional attributes -->
+        <xsl:apply-templates select="@*|node()"/>
+      </span>
+    </xsl:when>
+    <xsl:otherwise>
+      <div data-type="{local-name()}">
+        <!-- Apply c:media optional attributes -->
+        <xsl:apply-templates select="@*|node()"/>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- General attribute reassignment -->
@@ -1671,12 +1689,12 @@
     <xsl:otherwise>
       <col>
         <xsl:if test="not($colwidth='')">
-          <xsl:attribute name="data-width">
+          <xsl:attribute name="width">
             <xsl:value-of select="$colwidth"/>
           </xsl:attribute>
         </xsl:if>
         <xsl:if test="not($colalign='')">
-          <xsl:attribute name="data-align">
+          <xsl:attribute name="align">
             <xsl:value-of select="$colalign"/>
           </xsl:attribute>
         </xsl:if>
