@@ -466,6 +466,11 @@
 
 <!-- ========================= -->
 
+<!-- All quotes are blocks so discard the @display -->
+<xsl:template match="c:quote/@display">
+  <xsl:message>Discarding c:quote/@display</xsl:message>
+</xsl:template>
+
 <xsl:template match="c:quote/@url">
   <xsl:attribute name="cite">
     <xsl:value-of select="."/>
