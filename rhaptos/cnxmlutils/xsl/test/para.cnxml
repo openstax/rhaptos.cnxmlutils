@@ -93,5 +93,10 @@
       <preformat id="pre1">hi</preformat>
     </para>
 
+    <para id="with-note">
+      What is 1+1?
+      <note id="note1">This is asking for the mathematical answer</note>
+    </para>
+
   </content>
 </document>

@@ -147,7 +147,7 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="@effect|@pub-type">
+<xsl:template match="@effect|@pub-type" priority="-1000">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
@@ -252,18 +252,18 @@
 
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
-<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat)]" name="convert-para">
+<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[not(@display) or @display='block']|c:equation|c:preformat]">
+<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
   <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
 <!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[not(@display) or @display='block']|c:equation|c:preformat]">
+<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
   <xsl:message>c:para contains a blockish child that cannot just be unwrapped. Splitting into multiple paragraphs</xsl:message>
   <xsl:variable name="blockishIndexes">
     <xsl:call-template name="index-of-blockish-children"/>
@@ -280,7 +280,7 @@
 
 <xsl:template name="index-of-blockish-children">
   <xsl:for-each select="node()">
-    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[not(@display) or @display='block'] or self::c:equation or self::c:preformat">
+    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[not(@display) or @display='block'] or self::c:equation or self::c:preformat or self::c:note or self::c:exercise">
       <xsl:value-of select="position()"/>
       <xsl:text>,</xsl:text>
     </xsl:if>
@@ -447,6 +447,10 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<!-- Discard these -->
+<xsl:template match="
+   c:code/@display"/>
+
 <!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates select="@*|node()"/></pre>
@@ -555,6 +559,12 @@
     |c:list/@item-sep">
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
+
+<!-- Discard these attributes -->
+<xsl:template match="
+     c:list/@type
+    "/>
+
 
 <!-- Biology has several instances of bullet-style="" but it should be bullet-style="none" -->
 <xsl:template match="c:list/@bullet-style">
@@ -700,6 +710,8 @@
 
 <!-- ========================= -->
 
+<xsl:template match="c:emphasis[@effect='italics']/@effect"/>
+
 <xsl:template match="c:emphasis">
   <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/></strong>
 </xsl:template>
@@ -728,7 +740,7 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <xsl:apply-templates select="@*|node()"/>
+  <xsl:apply-templates select="node()"/>
 </xsl:template>
 
 <!-- ========================= -->
@@ -1556,14 +1568,15 @@
   <xsl:call-template name="data-prefix"/>
 </xsl:template>
 
+<!-- Discard these attributes -->
+<!-- Biology has an occurrence of this -->
+<xsl:template match="
+   c:table/@pgwide"/>
+
 <!-- Copy the summary attribute over unchanged -->
 <xsl:template match="c:table/@summary">
   <xsl:copy/>
 </xsl:template>
-
-<!-- Discard these attributes -->
-<!-- Biology has an occurrence of this -->
-<xsl:template match="c:table/@pgwide"/>
 
 <xsl:template match="c:table[count(c:tgroup) = 1]">
   <table>
