@@ -4,9 +4,9 @@
   <content>
     <para id="keep1">This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</para>
 
-    <para id="REMOVE1"><quote id="keep2"></quote></para>
+    <para id="inline-quote1"><quote id="keep2"></quote></para>
 
-    <para id="REMOVE2">
+    <para id="inline-quote2">
       <quote id="keep3"></quote>
     </para>
 

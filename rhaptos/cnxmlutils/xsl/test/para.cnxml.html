@@ -14,34 +14,43 @@
   <p
     id='keep1'
   >This test unwraps blockish elements (table, figure, list, etc) that are a child of a para.</p>
-  <blockquote
-    id='keep2'
-  ></blockquote>
-  <blockquote
-    id='keep3'
-  ></blockquote>
+  <p
+    id='inline-quote1'
+  >
+    <q
+      id='keep2'
+    ></q>
+  </p>
+  <p
+    id='inline-quote2'
+  >
+    <q
+      id='keep3'
+    ></q>
+  </p>
 <!-- TODO: ensure the attributes on this para are preserved -->
-  <p>
+  <p
+    class='keep'
+    id='keep4'
+  >
       before
     <span
       data-type='term'
       id='keep5'
-    >inline element1</span>before2
-  </p>
-  <blockquote
-    id='keep6'
-  ></blockquote>
-  <p>
+    >inline element1</span>
+      before2
+    <q
+      id='keep6'
+    ></q>
       between
     <span
       data-type='term'
       id='keep7'
-    >inline element2</span>between2
-  </p>
-  <blockquote
-    id='keep8'
-  ></blockquote>
-  <p>
+    >inline element2</span>
+      between2
+    <q
+      id='keep8'
+    ></q>
       after
     <span
       data-type='term'
@@ -49,22 +58,29 @@
     >inline element3</span>after2
   </p>
 <!-- TODO: ensure the attributes on this para are preserved -->
-  <blockquote
-    id='keep11'
-  ></blockquote>
-  <blockquote
-    id='keep12'
-  ></blockquote>
-  <p>after</p>
-  <p>before</p>
-  <blockquote
-    id='keep14'
-  ></blockquote>
-  <p>between</p>
-  <blockquote
-    id='keep15'
-  ></blockquote>
-  <p>after</p>
+  <p
+    class='keep'
+    id='keep-but-move-down10'
+  >
+    <q
+      id='keep11'
+    ></q>
+    <q
+      id='keep12'
+    ></q>after
+  </p>
+  <p
+    id='keep13'
+  >
+      before
+    <q
+      id='keep14'
+    ></q>
+      between
+    <q
+      id='keep15'
+    ></q>after
+  </p>
   <table
     id='keep16'
     summary=''

@@ -252,18 +252,18 @@
 
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
-<xsl:template match="c:para[not(.//c:figure|.//c:quote|.//c:list|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
+<xsl:template match="c:para[not(.//c:figure|.//c:list|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
-<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:quote|*//c:list|*//c:table|*//c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
+<xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:list|*//c:table|*//c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
   <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
   <xsl:call-template name="convert-para"/>
 </xsl:template>
 
 <!-- when the blockish child is not the only option then report a message -->
-<xsl:template match="c:para[count(node()) >= 1][c:figure|c:quote|c:list|c:table|c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
+<xsl:template match="c:para[count(node()) >= 1][c:figure|c:list|c:table|c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
   <xsl:message>c:para contains a blockish child that cannot just be unwrapped. Splitting into multiple paragraphs</xsl:message>
   <xsl:variable name="blockishIndexes">
     <xsl:call-template name="index-of-blockish-children"/>
@@ -280,7 +280,7 @@
 
 <xsl:template name="index-of-blockish-children">
   <xsl:for-each select="node()">
-    <xsl:if test="self::c:figure or self::c:quote or self::c:list or self::c:table or self::c:media[not(@display) or @display='block'] or self::c:equation or self::c:preformat or self::c:note or self::c:exercise">
+    <xsl:if test="self::c:figure or self::c:list or self::c:table or self::c:media[not(@display) or @display='block'] or self::c:equation or self::c:preformat or self::c:note or self::c:exercise">
       <xsl:value-of select="position()"/>
       <xsl:text>,</xsl:text>
     </xsl:if>
@@ -490,6 +490,13 @@
     <xsl:apply-templates select="@*|node()"/>
   </blockquote>
 </xsl:template>
+
+<xsl:template match="c:para//c:quote">
+  <q>
+    <xsl:apply-templates select="@*|node()"/>
+  </q>
+</xsl:template>
+
 
 <!-- ========================= -->
 
@@ -1511,7 +1518,7 @@
 </xsl:template>
 
 <!-- newlines inside a <c:para> should be converted to spans -->
-<xsl:template match="c:newline[ancestor::c:para or ancestor::c:table][not(ancestor::c:quote)]">
+<xsl:template match="c:newline[ancestor::c:para or ancestor::c:table]">
   <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
