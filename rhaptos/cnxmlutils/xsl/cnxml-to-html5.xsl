@@ -218,7 +218,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title[not(parent::c:list)]|c:para//c:list[@display='inline']/c:title">
+<xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title[not(parent::c:list)][not(parent::c:figure)]|c:para//c:list[@display='inline']/c:title">
   <span data-type="title"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
