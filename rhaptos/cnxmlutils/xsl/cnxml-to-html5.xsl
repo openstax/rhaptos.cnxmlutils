@@ -212,7 +212,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
+<xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title|c:figure/c:title">
   <div data-type="title">
     <xsl:apply-templates select="@*|node()"/>
   </div>
@@ -1002,7 +1002,7 @@
           </span>
         </xsl:when>
         <xsl:otherwise>
-          <span data-type="{local-name()}">
+          <span data-type="media">
             <!-- Apply c:media optional attributes -->
             <xsl:apply-templates select="@*|node()"/>
           </span>
@@ -1018,7 +1018,7 @@
           </div>
         </xsl:when>
         <xsl:otherwise>
-          <div data-type="{local-name()}">
+          <div data-type="media">
             <!-- Apply c:media optional attributes -->
             <xsl:apply-templates select="@*|node()"/>
           </div>
@@ -1511,7 +1511,7 @@
 </xsl:template>
 
 <!-- newlines inside a <c:para> should be converted to spans -->
-<xsl:template match="c:newline[ancestor::c:para or ancestor::c:table]">
+<xsl:template match="c:newline[ancestor::c:para or ancestor::c:table][not(ancestor::c:quote)]">
   <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
