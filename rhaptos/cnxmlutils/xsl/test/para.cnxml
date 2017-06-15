@@ -98,5 +98,12 @@
       <note id="note1">This is asking for the mathematical answer</note>
     </para>
 
+    <para id="with-inline-list">
+      foo
+      <list list-type="labeled-item" display="inline" id="inline-list1">
+        <item>1</item>
+      </list>
+    </para>
+
   </content>
 </document>
