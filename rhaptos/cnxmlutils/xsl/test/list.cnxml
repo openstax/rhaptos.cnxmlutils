@@ -275,5 +275,16 @@
       <title>my title</title>
       <item>item1</item>
     </list>
+
+    <list id="list-with-label">
+      <label>my label</label>
+      <item>item1</item>
+    </list>
+
+    <list id="list-with-label2">
+      <!-- discard me too -->
+      <label>my label</label>
+      <item>item1</item>
+    </list>
   </content>
 </document>

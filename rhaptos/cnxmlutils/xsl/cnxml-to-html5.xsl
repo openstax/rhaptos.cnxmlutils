@@ -197,7 +197,7 @@
 </xsl:template>
 
 
-<xsl:template match="c:label[node()]|c:label[not(node())]">
+<xsl:template match="c:label">
   <!--xsl:message>Applying label to <xsl:value-of select="../@id"/></xsl:message-->
   <xsl:attribute name="data-label"><xsl:value-of select="node()"/></xsl:attribute>
 </xsl:template>
