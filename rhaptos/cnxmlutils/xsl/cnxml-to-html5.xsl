@@ -58,16 +58,21 @@
     </xsl:if>
     <xsl:apply-templates select="c:metadata/md:abstract"/>
     <xsl:apply-templates select="c:content"/>
-    <xsl:if test="c:content//c:footnote">
-      <div data-type="footnote-refs">
-        <h3 data-type="footnote-refs-title">Footnotes</h3>
-        <ul data-list-type="bulleted" data-bullet-style="none">
-          <xsl:apply-templates select="//c:footnote" mode="footnote"/>
-        </ul>
-      </div>
-    </xsl:if>
-    <xsl:apply-templates select="c:glossary"/>
+    <xsl:call-template name="doc-level-template"/>
   </body>
+</xsl:template>
+
+<!-- This is here so that other converters can directly call this template when there is not a c:document root element -->
+<xsl:template name="doc-level-template">
+  <xsl:if test="//c:footnote">
+    <div data-type="footnote-refs">
+      <h3 data-type="footnote-refs-title">Footnotes</h3>
+      <ul data-list-type="bulleted" data-bullet-style="none">
+        <xsl:apply-templates select="//c:footnote" mode="footnote"/>
+      </ul>
+    </div>
+  </xsl:if>
+  <xsl:apply-templates select="c:glossary"/>
 </xsl:template>
 
 <xsl:template match="md:abstract">
@@ -197,7 +202,7 @@
 </xsl:template>
 
 
-<xsl:template match="c:label">
+<xsl:template match="c:label[node()]|c:label[not(node())]">
   <!--xsl:message>Applying label to <xsl:value-of select="../@id"/></xsl:message-->
   <xsl:attribute name="data-label"><xsl:value-of select="node()"/></xsl:attribute>
 </xsl:template>
