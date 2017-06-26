@@ -32,6 +32,12 @@
   <div><xsl:apply-templates select="@*|node()"/></div>
 </xsl:template>
 
+<!-- col11562_1.18_complete/m47001 contains one of these -->
+<xsl:template match="c:div[count(@*) = 1][@id][count(*) = 1]">
+  <xsl:apply-templates select="*"/>
+</xsl:template>
+
+
 <xsl:template match="c:span">
   <span><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
@@ -212,7 +218,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title|c:figure/c:title">
+<xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title|c:figure/c:title|c:equation/c:title">
   <div data-type="title">
     <xsl:apply-templates select="@*|node()"/>
   </div>
@@ -569,7 +575,8 @@
 
 <!-- Discard these attributes -->
 <xsl:template match="
-     c:list/@type
+      c:list/@type
+    | c:list[@bullet-style='bullet']/@bullet-style
     "/>
 
 
@@ -717,7 +724,12 @@
 
 <!-- ========================= -->
 
-<xsl:template match="c:emphasis[@effect='italics']/@effect"/>
+<!-- Discard these attributes -->
+<xsl:template match="
+    c:emphasis[@effect='italics']/@effect
+  | c:emphasis[@effect='italic']/@effect
+  | c:emphasis[@effect='bold']/@effect
+  "/>
 
 <xsl:template match="c:emphasis">
   <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/></strong>
@@ -729,11 +741,6 @@
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
   <em><xsl:apply-templates select="@*|node()"/></em>
-</xsl:template>
-
-<!-- Fix emphasis effect typo "italic" -->
-<xsl:template match="c:emphasis[@effect='italic']/@effect">
-  <xsl:attribute name="data-effect">italics</xsl:attribute>
 </xsl:template>
 
 
