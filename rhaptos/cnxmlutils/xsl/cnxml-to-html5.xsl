@@ -329,13 +329,31 @@
   <!-- check that there is NOT only whitespace -->
   <xsl:if test="string-length(normalize-space($nonEmptyContents)) != 0">
     <!-- Inject the <p> -->
-    <xsl:value-of select="'&lt;p>'" disable-output-escaping="yes" />
-    <xsl:call-template name="apply-only-certain-children">
-      <xsl:with-param name="start" select="$start"/>
-      <xsl:with-param name="end" select="$end"/>
-    </xsl:call-template>
-    <!-- Inject the </p> -->
-    <xsl:value-of select="'&lt;/p>'" disable-output-escaping="yes" />
+    <!-- If there are children of the para before the blockish element then wrap them using the initial para and preserve the attributes -->
+
+    <xsl:choose>
+      <xsl:when test="$start = 0">
+        <p>
+          <!-- copy the attributes over to the element -->
+          <xsl:apply-templates select="@*"/>
+          <xsl:call-template name="apply-only-certain-children">
+            <xsl:with-param name="start" select="$start"/>
+            <xsl:with-param name="end" select="$end"/>
+          </xsl:call-template>
+        </p>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Inject the <p> -->
+        <xsl:value-of select="'&lt;p>'" disable-output-escaping="yes" />
+        <xsl:call-template name="apply-only-certain-children">
+          <xsl:with-param name="start" select="$start"/>
+          <xsl:with-param name="end" select="$end"/>
+        </xsl:call-template>
+        <!-- Inject the </p> -->
+        <xsl:value-of select="'&lt;/p>'" disable-output-escaping="yes" />
+
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:if>
 </xsl:template>
 
