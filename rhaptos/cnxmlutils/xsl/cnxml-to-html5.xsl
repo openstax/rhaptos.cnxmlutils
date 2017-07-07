@@ -465,7 +465,7 @@
   </xsl:attribute>
 </xsl:template>
 
-<xsl:template match="c:quote[@display='inline']">
+<xsl:template match="c:para//c:quote|c:quote[@display='inline']">
   <q><xsl:apply-templates select="@*|node()"/></q>
 </xsl:template>
 
