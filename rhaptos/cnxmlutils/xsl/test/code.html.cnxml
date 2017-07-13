@@ -1,32 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:md1="http://cnx.rice.edu/mdml" xmlns:bib="http://bibtexml.sf.net/" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:q="http://cnx.rice.edu/qml/1.0" xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute" cnxml-version="0.7"><title>Test Module</title><content>
-  
-  <code display="block" id="idc23423423">[line 1]
-[line 2]          [after 10 spaces]
-[line 3]</code>
-  <para id="idm45792189928240">...
-    <code>[some text]          [after 10 spaces]</code>...
-  </para>
-  <para id="id2342345">
-    <code display="inline">Inline code where it would normally be a block</code>
-  </para>
-  <code display="block" lang="JavaScript" id="id34556">with a language attribute</code>
-  <code id="id456" display="block"><title>the title</title>with a title</code>
-  <code id="id789" display="block"><label>the label</label><title>the title</title>with a title and label</code>
-  <code id="id7890" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label
-[line 2]
-[line 3]</code>
-  <para id="idm45792189920736">Preformat element (much like a block of code but styled differently)</para>
-  <code id="idm45889741367328">[line 1]
-[line 2]          [after 10 spaces]
-[line 3]</code>
 
-  <code id="id4560"><title>the title</title>with a title
-[line 2]
+<document
+  cnxml-version='0.7'
+  xmlns='http://cnx.rice.edu/cnxml'
+  xmlns:bib='http://bibtexml.sf.net/'
+  xmlns:data='http://www.w3.org/TR/html5/dom.html#custom-data-attribute'
+  xmlns:m='http://www.w3.org/1998/Math/MathML'
+  xmlns:md='http://cnx.rice.edu/mdml/0.4'
+  xmlns:md1='http://cnx.rice.edu/mdml'
+  xmlns:q='http://cnx.rice.edu/qml/1.0'
+>
+  <title>Test Module</title>
+  <content>
+    <code
+      display='block'
+      id='idc23423423'
+    >[line 1]
+[line 2]          [after 10 spaces]
 [line 3]</code>
-  <list list-type="bulleted" id="idm45792189918144">
-    <item>
-      <code>inline code; should not be a blockish pre</code>
-    </item>
-  </list>
-</content></document>
+    <para
+      id='idm45792189928240'
+    >...
+      <code>[some text]          [after 10 spaces]</code>...
+    </para>
+    <para
+      id='id2342345'
+    >
+      <code
+        display='inline'
+      >Inline code where it would normally be a block</code>
+    </para>
+    <code
+      display='block'
+      id='id34556'
+      lang='JavaScript'
+    >with a language attribute</code>
+    <code
+      display='block'
+      id='id456'
+    >
+      <title>the title</title>with a title
+    </code>
+    <code
+      display='block'
+      id='id789'
+    >
+      <label>the label</label>
+      <title>the title</title>with a title and label
+    </code>
+    <code
+      display='block'
+      id='id7890'
+      lang='JavaScript'
+    >
+      <label>the label</label>
+      <title>the title</title>with a title and label
+[line 2]
+[line 3]
+    </code>
+    <para
+      id='idm45792189920736'
+    >Preformat element (much like a block of code but styled differently)</para>
+    <code
+      id='idm45889741367328'
+    >[line 1]
+[line 2]          [after 10 spaces]
+[line 3]</code>
+    <code
+      id='id4560'
+    >
+      <title>the title</title>with a title
+[line 2]
+[line 3]
+    </code>
+    <list
+      id='idm45792189918144'
+      list-type='bulleted'
+    >
+      <item>
+        <code>inline code; should not be a blockish pre</code>
+      </item>
+    </list>
+  </content>
+</document>

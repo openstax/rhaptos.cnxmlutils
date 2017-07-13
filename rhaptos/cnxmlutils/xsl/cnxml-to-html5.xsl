@@ -556,7 +556,6 @@
 <!-- Prefix these attributes with "data-" -->
 <xsl:template match="
      c:list/@bullet-style
-    |c:list/@number-style
     |c:list/@mark-prefix
     |c:list/@mark-suffix
     |c:list/@item-sep
@@ -602,6 +601,27 @@
 <xsl:template name="list-id-and-class">
   <xsl:apply-templates select="@id"/>
 </xsl:template>
+
+<xsl:template match="c:list/@number-style">
+  <xsl:variable name="typeCharacter">
+    <xsl:choose>
+      <xsl:when test=". = 'arabic'"></xsl:when>
+      <xsl:when test=". = 'upper-alpha'">A</xsl:when>
+      <xsl:when test=". = 'lower-alpha'">a</xsl:when>
+      <xsl:when test=". = 'upper-roman'">I</xsl:when>
+      <xsl:when test=". = 'lower-roman'">i</xsl:when>
+      <xsl:otherwise>
+        <xsl:message>BUG: Unknown c:list/@number-style="<xsl:value-of select="."/>"</xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:if test="'' != $typeCharacter">
+    <xsl:attribute name="type">
+      <xsl:value-of select="$typeCharacter"/>
+    </xsl:attribute>
+  </xsl:if>
+</xsl:template>
+
 
 <!-- ================= -->
 <!-- Block-level lists -->
