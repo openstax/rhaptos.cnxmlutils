@@ -605,7 +605,7 @@
 <xsl:template match="c:list/@number-style">
   <xsl:variable name="typeCharacter">
     <xsl:choose>
-      <xsl:when test=". = 'arabic'"></xsl:when>
+      <xsl:when test=". = 'arabic'">1</xsl:when>
       <xsl:when test=". = 'upper-alpha'">A</xsl:when>
       <xsl:when test=". = 'lower-alpha'">a</xsl:when>
       <xsl:when test=". = 'upper-roman'">I</xsl:when>
