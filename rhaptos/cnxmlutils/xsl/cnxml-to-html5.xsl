@@ -10,7 +10,7 @@
   xmlns:bib="http://bibtexml.sf.net/"
   xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
   xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
-  exclude-result-prefixes="m mml fo"
+  exclude-result-prefixes="c m md qml mod bib data fo"
 
   >
 
