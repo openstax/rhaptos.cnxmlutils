@@ -21,6 +21,12 @@
       <item>item</item>
     </list>
 
+    <para id="para-list-enumerated">
+      <list id="para-list-enumerated-list" list-type="enumerated" number-style="upper-alpha" start-value="3">
+        <item>item</item>
+      </list>
+    </para>
+
     <section id="idm45159773377600">
       <title>Lists NOT in a paragraph</title>
       <list id="idm45159773376592">

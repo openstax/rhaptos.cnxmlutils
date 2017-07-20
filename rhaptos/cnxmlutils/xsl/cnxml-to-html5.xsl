@@ -667,22 +667,6 @@
 <!-- Inline-level lists -->
 <!-- ================= -->
 
-<xsl:template mode="list-mode" match="c:para//c:list[not(@display)]|c:para//c:list[@display='block']">
-  <xsl:param name="convert-id-and-class"/>
-  <xsl:variable name="list-type">
-    <xsl:choose>
-      <xsl:when test="not(@list-type)">bulleted</xsl:when>
-      <xsl:otherwise><xsl:value-of select="@list-type"/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-  <div data-type="list" data-list-type="{$list-type}">
-    <xsl:if test="$convert-id-and-class">
-      <xsl:call-template name="list-id-and-class"/>
-    </xsl:if>
-    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
-  </div>
-</xsl:template>
-
 <xsl:template mode="list-mode" match="c:list[@display='inline']">
   <xsl:param name="convert-id-and-class"/>
   <xsl:variable name="list-type">
@@ -702,11 +686,6 @@
 <xsl:template match="c:list[@display='inline']/c:item">
   <span data-type="item"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
-
-<xsl:template match="c:para//c:list[@display='block']/c:item|c:para//c:list[not(@display)]/c:item">
-  <div data-type="item"><xsl:apply-templates select="@*|node()"/></div>
-</xsl:template>
-
 
 <!-- ========================= -->
 
