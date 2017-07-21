@@ -254,25 +254,7 @@
       >Formatting an Interrupt in Code Composer C</div>
       <pre
         data-display='block'
-      >
-#pragma vector=PORT3_VECTOR
-    //compiler directive saying that this function should correspond with the port3 interrupt vector
-__interrupt void interruptHandle()
-{
-    //your ISR CODE
-}
-
-
-void main()
-{
-... all setup
-
-__enable_interrupt();
-    //Enables general maskable interrupts
-... the rest of your program
-}
-      
-      </pre>
+      ></pre>
     </div>
 <!-- no c:preformat/c:title records exist in connextions-->
   </section>
