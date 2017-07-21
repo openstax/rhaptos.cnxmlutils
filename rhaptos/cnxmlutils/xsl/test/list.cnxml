@@ -2,6 +2,31 @@
 <document xmlns="http://cnx.rice.edu/cnxml" xmlns:bib="http://bibtexml.sf.net/" xmlns:md="http://cnx.rice.edu/mdml/0.4" xmlns:md1="http://cnx.rice.edu/mdml" xmlns:q="http://cnx.rice.edu/qml/1.0" id="idm45159773362944" cnxml-version="0.7" module-id="mXXXX">
   <title>Test Module</title>
   <content>
+    <list id="list-enumerated" list-type="enumerated">
+      <item>item</item>
+    </list>
+    <list id="list-arabic" list-type="enumerated" number-style="arabic">
+      <item>item</item>
+    </list>
+    <list id="list-upper-alpha" list-type="enumerated" number-style="upper-alpha">
+      <item>item</item>
+    </list>
+    <list id="list-lower-alpha" list-type="enumerated" number-style="lower-alpha">
+      <item>item</item>
+    </list>
+    <list id="list-upper-roman" list-type="enumerated" number-style="upper-roman">
+      <item>item</item>
+    </list>
+    <list id="list-lower-roman" list-type="enumerated" number-style="lower-roman">
+      <item>item</item>
+    </list>
+
+    <para id="para-list-enumerated">
+      <list id="para-list-enumerated-list" list-type="enumerated" number-style="upper-alpha" start-value="3">
+        <item>item</item>
+      </list>
+    </para>
+
     <section id="idm45159773377600">
       <title>Lists NOT in a paragraph</title>
       <list id="idm45159773376592">

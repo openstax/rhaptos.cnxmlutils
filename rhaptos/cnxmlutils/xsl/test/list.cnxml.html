@@ -10,6 +10,48 @@
   <div
     data-type='document-title'
   >Test Module</div>
+  <ol
+    id='list-enumerated'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='list-arabic'
+    type='1'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='list-upper-alpha'
+    type='A'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='list-lower-alpha'
+    type='a'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='list-upper-roman'
+    type='I'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='list-lower-roman'
+    type='i'
+  >
+    <li>item</li>
+  </ol>
+  <ol
+    id='para-list-enumerated-list'
+    start='3'
+    type='A'
+  >
+    <li>item</li>
+  </ol>
   <section
     data-depth='1'
     id='idm45159773377600'
@@ -68,8 +110,8 @@
         data-item-sep='[SEPARATOR]'
         data-mark-prefix='[PREFIX]'
         data-mark-suffix='[SUFFIX]'
-        data-number-style='lower-alpha'
         id='idm45159773271584'
+        type='a'
       >
         <li>list with all attributes</li>
       </ol>
@@ -249,15 +291,11 @@
     <p
       id='idm45159773233392'
     >...</p>
-    <div
-      data-list-type='bulleted'
-      data-type='list'
+    <ul
       id='idm45159773232832'
     >
-      <div
-        data-type='item'
-      >list with item</div>
-    </div>
+      <li>list with item</li>
+    </ul>
     <p>...</p>
     <p
       id='idm45159773231600'
@@ -282,14 +320,9 @@
       <div
         data-type='title'
       >and title</div>
-      <div
-        data-list-type='bulleted'
-        data-type='list'
-      >
-        <div
-          data-type='item'
-        >and item</div>
-      </div>
+      <ul>
+        <li>and item</li>
+      </ul>
     </div>
     <p>...</p>
     <p
@@ -325,15 +358,11 @@
       <p
         id='idm45159773223200'
       >...</p>
-      <div
-        data-list-type='bulleted'
-        data-type='list'
+      <ul
         id='idm45159773222640'
       >
-        <div
-          data-type='item'
-        >and item</div>
-      </div>
+        <li>and item</li>
+      </ul>
       <p>...</p>
       <p
         id='idm45159773221440'
@@ -358,14 +387,9 @@
         <div
           data-type='title'
         >and title</div>
-        <div
-          data-list-type='bulleted'
-          data-type='list'
-        >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+        <ul>
+          <li>and item</li>
+        </ul>
       </div>
       <p>...</p>
       <p
@@ -394,21 +418,17 @@
       <p
         id='idm45159773214032'
       >...</p>
-      <div
+      <ol
         data-element-type='LIST-TYPE'
         data-item-sep='[SEPARATOR]'
-        data-list-type='enumerated'
         data-mark-prefix='[PREFIX]'
         data-mark-suffix='[SUFFIX]'
-        data-number-style='lower-alpha'
-        data-type='list'
         id='idm45159773213472'
         start='3'
+        type='a'
       >
-        <div
-          data-type='item'
-        >list with all attributes</div>
-      </div>
+        <li>list with all attributes</li>
+      </ol>
       <p>...</p>
       <p
         id='idm45159773210384'
@@ -420,9 +440,9 @@
           data-list-type='enumerated'
           data-mark-prefix='[PREFIX]'
           data-mark-suffix='[SUFFIX]'
-          data-number-style='lower-alpha'
           data-type='list'
           start='3'
+          type='a'
         >
           <span
             data-type='item'
@@ -439,21 +459,17 @@
         <div
           data-type='title'
         >list with all attributes and title</div>
-        <div
+        <ol
           data-display='block'
           data-element-type='LIST-TYPE'
           data-item-sep='[SEPARATOR]'
-          data-list-type='enumerated'
           data-mark-prefix='[PREFIX]'
           data-mark-suffix='[SUFFIX]'
-          data-number-style='lower-alpha'
-          data-type='list'
           start='3'
+          type='a'
         >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+          <li>and item</li>
+        </ol>
       </div>
       <p>...</p>
       <p
@@ -472,9 +488,9 @@
             data-list-type='enumerated'
             data-mark-prefix='[PREFIX]'
             data-mark-suffix='[SUFFIX]'
-            data-number-style='lower-alpha'
             data-type='list'
             start='3'
+            type='a'
           >
             <span
               data-type='item'
@@ -496,15 +512,11 @@
       <p
         id='idm45159773195952'
       >...</p>
-      <div
-        data-list-type='bulleted'
-        data-type='list'
+      <ul
         id='idm45159773195392'
       >
-        <div
-          data-type='item'
-        >and item</div>
-      </div>
+        <li>and item</li>
+      </ul>
       <p>...</p>
       <p
         id='idm45159773193920'
@@ -529,14 +541,9 @@
         <div
           data-type='title'
         >and title</div>
-        <div
-          data-list-type='bulleted'
-          data-type='list'
-        >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+        <ul>
+          <li>and item</li>
+        </ul>
       </div>
       <p>...</p>
       <p
@@ -565,20 +572,16 @@
       <p
         id='idm45159773185696'
       >...</p>
-      <div
+      <ul
         data-bullet-style='open-circle'
         data-element-type='LIST-TYPE'
         data-item-sep='[SEPARATOR]'
-        data-list-type='bulleted'
         data-mark-prefix='[PREFIX]'
         data-mark-suffix='[SUFFIX]'
-        data-type='list'
         id='idm45159773185136'
       >
-        <div
-          data-type='item'
-        >list with all attributes</div>
-      </div>
+        <li>list with all attributes</li>
+      </ul>
       <p>...</p>
       <p
         id='idm45159773181776'
@@ -608,20 +611,16 @@
         <div
           data-type='title'
         >list with all attributes and title</div>
-        <div
+        <ul
           data-bullet-style='open-circle'
           data-display='block'
           data-element-type='LIST-TYPE'
           data-item-sep='[SEPARATOR]'
-          data-list-type='bulleted'
           data-mark-prefix='[PREFIX]'
           data-mark-suffix='[SUFFIX]'
-          data-type='list'
         >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+          <li>and item</li>
+        </ul>
       </div>
       <p>...</p>
       <p
@@ -663,15 +662,11 @@
       <p
         id='idm45159773166528'
       >...</p>
-      <div
-        data-list-type='enumerated'
-        data-type='list'
+      <ol
         id='idm45159773165968'
       >
-        <div
-          data-type='item'
-        >and item</div>
-      </div>
+        <li>and item</li>
+      </ol>
       <p>...</p>
       <p
         id='idm45159773164496'
@@ -696,14 +691,9 @@
         <div
           data-type='title'
         >and title</div>
-        <div
-          data-list-type='enumerated'
-          data-type='list'
-        >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+        <ol>
+          <li>and item</li>
+        </ol>
       </div>
       <p>...</p>
       <p
@@ -732,22 +722,18 @@
       <p
         id='idm45159773156272'
       >...</p>
-      <div
+      <ol
         data-display='block'
         data-element-type='LIST-TYPE'
         data-item-sep='[SEPARATOR]'
-        data-list-type='enumerated'
         data-mark-prefix='[PREFIX]'
         data-mark-suffix='[SUFFIX]'
-        data-number-style='lower-alpha'
-        data-type='list'
         id='idm45159773155712'
         start='3'
+        type='a'
       >
-        <div
-          data-type='item'
-        >list with all attributes</div>
-      </div>
+        <li>list with all attributes</li>
+      </ol>
       <p>...</p>
       <p
         id='idm45159773152080'
@@ -759,9 +745,9 @@
           data-list-type='enumerated'
           data-mark-prefix='[PREFIX]'
           data-mark-suffix='[SUFFIX]'
-          data-number-style='lower-alpha'
           data-type='list'
           start='3'
+          type='a'
         >
           <span
             data-type='item'
@@ -778,21 +764,17 @@
         <div
           data-type='title'
         >list with all attributes and title</div>
-        <div
+        <ol
           data-display='block'
           data-element-type='LIST-TYPE'
           data-item-sep='[SEPARATOR]'
-          data-list-type='enumerated'
           data-mark-prefix='[PREFIX]'
           data-mark-suffix='[SUFFIX]'
-          data-number-style='lower-alpha'
-          data-type='list'
           start='3'
+          type='a'
         >
-          <div
-            data-type='item'
-          >and item</div>
-        </div>
+          <li>and item</li>
+        </ol>
       </div>
       <p>...</p>
       <p
@@ -811,9 +793,9 @@
             data-list-type='enumerated'
             data-mark-prefix='[PREFIX]'
             data-mark-suffix='[SUFFIX]'
-            data-number-style='lower-alpha'
             data-type='list'
             start='3'
+            type='a'
           >
             <span
               data-type='item'
@@ -832,16 +814,14 @@
       <p
         id='idm45159773137536'
       >...</p>
-      <div
-        data-list-type='labeled-item'
-        data-type='list'
+      <ul
+        data-labeled-item='true'
         id='idm45159773136976'
       >
-        <div
+        <li
           data-label='with a label'
-          data-type='item'
-        >and item</div>
-      </div>
+        >and item</li>
+      </ul>
       <p>...</p>
       <p
         id='idm45159773135040'

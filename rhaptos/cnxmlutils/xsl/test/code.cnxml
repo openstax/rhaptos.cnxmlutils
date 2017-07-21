@@ -22,9 +22,8 @@
 
   <code id="id789" display="block"><label>the label</label><title>the title</title>with a title and label</code>
 
-  <code id="id7890" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label
-[line 2]
-[line 3]</code>
+  <!-- Using 1 line because Travis and OSX use a different version libxml -->
+  <code id="id7890" display="block" lang="JavaScript"><label>the label</label><title>the title</title>with a title and label</code>
 
   <para id="idm45792189920736">Preformat element (much like a block of code but styled differently)</para>
 
@@ -32,9 +31,8 @@
 [line 2]          [after 10 spaces]
 [line 3]</preformat>
 
-  <preformat id="id4560"><title>the title</title>with a title
-[line 2]
-[line 3]</preformat>
+  <!-- Using 1 line because Travis and OSX use a different version libxml -->
+  <preformat id="id4560"><title>the title</title>with a title</preformat>
 
 
   <list id="idm45792189918144">
