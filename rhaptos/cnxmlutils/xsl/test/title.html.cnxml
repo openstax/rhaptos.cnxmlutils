@@ -200,24 +200,7 @@
         display='block'
         id='coded'
       >
-        <title>Formatting an Interrupt in Code Composer C</title>
-#pragma vector=PORT3_VECTOR
-    //compiler directive saying that this function should correspond with the port3 interrupt vector
-__interrupt void interruptHandle()
-{
-    //your ISR CODE
-}
-
-
-void main()
-{
-... all setup
-
-__enable_interrupt();
-    //Enables general maskable interrupts
-... the rest of your program
-}
-      
+        <title>Formatting an Interrupt in Code Composer C</title>xyz
       </code>
     </section>
     <quote
