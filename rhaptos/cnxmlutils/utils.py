@@ -66,7 +66,7 @@ def _post_tidy(html):
             el.attrib['class'] = ' '.join(c)
         elif 'class' in el.attrib:
             del(el.attrib['class'])
-                
+
     return tree
 
 
@@ -210,6 +210,7 @@ def cnxml_to_html(cnxml_source):
     source = _string2io(cnxml_source)
     xml = etree.parse(source)
     # Run the CNXML to HTML transform
+    # TODO: Pass in the rhaptos.cnxmlutils sha/version in here so it is added as a comment in the generated HTML file
     xml = _transform('cnxml-to-html5.xsl', xml)
     xml = XHTML_MODULE_BODY_XPATH(xml)
     return etree.tostring(xml[0])
