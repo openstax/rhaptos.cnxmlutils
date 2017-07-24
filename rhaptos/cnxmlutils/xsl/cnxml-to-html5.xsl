@@ -15,6 +15,8 @@
 
 <xsl:output omit-xml-declaration="yes" encoding="ASCII"/>
 
+<xsl:param name="version"/>
+
 <!-- ========================= -->
 <!-- One-way conversions       -->
 <!-- ========================= -->
@@ -57,6 +59,9 @@
       </div>
     </xsl:if>
     <xsl:apply-templates select="c:glossary"/>
+    <xsl:if test="$version">
+      <xsl:comment>CNXML_TO_HTML_VERSION: <xsl:value-of select="$version"/></xsl:comment>
+    </xsl:if>
   </body>
 </xsl:template>
 
