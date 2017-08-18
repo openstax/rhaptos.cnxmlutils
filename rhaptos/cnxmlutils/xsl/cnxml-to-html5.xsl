@@ -1686,4 +1686,17 @@
   </xsl:choose>
 </xsl:template>
 
+
+<!-- XHTML does not render Windows ISO characters at all.
+     See https://www.cs.tut.fi/~jkorpela/www/windows-chars.html for details and the conversion to UTF-8
+   -->
+<xsl:variable name="WINDOWS_ISO_CHARACTERS">&#130;&#131;&#132;&#133;&#134;&#135;&#136;&#137;&#138;&#139;&#140;&#145;&#146;&#147;&#148;&#149;&#150;&#151;&#152;&#153;&#154;&#155;&#156;&#159;</xsl:variable>
+<xsl:variable name="UTF8_CHARACTERS">&#8218;&#402;&#8222;&#8230;&#8224;&#8225;&#710;&#8240;&#352;&#8249;&#338;&#8216;&#8217;&#8220;&#8221;&#8226;&#8211;&#8212;&#732;&#8482;&#353;&#8250;&#339;&#376;</xsl:variable>
+
+<xsl:template match="text()">
+  <!-- translate($textString, "&#130;&#131;&#132;&#133;&#134;&#135;&#136;&#137;&#138;&#139;&#140;&#145;&#146;&#147;&#148;&#149;&#150;&#151;&#152;&#153;&#154;&#155;&#156;&#159;", "&#8218;&#402;&#8222;&#8230;&#8224;&#8225;&#710;&#8240;&#352;&#8249;&#338;&#8216;&#8217;&#8220;&#8221;&#8226;&#8211;&#8212;&#732;&#8482;&#353;&#8250;&#339;&#376;") -->
+  <xsl:variable name="textString" select="."/>
+  <xsl:value-of select="translate($textString, $WINDOWS_ISO_CHARACTERS, $UTF8_CHARACTERS)"/>
+</xsl:template>
+
 </xsl:stylesheet>
