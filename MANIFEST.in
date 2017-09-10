@@ -2,3 +2,5 @@ include *.txt
 recursive-include rhaptos *.xsl *.rng
 recursive-include docs *.txt
 recursive-include manual-tests *.*
+include versioneer.py
+include rhaptos/cnxmlutils/_version.py

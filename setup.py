@@ -1,15 +1,15 @@
-from setuptools import setup, find_packages
-import os
-
 """
-Copyright (C) 2013 Rice University
+Copyright (C) 2013-2017 Rice University
 
-This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).  
+This software is subject to the provisions of the GNU AFFERO GENERAL PUBLIC LICENSE Version 3.0 (AGPL).
 See LICENSE.txt for details.
 """
 import os
 import sys
 from setuptools import setup, find_packages
+
+import versioneer
+
 
 IS_PY24 = sys.version_info < (2, 7,)
 
@@ -21,7 +21,7 @@ if not IS_PY24:
     # which is one that isn't running python >= 2.7.
     install_requires.append('lxml')
 
-version = '1.2'
+version = versioneer.get_version()
 
 setup(name='rhaptos.cnxmlutils',
       version=version,
@@ -34,14 +34,15 @@ setup(name='rhaptos.cnxmlutils',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='Rhaptos Developers',
-      author_email='rhaptos@rhaptos.org',
-      url='http://rhaptos.org',
+      author='OpenStax/Connexions Developers',
+      author_email='info@cnx.org',
+      url='https://github.com/Connexions/rhaptos.cnxmlutils',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['rhaptos'],
       include_package_data=True,
       zip_safe=False,
+      cmdclass=versioneer.get_cmdclass(),
       test_suite='rhaptos.cnxmlutils.tests',
       install_requires=install_requires,
       )
