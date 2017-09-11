@@ -25,6 +25,8 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+from . import __version__ as version
+
 __all__ = (
     'NAMESPACES', 'XHTML_INCLUDE_XPATH', 'XHTML_MODULE_BODY_XPATH',
     'cnxml_to_html', 'html_to_cnxml',
@@ -181,10 +183,11 @@ def _make_xsl(filename):
     xml = etree.parse(path)
     return etree.XSLT(xml)
 
-def _transform(xsl_filename, xml):
+
+def _transform(xsl_filename, xml, **kwargs):
     """Transforms the xml using the specifiec xsl file."""
     xslt = _make_xsl(xsl_filename)
-    xml = xslt(xml)
+    xml = xslt(xml, **kwargs)
     return xml
 
 
@@ -210,8 +213,8 @@ def cnxml_to_html(cnxml_source):
     source = _string2io(cnxml_source)
     xml = etree.parse(source)
     # Run the CNXML to HTML transform
-    # TODO: Pass in the rhaptos.cnxmlutils sha/version in here so it is added as a comment in the generated HTML file
-    xml = _transform('cnxml-to-html5.xsl', xml)
+    xml = _transform('cnxml-to-html5.xsl', xml,
+                     version='"{}"'.format(version))
     xml = XHTML_MODULE_BODY_XPATH(xml)
     return etree.tostring(xml[0])
 

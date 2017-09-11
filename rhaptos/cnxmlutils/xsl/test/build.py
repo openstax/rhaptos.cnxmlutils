@@ -14,6 +14,7 @@ import glob
 import argparse
 import subprocess
 
+from rhaptos.cnxmlutils import __version__ as version
 
 here = os.path.abspath(os.path.dirname(__file__))
 XSL_DIR = os.path.abspath(os.path.join(here, '..'))
@@ -24,7 +25,9 @@ CNXML2HTML = 'cnxml-to-html5'
 
 def transform(type_, input_):
     xsl_filepath = os.path.join(XSL_DIR, "{}.xsl".format(type_))
-    proc = subprocess.Popen(['xsltproc', xsl_filepath, '-'],
+    proc = subprocess.Popen(['xsltproc',
+                             '--stringparam', 'version', version,
+                             xsl_filepath, '-'],
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,

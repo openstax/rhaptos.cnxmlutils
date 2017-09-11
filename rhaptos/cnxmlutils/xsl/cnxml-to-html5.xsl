@@ -42,6 +42,11 @@
         <xsl:value-of select="@class"/>
       </xsl:attribute>
     </xsl:if>
+    <xsl:if test="$version">
+        <xsl:attribute name="data-cnxml-to-html-ver">
+            <xsl:value-of select="$version"/>
+        </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="c:title"/>
     <xsl:if test="contains(@class, 'introduction')">
       <cnx-pi data-type="cnx.flag.introduction">
@@ -59,9 +64,6 @@
       </div>
     </xsl:if>
     <xsl:apply-templates select="c:glossary"/>
-    <xsl:if test="$version">
-      <xsl:comment>CNXML_TO_HTML_VERSION: <xsl:value-of select="$version"/></xsl:comment>
-    </xsl:if>
   </body>
 </xsl:template>
 
