@@ -6,6 +6,7 @@ import unittest
 
 from lxml import etree
 
+version = 'v0.test'
 
 here = os.path.abspath(os.path.dirname(__file__))
 TEST_DATA_DIR = os.path.join(here, 'data')
@@ -33,6 +34,7 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
             xsl = etree.parse(os.path.join(xsl_dir, 'cnxml-to-html5.xsl'))
             target = etree.XSLT(xsl)
             setattr(self, '_target', target)
+        kwargs['version'] = etree.XSLT.strparam(version)
         return target(*args, **kwargs)
 
     def test_media(self):
@@ -525,7 +527,9 @@ class XsltprocTestCase(unittest.TestCase):
     @classmethod
     def create_test(cls, cnxml, html):
         def run_test(self):
-            output = subprocess.check_output(['xsltproc', self.xslt, cnxml])
+            output = subprocess.check_output(
+                ['xsltproc', '--stringparam', 'version', version,
+                 self.xslt, cnxml])
             output = xmlpp(output)
             # https://bugs.python.org/issue10164
             self.assertEqual(output.split(b'\n'), html.split(b'\n'))
