@@ -14,8 +14,7 @@ import glob
 import argparse
 import subprocess
 
-from rhaptos.cnxmlutils import __version__ as version
-
+version = 'v0.test'
 here = os.path.abspath(os.path.dirname(__file__))
 XSL_DIR = os.path.abspath(os.path.join(here, '..'))
 XMLPP_DIR = os.path.abspath(os.path.join(here, '../..', 'tests', 'xml_utils'))
