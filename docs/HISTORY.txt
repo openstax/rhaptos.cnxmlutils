@@ -1,8 +1,31 @@
 Changelog
 =========
 
-1.1 (unreleased)
-----------------
+1.3.0
+-----
+
+- Set xsl/test/build.py version to "v0.test"
+- Include the version that was used when transforming (#161)
+- Convert windows ISO characters to UTF-8 (#160)
+- Make lists nicer for CSS usage (#159)
+- Unwrap blocks in paragraphs (#158)
+- Remove class="TYPE" in favor of just data-type="type" (#154)
+- Fix double-listing the footnotes (#151)
+- Fix footnotes so they are not double-numbered and more selectable (#150)
+- Move cnxml section title to be an h3 (and down, for subsections) (#148)
+- Fix to preserve the 'class' on the top node of the document (#145)
+- Fix notes to be exactly one paragraph with title (#141)
+- Correct input cnxml for xsl tests to be valid (#139)
+- Update tests to be python3 compatible (#137)
+- Remove stale test for a feature not used in later versions
+
+1.2
+---
+
+- (unknown)
+
+1.1
+---
 
 - Handle bold and italic paragraph styles
   [rochecompaan]
