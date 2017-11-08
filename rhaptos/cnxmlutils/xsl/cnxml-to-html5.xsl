@@ -1345,40 +1345,50 @@
 </xsl:template>
 
 <!-- discard these attributes because they are being handled elsewhere -->
-<xsl:template match="c:image/@src|c:image/@mime-type|c:image/@for"/>
+<xsl:template match="
+   c:image/@src
+  |c:image/@for"/>
 
-<xsl:template match="c:image/@width|c:image/@height">
+<xsl:template match="
+   c:image/@width
+  |c:image/@height">
   <xsl:copy/>
 </xsl:template>
 
-<xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
+<xsl:template match="c:image/@mime-type">
   <!-- normalize jpeg images to be image/jpeg -->
   <xsl:variable name="mediaType">
     <xsl:choose>
       <!-- Perform this test because Physics (m42045) has some entries that have media-type="image/wmf" -->
-      <xsl:when test="contains(@src, '.jpg')">
+      <xsl:when test="contains(../@src, '.jpg')">
         <xsl:text>image/jpeg</xsl:text>
       </xsl:when>
-      <xsl:when test="contains(@src, '.png')">
+      <xsl:when test="contains(../@src, '.png')">
         <xsl:text>image/png</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
-          <xsl:when test="@mime-type='image/jpg'">
+          <xsl:when test=".='image/jpg'">
             <xsl:text>image/jpeg</xsl:text>
           </xsl:when>
           <!--  this is in m44878 in Biology (col11448) -->
-          <xsl:when test="@mime-type='imgae/jpg'">
+          <xsl:when test=".='imgae/jpg'">
             <xsl:text>image/jpeg</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="@mime-type"/>
+            <xsl:value-of select="."/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  <img src="{@src}" data-media-type="{$mediaType}" alt="{parent::c:media/@alt}">
+  <xsl:attribute name="data-media-type">
+    <xsl:value-of select="$mediaType"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
+  <img src="{@src}" alt="{parent::c:media/@alt}">
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
