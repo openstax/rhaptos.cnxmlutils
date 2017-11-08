@@ -1355,21 +1355,21 @@
   <!-- normalize jpeg images to be image/jpeg -->
   <xsl:variable name="mediaType">
     <xsl:choose>
-      <xsl:when test="@mime-type='image/jpg'">
+      <!-- Perform this test because Physics (m42045) has some entries that have media-type="image/wmf" -->
+      <xsl:when test="contains(@src, '.jpg')">
         <xsl:text>image/jpeg</xsl:text>
       </xsl:when>
-      <!--  this is in m44878 in Biology (col11448) -->
-      <xsl:when test="@mime-type='imgae/jpg'">
-        <xsl:text>image/jpeg</xsl:text>
+      <xsl:when test="contains(@src, '.png')">
+        <xsl:text>image/png</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
-          <!-- Perform this test because Physics (m42045) has some entries that have media-type="image/wmf" -->
-          <xsl:when test="contains(@src, '.jpg')">
+          <xsl:when test="@mime-type='image/jpg'">
             <xsl:text>image/jpeg</xsl:text>
           </xsl:when>
-          <xsl:when test="contains(@src, '.png')">
-            <xsl:text>image/png</xsl:text>
+          <!--  this is in m44878 in Biology (col11448) -->
+          <xsl:when test="@mime-type='imgae/jpg'">
+            <xsl:text>image/jpeg</xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="@mime-type"/>
