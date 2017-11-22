@@ -26,6 +26,14 @@
         <caption></caption>
       </figure>
     </para>
+    <para id="id5432178901133">
+      <figure id="id1170343358770">
+        <media id="id1170343358770_media" alt="">
+          <image mime-type="image/jpg" src="graphics1.jpg" id="test_media_image_with_print_width" width="650" print-width="6.5in"/>
+        </media>
+        <caption>I know that’s what I said, but it’s not what I meant! </caption>
+      </figure>
+    </para>
     <para id="id1169517367733">
       <figure id="id2204878">
 	<!-- Optional attributes test case, except @for and @thumbnail -->
