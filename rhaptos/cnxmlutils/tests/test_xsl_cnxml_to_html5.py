@@ -196,6 +196,14 @@ class CnxmlToHtmlTestCase(unittest.TestCase):
                          namespaces={'h': html.nsmap[None]})[0]
         self.assertEqual(elm.attrib['alt'], "media alt")
 
+    def test_media_image_with_print_width(self):
+        cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-image.cnxml'))
+        html = self.call_target(cnxml).getroot()
+
+        elm = html.xpath("//h:img[@id='test_media_image_with_print_width']",
+                         namespaces={'h': html.nsmap[None]})[0]
+        self.assertEqual(elm.attrib['data-print-width'], "6.5in")
+
     def test_media_flash(self):
         # Case to test the conversion of c:media/c:flash transformation.
         cnxml = etree.parse(os.path.join(TEST_DATA_DIR, 'media-flash.cnxml'))
