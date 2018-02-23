@@ -1338,7 +1338,7 @@
   </dl>
 </xsl:template>
 
-<xsl:template match="c:definition//c:term">
+<xsl:template match="c:definition/c:term">
   <dt><xsl:apply-templates select="@*|node()"/></dt>
 </xsl:template>
 
