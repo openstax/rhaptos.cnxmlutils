@@ -256,6 +256,12 @@
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
+<!-- Make an ugly exception for American Govt (https://trello.com/c/hXPF6dJa/) because it needs to be released soon and the full Pull Request that creates valid XHTML is too large to release quickly: https://github.com/Connexions/rhaptos.cnxmlutils/pull/157 -->
+<xsl:template match="c:para[.//c:cite/c:note]">
+  <p><xsl:apply-templates select="@*|node()"/></p>
+</xsl:template>
+
+
 <!-- Unwrap the paragraph when it only contains a blockish child. Note that we will lose the paragraph @id attribute -->
 <xsl:template match="c:para[count(node()) >= 1][*//c:figure|*//c:list[not(@display='inline')]|*//c:table|*//c:media[not(@display) or @display='block']|c:equation|c:preformat|c:note|c:exercise]">
   <xsl:message>TODO: Blockish non-child descendants of a c:para are not supported yet</xsl:message>
