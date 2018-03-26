@@ -8,6 +8,12 @@ language for marking up educational content in use by Connexions
 To run transformations manually see *.sh script files manual-tests/
 Usually all test xml/html files are stored in rhaptos/cnxmlutils/tests/data/
 
+Develop
+=======
+
+Run the tests by running `./script/setup` and then `./script/test`.
+
+To rebuild the tests, run `./script/rebuild-tests`.
 
 
 Code is hosted at:
