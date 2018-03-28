@@ -257,7 +257,7 @@
 </xsl:template>
 
 <!-- Make an ugly exception for American Govt (https://trello.com/c/hXPF6dJa/) because it needs to be released soon and the full Pull Request that creates valid XHTML is too large to release quickly: https://github.com/Connexions/rhaptos.cnxmlutils/pull/157 -->
-<xsl:template match="c:para[.//c:cite/c:note]">
+<xsl:template match="c:para[.//c:cite/c:note[@display='inline']]">
   <p><xsl:apply-templates select="@*|node()"/></p>
 </xsl:template>
 
