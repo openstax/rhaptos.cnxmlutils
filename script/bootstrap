@@ -1,8 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2155
 
-# Resolve all dependencies that the application requires to run.
-# From https://github.com/github/scripts-to-rule-them-all/blob/master/script/bootstrap
+# See https://github.com/openstax/setup-scripts for details on this file
 
 if [[ $0 != "-bash" ]]; then
   cd "$(dirname "$0")/.." || exit 111
@@ -19,7 +18,10 @@ if [[ ! "${LOG_LEVEL}" ]]; then
 fi
 
 # Turn on tracing if desired
-[[ ${LOG_LEVEL} == "trace" ]] && set -x
+if [[ ${LOG_LEVEL} == "trace" ]]; then
+  export PS4='+ [${BASH_SOURCE##*/}:${LINENO}] '
+  set -x
+fi
 
 # https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 if [[ $(tput colors) -ge 8 ]]; then
@@ -103,6 +105,7 @@ if [[ ! ${BOOTSTRAP_ALREADY_RAN} ]]; then
 
       virtualenv_dir="./venv/"
       python_version="$(< .python-version)"
+      virtualenv_command="virtualenv"
 
       # macOS needs a little extra love
       if [[ "$(uname -s)" = "Darwin" ]]; then
@@ -111,7 +114,10 @@ if [[ ! ${BOOTSTRAP_ALREADY_RAN} ]]; then
           do_progress_quiet "Installing Python ${python_version} (using pyenv)" \
             pyenv install "${python_version}"
         fi
+        # Ensure pyenv is initialized
         eval "$(pyenv init -)"
+
+        virtualenv_command="pyenv exec virtualenv"
       fi
 
       # Install pip if it is not available
@@ -123,17 +129,24 @@ if [[ ! ${BOOTSTRAP_ALREADY_RAN} ]]; then
           sudo -H python "${pwd}/get-pip.py"
         do_progress_quiet "Cleaning up after pip installation" \
           rm "${pwd}/get-pip.py"
+        # Rehash so that pip is available
+        try pyenv rehash
       fi
 
       # Install virtualenv
-      if [[ ! $(command -v virtualenv) ]]; then
+      # If macOS then check that the pyenv virtualenv is installed.
+      # If not running macOS then check that some virtualenv is installed.
+      if [[ "$(uname -s)" != "Darwin" && ! $(command -v virtualenv) ]] || [[ "$(uname -s)" = "Darwin" && ! $(pyenv which virtualenv) ]]; then
         do_progress_quiet "Installing Python virtualenv" \
           pip install virtualenv
+        # Rehash so that virtualenv is available
+        try pyenv rehash
       fi
       # Create a virtualenv
       if [[ ! -d "${virtualenv_dir}" ]]; then
+        # shellcheck disable=SC2086
         do_progress_quiet "Setting up a Python virtualenv" \
-          virtualenv "${virtualenv_dir}"
+          ${virtualenv_command} "${virtualenv_dir}"
       fi
 
       do_progress_quiet "Activating Python virtualenv" \
