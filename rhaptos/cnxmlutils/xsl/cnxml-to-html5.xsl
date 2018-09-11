@@ -1393,7 +1393,7 @@
 <xsl:template match="c:newline[not(parent::c:list)]
                               [not(ancestor::c:para and @effect = 'underline')]
                               [not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <div data-type="{local-name()}">
+  <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
 
@@ -1412,7 +1412,7 @@
       <xsl:with-param name="count" select="@count" />
       <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
-  </div>
+  </span>
 </xsl:template>
 
 
