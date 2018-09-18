@@ -771,6 +771,23 @@
   </span>
 </xsl:template>
 
+<!-- Unwrap the para in footnotes when it is the only child -->
+<xsl:template match="c:footnote[count(*) = 1]/c:para">
+  <xsl:comment>
+    CNXML-to-XHTML: Unwrapped a para that was here because footnotes are inline. para id="<xsl:value-of select="@id"/>"
+  </xsl:comment>
+  <xsl:apply-templates select="node()" />
+</xsl:template>
+
+<xsl:template match="c:footnote[count(*) > 1]/c:para">
+  <xsl:comment>
+    CNXML-to-XHTML: Unwrapped a para that was here because footnotes are inline. para id="<xsl:value-of select="@id"/>". Also, added a BR at the end.
+  </xsl:comment>
+  <xsl:apply-templates select="node()" />
+  <br/>
+</xsl:template>
+
+
 <xsl:template match="c:sub">
   <sub><xsl:apply-templates select="@*|node()"/></sub>
 </xsl:template>

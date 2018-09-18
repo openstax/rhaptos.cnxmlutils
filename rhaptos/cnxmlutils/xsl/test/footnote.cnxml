@@ -18,6 +18,29 @@
     </footnote>
   </para>
 
+  <para>
+    <footnote>
+      <para id="p012">I am blockish and should be unwrapped</para>
+    </footnote>
+  </para>
+
+  <para>
+    <footnote> contains blockish element: <para id="p123">I am blockish</para> more text</footnote>
+  </para>
+
+  <para>
+    <footnote> contains blockish element: <para id="p234">I am blockish</para><para id="p345">I am also blockish</para> more text</footnote>
+  </para>
+
+  <para>
+    <footnote>
+      <list>
+        <item>I am blockish</item>
+        <item>Not sure what to do with lists</item>
+      </list>
+    </footnote>
+  </para>
+
 </content>
 <!-- Ensure the glossary appears after the footnotes. -->
 <!-- Note, there aren't any //c:glossary//c:footnote entries in production. -->
@@ -25,5 +48,5 @@
   <definition id="import-auto-id1169737716876"><term>Feynman diagram</term> <meaning id="fs-id1169738208078">a graph of time versus position that describes the exchange of virtual particles between subatomic particles</meaning></definition>
   <definition id="import-auto-id1169737813579"><term>gluons</term> <meaning id="fs-id1169738116395">exchange particles, analogous to the exchange of photons that gives rise to the electromagnetic force between two charged particles</meaning></definition>
   <definition id="import-auto-id1169738065015"><term>quantum electrodynamics</term> <meaning id="fs-id1169737896970">the theory of electromagnetism on the particle scale</meaning></definition>
-</glossary> 
+</glossary>
 </document>
