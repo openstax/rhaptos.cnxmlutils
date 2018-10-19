@@ -207,9 +207,9 @@
 <!-- ========================= -->
 
 <xsl:template match="/c:document/c:title">
-  <div data-type="document-title">
+  <h2 data-type="document-title">
     <xsl:apply-templates select="@*|node()"/>
-  </div>
+  </h2>
 </xsl:template>
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
