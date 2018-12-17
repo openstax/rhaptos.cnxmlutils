@@ -1390,9 +1390,7 @@
 </xsl:template>
 
 
-<xsl:template match="c:newline[not(parent::c:list)]
-                              [not(ancestor::c:para and @effect = 'underline')]
-                              [not(@effect) or @effect = 'underline' or @effect = 'normal']">
+<xsl:template match="c:newline[not(@effect) or @effect = 'underline' or @effect = 'normal']">
   <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
