@@ -1277,6 +1277,11 @@
 
 <xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
+    <xsl:if test="parent::c:media/@longdesc">
+      <xsl:attribute name="longdesc">
+        <xsl:value-of select="parent::c:media/@longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
