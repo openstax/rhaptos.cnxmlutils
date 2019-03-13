@@ -17,6 +17,9 @@
       <media id="eip-idm1044738256" alt="dog on couch" longdesc="dog-longdesc.txt">
         <image mime-type="image/jpeg" src="image1.jpg"/>
       </media>
+      <media id="eip-idm1044738258" alt="dog with thumbnail" longdesc="dog-and-thumbs-longdesc.txt">
+        <image mime-type="image/jpeg" src="image1.jpg" thumbnail='dog_thumb.jpg'/>
+      </media>
     </section>
   </content>
 </document>
