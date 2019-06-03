@@ -719,11 +719,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:emphasis">
-  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/></strong>
+  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/><xsl:comment/></strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
-  <strong><xsl:apply-templates select="@*|node()"/></strong>
+  <strong><xsl:apply-templates select="@*|node()"/><xsl:comment/></strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
