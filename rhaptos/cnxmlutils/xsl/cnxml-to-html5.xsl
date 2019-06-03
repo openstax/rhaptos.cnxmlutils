@@ -1130,6 +1130,7 @@
 <xsl:template match="c:video[contains(@src, 'youtube')]">
   <iframe type="text/html" frameborder="0" src="{@src}" width="640" height="390">
     <xsl:apply-templates select="@width|@height"/>
+    <xsl:comment/>
   </iframe>
 </xsl:template>
 
@@ -1352,7 +1353,7 @@
 
 
 <xsl:template match="c:iframe">
-  <iframe><xsl:apply-templates select="@*|node()"/></iframe>
+  <iframe><xsl:apply-templates select="@*|node()"/><xsl:comment/></iframe>
 </xsl:template>
 
 <!-- ========================= -->
