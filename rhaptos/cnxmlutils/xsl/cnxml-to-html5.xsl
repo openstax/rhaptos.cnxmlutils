@@ -778,6 +778,7 @@
       <xsl:attribute name="target">_window</xsl:attribute>
     </xsl:if>
     <xsl:call-template name="build-term"/>
+    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -799,6 +800,7 @@
         <xsl:text>#footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
       </xsl:attribute>
       <xsl:number level="any" count="c:footnote" format="1"/>
+      <xsl:comment/>
     </a>
   </sup>
 </xsl:template>
@@ -813,6 +815,7 @@
           <xsl:text>#footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
         </xsl:attribute>
         <xsl:number level="any" count="c:footnote" format="1"/>
+        <xsl:comment/>
       </a>
       <xsl:text> </xsl:text>
       <span data-type="footnote-ref-content">
@@ -898,6 +901,7 @@
         <xsl:text>[link]</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
+    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -936,6 +940,7 @@
             <xsl:text>[link]</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
+        <xsl:comment/>
       </a>
     </xsl:when>
     <xsl:otherwise>
@@ -1041,6 +1046,7 @@
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
     <xsl:value-of select="@src"/>
+    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -1340,6 +1346,7 @@
       </xsl:if>
       <xsl:apply-templates select="@*|node()"/>
     </img>
+    <xsl:comment/>
   </a>
 </xsl:template>
 
