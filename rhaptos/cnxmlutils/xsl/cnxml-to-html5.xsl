@@ -727,7 +727,7 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
-  <em><xsl:apply-templates select="@*|node()"/></em>
+  <em><xsl:apply-templates select="@*|node()"/><xsl:comment/></em>
 </xsl:template>
 
 <!-- Fix emphasis effect typo "italic" -->
