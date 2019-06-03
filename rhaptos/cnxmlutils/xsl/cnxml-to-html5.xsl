@@ -802,6 +802,7 @@
       <xsl:number level="any" count="c:footnote" format="1"/>
       <xsl:comment/>
     </a>
+    <xsl:comment/>
   </sup>
 </xsl:template>
 
@@ -826,11 +827,11 @@
 </xsl:template>
 
 <xsl:template match="c:sub">
-  <sub><xsl:apply-templates select="@*|node()"/></sub>
+  <sub><xsl:apply-templates select="@*|node()"/><xsl:comment/></sub>
 </xsl:template>
 
 <xsl:template match="c:sup">
-  <sup><xsl:apply-templates select="@*|node()"/></sup>
+  <sup><xsl:apply-templates select="@*|node()"/><xsl:comment/></sup>
 </xsl:template>
 
 
