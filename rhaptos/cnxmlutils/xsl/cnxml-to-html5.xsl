@@ -233,7 +233,11 @@
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title[not(parent::c:list)]|c:para//c:list[@display='inline']/c:title">
-  <span data-type="title"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="title">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -423,8 +427,9 @@
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -434,8 +439,9 @@
 
 <xsl:template match="c:exercise">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
