@@ -848,7 +848,6 @@
       <xsl:attribute name="target">_window</xsl:attribute>
     </xsl:if>
     <xsl:call-template name="build-term"/>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
