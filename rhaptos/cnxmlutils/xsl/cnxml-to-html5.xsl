@@ -833,6 +833,19 @@
   <sup><xsl:apply-templates select="@*|node()"/><xsl:comment/></sup>
 </xsl:template>
 
+<!-- =========================================== -->
+<!-- XSLT processor libxslt suppresses comments. -->
+<!-- Put comments on every non self closing tag  -->
+<!-- without content.                            -->
+<!-- =========================================== -->
+
+<xsl:template name="apply-template-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:apply-templates select="$selection"/>
+  <xsl:if test="not($selection)">
+    <xsl:comment> no-selfclose </xsl:comment>
+  </xsl:if>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Links: encode in @data-*  -->
@@ -1399,7 +1412,6 @@
   </span>
 </xsl:template>
 
-<!-- not covered elements (Marvin) -->
 
 <!-- ========================= -->
 <!-- Newline and Space -->
