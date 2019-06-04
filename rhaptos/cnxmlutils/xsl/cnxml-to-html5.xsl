@@ -1234,8 +1234,9 @@
 
 <xsl:template match="c:video[contains(@src, 'youtube')]">
   <iframe type="text/html" frameborder="0" src="{@src}" width="640" height="390">
-    <xsl:apply-templates select="@width|@height"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@width|@height"/>
+    </xsl:call-template>
   </iframe>
 </xsl:template>
 
@@ -1372,8 +1373,9 @@
 
 <xsl:template match="c:media[c:iframe]">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
