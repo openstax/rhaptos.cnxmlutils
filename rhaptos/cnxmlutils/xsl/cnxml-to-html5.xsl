@@ -1455,7 +1455,6 @@
       </xsl:if>
       <xsl:apply-templates select="@*|node()"/>
     </img>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
