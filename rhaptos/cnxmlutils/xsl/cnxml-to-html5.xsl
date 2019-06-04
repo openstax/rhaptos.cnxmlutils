@@ -798,11 +798,19 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="emphasis" class="smallcaps">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="emphasis" class="normal">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
