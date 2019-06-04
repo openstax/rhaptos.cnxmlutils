@@ -748,8 +748,9 @@
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
-    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
