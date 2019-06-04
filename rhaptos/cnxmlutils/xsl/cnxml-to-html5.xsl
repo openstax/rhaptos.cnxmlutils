@@ -640,7 +640,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
-    <xsl:comment/>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(.)">
+      <xsl:call-template name='no-selfclose-comment'/>
+    </xsl:if>
   </div>
 </xsl:template>
 
@@ -651,7 +654,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
-    <xsl:comment/>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(.)">
+      <xsl:call-template name='no-selfclose-comment'/>
+    </xsl:if>
   </span>
 </xsl:template>
 
@@ -875,11 +881,15 @@
 <!-- without content.                            -->
 <!-- =========================================== -->
 
+<xsl:template name="no-selfclose-comment">
+  <xsl:comment> no-selfclose </xsl:comment>
+</xsl:template>
+
 <xsl:template name="apply-template-no-selfclose">
   <xsl:param name="selection"/>
   <xsl:apply-templates select="$selection"/>
   <xsl:if test="not($selection)">
-    <xsl:comment> no-selfclose </xsl:comment>
+    <xsl:call-template name='no-selfclose-comment'/>
   </xsl:if>
 </xsl:template>
 
