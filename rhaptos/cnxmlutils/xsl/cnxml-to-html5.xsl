@@ -1426,8 +1426,9 @@
 
 <xsl:template match="c:image[@for='pdf' or @for='Pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/> <!-- do not make span self closing when no children -->
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
