@@ -117,7 +117,7 @@
 <!-- Only consider c:titles in c:content (ignore c:document/c:title) -->
 <xsl:template match="c:title[ancestor::c:content]" priority="0">
   <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></xsl:message>
-  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/><xsl:comment/></div>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></div>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
