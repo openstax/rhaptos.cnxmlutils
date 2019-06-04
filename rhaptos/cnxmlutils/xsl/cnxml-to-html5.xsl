@@ -1559,7 +1559,6 @@
       <xsl:with-param name="count" select="@count" />
       <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
-    <xsl:comment/>
   </span>
 </xsl:template>
 
@@ -1574,7 +1573,6 @@
       <xsl:with-param name="count" select="@count"/>
       <xsl:with-param name="string" select="' '"/>
     </xsl:call-template>
-    <xsl:comment/>
   </span>
 </xsl:template>
 
