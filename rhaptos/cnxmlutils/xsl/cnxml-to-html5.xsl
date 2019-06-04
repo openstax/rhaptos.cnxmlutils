@@ -915,11 +915,11 @@
   </sup>
 </xsl:template>
 
-<!-- =========================================== -->
-<!-- XSLT processor libxslt suppresses comments. -->
-<!-- Put comments on every non self closing tag  -->
-<!-- without content.                            -->
-<!-- =========================================== -->
+<!-- ================================================= -->
+<!-- XSLT processor libxslt suppresses empty comments. -->
+<!-- Put comments with text on every non self closing  -->
+<!-- tag without content.                              -->
+<!-- ================================================= -->
 
 <xsl:template name="no-selfclose-comment">
   <xsl:comment> no-selfclose </xsl:comment>
