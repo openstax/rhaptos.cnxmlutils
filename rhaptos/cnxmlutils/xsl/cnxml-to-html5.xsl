@@ -1460,7 +1460,11 @@
 
 
 <xsl:template match="c:iframe">
-  <iframe><xsl:apply-templates select="@*|node()"/><xsl:comment/></iframe>
+  <iframe>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </iframe>
 </xsl:template>
 
 <!-- ========================= -->
