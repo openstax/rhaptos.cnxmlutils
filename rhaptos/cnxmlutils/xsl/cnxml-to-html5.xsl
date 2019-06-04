@@ -496,7 +496,6 @@
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates select="c:title"/>
     <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
-    <xsl:comment/>
   </div>
 </xsl:template>
 
