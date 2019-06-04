@@ -29,11 +29,19 @@
 </xsl:template>
 
 <xsl:template match="c:div">
-  <div><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:span">
-  <span><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:document">
@@ -73,8 +81,9 @@
   <!-- Only render the abstract if it contains text/elements -->
   <xsl:if test="node()">
     <div data-type="abstract">
-      <xsl:apply-templates select="@*|node()"/>
-      <xsl:comment/>
+      <xsl:call-template name="apply-template-no-selfclose">
+        <xsl:with-param name="selection" select="@*|node()"/>
+      </xsl:call-template>
     </div>
   </xsl:if>
 </xsl:template>
