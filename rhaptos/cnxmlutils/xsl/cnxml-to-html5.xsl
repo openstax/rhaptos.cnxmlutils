@@ -887,7 +887,6 @@
           <xsl:text>#footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
         </xsl:attribute>
         <xsl:number level="any" count="c:footnote" format="1"/>
-        <xsl:comment/>
       </a>
       <xsl:text> </xsl:text>
       <span data-type="footnote-ref-content">
