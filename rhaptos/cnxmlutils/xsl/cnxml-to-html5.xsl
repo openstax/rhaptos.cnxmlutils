@@ -755,21 +755,37 @@
 </xsl:template>
 
 <xsl:template match="c:list[@display='inline']/c:item">
-  <span data-type="item"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="item">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:emphasis">
-  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/><xsl:comment/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*[not(local-name()='effect')]|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
-  <strong><xsl:apply-templates select="@*|node()"/><xsl:comment/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
-  <em><xsl:apply-templates select="@*|node()"/><xsl:comment/></em>
+  <em>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </em>
 </xsl:template>
 
 <!-- Fix emphasis effect typo "italic" -->
