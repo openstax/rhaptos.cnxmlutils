@@ -856,7 +856,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:foreign[not(@url or @document or @target-id or @resource or @version)]">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:footnote">
