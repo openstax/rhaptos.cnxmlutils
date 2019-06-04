@@ -1476,7 +1476,6 @@
     <xsl:apply-templates select="@*"/>
     <h3 data-type="glossary-title">Glossary</h3>
     <xsl:apply-templates select="node()"/>
-    <xsl:comment/>
   </div>
 </xsl:template>
 
@@ -1505,8 +1504,9 @@
 
 <xsl:template match="c:seealso">
   <span data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
