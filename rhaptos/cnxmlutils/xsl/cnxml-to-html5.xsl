@@ -890,8 +890,9 @@
       </a>
       <xsl:text> </xsl:text>
       <span data-type="footnote-ref-content">
-        <xsl:apply-templates/>
-        <xsl:comment/>
+        <xsl:call-template name="apply-template-no-selfclose">
+          <xsl:with-param name="selection" select="node()"/>
+        </xsl:call-template>
       </span>
     </li>
 </xsl:template>
