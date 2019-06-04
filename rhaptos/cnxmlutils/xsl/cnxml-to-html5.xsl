@@ -471,21 +471,34 @@
 
 <xsl:template match="c:equation">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:rule">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:statement">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:proof">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <!-- ========================= -->
@@ -553,8 +566,9 @@
     <xsl:if test="c:label">
       <xsl:attribute name="data-has-label">true</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -589,7 +603,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:cite-title">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
