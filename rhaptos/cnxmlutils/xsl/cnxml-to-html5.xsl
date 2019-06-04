@@ -875,7 +875,6 @@
       <xsl:number level="any" count="c:footnote" format="1"/>
       <xsl:comment/>
     </a>
-    <xsl:comment/>
   </sup>
 </xsl:template>
 
