@@ -998,7 +998,6 @@
         <xsl:text>[link]</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -1037,7 +1036,6 @@
             <xsl:text>[link]</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
-        <xsl:comment/>
       </a>
     </xsl:when>
     <xsl:otherwise>
