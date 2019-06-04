@@ -931,6 +931,14 @@
   </xsl:if>
 </xsl:template>
 
+<xsl:template name="value-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:value-of select="$selection"/>
+  <xsl:if test="not($selection)">
+    <xsl:call-template name='no-selfclose-comment'/>
+  </xsl:if>
+</xsl:template>
+
 <!-- ========================= -->
 <!-- Links: encode in @data-*  -->
 <!-- ========================= -->
@@ -1084,8 +1092,9 @@
 <xsl:template match="c:media">
   <span data-type="{local-name()}">
     <!-- Apply c:media optional attributes -->
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
@@ -1140,8 +1149,9 @@
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
-    <xsl:value-of select="@src"/>
-    <xsl:comment/>
+    <xsl:call-template name="value-no-selfclose">
+      <xsl:with-param name="selection" select="@src"/>
+    </xsl:call-template>
   </a>
 </xsl:template>
 
