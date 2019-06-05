@@ -16,9 +16,10 @@
 <div id="test1a"></div>
 <div id="test1b">content2</div>
 <div><span></span></div>
+<div><span>content3</span></div>
 <div id="test1c"><span id="test1d"></span></div>
 <span></span>
 <span id="test1e"></span>
-<span id="test1f">content</span>
+<span id="test1f">content4</span>
 </content>
 </document>
