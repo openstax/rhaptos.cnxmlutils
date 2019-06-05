@@ -643,8 +643,8 @@
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
     <!-- test directly for content / non self closing tag because list-mode is used before -->
-    <xsl:if test="not(.)">
-      <xsl:call-template name='no-selfclose-comment'/>
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
     </xsl:if>
   </div>
 </xsl:template>
@@ -657,8 +657,8 @@
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
     <!-- test directly for content / non self closing tag because list-mode is used before -->
-    <xsl:if test="not(.)">
-      <xsl:call-template name='no-selfclose-comment'/>
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
     </xsl:if>
   </span>
 </xsl:template>
@@ -928,16 +928,16 @@
 <xsl:template name="apply-template-no-selfclose">
   <xsl:param name="selection"/>
   <xsl:apply-templates select="$selection"/>
-  <xsl:if test="not($selection)">
-    <xsl:call-template name='no-selfclose-comment'/>
+  <xsl:if test="not(node()[$selection])">
+    <xsl:call-template name="no-selfclose-comment"/>
   </xsl:if>
 </xsl:template>
 
 <xsl:template name="value-no-selfclose">
   <xsl:param name="selection"/>
   <xsl:value-of select="$selection"/>
-  <xsl:if test="not($selection)">
-    <xsl:call-template name='no-selfclose-comment'/>
+  <xsl:if test="not(node()[$selection])">
+    <xsl:call-template name="no-selfclose-comment"/>
   </xsl:if>
 </xsl:template>
 
