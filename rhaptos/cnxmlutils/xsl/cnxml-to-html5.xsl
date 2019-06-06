@@ -29,11 +29,19 @@
 </xsl:template>
 
 <xsl:template match="c:div">
-  <div><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:span">
-  <span><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:document">
@@ -73,8 +81,9 @@
   <!-- Only render the abstract if it contains text/elements -->
   <xsl:if test="node()">
     <div data-type="abstract">
-      <xsl:apply-templates select="@*|node()"/>
-      <xsl:comment/>
+      <xsl:call-template name="apply-template-no-selfclose">
+        <xsl:with-param name="selection" select="@*|node()"/>
+      </xsl:call-template>
     </div>
   </xsl:if>
 </xsl:template>
@@ -108,7 +117,7 @@
 <!-- Only consider c:titles in c:content (ignore c:document/c:title) -->
 <xsl:template match="c:title[ancestor::c:content]" priority="0">
   <xsl:message>TODO: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></xsl:message>
-  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/><xsl:comment/></div>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(..)"/>/<xsl:value-of select="local-name(.)"/></div>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
@@ -116,7 +125,7 @@
 
 <xsl:template match="c:*" priority="-1">
   <xsl:message>TODO: <xsl:value-of select="local-name(.)"/></xsl:message>
-  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(.)"/><xsl:comment/></div>
+  <div class="not-converted-yet">NOT_CONVERTED_YET: <xsl:value-of select="local-name(.)"/></div>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
@@ -211,20 +220,26 @@
 
 <xsl:template match="/c:document/c:title">
   <div data-type="document-title">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
   <div data-type="title">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title[not(parent::c:list)]|c:para//c:list[@display='inline']/c:title">
-  <span data-type="title"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="title">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -414,8 +429,9 @@
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -425,49 +441,66 @@
 
 <xsl:template match="c:exercise">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:problem">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:solution">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:equation">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:rule">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:statement">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:proof">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <!-- ========================= -->
@@ -496,7 +529,6 @@
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates select="c:title"/>
     <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
-    <xsl:comment/>
   </div>
 </xsl:template>
 
@@ -536,8 +568,9 @@
     <xsl:if test="c:label">
       <xsl:attribute name="data-has-label">true</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -572,7 +605,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:cite-title">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -605,7 +642,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
-    <xsl:comment/>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </div>
 </xsl:template>
 
@@ -616,7 +656,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
-    <xsl:comment/>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </span>
 </xsl:template>
 
@@ -707,27 +750,44 @@
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
-    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
 <xsl:template match="c:list[@display='inline']/c:item">
-  <span data-type="item"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="item">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:emphasis">
-  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/><xsl:comment/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*[not(local-name()='effect')]|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
-  <strong><xsl:apply-templates select="@*|node()"/><xsl:comment/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
-  <em><xsl:apply-templates select="@*|node()"/><xsl:comment/></em>
+  <em>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </em>
 </xsl:template>
 
 <!-- Fix emphasis effect typo "italic" -->
@@ -740,11 +800,19 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="emphasis" class="smallcaps">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="emphasis" class="normal">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -766,7 +834,11 @@
   |c:term/@window"/>
 
 <xsl:template match="c:term[not(@url or @document or @target-id or @resource or @version)]" name="build-term">
-  <span data-type="term"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="term">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:term[@url or @document or @target-id or @resource or @version]">
@@ -778,7 +850,6 @@
       <xsl:attribute name="target">_window</xsl:attribute>
     </xsl:if>
     <xsl:call-template name="build-term"/>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -787,7 +858,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:foreign[not(@url or @document or @target-id or @resource or @version)]">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/><xsl:comment/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:footnote">
@@ -800,9 +875,7 @@
         <xsl:text>#footnote</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
       </xsl:attribute>
       <xsl:number level="any" count="c:footnote" format="1"/>
-      <xsl:comment/>
     </a>
-    <xsl:comment/>
   </sup>
 </xsl:template>
 
@@ -816,24 +889,57 @@
           <xsl:text>#footnote-ref</xsl:text><xsl:number level="any" count="c:footnote" format="1"/>
         </xsl:attribute>
         <xsl:number level="any" count="c:footnote" format="1"/>
-        <xsl:comment/>
       </a>
       <xsl:text> </xsl:text>
       <span data-type="footnote-ref-content">
-        <xsl:apply-templates/>
-        <xsl:comment/>
+        <xsl:call-template name="apply-template-no-selfclose">
+          <xsl:with-param name="selection" select="node()"/>
+        </xsl:call-template>
       </span>
     </li>
 </xsl:template>
 
 <xsl:template match="c:sub">
-  <sub><xsl:apply-templates select="@*|node()"/><xsl:comment/></sub>
+  <sub>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </sub>
 </xsl:template>
 
 <xsl:template match="c:sup">
-  <sup><xsl:apply-templates select="@*|node()"/><xsl:comment/></sup>
+  <sup>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </sup>
 </xsl:template>
 
+<!-- ================================================= -->
+<!-- XSLT processor libxslt suppresses empty comments. -->
+<!-- Put comments with text on every non self closing  -->
+<!-- tag without content.                              -->
+<!-- ================================================= -->
+
+<xsl:template name="no-selfclose-comment">
+  <xsl:comment> no-selfclose </xsl:comment>
+</xsl:template>
+
+<xsl:template name="apply-template-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:apply-templates select="$selection"/>
+  <xsl:if test="not(node()[$selection])">
+    <xsl:call-template name="no-selfclose-comment"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="value-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:value-of select="$selection"/>
+  <xsl:if test="not(node()[$selection])">
+    <xsl:call-template name="no-selfclose-comment"/>
+  </xsl:if>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Links: encode in @data-*  -->
@@ -902,7 +1008,6 @@
         <xsl:text>[link]</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
@@ -941,7 +1046,6 @@
             <xsl:text>[link]</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
-        <xsl:comment/>
       </a>
     </xsl:when>
     <xsl:otherwise>
@@ -990,8 +1094,9 @@
 <xsl:template match="c:media">
   <span data-type="{local-name()}">
     <!-- Apply c:media optional attributes -->
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
@@ -1046,8 +1151,9 @@
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
-    <xsl:value-of select="@src"/>
-    <xsl:comment/>
+    <xsl:call-template name="value-no-selfclose">
+      <xsl:with-param name="selection" select="@src"/>
+    </xsl:call-template>
   </a>
 </xsl:template>
 
@@ -1130,8 +1236,9 @@
 
 <xsl:template match="c:video[contains(@src, 'youtube')]">
   <iframe type="text/html" frameborder="0" src="{@src}" width="640" height="390">
-    <xsl:apply-templates select="@width|@height"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@width|@height"/>
+    </xsl:call-template>
   </iframe>
 </xsl:template>
 
@@ -1268,8 +1375,9 @@
 
 <xsl:template match="c:media[c:iframe]">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -1320,8 +1428,9 @@
 
 <xsl:template match="c:image[@for='pdf' or @for='Pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/> <!-- do not make span self closing when no children -->
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
@@ -1348,13 +1457,16 @@
       </xsl:if>
       <xsl:apply-templates select="@*|node()"/>
     </img>
-    <xsl:comment/>
   </a>
 </xsl:template>
 
 
 <xsl:template match="c:iframe">
-  <iframe><xsl:apply-templates select="@*|node()"/><xsl:comment/></iframe>
+  <iframe>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </iframe>
 </xsl:template>
 
 <!-- ========================= -->
@@ -1366,7 +1478,6 @@
     <xsl:apply-templates select="@*"/>
     <h3 data-type="glossary-title">Glossary</h3>
     <xsl:apply-templates select="node()"/>
-    <xsl:comment/>
   </div>
 </xsl:template>
 
@@ -1395,12 +1506,12 @@
 
 <xsl:template match="c:seealso">
   <span data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
-<!-- not covered elements (Marvin) -->
 
 <!-- ========================= -->
 <!-- Newline and Space -->
@@ -1450,7 +1561,6 @@
       <xsl:with-param name="count" select="@count" />
       <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
-    <xsl:comment/>
   </span>
 </xsl:template>
 
@@ -1465,7 +1575,6 @@
       <xsl:with-param name="count" select="@count"/>
       <xsl:with-param name="string" select="' '"/>
     </xsl:call-template>
-    <xsl:comment/>
   </span>
 </xsl:template>
 
