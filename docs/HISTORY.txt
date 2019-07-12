@@ -5,7 +5,7 @@ Changelog
 -----
 
 - Added twine check to travis (#183)
-- Supersedes 1.6.1 by Fixing restructured text error in README.txt (#184)
+- Fixed restructured text error in README.txt (#184)
 
 1.6.1
 -----
