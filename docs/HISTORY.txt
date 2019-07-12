@@ -6,6 +6,8 @@ Changelog
 
 - Added new comment `<!-- no-selfclose -->` is only created in
 the output when there is no content inside the tag (#180)
+- Make self-closing tags mandatory for spans, div, iframe, etc. (#179)
+- Add utf-8 and math content to tests, check for self closing tags in tests (#178)
 
 1.5.0
 -----
