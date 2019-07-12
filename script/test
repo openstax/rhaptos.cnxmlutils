@@ -3,3 +3,11 @@ cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
 python setup.py test
+
+if [[ "${CI}" == "true" ]]
+then
+    # check the distribution
+    python setup.py bdist_wheel --universal
+    pip install twine
+    twine check dist/*
+fi
