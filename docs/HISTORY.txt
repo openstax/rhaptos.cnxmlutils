@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.6.1
+-----
+
+- Fix restructured text error in history.txt (#182)
+
 1.6.0
 -----
 
