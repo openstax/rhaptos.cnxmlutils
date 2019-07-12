@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6.2
+-----
+
+- Added twine check to travis (#183)
+- Fixed restructured text error in README.txt (#184)
+
 1.6.1
 -----
 
