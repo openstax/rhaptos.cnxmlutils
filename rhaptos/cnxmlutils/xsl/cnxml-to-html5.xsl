@@ -799,7 +799,11 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='underline']">
-  <u><xsl:apply-templates select="@*|node()"/></u>
+  <u>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </u>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
