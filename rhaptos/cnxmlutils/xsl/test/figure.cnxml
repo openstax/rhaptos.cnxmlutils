@@ -19,6 +19,7 @@
     <code id="idm45763482819648">Text</code>
   </figure>
 
+  <figure id="empty-figure"/>
 
   <para id="idm45763482819056">Inside a para (make sure the title is a span, not a div):
     <figure id="idm45763482818720">

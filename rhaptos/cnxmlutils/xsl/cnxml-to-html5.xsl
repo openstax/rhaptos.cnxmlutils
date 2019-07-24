@@ -1078,6 +1078,9 @@
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:caption"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
+    <xsl:if test="not(node())">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </figure>
 </xsl:template>
 
