@@ -1072,7 +1072,9 @@
 
 <xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
   <figcaption>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </figcaption>
 </xsl:template>
 
