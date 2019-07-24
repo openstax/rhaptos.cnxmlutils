@@ -266,6 +266,9 @@
     <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
+    <xsl:if test="not(node())">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </section>
 </xsl:template>
 
