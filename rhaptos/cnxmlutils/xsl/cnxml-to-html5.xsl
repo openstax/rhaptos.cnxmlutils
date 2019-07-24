@@ -943,7 +943,7 @@
 <xsl:template name="value-no-selfclose">
   <xsl:param name="selection"/>
   <xsl:value-of select="$selection"/>
-  <xsl:if test="not(node()[$selection])">
+  <xsl:if test="string-length($selection) = 0">
     <xsl:call-template name="no-selfclose-comment"/>
   </xsl:if>
 </xsl:template>
