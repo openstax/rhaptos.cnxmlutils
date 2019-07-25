@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.7.0
+-----
+
+- Add no self close comment to `<section>` in cnxml-to-html5
+- Add no self close comment to `<figure>` in cnxml-to-html5
+- Add no self close comment to `<u>` in cnxml-to-html5
+- Remove no self close comment for `<a>` where unnecessary
+- Add no self close comment to `<figcaption>` in cnxml-to-html5
+
 1.6.2
 -----
 
