@@ -252,6 +252,9 @@
     <xsl:element name="h{$depth+2}">
       <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+      <xsl:if test="c:title[not(node())]">
+        <xsl:call-template name="no-selfclose-comment"/>
+      </xsl:if>
     </xsl:element>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
       <xsl:with-param name="depth" select="$depth + 1"/>
