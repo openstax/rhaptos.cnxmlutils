@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.1
+-----
+
+- Add self close comment to section titles h3 etc
+- fix travis on python 3.4
+
 1.7.0
 -----
 
