@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.3
+-----
+
+- Fix lxml version in setup.py for python 2.7
+
 1.7.2
 -----
 
