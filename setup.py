@@ -19,7 +19,11 @@ install_requires = [
 if not IS_PY24:
     # Only list lxml as a dependency when outside the legacy context,
     # which is one that isn't running python >= 2.7.
-    install_requires.append('lxml>=4, <4.4')
+    if sys.version_info == (2, 7)  or sys.version_info >= (3, 5):
+        install_requires.append('lxml')
+    else:
+        # lxml 4.4.1 requires python 2.7, 3.5 or later.
+        install_requires.append('lxml>=4, <4.4')
 
 version = versioneer.get_version()
 
