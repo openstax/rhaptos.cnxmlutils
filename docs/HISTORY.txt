@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.2
+-----
+
+- Install `lxml>=4, <4.4` only for python != 2.7 or < 3.5
+- Change travis to use python 3.5 instead of 3.4
+
 1.7.1
 -----
 
