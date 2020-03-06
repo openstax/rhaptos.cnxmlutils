@@ -9,6 +9,7 @@
   xmlns:mod="http://cnx.rice.edu/#moduleIds"
   xmlns:bib="http://bibtexml.sf.net/"
   xmlns:data="http://www.w3.org/TR/html5/dom.html#custom-data-attribute"
+  xmlns:epub="http://www.idpf.org/2007/ops"
   exclude-result-prefixes="m mml"
 
   >
@@ -158,6 +159,7 @@
 
 <xsl:template match="c:content">
   <xsl:apply-templates select="node()"/>
+  <xsl:apply-templates mode="footnote-dumpsite" select="."/>
 </xsl:template>
 
 <xsl:template mode="class" match="node()"/>
@@ -225,9 +227,11 @@
       <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="c:title/@*|c:title/node()"/>
     </xsl:element>
+    <xsl:apply-templates mode="footnote-dumpsite" select="c:title"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </section>
 </xsl:template>
 
@@ -238,6 +242,7 @@
     <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </section>
 </xsl:template>
 
@@ -246,11 +251,13 @@
 
 <xsl:template match="c:para[not(.//c:figure|.//c:list[not(@display='inline')]|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <!-- Make an ugly exception for American Govt (https://trello.com/c/hXPF6dJa/) because it needs to be released soon and the full Pull Request that creates valid XHTML is too large to release quickly: https://github.com/Connexions/rhaptos.cnxmlutils/pull/157 -->
 <xsl:template match="c:para[.//c:cite/c:note[@display='inline']]">
   <p><xsl:apply-templates select="@*|node()"/></p>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 
@@ -270,6 +277,7 @@
     <xsl:with-param name="prevBlockish">0</xsl:with-param>
     <xsl:with-param name="list" select="$blockishIndexes"/>
   </xsl:call-template>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
   <!-- <xsl:for-each select="node()">
     <xsl:value-of select="'&lt;phil/>'" disable-output-escaping="yes" />
   </xsl:for-each>
@@ -402,6 +410,7 @@
 <xsl:template match="c:example">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
@@ -418,18 +427,21 @@
 <xsl:template match="c:problem">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:solution">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
@@ -437,6 +449,7 @@
   <div data-type="{local-name()}">
     <xsl:apply-templates select="@*|node()"/>
   </div>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template match="c:rule">
@@ -466,6 +479,7 @@
 <!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
   <pre><xsl:apply-templates select="@*|node()"/></pre>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template match="c:para//c:code[not(c:title)]|c:list//c:code[not(c:title)]|c:code[not(c:title)][@display='inline']">
@@ -477,6 +491,7 @@
     <xsl:apply-templates select="@id"/>
     <xsl:apply-templates select="c:title"/>
     <pre><xsl:apply-templates select="@*['id'!=local-name()]|node()[not(self::c:title)]"/></pre>
+    <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
   </div>
 </xsl:template>
 
@@ -496,6 +511,7 @@
   <blockquote>
     <xsl:apply-templates select="@*|node()"/>
   </blockquote>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <!-- ========================= -->
@@ -517,6 +533,7 @@
       <xsl:attribute name="data-has-label">true</xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
@@ -584,6 +601,7 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
+    <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
   </div>
 </xsl:template>
 
@@ -640,6 +658,7 @@
     </xsl:if>
     <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ol>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <!-- lists marked as having labeled items have a boolean attribute so the CSS can have `list-style-type:none` -->
@@ -651,6 +670,7 @@
     </xsl:if>
     <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ul>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template mode="list-mode" match="c:list[not(@list-type) or @list-type='bulleted']">
@@ -661,10 +681,14 @@
     </xsl:if>
     <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
   </ul>
+  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template match="c:item">
-  <li><xsl:apply-templates select="@*|node()"/></li>
+  <li>
+    <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
+  </li>
 </xsl:template>
 
 
@@ -765,11 +789,65 @@
   <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></span>
 </xsl:template>
 
+<!-- A footnote can occur as a child of any of the following so we need to handle all of these cases:
+     preformat, para, title, label, cite, cite-title, 
+     link, emphasis, term, sub, sup, quote, foreign, footnote, 
+     note, item, code, caption, commentary, meaning, entry -->
 <xsl:template match="c:footnote">
-  <span data-type="footnote">
-    <xsl:apply-templates select="@*|node()"/>
-  </span>
+  <a href="#{@id}" role="doc-noteref" epub:type="noteref">[footnote]</a>
 </xsl:template>
+
+<!-- footnote dump points -->
+<xsl:template mode="footnote-dumpsite" match="*">
+  <xsl:message>HEY! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/></xsl:message>
+  HEY! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/>
+</xsl:template>
+
+<xsl:template mode="footnote-dumpsite" match="
+      c:content
+    | c:section
+    | c:section/c:title
+    | c:note
+    | c:example
+    | c:problem
+    | c:solution
+    | c:commentary
+    | c:entry
+    | c:item
+    | c:caption
+    | c:table/c:title
+">
+
+  <xsl:apply-templates mode="rec-but-not-through-another-dumpsite" select="node()"/>
+</xsl:template>
+
+
+<!-- Stop when we reach another dumpsite -->
+<xsl:template mode="rec-but-not-through-another-dumpsite" match="
+      c:content
+    | c:section
+    | c:section/c:title
+    | c:note
+    | c:example
+    | c:problem
+    | c:solution
+    | c:commentary
+    | c:entry
+    | c:item
+    | c:caption
+    | c:table/c:title
+"/>
+
+<xsl:template mode="rec-but-not-through-another-dumpsite" match="node()">
+  <xsl:apply-templates mode="rec-but-not-through-another-dumpsite" select="node()"/>
+</xsl:template>
+
+<xsl:template mode="rec-but-not-through-another-dumpsite" match="c:footnote">
+  <aside role="doc-footnote" epub:type="footnote">
+    <xsl:apply-templates select="@*|node()"/>
+  </aside>
+</xsl:template>
+
 
 <!-- Unwrap the para in footnotes when it is the only child -->
 <xsl:template match="c:footnote[count(*) = 1]/c:para">
@@ -780,9 +858,6 @@
 </xsl:template>
 
 <xsl:template match="c:footnote[count(*) > 1]/c:para">
-  <xsl:comment>
-    CNXML-to-XHTML: Unwrapped a para that was here because footnotes are inline. para id="<xsl:value-of select="@id"/>". Also, added a BR at the end.
-  </xsl:comment>
   <xsl:apply-templates select="node()" />
   <br/>
 </xsl:template>
@@ -922,6 +997,7 @@
 <xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
   <figcaption>
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </figcaption>
 </xsl:template>
 
@@ -1443,8 +1519,10 @@
     <xsl:if test="c:caption or c:title">
       <caption>
         <xsl:apply-templates select="c:title"/>
+        <xsl:apply-templates mode="footnote-dumpsite" select="c:title"/>
         <!-- NOTE: caption loses the optional id -->
         <xsl:apply-templates select="c:caption/node()"/>
+        <xsl:apply-templates mode="footnote-dumpsite" select="c:caption"/>
       </caption>
     </xsl:if>
     <xsl:apply-templates select="c:tgroup"/>
@@ -1485,6 +1563,7 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </th>
 </xsl:template>
 <xsl:template match="c:entry">
@@ -1501,6 +1580,7 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:apply-templates select="@*|node()"/>
+    <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </td>
 </xsl:template>
 <!-- Discarded c:entry attributes -->
