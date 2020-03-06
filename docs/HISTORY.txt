@@ -1,6 +1,65 @@
 Changelog
 =========
 
+1.7.3
+-----
+
+- Fix lxml version in setup.py for python 2.7
+
+1.7.2
+-----
+
+- Install `lxml>=4, <4.4` only for python != 2.7 or < 3.5
+- Change travis to use python 3.5 instead of 3.4
+
+1.7.1
+-----
+
+- Add self close comment to section titles h3 etc
+- fix travis on python 3.4
+
+1.7.0
+-----
+
+- Add no self close comment to `<section>` in cnxml-to-html5
+- Add no self close comment to `<figure>` in cnxml-to-html5
+- Add no self close comment to `<u>` in cnxml-to-html5
+- Remove no self close comment for `<a>` where unnecessary
+- Add no self close comment to `<figcaption>` in cnxml-to-html5
+
+1.6.2
+-----
+
+- Added twine check to travis (#183)
+- Fixed restructured text error in README.txt (#184)
+
+1.6.1
+-----
+
+- Fix restructured text error in history.txt (#182)
+
+1.6.0
+-----
+
+- Added new comment `<!-- no-selfclose -->` is only created in the output when there is no content inside the tag (#180)
+- Make self-closing tags mandatory for spans, div, iframe, etc. (#179)
+- Add utf-8 and math content to tests, check for self closing tags in tests (#178)
+
+1.5.0
+-----
+
+- Add longdesc attribute to img tags during transform (#175)
+
+1.4.0
+-----
+
+- convert all cnx:newline to span (#174)
+
+1.3.2
+-----
+
+- Fix conversion of para/cite/note (partial fix for #162)
+
 1.3.1
 -----
 

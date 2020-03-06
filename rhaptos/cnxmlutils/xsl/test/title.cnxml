@@ -15,6 +15,10 @@
     <para id="id1164845159023">...</para>
   </section>
 
+  <section id="section-with-empty-title">
+    <title />
+  </section>
+
     <section id="listed-section">
       <title>Section Title</title>
       <!-- This list should be a section, because it has a title. -->

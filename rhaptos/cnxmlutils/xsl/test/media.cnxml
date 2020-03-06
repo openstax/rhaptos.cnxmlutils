@@ -84,5 +84,10 @@
     </media>
   </figure>
 
+  <media id="course-syl" alt="Business Ethics Course Syllabus">
+    <download mime-type="application/msword" src="Business Ethics Spring 2007.doc"/>
+    <download mime-type="application/msword" src=""/>
+  </media>
+
 </content>
 </document>

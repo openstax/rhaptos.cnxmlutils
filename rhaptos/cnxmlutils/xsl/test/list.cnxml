@@ -55,6 +55,7 @@
           <title>list with all attributes and title</title>
           <item>and item</item>
         </list>
+        <section id="id-empty-section"/>
       </section>
       <section id="idm45159773264416">
         <title>Bulleted list:</title>

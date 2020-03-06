@@ -18,6 +18,8 @@
 
 <xsl:param name="version"/>
 
+<xsl:variable name="empty" select="''"/>
+
 <!-- ========================= -->
 <!-- One-way conversions       -->
 <!-- ========================= -->
@@ -28,11 +30,19 @@
 </xsl:template>
 
 <xsl:template match="c:div">
-  <div><xsl:apply-templates select="@*|node()"/></div>
+  <div>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:span">
-  <span><xsl:apply-templates select="@*|node()"/></span>
+  <span>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:document">
@@ -64,7 +74,9 @@
   <!-- Only render the abstract if it contains text/elements -->
   <xsl:if test="node()">
     <div data-type="abstract">
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:call-template name="apply-template-no-selfclose">
+        <xsl:with-param name="selection" select="@*|node()"/>
+      </xsl:call-template>
     </div>
   </xsl:if>
 </xsl:template>
@@ -202,18 +214,26 @@
 
 <xsl:template match="/c:document/c:title">
   <div data-type="document-title">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
   <div data-type="title">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:para/c:title|c:table/c:title|c:para//c:title[not(parent::c:list)]|c:para//c:list[@display='inline']/c:title">
-  <span data-type="title"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="title">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -226,6 +246,9 @@
     <xsl:element name="h{$depth+2}">
       <xsl:apply-templates mode="class" select="c:title"/>
       <xsl:apply-templates select="c:title/@*|c:title/node()"/>
+      <xsl:if test="c:title[not(node())]">
+        <xsl:call-template name="no-selfclose-comment"/>
+      </xsl:if>
     </xsl:element>
     <xsl:apply-templates mode="footnote-dumpsite" select="c:title"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:label)]">
@@ -242,6 +265,9 @@
     <xsl:apply-templates select="@*|node()">
       <xsl:with-param name="depth" select="$depth + 1"/>
     </xsl:apply-templates>
+    <xsl:if test="not(node())">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </section>
 </xsl:template>
@@ -409,7 +435,9 @@
 
 <xsl:template match="c:example">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
@@ -420,48 +448,70 @@
 
 <xsl:template match="c:exercise">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
 <xsl:template match="c:problem">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:solution">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:commentary">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
 
 <xsl:template match="c:equation">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
   <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template match="c:rule">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:statement">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <xsl:template match="c:proof">
-  <div data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></div>
+  <div data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </div>
 </xsl:template>
 
 <!-- ========================= -->
@@ -532,7 +582,9 @@
     <xsl:if test="c:label">
       <xsl:attribute name="data-has-label">true</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </div>
 </xsl:template>
@@ -568,7 +620,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:cite-title">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -601,6 +657,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
     <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
   </div>
 </xsl:template>
@@ -612,6 +672,10 @@
     <xsl:apply-templates mode="list-mode" select=".">
       <xsl:with-param name="convert-id-and-class" select="0"/>
     </xsl:apply-templates>
+    <!-- test directly for content / non self closing tag because list-mode is used before -->
+    <xsl:if test="not(node()[.])">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </span>
 </xsl:template>
 
@@ -708,26 +772,44 @@
     <xsl:if test="$convert-id-and-class">
       <xsl:call-template name="list-id-and-class"/>
     </xsl:if>
-    <xsl:apply-templates select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*['id' != local-name()]|node()[not(self::c:title)]"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
 <xsl:template match="c:list[@display='inline']/c:item">
-  <span data-type="item"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="item">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
 
 <xsl:template match="c:emphasis">
-  <strong><xsl:apply-templates select="@*[not(local-name()='effect')]|node()"/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*[not(local-name()='effect')]|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[not(@effect) or @effect='bold' or @effect='Bold']">
-  <strong><xsl:apply-templates select="@*|node()"/></strong>
+  <strong>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </strong>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
-  <em><xsl:apply-templates select="@*|node()"/></em>
+  <em>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </em>
 </xsl:template>
 
 <!-- Fix emphasis effect typo "italic" -->
@@ -736,15 +818,27 @@
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='underline']">
-  <u><xsl:apply-templates select="@*|node()"/></u>
+  <u>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </u>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='smallcaps']">
-  <span data-type="emphasis" class="smallcaps"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="smallcaps">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:emphasis[@effect='normal']">
-  <span data-type="emphasis" class="normal"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="emphasis" class="normal">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- ========================= -->
@@ -766,7 +860,11 @@
   |c:term/@window"/>
 
 <xsl:template match="c:term[not(@url or @document or @target-id or @resource or @version)]" name="build-term">
-  <span data-type="term"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="term">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <xsl:template match="c:term[@url or @document or @target-id or @resource or @version]">
@@ -786,7 +884,11 @@
 <!-- ========================= -->
 
 <xsl:template match="c:foreign[not(@url or @document or @target-id or @resource or @version)]">
-  <span data-type="{local-name()}"><xsl:apply-templates select="@*|node()"/></span>
+  <span data-type="{local-name()}">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
 </xsl:template>
 
 <!-- A footnote can occur as a child of any of the following so we need to handle all of these cases:
@@ -864,13 +966,46 @@
 
 
 <xsl:template match="c:sub">
-  <sub><xsl:apply-templates select="@*|node()"/></sub>
+  <sub>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </sub>
 </xsl:template>
 
 <xsl:template match="c:sup">
-  <sup><xsl:apply-templates select="@*|node()"/></sup>
+  <sup>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </sup>
 </xsl:template>
 
+<!-- ================================================= -->
+<!-- XSLT processor libxslt suppresses empty comments. -->
+<!-- Put comments with text on every non self closing  -->
+<!-- tag without content.                              -->
+<!-- ================================================= -->
+
+<xsl:template name="no-selfclose-comment">
+  <xsl:comment> no-selfclose </xsl:comment>
+</xsl:template>
+
+<xsl:template name="apply-template-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:apply-templates select="$selection"/>
+  <xsl:if test="not(node()[$selection])">
+    <xsl:call-template name="no-selfclose-comment"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="value-no-selfclose">
+  <xsl:param name="selection"/>
+  <xsl:value-of select="$selection"/>
+  <xsl:if test="string-length($selection) = 0">
+    <xsl:call-template name="no-selfclose-comment"/>
+  </xsl:if>
+</xsl:template>
 
 <!-- ========================= -->
 <!-- Links: encode in @data-*  -->
@@ -996,7 +1131,9 @@
 
 <xsl:template match="c:figure/c:caption|c:subfigure/c:caption">
   <figcaption>
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </figcaption>
 </xsl:template>
@@ -1007,6 +1144,9 @@
     <xsl:apply-templates select="c:title"/>
     <xsl:apply-templates select="c:caption"/>
     <xsl:apply-templates select="node()[not(self::c:title or self::c:caption or self::c:label)]"/>
+    <xsl:if test="not(node())">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
   </figure>
 </xsl:template>
 
@@ -1026,7 +1166,9 @@
 <xsl:template match="c:media">
   <span data-type="{local-name()}">
     <!-- Apply c:media optional attributes -->
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
@@ -1081,7 +1223,9 @@
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
     <!-- Link text -->
-    <xsl:value-of select="@src"/>
+    <xsl:call-template name="value-no-selfclose">
+      <xsl:with-param name="selection" select="@src"/>
+    </xsl:call-template>
   </a>
 </xsl:template>
 
@@ -1164,7 +1308,9 @@
 
 <xsl:template match="c:video[contains(@src, 'youtube')]">
   <iframe type="text/html" frameborder="0" src="{@src}" width="640" height="390">
-    <xsl:apply-templates select="@width|@height"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@width|@height"/>
+    </xsl:call-template>
   </iframe>
 </xsl:template>
 
@@ -1301,7 +1447,9 @@
 
 <xsl:template match="c:media[c:iframe]">
   <div data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </div>
 </xsl:template>
 
@@ -1336,6 +1484,11 @@
 
 <xsl:template match="c:image[not(@for='pdf' or @for='Pdf')]">
   <img src="{@src}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
+    <xsl:if test="parent::c:media/@longdesc">
+      <xsl:attribute name="longdesc">
+        <xsl:value-of select="parent::c:media/@longdesc"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:apply-templates select="@*|c:param"/>
     <xsl:apply-templates select="node()[not(self::c:param)]"/>
   </img>
@@ -1347,8 +1500,9 @@
 
 <xsl:template match="c:image[@for='pdf' or @for='Pdf']">
   <span data-media-type="{@mime-type}" data-print="true" data-src="{@src}" data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
-    <xsl:comment> </xsl:comment> <!-- do not make span self closing when no children -->
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
@@ -1368,6 +1522,11 @@
 <xsl:template match="c:image[@thumbnail and not(@for='pdf' or @for='Pdf')]">
   <a href="{@src}" data-type="{local-name()}">
     <img src="{@thumbnail}" data-media-type="{@mime-type}" alt="{parent::c:media/@alt}">
+      <xsl:if test="parent::c:media/@longdesc">
+        <xsl:attribute name="longdesc">
+          <xsl:value-of select="parent::c:media/@longdesc"/>
+        </xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates select="@*|node()"/>
     </img>
   </a>
@@ -1375,7 +1534,11 @@
 
 
 <xsl:template match="c:iframe">
-  <iframe><xsl:apply-templates select="@*|node()"/></iframe>
+  <iframe>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </iframe>
 </xsl:template>
 
 <!-- ========================= -->
@@ -1415,11 +1578,12 @@
 
 <xsl:template match="c:seealso">
   <span data-type="{local-name()}">
-    <xsl:apply-templates select="@*|node()"/>
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 
-<!-- not covered elements (Marvin) -->
 
 <!-- ========================= -->
 <!-- Newline and Space -->
@@ -1449,10 +1613,8 @@
 </xsl:template>
 
 
-<xsl:template match="c:newline[not(parent::c:list)]
-                              [not(ancestor::c:para and @effect = 'underline')]
-                              [not(@effect) or @effect = 'underline' or @effect = 'normal']">
-  <div data-type="{local-name()}">
+<xsl:template match="c:newline[not(@effect) or @effect = 'underline' or @effect = 'normal']">
+  <span data-type="{local-name()}">
 
     <xsl:apply-templates select="@*"/>
 
@@ -1471,7 +1633,7 @@
       <xsl:with-param name="count" select="@count" />
       <xsl:with-param name="string" select="$string"/>
     </xsl:call-template>
-  </div>
+  </span>
 </xsl:template>
 
 
