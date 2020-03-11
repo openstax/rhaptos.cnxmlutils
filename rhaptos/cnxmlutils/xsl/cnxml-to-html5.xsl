@@ -277,13 +277,13 @@
 
 <xsl:template match="c:para[not(.//c:figure|.//c:list[not(@display='inline')]|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
-  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
+  <xsl:apply-templates mode="footnote-dumpsite" select="."/>
 </xsl:template>
 
 <!-- Make an ugly exception for American Govt (https://trello.com/c/hXPF6dJa/) because it needs to be released soon and the full Pull Request that creates valid XHTML is too large to release quickly: https://github.com/Connexions/rhaptos.cnxmlutils/pull/157 -->
 <xsl:template match="c:para[.//c:cite/c:note[@display='inline']]">
   <p><xsl:apply-templates select="@*|node()"/></p>
-  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
+  <xsl:apply-templates mode="footnote-dumpsite" select="."/>
 </xsl:template>
 
 
@@ -303,11 +303,7 @@
     <xsl:with-param name="prevBlockish">0</xsl:with-param>
     <xsl:with-param name="list" select="$blockishIndexes"/>
   </xsl:call-template>
-  <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
-  <!-- <xsl:for-each select="node()">
-    <xsl:value-of select="'&lt;phil/>'" disable-output-escaping="yes" />
-  </xsl:for-each>
-  <xsl:call-template name="convert-para"/> -->
+  <xsl:apply-templates mode="footnote-dumpsite" select="."/>
 </xsl:template>
 
 <xsl:template name="index-of-blockish-children">
@@ -901,12 +897,13 @@
 
 <!-- footnote dump points -->
 <xsl:template mode="footnote-dumpsite" match="*">
-  <xsl:message>HEY! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/></xsl:message>
-  HEY! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/>
+  <xsl:message terminate="yes">BUG! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/></xsl:message>
+  BUG! I AM NOT A FOOTNOTE-DUMPSITE!!!! <xsl:value-of select="local-name()"/>
 </xsl:template>
 
 <xsl:template mode="footnote-dumpsite" match="
-      c:content
+      c:para
+    | c:content
     | c:section
     | c:section/c:title
     | c:note
@@ -926,7 +923,8 @@
 
 <!-- Stop when we reach another dumpsite -->
 <xsl:template mode="rec-but-not-through-another-dumpsite" match="
-      c:content
+      c:para
+    | c:content
     | c:section
     | c:section/c:title
     | c:note
