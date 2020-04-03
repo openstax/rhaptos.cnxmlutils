@@ -4,6 +4,7 @@
   xmlns:bib='http://bibtexml.sf.net/'
   xmlns:c='http://cnx.rice.edu/cnxml'
   xmlns:data='http://www.w3.org/TR/html5/dom.html#custom-data-attribute'
+  xmlns:epub='http://www.idpf.org/2007/ops'
   xmlns:md='http://cnx.rice.edu/mdml'
   xmlns:mod='http://cnx.rice.edu/#moduleIds'
   xmlns:qml='http://cnx.rice.edu/qml/1.0'
@@ -17,97 +18,485 @@
   <p
     id='idm46678431438976'
   >(observed
-    <sup
-      data-type='footnote-number'
-      id='footnote-ref1'
-    >
-      <a
-        data-type='footnote-link'
-        href='#footnote1'
-      >1</a>
-    </sup>)
+    <a
+      epub:type='noteref'
+      href='#eip-id1169737806114'
+      role='doc-noteref'
+    >[footnote]</a>)
   </p>
+  <aside
+    epub:type='footnote'
+    id='eip-id1169737806114'
+    role='doc-footnote'
+  >Predicted by theory and first observed in 1983.</aside>
   <p
     id='idm46678431437824'
   >Gluons (conjectured
-    <sup
-      data-type='footnote-number'
-      id='footnote-ref2'
-    >
-      <a
-        data-type='footnote-link'
-        href='#footnote2'
-      >2</a>
-    </sup>)
+    <a
+      epub:type='noteref'
+      href='#eip-id1169738239687'
+      role='doc-noteref'
+    >[footnote]</a>)
   </p>
+  <aside
+    epub:type='footnote'
+    id='eip-id1169738239687'
+    role='doc-footnote'
+  >Eight proposed&#8212;indirect evidence of existence. Underlie meson exchange.</aside>
   <p
     id='idm46678431436560'
   >...</p>
   <p
     id='m42720-example'
   >
-    <sup
-      data-type='footnote-number'
-      id='footnote-ref3'
+    <a
+      epub:type='noteref'
+      href='#import-auto-footnote-1'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='import-auto-footnote-1'
+    role='doc-footnote'
+  > Stated values are according to the National Institute of Standards and Technology Reference on Constants, Units, and Uncertainty,
+    <a
+      href='http://www.physics.nist.gov/cuu'
+    >www.physics.nist.gov/cuu</a>(accessed May 18, 2012). Values in parentheses are the uncertainties in the last digits. Numbers without uncertainties are exact as defined.
+  </aside>
+  <p>
+    <a
+      epub:type='noteref'
+      href='#p1'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='p1'
+    role='doc-footnote'
+  >
+<!--
+    CNXML-to-XHTML: Unwrapped a para that was here because footnotes are inline. para id="p012"
+  -->I am blockish and should be unwrapped</aside>
+  <p>
+    <a
+      epub:type='noteref'
+      href='#p2'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='p2'
+    role='doc-footnote'
+  > contains blockish element:
+        
+<!--
+    CNXML-to-XHTML: Unwrapped a para that was here because footnotes are inline. para id="p123"
+  -->I am blockishmore text</aside>
+  <p>
+    <a
+      epub:type='noteref'
+      href='#p3'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='p3'
+    role='doc-footnote'
+  > contains blockish element:
+        I am blockish
+    <br></br>
+        I am also blockish
+    <br></br>more text
+  </aside>
+  <p>
+    <a
+      epub:type='noteref'
+      href='#p4'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='p4'
+    role='doc-footnote'
+  >
+    <ul>
+      <li>I am blockish</li>
+      <li>Not sure what to do with lists</li>
+    </ul>
+  </aside>
+  <div
+    data-type='note'
+  ><!-- just to make sure the note doesn't also collect the footnotes -->
+    <table>
+      <caption>
+        <span
+          data-type='title'
+        >
+          <a
+            epub:type='noteref'
+            href='#linktome-tt'
+            role='doc-noteref'
+          >[footnote]</a>
+          <sup>
+            <a
+              epub:type='noteref'
+              href='#linktome-tts'
+              role='doc-noteref'
+            >[footnote]</a>
+          </sup>
+        </span>
+        <aside
+          epub:type='footnote'
+          id='linktome-tt'
+          role='doc-footnote'
+        >should remain in the table caption but below the title span</aside>
+        <aside
+          epub:type='footnote'
+          id='linktome-tts'
+          role='doc-footnote'
+        >should remain in the table caption but below the title span</aside>
+        <a
+          epub:type='noteref'
+          href='#linktome-tc'
+          role='doc-noteref'
+        >[footnote]</a>
+        <aside
+          epub:type='footnote'
+          id='linktome-tc'
+          role='doc-footnote'
+        >should remain in the caption</aside>
+      </caption>
+      <thead>
+        <tr>
+          <th>
+            <a
+              epub:type='noteref'
+              href='#linktome-th'
+              role='doc-noteref'
+            >[footnote]</a>
+            <aside
+              epub:type='footnote'
+              id='linktome-th'
+              role='doc-footnote'
+            >should remain in the th</aside>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a
+              epub:type='noteref'
+              href='#linktome-tb'
+              role='doc-noteref'
+            >[footnote]</a>
+            <aside
+              epub:type='footnote'
+              id='linktome-tb'
+              role='doc-footnote'
+            >should remain in the td</aside>
+          </td>
+          <td>
+            <p>
+              <a
+                epub:type='noteref'
+                href='#linktome-tbp'
+                role='doc-noteref'
+              >[footnote]</a>
+            </p>
+            <aside
+              epub:type='footnote'
+              id='linktome-tbp'
+              role='doc-footnote'
+            >should move below the para</aside>
+          </td>
+          <td>
+            <sup>
+              <a
+                epub:type='noteref'
+                href='#linktome-tbs'
+                role='doc-noteref'
+              >[footnote]</a>
+            </sup>
+            <aside
+              epub:type='footnote'
+              id='linktome-tbs'
+              role='doc-footnote'
+            >should remain in the td but be below the sup</aside>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    data-type='note'
+  >
+    <div
+      data-type='title'
     >
       <a
-        data-type='footnote-link'
-        href='#footnote3'
-      >3</a>
-    </sup>
-  </p>
-  <div
-    data-type='footnote-refs'
-  >
-    <h3
-      data-type='footnote-refs-title'
-    >Footnotes</h3>
-    <ul
-      data-bullet-style='none'
-      data-list-type='bulleted'
-    >
-      <li
-        data-type='footnote-ref'
-        id='footnote1'
-      >
+        epub:type='noteref'
+        href='#linktome-nt'
+        role='doc-noteref'
+      >[footnote]</a>
+    </div>
+    <p>
+      <a
+        epub:type='noteref'
+        href='#linktome-np'
+        role='doc-noteref'
+      >[footnote]</a>
+      <sup>
         <a
-          data-type='footnote-ref-link'
-          href='#footnote-ref1'
-        >1</a>
-        <span
-          data-type='footnote-ref-content'
-        >Predicted by theory and first observed in 1983.</span>
-      </li>
-      <li
-        data-type='footnote-ref'
-        id='footnote2'
-      >
-        <a
-          data-type='footnote-ref-link'
-          href='#footnote-ref2'
-        >2</a>
-        <span
-          data-type='footnote-ref-content'
-        >Eight proposed&#8212;indirect evidence of existence. Underlie meson exchange.</span>
-      </li>
-      <li
-        data-type='footnote-ref'
-        id='footnote3'
-      >
-        <a
-          data-type='footnote-ref-link'
-          href='#footnote-ref3'
-        >3</a>
-        <span
-          data-type='footnote-ref-content'
-        > Stated values are according to the National Institute of Standards and Technology Reference on Constants, Units, and Uncertainty,
-          <a
-            href='http://www.physics.nist.gov/cuu'
-          >www.physics.nist.gov/cuu</a>(accessed May 18, 2012). Values in parentheses are the uncertainties in the last digits. Numbers without uncertainties are exact as defined.
-        </span>
-      </li>
-    </ul>
+          epub:type='noteref'
+          href='#linktome-nps'
+          role='doc-noteref'
+        >[footnote]</a>
+      </sup>
+    </p>
+    <aside
+      epub:type='footnote'
+      id='linktome-np'
+      role='doc-footnote'
+    >should move below the para</aside>
+    <aside
+      epub:type='footnote'
+      id='linktome-nps'
+      role='doc-footnote'
+    >should move below the para</aside>
+    <aside
+      epub:type='footnote'
+      id='linktome-nt'
+      role='doc-footnote'
+    >should move below the title or below the note</aside>
   </div>
+  <div
+    data-type='exercise'
+  >
+    <div
+      data-type='problem'
+    >
+      <p>
+        <a
+          epub:type='noteref'
+          href='#linktome-epp'
+          role='doc-noteref'
+        >[footnote]</a>
+      </p>
+      <aside
+        epub:type='footnote'
+        id='linktome-epp'
+        role='doc-footnote'
+      >should move below the para</aside>
+    </div>
+    <div
+      data-type='solution'
+    >
+      <p>
+        <a
+          epub:type='noteref'
+          href='#linktome-esp'
+          role='doc-noteref'
+        >[footnote]</a>
+      </p>
+      <aside
+        epub:type='footnote'
+        id='linktome-esp'
+        role='doc-footnote'
+      >should move below the para</aside>
+    </div>
+  </div>
+  <figure>
+    <figcaption>
+      <a
+        epub:type='noteref'
+        href='#linktome-fc'
+        role='doc-noteref'
+      >[footnote]</a>
+      <aside
+        epub:type='footnote'
+        id='linktome-fc'
+        role='doc-footnote'
+      >should remain in the caption</aside>
+    </figcaption>
+  </figure>
+  <div
+    data-type='example'
+  >
+    <p>
+      <a
+        epub:type='noteref'
+        href='#linktome-ep'
+        role='doc-noteref'
+      >[footnote]</a>
+    </p>
+    <aside
+      epub:type='footnote'
+      id='linktome-ep'
+      role='doc-footnote'
+    >should move below the para</aside>
+  </div>
+  <section
+    data-depth='1'
+  >
+    <section
+      data-depth='2'
+    >
+      <h4
+        data-type='title'
+      >
+        <a
+          epub:type='noteref'
+          href='#linktome-sst'
+          role='doc-noteref'
+        >[footnote]</a>
+      </h4>
+      <aside
+        epub:type='footnote'
+        id='linktome-sst'
+        role='doc-footnote'
+      >should move below the title or below the section</aside>
+      <p>
+        <q>
+          <a
+            epub:type='noteref'
+            href='#linktome-sspq'
+            role='doc-noteref'
+          >[footnote]</a>
+        </q>
+      </p>
+      <aside
+        epub:type='footnote'
+        id='linktome-sspq'
+        role='doc-footnote'
+      >should move below the para</aside>
+      <div
+        data-type='note'
+      >
+        <p>
+          <q>
+            <a
+              epub:type='noteref'
+              href='#linktome-ssnpq'
+              role='doc-noteref'
+            >[footnote]</a>
+          </q>
+        </p>
+        <aside
+          epub:type='footnote'
+          id='linktome-ssnpq'
+          role='doc-footnote'
+        >should move below the para</aside>
+        <ul>
+          <li>
+            <a
+              epub:type='noteref'
+              href='#linktome-ssnli'
+              role='doc-noteref'
+            >[footnote]</a>
+            <p>
+              <a
+                epub:type='noteref'
+                href='#linktome-ssnlip'
+                role='doc-noteref'
+              >[footnote]</a>
+            </p>
+            <aside
+              epub:type='footnote'
+              id='linktome-ssnlip'
+              role='doc-footnote'
+            >should remain in the list item</aside>
+            <aside
+              epub:type='footnote'
+              id='linktome-ssnli'
+              role='doc-footnote'
+            >should remain in the list item</aside>
+          </li>
+        </ul>
+        <figure>
+          <figcaption>
+            <a
+              epub:type='noteref'
+              href='#linktome-ssnfc'
+              role='doc-noteref'
+            >[footnote]</a>
+            <aside
+              epub:type='footnote'
+              id='linktome-ssnfc'
+              role='doc-footnote'
+            >should remain in the caption</aside>
+          </figcaption>
+        </figure>
+      </div>
+      <p>
+        <a
+          epub:type='noteref'
+          href='#linktome-ssp'
+          role='doc-noteref'
+        >[footnote]</a>
+        <sup>
+          <a
+            epub:type='noteref'
+            href='#linktome-ssps'
+            role='doc-noteref'
+          >[footnote]</a>
+        </sup>
+      </p>
+      <aside
+        epub:type='footnote'
+        id='linktome-ssp'
+        role='doc-footnote'
+      >should end up below the para</aside>
+      <aside
+        epub:type='footnote'
+        id='linktome-ssps'
+        role='doc-footnote'
+      >should end up below the para</aside>
+      <ul>
+        <li>
+          <a
+            epub:type='noteref'
+            href='#linktome-ssli'
+            role='doc-noteref'
+          >[footnote]</a>
+          <p>
+            <a
+              epub:type='noteref'
+              href='#linktome-sslip'
+              role='doc-noteref'
+            >[footnote]</a>
+          </p>
+          <aside
+            epub:type='footnote'
+            id='linktome-sslip'
+            role='doc-footnote'
+          >should remain as a child of item</aside>
+          <aside
+            epub:type='footnote'
+            id='linktome-ssli'
+            role='doc-footnote'
+          >should remain as a child of item</aside>
+        </li>
+      </ul>
+    </section>
+  </section>
+  <p>
+    <a
+      epub:type='noteref'
+      href='#linktome-p'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='linktome-p'
+    role='doc-footnote'
+  >should move below the para</aside>
   <div
     data-type='glossary'
   >

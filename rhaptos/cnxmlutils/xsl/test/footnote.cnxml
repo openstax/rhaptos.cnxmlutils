@@ -18,6 +18,149 @@
     </footnote>
   </para>
 
+  <para>
+    <footnote id="p1">
+      <para id="p012">I am blockish and should be unwrapped</para>
+    </footnote>
+  </para>
+
+  <para>
+    <footnote id="p2"> contains blockish element: <para id="p123">I am blockish</para> more text</footnote>
+  </para>
+
+  <para>
+    <footnote id="p3"> contains blockish element: <para id="p234">I am blockish</para><para id="p345">I am also blockish</para> more text</footnote>
+  </para>
+
+  <para>
+    <footnote id="p4">
+      <list>
+        <item>I am blockish</item>
+        <item>Not sure what to do with lists</item>
+      </list>
+    </footnote>
+  </para>
+
+  <note><!-- just to make sure the note doesn't also collect the footnotes -->
+    <table>
+      <title>
+        <footnote id="linktome-tt">should remain in the table caption but below the title span</footnote>
+        <sup><footnote id="linktome-tts">should remain in the table caption but below the title span</footnote></sup>
+      </title>
+      <caption>
+        <footnote id="linktome-tc">should remain in the caption</footnote>
+      </caption>
+      <tgroup>
+        <thead>
+          <row>
+            <entry>
+              <footnote id="linktome-th">should remain in the th</footnote>
+            </entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>
+              <footnote id="linktome-tb">should remain in the td</footnote>
+            </entry>
+            <entry>
+              <para>
+                <footnote id="linktome-tbp">should move below the para</footnote>
+              </para>
+            </entry>
+            <entry>
+              <sup>
+                <footnote id="linktome-tbs">should remain in the td but be below the sup</footnote>
+              </sup>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </note>
+
+<note>
+  <title>
+    <footnote id="linktome-nt">should move below the title or below the note</footnote>
+  </title>
+  <para>
+    <footnote id="linktome-np">should move below the para</footnote>
+    <sup>
+      <footnote id="linktome-nps">should move below the para</footnote>
+    </sup>
+  </para>
+</note>
+
+<exercise>
+  <problem>
+    <para>
+      <footnote id="linktome-epp">should move below the para</footnote>
+    </para>
+  </problem>
+  <solution>
+    <para>
+      <footnote id="linktome-esp">should move below the para</footnote>
+    </para>
+  </solution>
+</exercise>
+
+<figure>
+  <caption>
+    <footnote id="linktome-fc">should remain in the caption</footnote>
+  </caption>
+</figure>
+
+<example>
+  <para>
+    <footnote id="linktome-ep">should move below the para</footnote>
+  </para>
+</example>
+
+<section>
+  <section>
+    <title>
+      <footnote id="linktome-sst">should move below the title or below the section</footnote>
+    </title>
+    <para>
+      <quote>
+        <footnote id="linktome-sspq">should move below the para</footnote>
+      </quote>
+    </para>
+    <note>
+      <para>
+        <quote>
+          <footnote id="linktome-ssnpq">should move below the para</footnote>
+        </quote>
+      </para>
+      <list>
+        <item>
+          <footnote id="linktome-ssnli">should remain in the list item</footnote>
+          <para><footnote id="linktome-ssnlip">should remain in the list item</footnote></para>
+        </item>
+      </list>
+      <figure>
+        <caption>
+          <footnote id="linktome-ssnfc">should remain in the caption</footnote>
+        </caption>
+      </figure>
+    </note>
+    <para>
+      <footnote id="linktome-ssp">should end up below the para</footnote>
+      <sup><footnote id="linktome-ssps">should end up below the para</footnote></sup>
+    </para>
+    <list>
+      <item>
+        <footnote id="linktome-ssli">should remain as a child of item</footnote>
+        <para><footnote id="linktome-sslip">should remain as a child of item</footnote></para>
+      </item>
+    </list>
+  </section>
+</section>
+
+<para>
+  <footnote id="linktome-p">should move below the para</footnote>
+</para>
+
 </content>
 <!-- Ensure the glossary appears after the footnotes. -->
 <!-- Note, there aren't any //c:glossary//c:footnote entries in production. -->
@@ -25,5 +168,5 @@
   <definition id="import-auto-id1169737716876"><term>Feynman diagram</term> <meaning id="fs-id1169738208078">a graph of time versus position that describes the exchange of virtual particles between subatomic particles</meaning></definition>
   <definition id="import-auto-id1169737813579"><term>gluons</term> <meaning id="fs-id1169738116395">exchange particles, analogous to the exchange of photons that gives rise to the electromagnetic force between two charged particles</meaning></definition>
   <definition id="import-auto-id1169738065015"><term>quantum electrodynamics</term> <meaning id="fs-id1169737896970">the theory of electromagnetism on the particle scale</meaning></definition>
-</glossary> 
+</glossary>
 </document>
