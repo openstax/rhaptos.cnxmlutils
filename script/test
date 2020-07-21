@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Exit in case of error
+set -e
+
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
