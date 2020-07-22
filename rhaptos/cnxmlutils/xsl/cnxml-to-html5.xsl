@@ -1743,6 +1743,9 @@
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </td>
 </xsl:template>
+<xsl:template match="c:entry/@id">
+  <xsl:copy/>
+</xsl:template>
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
 <xsl:template match="c:entry/@align|c:entry/@valign">
