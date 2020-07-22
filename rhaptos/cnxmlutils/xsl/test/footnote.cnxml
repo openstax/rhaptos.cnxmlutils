@@ -41,6 +41,13 @@
     </footnote>
   </para>
 
+  <para>
+    Content with footnote
+    <footnote id="p5">
+      Footnote with equation: <equation id="eq1" class="unnumbered">x=2</equation>
+    </footnote>
+  </para>
+
   <note><!-- just to make sure the note doesn't also collect the footnotes -->
     <table>
       <title>
