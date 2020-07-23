@@ -18,7 +18,7 @@
           </thead>
           <tfoot>
             <row>
-              <entry nameend="c2" namest="c1">
+              <entry nameend="c2" namest="c1" id="average">
 		Average:
               </entry>
               <entry>85.5%</entry>
@@ -26,7 +26,7 @@
           </tfoot>
           <tbody>
             <row>
-              <entry morerows="1">Biology</entry>
+              <entry morerows="1" id="biology">Biology</entry>
               <entry align="center">1</entry>
               <entry>86%</entry>
             </row>

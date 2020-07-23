@@ -888,8 +888,8 @@
 </xsl:template>
 
 <!-- A footnote can occur as a child of any of the following so we need to handle all of these cases:
-     preformat, para, title, label, cite, cite-title, 
-     link, emphasis, term, sub, sup, quote, foreign, footnote, 
+     preformat, para, title, label, cite, cite-title,
+     link, emphasis, term, sub, sup, quote, foreign, footnote,
      note, item, code, caption, commentary, meaning, entry -->
 <xsl:template match="c:footnote">
   <a href="#{@id}" role="doc-noteref" epub:type="noteref">[footnote]</a>
@@ -1742,6 +1742,9 @@
     <xsl:apply-templates select="@*|node()"/>
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </td>
+</xsl:template>
+<xsl:template match="c:entry/@id">
+  <xsl:copy/>
 </xsl:template>
 <!-- Discarded c:entry attributes -->
 <xsl:template match="c:entry/@*"/>
