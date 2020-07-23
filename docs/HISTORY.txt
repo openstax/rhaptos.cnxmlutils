@@ -1,6 +1,18 @@
 Changelog
 =========
 
+2.1.0
+-----
+
+- Ensure footnotes with equations aren't dropped
+- Copy id attribute from CNXML table row entries
+
+2.0.0
+-----
+
+- Dump footnotes right after para
+- Use epub notation for footnotes
+
 1.7.3
 -----
 
