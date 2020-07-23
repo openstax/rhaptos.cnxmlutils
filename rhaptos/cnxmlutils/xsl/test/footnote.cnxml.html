@@ -125,6 +125,26 @@
       <li>Not sure what to do with lists</li>
     </ul>
   </aside>
+  <p>
+    Content with footnote
+    <a
+      epub:type='noteref'
+      href='#p5'
+      role='doc-noteref'
+    >[footnote]</a>
+  </p>
+  <aside
+    epub:type='footnote'
+    id='p5'
+    role='doc-footnote'
+  >
+      Footnote with equation:
+    <div
+      class='unnumbered'
+      data-type='equation'
+      id='eq1'
+    >x=2</div>
+  </aside>
   <div
     data-type='note'
   ><!-- just to make sure the note doesn't also collect the footnotes -->

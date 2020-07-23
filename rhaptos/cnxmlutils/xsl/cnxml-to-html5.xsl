@@ -275,7 +275,7 @@
 
 <!-- Help ensure that HTML paragraphs do not contain blockish elements as children -->
 
-<xsl:template match="c:para[not(.//c:figure|.//c:list[not(@display='inline')]|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
+<xsl:template match="c:para[not(.//c:figure|.//c:list[not(@display='inline')]|.//c:table|.//c:media[not(@display) or @display='block']|.//c:equation[not(ancestor::c:footnote)]|.//c:preformat|.//c:note|.//c:exercise)]" name="convert-para">
   <p><xsl:apply-templates select="@*|node()"/></p>
   <xsl:apply-templates mode="footnote-dumpsite" select="."/>
 </xsl:template>
