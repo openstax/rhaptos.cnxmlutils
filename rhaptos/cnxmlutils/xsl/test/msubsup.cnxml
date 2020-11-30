@@ -10,7 +10,6 @@
         <msubsup>
             <mtext>Main text</mtext>
             <mtext>Subscript</mtext>
-            <!-- <mtext>Superscript</mtext> -->
         </msubsup>
     </math>
 
