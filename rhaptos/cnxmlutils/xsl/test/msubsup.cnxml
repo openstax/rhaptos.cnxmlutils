@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<document xmlns="http://cnx.rice.edu/cnxml" cnxml-version="0.7" id="id454" module-id="mXXXX">
+  <title>Test Module</title>
+
+<content>
+
+    <para>This should convert to a msub element:</para>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <msubsup>
+            <mtext>Main text</mtext>
+            <mtext>Subscript</mtext>
+            <!-- <mtext>Superscript</mtext> -->
+        </msubsup>
+    </math>
+
+    <para>This should remain unchanged:</para>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <msubsup>
+            <mtext>Main text</mtext>
+            <mtext>Subscript</mtext>
+            <mtext>Superscript</mtext>
+        </msubsup>
+    </math>
+
+</content>
+</document>

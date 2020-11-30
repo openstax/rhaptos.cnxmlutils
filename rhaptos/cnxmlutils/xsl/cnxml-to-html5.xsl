@@ -131,6 +131,16 @@
   </math>
 </xsl:template>
 
+<!-- ========================= -->
+<!-- Math Sanitization         -->
+<!-- ========================= -->
+
+<xsl:template match="m:msubsup[count(*)=2]">
+  <xsl:element name="msub" namespace="http://www.w3.org/1998/Math/MathML">
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:element>
+</xsl:template>
+
 <xsl:template match="m:*">
   <xsl:element name="{local-name()}" namespace="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>
