@@ -141,6 +141,10 @@
   </xsl:element>
 </xsl:template>
 
+<xsl:template match="m:msubsup[not(count(*)>1)]">
+  <xsl:apply-templates select="node()"/>
+</xsl:template>
+
 <xsl:template match="m:*">
   <xsl:element name="{local-name()}" namespace="http://www.w3.org/1998/Math/MathML">
     <xsl:apply-templates select="@*|node()"/>

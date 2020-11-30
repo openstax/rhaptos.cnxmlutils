@@ -23,5 +23,13 @@
         </msubsup>
     </math>
 
+    <para>This should unwrap the msubsup element because it contains at most one child (unlikely to occur):</para>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <msubsup>
+            <mtext>Main text</mtext>
+        </msubsup>
+    </math>
+
 </content>
 </document>
