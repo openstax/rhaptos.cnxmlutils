@@ -29,5 +29,9 @@
         <link target-id="uid27"/>with no text.
       </span>
     </para>
+    <para id="linkexample7">
+      Link with existing class no text
+      <link class="some-class" document="m12345"/>.
+    </para>
   </content>
 </document>
