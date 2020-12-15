@@ -18,5 +18,9 @@
         <note display="inline" class="reference" id="fs-1234">My cool reference</note>
       </cite>
     </para>
+    <para id="cite-example-4">
+      An empty citation
+      <cite target-id="fs-1234" class="whatever"/>.
+    </para>
   </content>
 </document>
