@@ -1752,7 +1752,7 @@
     <xsl:apply-templates mode="footnote-dumpsite" select="."/>
   </td>
 </xsl:template>
-<xsl:template match="c:entry/@id">
+<xsl:template match="c:entry/@id|c:entry/@class">
   <xsl:copy/>
 </xsl:template>
 <!-- Discarded c:entry attributes -->

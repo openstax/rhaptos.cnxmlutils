@@ -12,7 +12,7 @@
           <thead>
             <row>
               <entry align="center" valign="top">Course</entry>
-              <entry>Semester</entry>
+              <entry class="gray-background">Semester</entry>
               <entry>Grade</entry>
             </row>
           </thead>
@@ -28,7 +28,7 @@
             <row>
               <entry morerows="1" id="biology">Biology</entry>
               <entry align="center">1</entry>
-              <entry>86%</entry>
+              <entry class="table-data">86%</entry>
             </row>
             <row>
               <entry>2</entry>
