@@ -57,7 +57,7 @@ def html_to_cnxml():
 
         with open(filename, 'r') as input_, \
              open(trans_filename, 'w') as output:
-            output.write(xmlpp(transform(HTML2CNXML, xmlpp(input_.read()))))
+            output.write(xmlpp(transform(HTML2CNXML, xmlpp(str.encode(input_.read())))).decode('utf-8'))
 
 
 def cnxml_to_html():
@@ -69,7 +69,7 @@ def cnxml_to_html():
 
         with open(filename, 'r') as input_, \
              open(trans_filename, 'w') as output:
-            output.write(xmlpp(transform(CNXML2HTML, xmlpp(input_.read()))))
+            output.write(xmlpp(transform(CNXML2HTML, xmlpp(str.encode(input_.read())))).decode('utf-8'))
 
 
 def main(argv=None):
