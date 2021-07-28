@@ -29,6 +29,11 @@
   <xsl:attribute name="data-{local-name()}"><xsl:value-of select="." /></xsl:attribute>
 </xsl:template>
 
+<xsl:template match="@xml:lang">
+  <xsl:copy/>
+  <xsl:attribute name="lang"><xsl:value-of select="." /></xsl:attribute>
+</xsl:template>
+
 <xsl:template match="c:div">
   <div>
     <xsl:call-template name="apply-template-no-selfclose">
