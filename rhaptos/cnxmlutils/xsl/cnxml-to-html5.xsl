@@ -1633,10 +1633,10 @@
     <xsl:variable name="string">
       <xsl:choose>
         <xsl:when test="@effect = 'underline'">
-          <xsl:text>&lt;hr/&gt;</xsl:text>
+          <hr/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:text>&lt;br/&gt;</xsl:text>
+          <br/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
