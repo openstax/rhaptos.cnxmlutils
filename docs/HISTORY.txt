@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.1.2
+-----
+
+- Adds HTML lang attribute when xml:lang attribute occurs
+- xsl:text should not be used for XML elements
+
 2.1.1
 -----
 
