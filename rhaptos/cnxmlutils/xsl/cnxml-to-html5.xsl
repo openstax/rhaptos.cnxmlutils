@@ -1612,14 +1612,14 @@
 
 <xsl:template name="count-helper">
   <xsl:param name="count"/>
-  <xsl:param name="string"/>
+  <xsl:param name="node"/>
 
-  <xsl:value-of select="$string" disable-output-escaping="yes"/>
+  <xsl:copy-of select="$node"/>
 
   <xsl:if test="$count &gt; 1">
     <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="$count - 1"/>
-      <xsl:with-param name="string" select="$string"/>
+      <xsl:with-param name="node" select="$node"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
@@ -1630,7 +1630,7 @@
 
     <xsl:apply-templates select="@*"/>
 
-    <xsl:variable name="string">
+    <xsl:variable name="node">
       <xsl:choose>
         <xsl:when test="@effect = 'underline'">
           <hr/>
@@ -1643,7 +1643,7 @@
 
     <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="@count" />
-      <xsl:with-param name="string" select="$string"/>
+      <xsl:with-param name="node" select="$node"/>
     </xsl:call-template>
   </span>
 </xsl:template>
@@ -1657,7 +1657,7 @@
 
     <xsl:call-template name="count-helper">
       <xsl:with-param name="count" select="@count"/>
-      <xsl:with-param name="string" select="' '"/>
+      <xsl:with-param name="node" select="' '"/>
     </xsl:call-template>
   </span>
 </xsl:template>
