@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.0
+-----
+
+- Changes the injected exercise links to just be links instead of having exercise boilerplate around them
+
 2.1.2
 -----
 
