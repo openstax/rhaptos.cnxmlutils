@@ -1085,6 +1085,48 @@
   </a>
 </xsl:template>
 
+<!-- ==================================== -->
+<!-- Injected Exercises (they are a link) -->
+<!-- ==================================== -->
+
+<!-- Unwrap link in a para in a problem in an exercise so that all that remains is the link -->
+<xsl:template match="//c:exercise[.//c:link[contains(@target-id, 'ost/api/ex/') or contains(@url, '#exercise')]]">
+  <xsl:if test="count(.//c:link) != 1">
+    <xsl:message terminate="yes">Expected exactly 1 link to be in an embedded exercise (the link to where the embedded exercise is)</xsl:message>
+  </xsl:if>
+  <xsl:apply-templates select=".//c:link"/>
+</xsl:template>
+
+<xsl:template match="//c:link[contains(@target-id, 'ost/api/ex/')]/@target-id | //c:link[contains(@url, '#exercise/')]/@url">
+  <xsl:param name="exercise-id"/>
+  <xsl:variable name="search-string">
+    <xsl:choose>
+      <xsl:when test="contains(., '#exercise/')">
+        <xsl:value-of select="substring-after(., '#exercise/')"/>
+      </xsl:when>
+      <xsl:when test="contains(., 'ost/api/ex/')">
+        <xsl:value-of select="substring-after(., 'ost/api/ex/')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message terminate="yes">Could not determine which format the injection-url has</xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="id">
+    <xsl:value-of select="ancestor::c:exercise/@id"/>
+  </xsl:variable>
+  <xsl:if test="string-length($id) > 0">
+    <xsl:attribute name="id">
+      <xsl:value-of select="$id"/>
+    </xsl:attribute>
+  </xsl:if>
+  <xsl:attribute name="data-type">exercise-xref</xsl:attribute>
+  <xsl:attribute name="data-exercise-search-string">
+    <xsl:value-of select="$search-string"/>
+  </xsl:attribute>
+</xsl:template>
+
+
 <!-- dupped link code for cite to handle the no href case -->
 <!-- Attributes that are converted in some other way -->
 <xsl:template match="
