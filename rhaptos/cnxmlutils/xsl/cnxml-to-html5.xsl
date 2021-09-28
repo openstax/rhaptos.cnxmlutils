@@ -1090,19 +1090,25 @@
 <!-- ==================================== -->
 
 <!-- Unwrap link in a para in a problem in an exercise so that all that remains is the link -->
-<xsl:template match="//c:exercise[.//c:link[contains(@target-id, 'ost/api/ex/') or contains(@url, '#exercise')]]">
+<xsl:template match="//c:exercise[.//c:link[
+  starts-with(@target-id, 'ost/api/ex/') or 
+  starts-with(@target-id, 'exercise') or 
+  starts-with(@url, '#ost/api/ex/') or 
+  starts-with(@url, '#exercise')
+  ]]">
   <xsl:if test="count(.//c:link) != 1">
     <xsl:message terminate="yes">Expected exactly 1 link to be in an embedded exercise (the link to where the embedded exercise is)</xsl:message>
   </xsl:if>
   <xsl:apply-templates select=".//c:link"/>
 </xsl:template>
 
-<xsl:template match="//c:link[contains(@target-id, 'ost/api/ex/')]/@target-id | //c:link[contains(@url, '#exercise/')]/@url">
+<xsl:template match="//c:link[starts-with(@target-id, 'ost/api/ex/') or starts-with(@target-id, 'exercise/')]/@target-id | 
+                     //c:link[starts-with(@url, '#exercise/') or starts-with(@url, '#ost/api/ex/')]/@url">
   <xsl:param name="exercise-id"/>
   <xsl:variable name="search-string">
     <xsl:choose>
-      <xsl:when test="contains(., '#exercise/')">
-        <xsl:value-of select="substring-after(., '#exercise/')"/>
+      <xsl:when test="contains(., 'exercise/')">
+        <xsl:value-of select="substring-after(., 'exercise/')"/>
       </xsl:when>
       <xsl:when test="contains(., 'ost/api/ex/')">
         <xsl:value-of select="substring-after(., 'ost/api/ex/')"/>
