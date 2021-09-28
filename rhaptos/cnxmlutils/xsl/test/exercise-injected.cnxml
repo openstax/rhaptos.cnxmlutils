@@ -20,5 +20,20 @@
 
     <link url="#exercise/searchstring345">link</link>
     <link target-id="ost/api/ex/searchstring456">link</link>
+
+    <exercise id="ex-id-3">
+        <problem id="prob-id-3">
+            <para id="para-id-3">
+                <link url="#ost/api/ex/searchstring567">link</link>
+            </para>
+        </problem>
+    </exercise>
+    <exercise id="ex-id-4">
+        <problem id="prob-id-4">
+            <para id="para-id-4">
+                <link target-id="exercise/searchstring678">link</link>
+            </para>
+        </problem>
+    </exercise>
   </content>
 </document>
