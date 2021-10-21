@@ -842,6 +842,14 @@
   </span>
 </xsl:template>
 
+<xsl:template match="c:emphasis[@effect='double-underline']">
+  <span data-type="emphasis">
+    <xsl:call-template name="apply-template-no-selfclose">
+      <xsl:with-param name="selection" select="@*|node()"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
+
 <!-- ========================= -->
 <!-- Inline Terms -->
 <!-- ========================= -->
