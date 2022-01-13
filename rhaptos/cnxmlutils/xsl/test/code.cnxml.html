@@ -14,6 +14,7 @@
   >Test Module</div>
   <pre
     data-display='block'
+    data-type='code'
     id='idc23423423'
   >[line 1]
 [line 2]          [after 10 spaces]
@@ -21,18 +22,22 @@
   <p
     id='idm45792189928240'
   >...
-    <code>[some text]          [after 10 spaces]</code>...
+    <code
+      data-type='code'
+    >[some text]          [after 10 spaces]</code>...
   </p>
   <p
     id='id2342345'
   >
     <code
       data-display='inline'
+      data-type='code'
     >Inline code where it would normally be a block</code>
   </p>
   <pre
     data-display='block'
     data-lang='JavaScript'
+    data-type='code'
     id='id34556'
   >with a language attribute</pre>
   <div
@@ -76,6 +81,7 @@
     id='idm45792189920736'
   >Preformat element (much like a block of code but styled differently)</p>
   <pre
+    data-type='code'
     id='idm45889741367328'
   >[line 1]
 [line 2]          [after 10 spaces]
@@ -94,7 +100,9 @@
     id='idm45792189918144'
   >
     <li>
-      <code>inline code; should not be a blockish pre</code>
+      <code
+        data-type='code'
+      >inline code; should not be a blockish pre</code>
     </li>
   </ul>
 </body>
