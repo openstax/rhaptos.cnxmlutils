@@ -1105,7 +1105,9 @@
   starts-with(@url, '#exercise')
   ]]">
   <xsl:if test="count(.//c:link) != 1">
-    <xsl:message terminate="yes">Expected exactly 1 link to be in an embedded exercise (the link to where the embedded exercise is)</xsl:message>
+    <xsl:call-template name="error-with-context">
+      <xsl:with-param name="message">Expected exactly 1 link to be in an embedded exercise (the link to where the embedded exercise is)</xsl:with-param>
+    </xsl:call-template>
   </xsl:if>
   <xsl:apply-templates select=".//c:link"/>
 </xsl:template>
@@ -2006,6 +2008,32 @@
   <!-- translate($textString, "&#130;&#131;&#132;&#133;&#134;&#135;&#136;&#137;&#138;&#139;&#140;&#145;&#146;&#147;&#148;&#149;&#150;&#151;&#152;&#153;&#154;&#155;&#156;&#159;", "&#8218;&#402;&#8222;&#8230;&#8224;&#8225;&#710;&#8240;&#352;&#8249;&#338;&#8216;&#8217;&#8220;&#8221;&#8226;&#8211;&#8212;&#732;&#8482;&#353;&#8250;&#339;&#376;") -->
   <xsl:variable name="textString" select="."/>
   <xsl:value-of select="translate($textString, $WINDOWS_ISO_CHARACTERS, $UTF8_CHARACTERS)"/>
+</xsl:template>
+
+<xsl:template name="error-with-context">
+  <xsl:param name="message"/>
+  <xsl:variable name="ancestorPath">
+    <xsl:for-each select="ancestor-or-self::*">
+      <xsl:variable name="context" select="."/>
+      <xsl:choose>
+        <xsl:when test="$context[@id]">
+          <xsl:value-of select="local-name()"/>
+          <xsl:text>[@id="</xsl:text>
+          <xsl:value-of select="@id"/>
+          <xsl:text>"]</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>*[</xsl:text>
+          <xsl:value-of select="position()"/>
+          <xsl:text>][self::</xsl:text>
+          <xsl:value-of select="local-name()"/>
+          <xsl:text>]</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>/</xsl:text>
+    </xsl:for-each>
+  </xsl:variable>
+  <xsl:message terminate="yes"><xsl:value-of select="$message"/> . XPath_context: <xsl:value-of select="$ancestorPath"/></xsl:message>
 </xsl:template>
 
 </xsl:stylesheet>
