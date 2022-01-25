@@ -529,12 +529,12 @@
 
 <!-- TODO: do we need to handle the case of "c:para//c:code[c:title]"? -->
 <xsl:template match="c:code[not(c:title)]|c:preformat[not(c:title) and not(display='inline')]">
-  <pre><xsl:apply-templates select="@*|node()"/></pre>
+  <pre data-type="code"><xsl:apply-templates select="@*|node()"/></pre>
   <!-- <xsl:apply-templates mode="footnote-dumpsite" select="."/> -->
 </xsl:template>
 
 <xsl:template match="c:para//c:code[not(c:title)]|c:list//c:code[not(c:title)]|c:code[not(c:title)][@display='inline']">
-  <code><xsl:apply-templates select="@*|node()"/></code>
+  <code data-type="code"><xsl:apply-templates select="@*|node()"/></code>
 </xsl:template>
 
 <xsl:template match="c:code[c:title]|c:preformat[c:title and not(display='inline')]">
