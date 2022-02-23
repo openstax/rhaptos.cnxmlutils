@@ -35,5 +35,14 @@
             </para>
         </problem>
     </exercise>
+
+    <exercise id="ex-id-5">
+        <problem id="prob-id-5">
+            <para id="para-id-5">
+                <link target-id="exercise-just-starts-with-the-word-but-does-not-have-a-slash-so-do-not-change-this">link</link>
+            </para>
+        </problem>
+    </exercise>
+
   </content>
 </document>
