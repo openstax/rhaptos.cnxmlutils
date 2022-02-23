@@ -1100,9 +1100,9 @@
 <!-- Unwrap link in a para in a problem in an exercise so that all that remains is the link -->
 <xsl:template match="//c:exercise[.//c:link[
   starts-with(@target-id, 'ost/api/ex/') or 
-  starts-with(@target-id, 'exercise') or 
+  starts-with(@target-id, 'exercise/') or 
   starts-with(@url, '#ost/api/ex/') or 
-  starts-with(@url, '#exercise')
+  starts-with(@url, '#exercise/')
   ]]">
   <xsl:if test="count(.//c:link) != 1">
     <xsl:call-template name="error-with-context">
