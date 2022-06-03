@@ -805,6 +805,8 @@
   </strong>
 </xsl:template>
 
+<xsl:template match="c:emphasis[@effect='bold' or @effect='Bold']/@effect"/>
+
 <xsl:template match="c:emphasis[@effect='italics' or @effect='italic']">
   <em>
     <xsl:call-template name="apply-template-no-selfclose">
