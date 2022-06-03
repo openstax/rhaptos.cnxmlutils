@@ -1,6 +1,6 @@
 *.pyc
 rhaptos.cnxmlutils.egg-info/
-.*
+.eggs
 *~
 jing
 build/

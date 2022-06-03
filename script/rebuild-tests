@@ -1,6 +1,5 @@
 #!/bin/bash
 cd "$(dirname "$0")/.." || exit 111
-source ./script/bootstrap || exit 111
 
 cd ./rhaptos/cnxmlutils/xsl/test
 python build.py $1 $2 $3 $4 $5
