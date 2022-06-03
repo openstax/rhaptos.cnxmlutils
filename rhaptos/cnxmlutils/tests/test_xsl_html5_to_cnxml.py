@@ -193,15 +193,19 @@ class XsltprocTestCase(unittest.TestCase):
                 cnxml = xmlpp(f.read())
 
             setattr(cls, 'test_{}'.format(test_name),
-                    cls.create_test(html_filename, cnxml))
+                    cls.create_test(html_filename, cnxml, cnxml_filename))
 
     @classmethod
-    def create_test(cls, html, cnxml):
+    def create_test(cls, html, cnxml, cnxml_filename):
         def run_test(self):
             output = subprocess.check_output(['xsltproc', self.xslt, html])
             output = xmlpp(output)
-            # https://bugs.python.org/issue10164
-            self.assertEqual(output.split(b'\n'), cnxml.split(b'\n'))
+            if os.environ.get('UPDATE_SNAPSHOTS') is not None:
+                with open(cnxml_filename, 'w') as f:
+                    f.write(output.decode('utf-8'))
+            else:
+                # https://bugs.python.org/issue10164
+                self.assertEqual(output.split(b'\n'), cnxml.split(b'\n'))
         return run_test
 
 
