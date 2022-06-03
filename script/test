@@ -4,7 +4,6 @@
 set -e
 
 cd "$(dirname "$0")/.." || exit 111
-source ./script/bootstrap || exit 111
 
 python setup.py test
 
