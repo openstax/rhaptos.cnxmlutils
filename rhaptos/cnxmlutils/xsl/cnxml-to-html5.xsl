@@ -219,6 +219,7 @@
 
 <xsl:template match="/c:document/c:title">
   <div data-type="document-title">
+    <xsl:apply-templates select="@*"/>
     <xsl:if test="not(node())">
       <xsl:call-template name="no-selfclose-comment"/>
     </xsl:if>
