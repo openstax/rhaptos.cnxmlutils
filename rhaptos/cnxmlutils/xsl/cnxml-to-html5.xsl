@@ -219,11 +219,56 @@
 
 <xsl:template match="/c:document/c:title">
   <div data-type="document-title">
-    <xsl:call-template name="apply-template-no-selfclose">
-      <xsl:with-param name="selection" select="@*|node()"/>
-    </xsl:call-template>
+    <xsl:if test="not(node())">
+      <xsl:call-template name="no-selfclose-comment"/>
+    </xsl:if>
+    <xsl:apply-templates select="node()" mode="patch_doc_title"/>
   </div>
 </xsl:template>
+
+<!-- patch document title elements in a special way so they do not break in baking or get lost in assemble -->
+<!-- TODO: in future - remove this patch_doc_title handling
+                     - change neb assemble to not loose children
+                     - change bake to handle children elements of document titles -->
+
+<xsl:template match="c:emphasis" mode="patch_doc_title">
+  <!-- other emphasis than italics are ignored and removed but can be added later if needed -->
+  <xsl:if test="@effect='italics' or @effect='italic'">
+      <xsl:text>&lt;i&gt;</xsl:text>
+  </xsl:if>
+  <xsl:apply-templates select="node()" mode="patch_doc_title"/>
+  <xsl:if test="@effect='italics' or @effect='italic'">
+      <xsl:text>&lt;/i&gt;</xsl:text>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="c:sub" mode="patch_doc_title">
+  <xsl:text>&lt;sub&gt;</xsl:text>
+  <xsl:apply-templates select="node()" mode="patch_doc_title"/>
+  <xsl:text>&lt;/sub&gt;</xsl:text>
+</xsl:template>
+
+<xsl:template match="c:sup" mode="patch_doc_title">
+  <xsl:text>&lt;sup&gt;</xsl:text>
+  <xsl:apply-templates select="node()" mode="patch_doc_title"/>
+  <xsl:text>&lt;/sup&gt;</xsl:text>
+</xsl:template>
+
+<xsl:template match="text()" mode="patch_doc_title">
+  <xsl:copy>
+      <xsl:apply-templates select="node()" mode="patch_doc_title"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="*" mode="patch_doc_title">
+  <xsl:message terminate="yes">
+      There is a non supported tag in a document title node:
+      <xsl:value-of select="local-name()"/>
+  </xsl:message>
+</xsl:template>
+
+
+<!-- ========================= -->
 
 <xsl:template match="c:title|c:para//c:list[not(@display)]/c:title|c:para//c:list[@display='block']/c:title">
   <div data-type="title">
