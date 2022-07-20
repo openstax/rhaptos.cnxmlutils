@@ -229,7 +229,6 @@
 
 <!-- patch document title elements in a special way so they do not break in baking or get lost in assemble -->
 <!-- TODO: in future - remove this patch_doc_title handling
-                     - change neb assemble to not loose children
                      - change bake to handle children elements of document titles -->
 
 <xsl:template match="c:emphasis" mode="patch_doc_title">
