@@ -227,7 +227,7 @@
   </div>
 </xsl:template>
 
-<!-- patch document title elements in a special way so they do not break in baking or get lost in assemble -->
+<!-- patch document title elements in a special way so they do not break in baking -->
 <!-- TODO: in future - remove this patch_doc_title handling
                      - change bake to handle children elements of document titles -->
 
