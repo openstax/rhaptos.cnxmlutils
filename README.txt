@@ -1,3 +1,8 @@
+Notice
+============
+
+This code has moved (with commit history) to https://github.com/openstax/cnx-transforms
+
 Introduction
 ============
 
